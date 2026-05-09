@@ -1,8 +1,12 @@
-export default async function reindexTypesense({ container }: { container: any }) {
-  const { ContainerRegistrationKeys } = await import('@medusajs/framework/utils')
-  const { TYPESENSE_MODULE, TypesenseModuleService } = await import('../modules/typesense')
-  const { findAndTransformTypesenseProducts, filterProductsByStatus } = await import('../subscribers/utils/typesense-product')
-  
+import type { ExecArgs } from '@medusajs/framework/types'
+import { ContainerRegistrationKeys } from '@medusajs/framework/utils'
+import { TYPESENSE_MODULE, TypesenseModuleService } from '../modules/typesense'
+import {
+  findAndTransformTypesenseProducts,
+  filterProductsByStatus,
+} from '../subscribers/utils/typesense-product'
+
+export default async function reindexTypesense({ container }: ExecArgs) {
   const typesense = container.resolve<TypesenseModuleService>(TYPESENSE_MODULE)
   const query = container.resolve(ContainerRegistrationKeys.QUERY)
   
