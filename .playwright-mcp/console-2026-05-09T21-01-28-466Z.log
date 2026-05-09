@@ -1,0 +1,2 @@
+[     383ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[  102685ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr' failed:  @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5696

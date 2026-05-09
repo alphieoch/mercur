@@ -1,0 +1,141 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+      - link "Logo" [ref=e12] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Shipping to
+          - button "DK flag DK" [ref=e18]:
+            - generic [ref=e20]:
+              - img "DK flag" [ref=e21]
+              - text: DK
+        - link "Go to user profile" [ref=e23] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e24]
+        - link "Go to cart" [ref=e28] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e29]
+    - generic [ref=e34]:
+      - navigation "Category navigation" [ref=e35]:
+        - link "All Products" [ref=e36] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e40]:
+        - button "Search" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - searchbox "Search product" [active] [ref=e45]: tomato
+  - main [ref=e46]:
+    - navigation "Breadcrumb" [ref=e48]:
+      - list [ref=e49]:
+        - listitem [ref=e50]:
+          - link "All Products" [ref=e51] [cursor=pointer]:
+            - /url: /dk
+    - heading "All Products" [level=1] [ref=e52]
+    - generic [ref=e53]:
+      - generic [ref=e55]: 1 listings
+      - generic [ref=e230]:
+        - generic [ref=e231]: "Search:"
+        - button "tomato" [ref=e232] [cursor=pointer]:
+          - generic [ref=e233]:
+            - text: tomato
+            - img [ref=e235]
+      - generic [ref=e56]:
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60] [cursor=pointer]:
+              - heading "Price" [level=4] [ref=e61]
+              - img [ref=e62]
+            - generic [ref=e66]:
+              - spinbutton [ref=e70]
+              - spinbutton [ref=e74]
+          - generic [ref=e75]:
+            - generic [ref=e76] [cursor=pointer]:
+              - heading "Category" [level=4] [ref=e77]
+              - img [ref=e78]
+            - generic [ref=e81]:
+              - list
+          - generic [ref=e82]:
+            - generic [ref=e83] [cursor=pointer]:
+              - heading "Seller" [level=4] [ref=e84]
+              - img [ref=e85]
+            - list [ref=e89]:
+              - listitem [ref=e90]:
+                - generic [ref=e91] [cursor=pointer]:
+                  - checkbox "Green Acres Farm" [ref=e94]
+                  - paragraph [ref=e95]: Green Acres Farm
+        - generic [ref=e108]:
+          - list [ref=e238]:
+            - listitem [ref=e239]:
+              - generic [ref=e240]:
+                - generic [ref=e241]:
+                  - link "View Organic Heirloom Tomatoes" [ref=e242] [cursor=pointer]:
+                    - /url: /dk/products/organic-heirloom-tomatoes
+                    - img "Organic Heirloom Tomatoes image" [ref=e244]
+                  - link "See more about Organic Heirloom Tomatoes":
+                    - /url: /dk/products/organic-heirloom-tomatoes
+                - link "Go to Organic Heirloom Tomatoes page" [ref=e245] [cursor=pointer]:
+                  - /url: /dk/products/organic-heirloom-tomatoes
+                  - generic [ref=e247]:
+                    - heading "Organic Heirloom Tomatoes" [level=3] [ref=e248]
+                    - paragraph [ref=e250]: €4.14
+          - generic [ref=e185]:
+            - button "Previous page" [disabled] [ref=e186]:
+              - img [ref=e187]
+            - button "Current page, page 1" [ref=e189] [cursor=pointer]: "1"
+            - button "Next page" [disabled] [ref=e190]:
+              - img [ref=e191]
+  - contentinfo [ref=e193]:
+    - generic [ref=e194]:
+      - generic [ref=e195]:
+        - heading "Customer services" [level=2] [ref=e196]
+        - navigation "Customer services navigation" [ref=e197]:
+          - link "FAQs" [ref=e198] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e199] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e200] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e201] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e202] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e203]:
+        - heading "About" [level=2] [ref=e204]
+        - navigation "About navigation" [ref=e205]:
+          - link "About us" [ref=e206] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e207] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e208] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e209] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e210]:
+        - heading "connect" [level=2] [ref=e211]
+        - navigation "Social media navigation" [ref=e212]:
+          - link "Go to Facebook page" [ref=e213] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e214] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e215] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e217]: © 2024 Farm Marketplace
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e223] [cursor=pointer]:
+    - img [ref=e224]
+  - alert [ref=e227]: ALL PRODUCTS

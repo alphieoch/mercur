@@ -1,0 +1,307 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+      - link "Logo" [ref=e12] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Shipping to
+          - button "DK flag DK" [ref=e18]:
+            - generic [ref=e20]:
+              - img "DK flag" [ref=e21]
+              - text: DK
+        - link "Go to user profile" [ref=e23] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e24]
+        - link "Go to cart" [ref=e28] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e29]
+    - generic [ref=e34]:
+      - navigation "Category navigation" [ref=e35]:
+        - link "All Products" [ref=e36] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e40]:
+        - button "Search" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - searchbox "Search product" [ref=e45]
+  - main [ref=e46]:
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - generic [ref=e52]:
+          - img "Heritage Meat Co." [ref=e54]
+          - generic [ref=e55]:
+            - heading "Heritage Meat Co." [level=3] [ref=e56]
+            - generic [ref=e57]:
+              - generic [ref=e58]:
+                - img [ref=e59]
+                - img [ref=e61]
+                - img [ref=e63]
+                - img [ref=e65]
+                - img [ref=e67]
+              - generic [ref=e69]: 0 reviews
+        - paragraph [ref=e71]: Ethically raised heritage breed pork and grass-fed beef.
+      - generic [ref=e72]:
+        - generic [ref=e73]:
+          - separator [ref=e74]
+          - paragraph [ref=e75]: Joined 2026-05-09
+        - button "Report Seller" [ref=e76] [cursor=pointer]
+    - generic [ref=e77]:
+      - generic [ref=e78]:
+        - link "products" [ref=e79] [cursor=pointer]:
+          - /url: /dk/sellers/heritage-meat-co
+          - paragraph [ref=e80]: products
+        - link "reviews" [ref=e81] [cursor=pointer]:
+          - /url: /dk/sellers/heritage-meat-co/reviews
+          - paragraph [ref=e82]: reviews
+      - generic [ref=e84]:
+        - generic [ref=e86]: 0 listings
+        - generic [ref=e87]:
+          - complementary [ref=e88]:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading "Price" [level=4]
+                    - img
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                              - spinbutton
+                        - generic:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                              - spinbutton
+                - generic:
+                  - generic:
+                    - heading "Size" [level=4]
+                    - img
+                  - generic:
+                    - generic:
+                      - list:
+                        - listitem:
+                          - button "One size"
+                        - listitem:
+                          - button "1"
+                        - listitem:
+                          - button "3"
+                        - listitem:
+                          - button "3.5"
+                        - listitem:
+                          - button "4"
+                        - listitem:
+                          - button "4.5"
+                        - listitem:
+                          - button "5"
+                        - listitem:
+                          - button "5.5"
+                        - listitem:
+                          - button "6"
+                        - listitem:
+                          - button "6.5"
+                        - listitem:
+                          - button "7"
+                        - listitem:
+                          - button "7.5"
+                        - listitem:
+                          - button "8"
+                        - listitem:
+                          - button "8.5"
+                - generic:
+                  - generic:
+                    - heading "Color" [level=4]
+                    - img
+                  - generic:
+                    - generic:
+                      - list:
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Black (40)"
+                            - paragraph:
+                              - text: Black
+                              - generic: (40)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Grey (78)"
+                            - paragraph:
+                              - text: Grey
+                              - generic: (78)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "White (7)"
+                            - paragraph:
+                              - text: White
+                              - generic: (7)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Yellow (7)"
+                            - paragraph:
+                              - text: Yellow
+                              - generic: (7)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Red (16)"
+                            - paragraph:
+                              - text: Red
+                              - generic: (16)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Orange 0" [disabled]
+                            - paragraph: Orange 0
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Blue (46)"
+                            - paragraph:
+                              - text: Blue
+                              - generic: (46)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Navi (87)"
+                            - paragraph:
+                              - text: Navi
+                              - generic: (87)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Green (32)"
+                            - paragraph:
+                              - text: Green
+                              - generic: (32)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Multi (6)"
+                            - paragraph:
+                              - text: Multi
+                              - generic: (6)
+                - generic:
+                  - generic:
+                    - heading "Condition" [level=4]
+                    - img
+                  - generic:
+                    - generic:
+                      - list:
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "New (78)"
+                            - paragraph:
+                              - text: New
+                              - generic: (78)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "New - With tags (40)"
+                            - paragraph:
+                              - text: New - With tags
+                              - generic: (40)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Used - Excellent (7)"
+                            - paragraph:
+                              - text: Used - Excellent
+                              - generic: (7)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Used - Good (16)"
+                            - paragraph:
+                              - text: Used - Good
+                              - generic: (16)
+                        - listitem:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - checkbox "Used - Fair 0" [disabled]
+                            - paragraph: Used - Fair 0
+            - generic [ref=e89]: Set your Algolia ID and configure filters to enable product filtering
+          - generic [ref=e92]:
+            - button "Previous page" [disabled] [ref=e93]:
+              - img [ref=e94]
+            - button "Current page, page 1" [ref=e96] [cursor=pointer]: "1"
+            - button "Next page" [disabled] [ref=e97]:
+              - img [ref=e98]
+  - contentinfo [ref=e100]:
+    - generic [ref=e101]:
+      - generic [ref=e102]:
+        - heading "Customer services" [level=2] [ref=e103]
+        - navigation "Customer services navigation" [ref=e104]:
+          - link "FAQs" [ref=e105] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e106] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e107] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e108] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e109] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e110]:
+        - heading "About" [level=2] [ref=e111]
+        - navigation "About navigation" [ref=e112]:
+          - link "About us" [ref=e113] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e114] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e115] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e116] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e117]:
+        - heading "connect" [level=2] [ref=e118]
+        - navigation "Social media navigation" [ref=e119]:
+          - link "Go to Facebook page" [ref=e120] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e121] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e122] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e124]: © 2024 Farm Marketplace
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e130] [cursor=pointer]:
+    - img [ref=e131]
+  - alert [ref=e134]

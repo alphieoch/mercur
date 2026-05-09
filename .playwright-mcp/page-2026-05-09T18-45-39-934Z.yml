@@ -1,0 +1,108 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+      - link "Logo" [ref=e12] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Shipping to
+          - button "DK flag DK" [ref=e18]:
+            - generic [ref=e20]:
+              - img "DK flag" [ref=e21]
+              - text: DK
+        - link "Go to user profile" [ref=e23] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e24]
+        - link "Go to cart" [ref=e28] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e29]
+    - generic [ref=e34]:
+      - navigation "Category navigation" [ref=e35]:
+        - link "All Products" [ref=e36] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e40]:
+        - button "Search" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - searchbox "Search product" [ref=e45]
+  - main [ref=e46]:
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - generic [ref=e54]:
+          - heading [level=3]
+          - generic [ref=e55]:
+            - generic [ref=e56]:
+              - img [ref=e57]
+              - img [ref=e59]
+              - img [ref=e61]
+              - img [ref=e63]
+              - img [ref=e65]
+            - generic [ref=e67]: 0 reviews
+        - generic [ref=e68]:
+          - paragraph
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - separator [ref=e71]
+          - paragraph [ref=e72]: Joined Recently
+        - button "Report Seller" [ref=e73] [cursor=pointer]
+    - generic [ref=e75]:
+      - link "products" [ref=e76] [cursor=pointer]:
+        - /url: /dk/sellers/undefined
+        - paragraph [ref=e77]: products
+      - link "reviews" [ref=e78] [cursor=pointer]:
+        - /url: /dk/sellers/undefined/reviews
+        - paragraph [ref=e79]: reviews
+  - contentinfo [ref=e102]:
+    - generic [ref=e103]:
+      - generic [ref=e104]:
+        - heading "Customer services" [level=2] [ref=e105]
+        - navigation "Customer services navigation" [ref=e106]:
+          - link "FAQs" [ref=e107] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e108] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e109] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e110] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e111] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e112]:
+        - heading "About" [level=2] [ref=e113]
+        - navigation "About navigation" [ref=e114]:
+          - link "About us" [ref=e115] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e116] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e117] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e118] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e119]:
+        - heading "connect" [level=2] [ref=e120]
+        - navigation "Social media navigation" [ref=e121]:
+          - link "Go to Facebook page" [ref=e122] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e123] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e124] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e126]: © 2024 Farm Marketplace
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e132] [cursor=pointer]:
+    - img [ref=e133]
+  - alert [ref=e136]

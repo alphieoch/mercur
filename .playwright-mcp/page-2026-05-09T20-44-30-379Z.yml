@@ -1,0 +1,28 @@
+- generic [ref=e2]:
+  - generic [ref=e15]:
+    - img [ref=e18]:
+      - generic [ref=e20]: M
+    - generic [ref=e21]:
+      - heading "Welcome to Mercur" [level=1] [ref=e22]
+      - paragraph [ref=e23]: Sign in to access the admin hub
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - textbox "Email" [ref=e29]: admin@farm-marketplace.com
+        - generic [ref=e31]:
+          - textbox [ref=e32]:
+            - /placeholder: Password
+            - text: FarmAdmin123!
+          - button "Show password" [ref=e34] [cursor=pointer]:
+            - generic [ref=e35]: Show password
+            - img [ref=e36]
+      - generic [ref=e49]:
+        - img [ref=e50]
+        - generic [ref=e53]: Failed to fetch
+        - button [ref=e54] [cursor=pointer]:
+          - img [ref=e55]
+      - button "Continue with Email" [ref=e40] [cursor=pointer]
+    - generic [ref=e41]:
+      - text: Forgot password? -
+      - link "Reset" [ref=e42] [cursor=pointer]:
+        - /url: /reset-password
+  - region "Notifications alt+T"

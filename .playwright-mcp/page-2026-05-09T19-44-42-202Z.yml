@@ -1,0 +1,208 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+      - link "Logo" [ref=e12] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Shipping to
+          - button "DK flag DK" [ref=e18]:
+            - generic [ref=e20]:
+              - img "DK flag" [ref=e21]
+              - text: DK
+        - link "Go to user profile" [ref=e23] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e24]
+        - link "Go to cart" [ref=e28] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e29]
+    - generic [ref=e34]:
+      - navigation "Category navigation" [ref=e35]:
+        - link "All Products" [ref=e36] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e40]:
+        - button "Search" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - searchbox "Search product" [ref=e45]
+  - main [ref=e46]:
+    - navigation "Breadcrumb" [ref=e48]:
+      - list [ref=e49]:
+        - listitem [ref=e50]:
+          - link "All Products" [ref=e51] [cursor=pointer]:
+            - /url: /dk
+    - heading "All Products" [level=1] [ref=e52]
+    - generic [ref=e53]:
+      - generic [ref=e55]: 6 listings
+      - generic [ref=e56]:
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60] [cursor=pointer]:
+              - heading "Price" [level=4] [ref=e61]
+              - img [ref=e62]
+            - generic [ref=e66]:
+              - spinbutton [ref=e70]
+              - spinbutton [ref=e74]
+          - generic [ref=e75]:
+            - generic [ref=e76] [cursor=pointer]:
+              - heading "Category" [level=4] [ref=e77]
+              - img [ref=e78]
+            - generic [ref=e81]:
+              - list
+          - generic [ref=e82]:
+            - generic [ref=e83] [cursor=pointer]:
+              - heading "Seller" [level=4] [ref=e84]
+              - img [ref=e85]
+            - list [ref=e89]:
+              - listitem [ref=e90]:
+                - generic [ref=e91] [cursor=pointer]:
+                  - checkbox "Green Acres Farm" [ref=e94]
+                  - paragraph [ref=e95]: Green Acres Farm
+              - listitem [ref=e96]:
+                - generic [ref=e97] [cursor=pointer]:
+                  - checkbox "Heritage Meat Co." [ref=e100]
+                  - paragraph [ref=e101]: Heritage Meat Co.
+              - listitem [ref=e102]:
+                - generic [ref=e103] [cursor=pointer]:
+                  - checkbox "Sunset Valley Dairy" [ref=e106]
+                  - paragraph [ref=e107]: Sunset Valley Dairy
+        - generic [ref=e108]:
+          - list [ref=e110]:
+            - listitem [ref=e111]:
+              - generic [ref=e112]:
+                - generic [ref=e113]:
+                  - link "View Heritage Breed Pork Chops" [ref=e114] [cursor=pointer]:
+                    - /url: /dk/products/heritage-breed-pork-chops
+                    - img "Heritage Breed Pork Chops image" [ref=e116]
+                  - link "See more about Heritage Breed Pork Chops":
+                    - /url: /dk/products/heritage-breed-pork-chops
+                - link "Go to Heritage Breed Pork Chops page" [ref=e117] [cursor=pointer]:
+                  - /url: /dk/products/heritage-breed-pork-chops
+                  - generic [ref=e119]:
+                    - heading "Heritage Breed Pork Chops" [level=3] [ref=e120]
+                    - paragraph [ref=e122]: €11.04
+            - listitem [ref=e123]:
+              - generic [ref=e124]:
+                - generic [ref=e125]:
+                  - link "View Grass-Fed Ground Beef" [ref=e126] [cursor=pointer]:
+                    - /url: /dk/products/grass-fed-ground-beef
+                    - img "Grass-Fed Ground Beef image" [ref=e128]
+                  - link "See more about Grass-Fed Ground Beef":
+                    - /url: /dk/products/grass-fed-ground-beef
+                - link "Go to Grass-Fed Ground Beef page" [ref=e129] [cursor=pointer]:
+                  - /url: /dk/products/grass-fed-ground-beef
+                  - generic [ref=e131]:
+                    - heading "Grass-Fed Ground Beef" [level=3] [ref=e132]
+                    - paragraph [ref=e134]: €8.74
+            - listitem [ref=e135]:
+              - generic [ref=e136]:
+                - generic [ref=e137]:
+                  - link "View Farm Fresh Eggs" [ref=e138] [cursor=pointer]:
+                    - /url: /dk/products/farm-fresh-eggs
+                    - img "Farm Fresh Eggs image" [ref=e140]
+                  - link "See more about Farm Fresh Eggs":
+                    - /url: /dk/products/farm-fresh-eggs
+                - link "Go to Farm Fresh Eggs page" [ref=e141] [cursor=pointer]:
+                  - /url: /dk/products/farm-fresh-eggs
+                  - generic [ref=e143]:
+                    - heading "Farm Fresh Eggs" [level=3] [ref=e144]
+                    - paragraph [ref=e146]: €5.98
+            - listitem [ref=e147]:
+              - generic [ref=e148]:
+                - generic [ref=e149]:
+                  - link "View Raw Whole Milk" [ref=e150] [cursor=pointer]:
+                    - /url: /dk/products/raw-whole-milk
+                    - img "Raw Whole Milk image" [ref=e152]
+                  - link "See more about Raw Whole Milk":
+                    - /url: /dk/products/raw-whole-milk
+                - link "Go to Raw Whole Milk page" [ref=e153] [cursor=pointer]:
+                  - /url: /dk/products/raw-whole-milk
+                  - generic [ref=e155]:
+                    - heading "Raw Whole Milk" [level=3] [ref=e156]
+                    - paragraph [ref=e158]: €7.36
+            - listitem [ref=e159]:
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - link "View Fresh Mixed Salad Greens" [ref=e162] [cursor=pointer]:
+                    - /url: /dk/products/fresh-mixed-salad-greens
+                    - img "Fresh Mixed Salad Greens image" [ref=e164]
+                  - link "See more about Fresh Mixed Salad Greens":
+                    - /url: /dk/products/fresh-mixed-salad-greens
+                - link "Go to Fresh Mixed Salad Greens page" [ref=e165] [cursor=pointer]:
+                  - /url: /dk/products/fresh-mixed-salad-greens
+                  - generic [ref=e167]:
+                    - heading "Fresh Mixed Salad Greens" [level=3] [ref=e168]
+                    - paragraph [ref=e170]: €5.52
+            - listitem [ref=e171]:
+              - generic [ref=e172]:
+                - generic [ref=e173]:
+                  - link "View Organic Heirloom Tomatoes" [ref=e174] [cursor=pointer]:
+                    - /url: /dk/products/organic-heirloom-tomatoes
+                    - img "Organic Heirloom Tomatoes image" [ref=e176]
+                  - link "See more about Organic Heirloom Tomatoes":
+                    - /url: /dk/products/organic-heirloom-tomatoes
+                - link "Go to Organic Heirloom Tomatoes page" [ref=e177] [cursor=pointer]:
+                  - /url: /dk/products/organic-heirloom-tomatoes
+                  - generic [ref=e179]:
+                    - heading "Organic Heirloom Tomatoes" [level=3] [ref=e180]
+                    - paragraph [ref=e182]: €4.14
+          - generic [ref=e185]:
+            - button "Previous page" [disabled] [ref=e186]:
+              - img [ref=e187]
+            - button "Current page, page 1" [ref=e189] [cursor=pointer]: "1"
+            - button "Next page" [disabled] [ref=e190]:
+              - img [ref=e191]
+  - contentinfo [ref=e193]:
+    - generic [ref=e194]:
+      - generic [ref=e195]:
+        - heading "Customer services" [level=2] [ref=e196]
+        - navigation "Customer services navigation" [ref=e197]:
+          - link "FAQs" [ref=e198] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e199] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e200] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e201] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e202] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e203]:
+        - heading "About" [level=2] [ref=e204]
+        - navigation "About navigation" [ref=e205]:
+          - link "About us" [ref=e206] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e207] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e208] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e209] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e210]:
+        - heading "connect" [level=2] [ref=e211]
+        - navigation "Social media navigation" [ref=e212]:
+          - link "Go to Facebook page" [ref=e213] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e214] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e215] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e217]: © 2024 Farm Marketplace
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e223] [cursor=pointer]:
+    - img [ref=e224]
+  - alert [ref=e227]

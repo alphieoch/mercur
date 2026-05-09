@@ -1,0 +1,100 @@
+[     774ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[     861ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1603048297172-c92544798d5e%3Fw%3D800&w=1080&q=75:0
+[     874ms] [WARNING] Image with src "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=800" is using quality "85" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[     955ms] Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/dk/produc..." tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>
+          <SegmentViewNode type="page" pagePath="/apps/stor...">
+            <SegmentTrieNode>
+            <ProductPage>
+              <main className="container">
+                <ProductDetailsPage>
+                  <div className="flex flex-..." data-testid="product-de...">
+                    <div>
+                    <div className="md:w-1/2 m..." data-testid="product-de...">
+                      <ProductDetails>
+                        <div>
+                          ...
+                            <div className="flex justi...">
+                              <div>
+                                <h2>
+                                <h1>
+                                <div className="mt-2 flex ..." data-testid="product-pr...">
+                                  <span className="heading-md text-primary" data-testid="product-price-current">
++                                   €11.04
+-                                   €1,104.00
+                              ...
+                          ...
+                ...
+          ...
+        ...
+
+    at throwOnHydrationMismatch (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:2892:56)
+    at prepareToHydrateHostInstance (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:2946:23)
+    at completeWork (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:6330:60)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:886:74)
+    at completeUnitOfWork (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8363:23)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8300:28)
+    at workLoopConcurrentByScheduler (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8294:58)
+    at renderRootConcurrent (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8276:71)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:7908:176)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8882:9)
+    at MessagePort.performWorkUntilDeadline (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_3ef33c25._.js:2601:64)
+[     925ms] [WARNING] Image with src "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=800" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[     945ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1603048297172-c92544798d5e%3Fw%3D800&w=1080&q=75:0
+[   26576ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[   26654ms] [LOG] [Fast Refresh] done in 83ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[   94504ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[   94576ms] [LOG] [Fast Refresh] done in 129ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[   94680ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[   94787ms] [LOG] [Fast Refresh] done in 209ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[   99499ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[   99697ms] [LOG] [Fast Refresh] done in 81ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  100216ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1603048297172-c92544798d5e%3Fw%3D800&w=1080&q=75:0
+[  100328ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[  100444ms] [WARNING] Image with src "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=800" is using quality "85" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[  100476ms] [WARNING] Image with src "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=800" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[  103230ms] [WARNING] Image with src "/images/hero/Image.jpg" is using quality "50" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[  106292ms] [WARNING] The resource http://localhost:3000/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/dk:0
+[  106354ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  106397ms] [LOG] [Fast Refresh] done in 63ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  106499ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  106548ms] [LOG] [Fast Refresh] done in 149ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  107189ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  107954ms] [LOG] [Fast Refresh] done in 867ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  108055ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  108150ms] [LOG] [Fast Refresh] done in 195ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  109062ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fproduce.png&w=640&q=75:0
+[  109091ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fpantry.png&w=640&q=75:0
+[  109091ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fmeat-poultry.png&w=640&q=75:0
+[  109092ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fdairy-eggs.png&w=640&q=75:0
+[  109092ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fplants-seeds.png&w=640&q=75:0
+[  110914ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  110926ms] [LOG] [Fast Refresh] done in 113ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  115986ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  116036ms] [LOG] [Fast Refresh] done in 87ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  116139ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  116194ms] [LOG] [Fast Refresh] done in 155ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  120908ms] [WARNING] The resource http://localhost:3000/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/dk/categories/sweatshirts:0
+[  130837ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  131091ms] [LOG] [Fast Refresh] done in 111ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  135340ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  135351ms] [WARNING] The resource http://localhost:3000/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/dk/categories/sweatshirts:0
+[  135410ms] [LOG] [Fast Refresh] done in 54ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  138469ms] [WARNING] The resource http://localhost:3000/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/dk/categories/sweatshirts:0

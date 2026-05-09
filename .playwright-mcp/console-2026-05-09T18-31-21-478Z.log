@@ -1,0 +1,9 @@
+[     646ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[     866ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1603048297172-c92544798d5e%3Fw%3D800&w=1080&q=75:0
+[   16542ms] [WARNING] Image with src "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=800" is using quality "85" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[   16711ms] [WARNING] Image with src "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=800" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[   16720ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1603048297172-c92544798d5e%3Fw%3D800&w=1080&q=75:0
+[   61301ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1603048297172-c92544798d5e%3Fw%3D800&w=1080&q=75:0
+[   97268ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[   97471ms] [LOG] [Fast Refresh] done in 252ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809

@@ -1,5 +1,7 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys, Modules, ProductStatus } from "@medusajs/framework/utils";
+import { SellerStatus } from "@mercurjs/types";
+import { createProductsWorkflow } from "@medusajs/core-flows";
 
 const FARM_CATEGORIES = [
   {
@@ -119,6 +121,7 @@ async function seedFarmData(req: MedusaRequest) {
   const container = req.scope;
   const logger = container.resolve(ContainerRegistrationKeys.LOGGER);
   const query = container.resolve(ContainerRegistrationKeys.QUERY);
+  const remoteLink = container.resolve(ContainerRegistrationKeys.REMOTE_LINK);
   const productModule = container.resolve(Modules.PRODUCT);
   const customerModule = container.resolve(Modules.CUSTOMER);
   const salesChannelModule = container.resolve(Modules.SALES_CHANNEL);
@@ -130,6 +133,19 @@ async function seedFarmData(req: MedusaRequest) {
   if (existingCats.length <= 4) {
     await createCategoryTree(productModule, FARM_CATEGORIES);
     logger.info("Farm categories created.");
+  }
+
+  // Deactivate old fashion/cosmetic categories
+  const fashionHandles = ["shirts", "sweatshirts", "pants", "merch", "sneakers", "sandals", "boots", "sport", "accessories"];
+  for (const cat of existingCats) {
+    if (fashionHandles.includes(cat.handle) && cat.is_active !== false) {
+      try {
+        await productModule.updateProductCategories(cat.id, { is_active: false });
+        logger.info(`Deactivated old category: ${cat.name}`);
+      } catch (err: any) {
+        logger.warn(`Failed to deactivate category ${cat.handle}: ${err.message}`);
+      }
+    }
   }
 
   // Product Types
@@ -185,17 +201,31 @@ async function seedFarmData(req: MedusaRequest) {
   }
 
   // Demo Farm Sellers
+  const sellerService = container.resolve("seller" as any);
   const existingSellers = await query.graph({ entity: "seller", fields: ["id", "handle"] });
+  const sellerHandleMap = new Map<string, string>();
+
   if (existingSellers.data.length <= 1) {
-    const sellerService = container.resolve("seller" as any);
     const demoSellers = [
-      { name: "Green Acres Farm", handle: "green-acres-farm", email: "hello@greenacres.farm", phone: "555-0101", description: "Family-owned organic vegetable farm since 1985." },
-      { name: "Sunset Valley Dairy", handle: "sunset-valley-dairy", email: "orders@sunsetvalleydairy.com", phone: "555-0102", description: "Grass-fed dairy farm producing raw milk and artisan cheeses." },
-      { name: "Heritage Meat Co.", handle: "heritage-meat-co", email: "sales@heritagemeat.co", phone: "555-0103", description: "Ethically raised heritage breed pork and grass-fed beef." },
+      { name: "Green Acres Farm", handle: "green-acres-farm", email: "hello@greenacres.farm", phone: "555-0101", description: "Family-owned organic vegetable farm since 1985.", currency_code: "usd", status: SellerStatus.OPEN },
+      { name: "Sunset Valley Dairy", handle: "sunset-valley-dairy", email: "orders@sunsetvalleydairy.com", phone: "555-0102", description: "Grass-fed dairy farm producing raw milk and artisan cheeses.", currency_code: "usd", status: SellerStatus.OPEN },
+      { name: "Heritage Meat Co.", handle: "heritage-meat-co", email: "sales@heritagemeat.co", phone: "555-0103", description: "Ethically raised heritage breed pork and grass-fed beef.", currency_code: "usd", status: SellerStatus.OPEN },
     ];
     for (const seller of demoSellers) {
-      try { await sellerService.createSellers([seller]); } catch { /* may exist */ }
+      try {
+        const created = await sellerService.createSellers([seller]);
+        sellerHandleMap.set(seller.handle, created[0].id);
+        logger.info(`Created seller: ${seller.name}`);
+      } catch (err: any) {
+        logger.warn(`Failed to create seller ${seller.handle}: ${err.message}`);
+      }
     }
+  }
+
+  // Refresh seller list
+  const allSellers = await query.graph({ entity: "seller", fields: ["id", "handle"] });
+  for (const s of allSellers.data) {
+    sellerHandleMap.set(s.handle, s.id);
   }
 
   // Demo Farm Products
@@ -203,7 +233,6 @@ async function seedFarmData(req: MedusaRequest) {
   const defaultSalesChannel = salesChannels[0];
   const allCats = await productModule.listProductCategories({});
   const allTypes = await productModule.listProductTypes({});
-  const sellers = await query.graph({ entity: "seller", fields: ["id", "handle"] });
   const existingProducts = await productModule.listProducts({});
   const existingProdHandles = new Set(existingProducts.map((p: any) => p.handle));
 
@@ -221,17 +250,132 @@ async function seedFarmData(req: MedusaRequest) {
     for (const p of productsToCreate) {
       const cat = allCats.find((c: any) => c.handle === p.category_handle);
       const type = allTypes.find((t: any) => t.value === p.type_value);
-      const seller = sellers.data.find((s: any) => s.handle === p.seller_handle);
+      const sellerId = sellerHandleMap.get(p.seller_handle);
       try {
-        await productModule.createProducts([{
-          title: p.title, handle: p.handle, description: p.description, status: ProductStatus.PUBLISHED,
-          category_ids: cat ? [cat.id] : [], type_id: type?.id,
-          images: p.image ? [{ url: p.image }] : [],
-          variants: [{ title: p.unit, sku: p.handle.toUpperCase().replace(/-/g, "_"), prices: [{ amount: p.price, currency_code: "usd" }], options: {} }],
-          sales_channels: [{ id: defaultSalesChannel.id }],
-          metadata: { seller_id: seller?.id, unit_of_measure: p.unit },
-        }]);
-      } catch { /* may exist */ }
+        const {
+          result: [createdProduct],
+        } = await createProductsWorkflow(container).run({
+          input: {
+            products: [{
+              title: p.title,
+              handle: p.handle,
+              description: p.description,
+              status: ProductStatus.PUBLISHED,
+              category_ids: cat ? [cat.id] : [],
+              type_id: type?.id,
+              images: p.image ? [{ url: p.image }] : [],
+              options: [{ title: "Unit", values: [p.unit] }],
+              variants: [{
+                title: p.unit,
+                sku: p.handle.toUpperCase().replace(/-/g, "_"),
+                prices: [
+                  { amount: p.price, currency_code: "usd" },
+                  { amount: Math.round(p.price * 0.92), currency_code: "eur" },
+                ],
+                options: { Unit: p.unit },
+              }],
+              sales_channels: [{ id: defaultSalesChannel.id }],
+              metadata: { unit_of_measure: p.unit },
+            }],
+            additional_data: sellerId ? { seller_id: sellerId } : undefined,
+          },
+        });
+
+        logger.info(`Created product ${p.title} via workflow`);
+      } catch (err: any) {
+        logger.error(`Failed to create product ${p.handle}: ${err.message}`);
+        logger.error(err.stack);
+      }
+    }
+  }
+
+  // Link any existing unlinked demo products that have a seller_handle match
+  // and ensure they have prices
+  const pricingModule = container.resolve(Modules.PRICING);
+  for (const p of demoProducts) {
+    if (existingProdHandles.has(p.handle)) {
+      const product = existingProducts.find((prod: any) => prod.handle === p.handle);
+      const sellerId = sellerHandleMap.get(p.seller_handle);
+      if (product?.id && sellerId) {
+        try {
+          // Check if link already exists
+          const existingLink = await query.graph({
+            entity: "product_seller",
+            fields: ["product_id"],
+            filters: { product_id: product.id },
+          });
+          if (!existingLink.data?.length) {
+            await remoteLink.create([{
+              [Modules.PRODUCT]: { product_id: product.id },
+              ["seller" as any]: { seller_id: sellerId },
+            }]);
+            logger.info(`Linked existing product ${p.handle} to seller ${p.seller_handle}`);
+          }
+        } catch (err: any) {
+          logger.warn(`Failed to link product ${p.handle}: ${err.message}`);
+        }
+
+        // Ensure existing products have prices
+        try {
+          const variants = await productModule.listProductVariants({ product_id: product.id });
+          for (const variant of variants) {
+            const existingPriceSets = await pricingModule.listPriceSets({ variant_id: variant.id });
+            if (!existingPriceSets.length) {
+              await pricingModule.createPriceSets({
+                prices: [
+                  { amount: p.price, currency_code: "usd", title: `${p.handle}-usd` },
+                  { amount: Math.round(p.price * 0.92), currency_code: "eur", title: `${p.handle}-eur` },
+                ],
+              });
+              logger.info(`Created prices for existing variant ${variant.id}`);
+            }
+          }
+        } catch (err: any) {
+          logger.warn(`Failed to create prices for ${p.handle}: ${err.message}`);
+        }
+      }
+    }
+  }
+
+  // Ensure inventory items and stock levels for all demo products
+  const inventoryModule = container.resolve(Modules.INVENTORY);
+  const stockLocationModule = container.resolve(Modules.STOCK_LOCATION);
+  const fulfillmentModule = container.resolve(Modules.FULFILLMENT);
+  let defaultLocation = (await stockLocationModule.listStockLocations({}))[0];
+  if (!defaultLocation) {
+    defaultLocation = await stockLocationModule.createStockLocations({ name: "Main Warehouse" });
+  }
+
+  for (const p of demoProducts) {
+    const product = (await productModule.listProducts({ handle: p.handle }))[0];
+    if (!product) continue;
+    const variants = await productModule.listProductVariants({ product_id: product.id });
+    for (const variant of variants) {
+      try {
+        // Create inventory item if missing
+        let inventoryItem = (await inventoryModule.listInventoryItems({ sku: variant.sku }))[0];
+        if (!inventoryItem) {
+          inventoryItem = await inventoryModule.createInventoryItems({
+            sku: variant.sku,
+            title: variant.title,
+          });
+        }
+        // Link inventory item to variant
+        try {
+          await inventoryModule.createInventoryLevels([{
+            inventory_item_id: inventoryItem.id,
+            location_id: defaultLocation.id,
+            stocked_quantity: 100,
+          }]);
+        } catch (err: any) {
+          // Level may already exist
+          if (!err.message?.includes("already exists")) {
+            logger.warn(`Inventory level error for ${variant.sku}: ${err.message}`);
+          }
+        }
+      } catch (err: any) {
+        logger.warn(`Inventory setup error for ${variant.sku}: ${err.message}`);
+      }
     }
   }
 
@@ -248,7 +392,7 @@ async function seedFarmData(req: MedusaRequest) {
   }
 
   logger.info("=== Farm Marketplace Seed Complete ===");
-  return { success: true, message: "Farm data seeded successfully" };
+  return { success: true, message: "Farm data seeded successfully", sellers: allSellers.data.length };
 }
 
 export async function GET(req: MedusaRequest, res: MedusaResponse) {

@@ -1,5 +1,5 @@
 import { MedusaRequest, MedusaResponse } from '@medusajs/framework'
-import { ContainerRegistrationKeys, QueryContext } from '@medusajs/framework/utils'
+import { ContainerRegistrationKeys, Modules, QueryContext } from '@medusajs/framework/utils'
 
 import { MEILISEARCH_MODULE, MeilisearchModuleService } from '../../../../../modules/meilisearch'
 import { StoreMeilisearchSearchType } from './validators'
@@ -12,19 +12,28 @@ export const POST = async (
     req.scope.resolve<MeilisearchModuleService>(MEILISEARCH_MODULE)
   const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
 
+  await meilisearchService.ensureSettings()
+
   const {
     query: searchQuery,
     page,
     hitsPerPage,
     filters,
-    currency_code,
+    currency_code: reqCurrencyCode,
     region_id,
     customer_id,
     customer_group_id,
   } = req.validatedBody
 
+  let currency_code = reqCurrencyCode
+  if (!currency_code && region_id) {
+    const regionService = req.scope.resolve(Modules.REGION)
+    const region = await regionService.retrieveRegion(region_id)
+    currency_code = region?.currency_code
+  }
+
   // Build filter string server-side — seller.status = "active" is always enforced (FR-003)
-  const filterParts: string[] = ['seller.status = "active"']
+  const filterParts: string[] = ['seller.status = "open"']
 
   if (filters?.categories?.length) {
     const ids = filters.categories.map((c) => `"${c}"`).join(', ')

@@ -1,0 +1,22 @@
+[     269ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:7002/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=958d8fd5:21550
+[     362ms] [LOG] i18next: languageChanged en @ http://localhost:7002/node_modules/.vite/deps/i18next.js?v=61a83ae1:15
+[     362ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:7002/node_modules/.vite/deps/i18next.js?v=61a83ae1:15
+[     368ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4435
+[   11895ms] [ERROR] Access to fetch at 'http://localhost:9001/auth/user/emailpass' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/login:0
+[   11895ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/auth/user/emailpass:0
+[   11900ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at Object.mutationFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-OH4AABUT.js:10:60)
+    at Object.fn (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:1188:29)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at Object.start (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:535:9)
+    at _a6.execute (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:1224:56)
+    at async http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/login-T5DP5BZ3.js:100:5
+    at async http://localhost:7002/node_modules/.vite/deps/chunk-CVBUFWRY.js?v=958d8fd5:1603:7
+[   43374ms] [ERROR] WebSocket connection to 'ws://localhost:7002/?token=bZjyxQZSuou4' failed:  @ http://localhost:7002/@vite/client:535
+[   43375ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:7002/@vite/client:559
+[   44670ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:7002/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=958d8fd5:21550
+[   44723ms] [LOG] i18next: languageChanged en @ http://localhost:7002/node_modules/.vite/deps/i18next.js?v=61a83ae1:15
+[   44723ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:7002/node_modules/.vite/deps/i18next.js?v=61a83ae1:15
+[   44726ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4435

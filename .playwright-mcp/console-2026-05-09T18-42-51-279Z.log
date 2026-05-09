@@ -1,0 +1,9 @@
+[    1502ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[    1611ms] [WARNING] Image with src "/images/hero/Image.jpg" is using quality "50" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[    1939ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fpantry.png&w=640&q=75:0
+[    1991ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fmeat-poultry.png&w=640&q=75:0
+[    2002ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fdairy-eggs.png&w=640&q=75:0
+[    2021ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fproduce.png&w=640&q=75:0
+[    2064ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3000/_next/image?url=%2Fimages%2Fcategories%2Fplants-seeds.png&w=640&q=75:0
+[    5066ms] [WARNING] The resource http://localhost:3000/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/dk:0

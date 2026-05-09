@@ -1,0 +1,22 @@
+- generic [ref=e2]:
+  - generic [ref=e4]:
+    - img [ref=e7]:
+      - generic [ref=e9]: M
+    - generic [ref=e10]:
+      - heading "Welcome to Mercur" [level=1] [ref=e11]
+      - paragraph [ref=e12]: Sign in to access the admin hub
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - textbox "Email" [ref=e18]
+        - generic [ref=e20]:
+          - textbox [ref=e21]:
+            - /placeholder: Password
+          - button "Show password" [ref=e23] [cursor=pointer]:
+            - generic [ref=e24]: Show password
+            - img [ref=e25]
+      - button "Continue with Email" [ref=e29] [cursor=pointer]
+    - generic [ref=e30]:
+      - text: Forgot password? -
+      - link "Reset" [ref=e31] [cursor=pointer]:
+        - /url: /reset-password
+  - region "Notifications alt+T"

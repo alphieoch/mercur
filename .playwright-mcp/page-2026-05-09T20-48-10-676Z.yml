@@ -1,0 +1,79 @@
+- generic [ref=e2]:
+  - generic [ref=e32]:
+    - complementary [ref=e36]:
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - button "M Medusa Store" [ref=e40] [cursor=pointer]:
+            - generic [ref=e41]:
+              - generic: M
+            - paragraph [ref=e43]: Medusa Store
+            - img [ref=e44]
+          - separator [ref=e47]
+        - generic [ref=e48]:
+          - navigation [ref=e50]:
+            - button "Search ⌘K" [ref=e52] [cursor=pointer]:
+              - img [ref=e53]
+              - paragraph [ref=e56]: Search
+              - paragraph [ref=e57]: ⌘K
+            - link "Orders" [ref=e60] [cursor=pointer]:
+              - /url: /orders
+              - img [ref=e62]
+              - paragraph [ref=e65]: Orders
+            - link "Products" [ref=e68] [cursor=pointer]:
+              - /url: /products
+              - img [ref=e70]
+              - paragraph [ref=e73]: Products
+            - link "Inventory" [ref=e76] [cursor=pointer]:
+              - /url: /inventory
+              - img [ref=e78]
+              - paragraph [ref=e81]: Inventory
+            - link "Customers" [ref=e84] [cursor=pointer]:
+              - /url: /customers
+              - img [ref=e86]
+              - paragraph [ref=e89]: Customers
+            - link "Promotions" [ref=e92] [cursor=pointer]:
+              - /url: /promotions
+              - img [ref=e94]
+              - paragraph [ref=e98]: Promotions
+            - link "Price Lists" [ref=e101] [cursor=pointer]:
+              - /url: /price-lists
+              - img [ref=e103]
+              - paragraph [ref=e107]: Price Lists
+            - link "Stores" [ref=e110] [cursor=pointer]:
+              - /url: /stores
+              - img [ref=e112]
+              - paragraph [ref=e115]: Stores
+            - link "Payouts" [ref=e118] [cursor=pointer]:
+              - /url: /payouts
+              - img [ref=e120]
+              - paragraph [ref=e123]: Payouts
+          - link "Settings" [ref=e127] [cursor=pointer]:
+            - /url: /settings
+            - img [ref=e129]
+            - paragraph [ref=e133]: Settings
+        - generic [ref=e135]:
+          - separator [ref=e137]
+          - button "A admin@farm-marketplace.com" [ref=e140] [cursor=pointer]:
+            - generic [ref=e142]:
+              - generic: A
+            - paragraph [ref=e144]: admin@farm-marketplace.com
+            - img [ref=e145]
+    - generic [ref=e147]:
+      - generic [ref=e148]:
+        - generic [ref=e149]:
+          - button [ref=e151] [cursor=pointer]:
+            - img [ref=e152]
+          - list [ref=e155]:
+            - listitem [ref=e156]:
+              - generic [ref=e157]: Orders
+        - button [ref=e159] [cursor=pointer]:
+          - img [ref=e160]
+      - main [ref=e162]:
+        - generic [ref=e165]:
+          - heading "Orders" [level=1] [ref=e167]
+          - generic [ref=e169]:
+            - img [ref=e170]
+            - generic [ref=e174]:
+              - paragraph [ref=e175]: No records
+              - paragraph [ref=e176]: Your orders will show up here.
+  - region "Notifications alt+T"

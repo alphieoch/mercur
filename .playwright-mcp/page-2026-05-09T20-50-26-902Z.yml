@@ -1,0 +1,127 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+      - link "Logo" [ref=e12] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Shipping to
+          - button "DK flag DK" [ref=e18]:
+            - generic [ref=e20]:
+              - img "DK flag" [ref=e21]
+              - text: DK
+        - link "Go to user profile" [ref=e23] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e24]
+        - link "Go to cart" [ref=e28] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e29]
+    - generic [ref=e34]:
+      - navigation "Category navigation" [ref=e35]:
+        - link "All Products" [ref=e36] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e40]:
+        - button "Search" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - searchbox "Search product" [ref=e45]: tomato
+  - main [ref=e46]:
+    - navigation "Breadcrumb" [ref=e48]:
+      - list [ref=e49]:
+        - listitem [ref=e50]:
+          - link "All Products" [ref=e51] [cursor=pointer]:
+            - /url: /dk
+    - heading "All Products" [level=1] [ref=e52]
+    - generic [ref=e109]:
+      - generic [ref=e111]: 0 listings
+      - generic [ref=e114]:
+        - generic [ref=e115]: "Search:"
+        - button "tomato" [ref=e116] [cursor=pointer]:
+          - generic [ref=e117]:
+            - text: tomato
+            - img [ref=e119]
+      - generic [ref=e121]:
+        - generic [ref=e123]:
+          - generic [ref=e124]:
+            - generic [ref=e125] [cursor=pointer]:
+              - heading "Price" [level=4] [ref=e126]
+              - img [ref=e127]
+            - generic [ref=e131]:
+              - spinbutton [ref=e135]
+              - spinbutton [ref=e139]
+          - generic [ref=e140]:
+            - generic [ref=e141] [cursor=pointer]:
+              - heading "Category" [level=4] [ref=e142]
+              - img [ref=e143]
+            - generic [ref=e146]:
+              - list
+          - generic [ref=e147]:
+            - generic [ref=e148] [cursor=pointer]:
+              - heading "Seller" [level=4] [ref=e149]
+              - img [ref=e150]
+            - generic [ref=e153]:
+              - list
+        - generic [ref=e154]:
+          - generic [ref=e155]:
+            - heading "No results" [level=2] [ref=e156]
+            - paragraph [ref=e157]: Sorry, we can't find any results for your criteria
+          - generic [ref=e160]:
+            - button "Previous page" [disabled] [ref=e161]:
+              - img [ref=e162]
+            - button "Current page, page 1" [ref=e164] [cursor=pointer]: "1"
+            - button "Next page" [ref=e165] [cursor=pointer]:
+              - img [ref=e166]
+  - contentinfo [ref=e74]:
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - heading "Customer services" [level=2] [ref=e77]
+        - navigation "Customer services navigation" [ref=e78]:
+          - link "FAQs" [ref=e79] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e80] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e81] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e82] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e83] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e84]:
+        - heading "About" [level=2] [ref=e85]
+        - navigation "About navigation" [ref=e86]:
+          - link "About us" [ref=e87] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e88] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e89] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e90] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e91]:
+        - heading "connect" [level=2] [ref=e92]
+        - navigation "Social media navigation" [ref=e93]:
+          - link "Go to Facebook page" [ref=e94] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e95] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e96] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e98]: © 2024 Farm Marketplace
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e104] [cursor=pointer]:
+    - img [ref=e105]
+  - alert [ref=e108]

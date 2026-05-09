@@ -1,0 +1,146 @@
+- generic [ref=e1]:
+  - generic [active]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - navigation [ref=e7]:
+            - button "previous" [disabled] [ref=e8]:
+              - img "previous" [ref=e9]
+            - generic [ref=e11]:
+              - generic [ref=e12]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=e13]:
+              - img "next" [ref=e14]
+          - img
+        - generic [ref=e16]:
+          - link "Next.js 15.5.9 (outdated) Turbopack" [ref=e17] [cursor=pointer]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=e18]
+            - generic "An outdated version detected (latest is 16.2.6), upgrade is highly recommended!" [ref=e20]: Next.js 15.5.9 (outdated)
+            - generic [ref=e21]: Turbopack
+          - img
+      - dialog "Runtime RangeError" [ref=e23]:
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e28]:
+              - generic [ref=e30]: Runtime RangeError
+              - generic [ref=e31]:
+                - button "Copy Error Info" [ref=e32] [cursor=pointer]:
+                  - img [ref=e33]
+                - button "No related documentation found" [disabled] [ref=e35]:
+                  - img [ref=e36]
+                - link "Learn more about enabling Node.js inspector for server code with Chrome DevTools" [ref=e38] [cursor=pointer]:
+                  - /url: https://nextjs.org/docs/app/building-your-application/configuring/debugging#server-side-code
+                  - img [ref=e39]
+            - paragraph [ref=e48]: Invalid time value
+          - generic [ref=e50]:
+            - paragraph [ref=e52]:
+              - text: Call Stack
+              - generic [ref=e53]: "15"
+            - generic [ref=e54]:
+              - generic [ref=e55]:
+                - text: format
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e56] [cursor=pointer]:
+                  - img [ref=e57]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/7578a_date-fns_86057b2f._.js (2283:15)
+            - generic [ref=e59]:
+              - generic [ref=e60]:
+                - text: SellerFooter
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e61] [cursor=pointer]:
+                  - img [ref=e62]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/apps_storefront_src_components_organisms_33045fce._.js (1423:251)
+            - generic [ref=e64]:
+              - generic [ref=e65]:
+                - text: Object.react_stack_bottom_frame
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e66] [cursor=pointer]:
+                  - img [ref=e67]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (13072:24)
+            - generic [ref=e69]:
+              - generic [ref=e70]:
+                - text: renderWithHooks
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e71] [cursor=pointer]:
+                  - img [ref=e72]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (4091:24)
+            - generic [ref=e74]:
+              - generic [ref=e75]:
+                - text: updateFunctionComponent
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e76] [cursor=pointer]:
+                  - img [ref=e77]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (5523:21)
+            - generic [ref=e79]:
+              - generic [ref=e80]:
+                - text: beginWork
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e81] [cursor=pointer]:
+                  - img [ref=e82]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (6090:639)
+            - generic [ref=e84]:
+              - generic [ref=e85]:
+                - text: runWithFiberInDEV
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e86] [cursor=pointer]:
+                  - img [ref=e87]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (886:74)
+            - generic [ref=e89]:
+              - generic [ref=e90]:
+                - text: performUnitOfWork
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e91] [cursor=pointer]:
+                  - img [ref=e92]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (8298:97)
+            - generic [ref=e94]:
+              - generic [ref=e95]:
+                - text: workLoopSync
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e96] [cursor=pointer]:
+                  - img [ref=e97]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (8190:40)
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - text: renderRootSync
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e101] [cursor=pointer]:
+                  - img [ref=e102]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (8173:13)
+            - generic [ref=e104]:
+              - generic [ref=e105]:
+                - text: performWorkOnRoot
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e106] [cursor=pointer]:
+                  - img [ref=e107]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (7932:56)
+            - generic [ref=e109]:
+              - generic [ref=e110]:
+                - text: performWorkOnRootViaSchedulerTask
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e111] [cursor=pointer]:
+                  - img [ref=e112]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js (8882:9)
+            - generic [ref=e114]:
+              - generic [ref=e115]:
+                - text: MessagePort.performWorkUntilDeadline
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e116] [cursor=pointer]:
+                  - img [ref=e117]
+              - text: file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/static/chunks/8f4ea_next_dist_compiled_3ef33c25._.js (2601:64)
+            - generic [ref=e119]:
+              - generic [ref=e120]:
+                - text: SellerPageHeader
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e121] [cursor=pointer]:
+                  - img [ref=e122]
+              - text: about:/Server/file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/server/chunks/ssr/apps_storefront_30fb76ef._.js (8072:333)
+            - generic [ref=e124]:
+              - generic [ref=e125]:
+                - text: SellerPage
+                - button "Sourcemapping failed. Click to log cause of error." [ref=e126] [cursor=pointer]:
+                  - img [ref=e127]
+              - text: about:/Server/file:///Users/alphie/Project%20Farmhouse/mercur/apps/storefront/.next/server/chunks/ssr/%5Broot-of-the-server%5D__8314e167._.js (247:333)
+        - generic [ref=e129]:
+          - generic [ref=e130]: "1"
+          - generic [ref=e131]: "2"
+    - generic [ref=e136] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=e137]:
+        - img [ref=e138]
+      - generic [ref=e141]:
+        - button "Open issues overlay" [ref=e142]:
+          - generic [ref=e143]:
+            - generic [ref=e144]: "0"
+            - generic [ref=e145]: "1"
+          - generic [ref=e146]: Issue
+        - button "Collapse issues badge" [ref=e147]:
+          - img [ref=e148]
+  - generic [ref=e150]:
+    - heading "Something went wrong!" [level=2] [ref=e151]
+    - button "Try again" [ref=e152] [cursor=pointer]

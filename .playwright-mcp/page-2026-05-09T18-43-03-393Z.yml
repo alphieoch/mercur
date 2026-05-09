@@ -1,0 +1,162 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+      - link "Logo" [ref=e12] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Shipping to
+          - button "DK flag DK" [ref=e18]:
+            - generic [ref=e20]:
+              - img "DK flag" [ref=e21]
+              - text: DK
+        - link "Go to user profile" [ref=e23] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e24]
+        - link "Go to cart" [ref=e28] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e29]
+    - generic [ref=e34]:
+      - navigation "Category navigation" [ref=e35]:
+        - link "All Products" [ref=e36] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e40]:
+        - button "Search" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - searchbox "Search product" [ref=e45]
+  - main [ref=e46]:
+    - generic [ref=e47]:
+      - generic [ref=e52]:
+        - img "Product image" [ref=e55]
+        - img "Product carousel Indicator" [ref=e60] [cursor=pointer]
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - generic [ref=e65]:
+            - heading [level=2]
+            - heading "Heritage Breed Pork Chops" [level=1] [ref=e66]
+            - generic [ref=e68]: €11.04
+          - generic [ref=e70]:
+            - generic [ref=e71]: "Unit:"
+            - text: lb
+            - button "lb" [ref=e73] [cursor=pointer]
+          - button "ADD TO CART" [ref=e74] [cursor=pointer]
+        - generic [ref=e75]:
+          - generic [ref=e76] [cursor=pointer]:
+            - heading "Product details" [level=4] [ref=e77]
+            - generic [ref=e78]:
+              - img [ref=e79]
+              - img [ref=e81]
+          - generic [ref=e84]: Bone-in pork chops from Berkshire hogs.
+        - generic [ref=e85]:
+          - generic [ref=e86] [cursor=pointer]:
+            - heading "Shipping & Returns" [level=4] [ref=e87]
+            - generic [ref=e88]:
+              - img [ref=e89]
+              - img [ref=e91]
+          - list [ref=e95]:
+            - listitem [ref=e96]: Free standard shipping on all orders within the continental U.S. Expedited shipping options are available at an additional cost. Orders typically ship within 3-5 business days.
+            - listitem [ref=e97]: We offer a 30-day return policy. If you are not completely satisfied with your purchase, you can return the chair for a full refund or exchange, provided it is in its original condition and packaging.
+        - generic [ref=e101]:
+          - link "View Heritage Meat Co. seller" [ref=e102] [cursor=pointer]:
+            - /url: /dk/sellers/heritage-meat-co
+            - generic [ref=e103]:
+              - img "Heritage Meat Co." [ref=e105]
+              - generic [ref=e106]:
+                - heading "Heritage Meat Co." [level=3] [ref=e107]
+                - generic [ref=e108]:
+                  - generic [ref=e109]:
+                    - img [ref=e110]
+                    - img [ref=e112]
+                    - img [ref=e114]
+                    - img [ref=e116]
+                    - img [ref=e118]
+                  - generic [ref=e120]: 0 reviews
+              - img [ref=e121]
+          - heading "Seller reviews" [level=3] [ref=e124]
+        - generic [ref=e126]:
+          - paragraph [ref=e127]: "Posted: 15 minutes ago"
+          - button "Report listing" [ref=e128] [cursor=pointer]
+    - generic [ref=e130]:
+      - heading "More from this seller" [level=2] [ref=e131]
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - link "View Grass-Fed Ground Beef" [ref=e138] [cursor=pointer]:
+              - /url: /dk/products/grass-fed-ground-beef
+              - img "Grass-Fed Ground Beef image" [ref=e140]
+            - link "See more about Grass-Fed Ground Beef":
+              - /url: /dk/products/grass-fed-ground-beef
+          - link "Go to Grass-Fed Ground Beef page" [ref=e141] [cursor=pointer]:
+            - /url: /dk/products/grass-fed-ground-beef
+            - generic [ref=e143]:
+              - heading "Grass-Fed Ground Beef" [level=3] [ref=e144]
+              - generic:
+                - paragraph
+        - generic [ref=e145]:
+          - generic [ref=e146]:
+            - link "View Heritage Breed Pork Chops" [ref=e147] [cursor=pointer]:
+              - /url: /dk/products/heritage-breed-pork-chops
+              - img "Heritage Breed Pork Chops image" [ref=e149]
+            - link "See more about Heritage Breed Pork Chops":
+              - /url: /dk/products/heritage-breed-pork-chops
+          - link "Go to Heritage Breed Pork Chops page" [ref=e150] [cursor=pointer]:
+            - /url: /dk/products/heritage-breed-pork-chops
+            - generic [ref=e152]:
+              - heading "Heritage Breed Pork Chops" [level=3] [ref=e153]
+              - generic:
+                - paragraph
+  - contentinfo [ref=e154]:
+    - generic [ref=e155]:
+      - generic [ref=e156]:
+        - heading "Customer services" [level=2] [ref=e157]
+        - navigation "Customer services navigation" [ref=e158]:
+          - link "FAQs" [ref=e159] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e160] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e161] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e162] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e163] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e164]:
+        - heading "About" [level=2] [ref=e165]
+        - navigation "About navigation" [ref=e166]:
+          - link "About us" [ref=e167] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e168] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e169] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e170] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e171]:
+        - heading "connect" [level=2] [ref=e172]
+        - navigation "Social media navigation" [ref=e173]:
+          - link "Go to Facebook page" [ref=e174] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e175] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e176] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e178]: © 2024 Farm Marketplace
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e184] [cursor=pointer]:
+    - img [ref=e185]
+  - alert [ref=e188]

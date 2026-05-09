@@ -1,0 +1,238 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+        - link "Shirts" [ref=e11] [cursor=pointer]:
+          - /url: /dk/categories/shirts
+        - link "Sweatshirts" [ref=e12] [cursor=pointer]:
+          - /url: /dk/categories/sweatshirts
+        - link "Pants" [ref=e13] [cursor=pointer]:
+          - /url: /dk/categories/pants
+        - link "Merch" [ref=e14] [cursor=pointer]:
+          - /url: /dk/categories/merch
+      - link "Logo" [ref=e16] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e17]
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e20]: Shipping to
+          - button [ref=e22]
+        - link "Go to user profile" [ref=e24] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e25]
+        - link "Go to cart" [ref=e29] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e30]
+    - generic [ref=e35]:
+      - navigation "Category navigation" [ref=e36]:
+        - link "All Products" [ref=e37] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e41]:
+        - button "Search" [ref=e42] [cursor=pointer]:
+          - img [ref=e43]
+        - searchbox "Search product" [ref=e46]
+  - main [ref=e47]:
+    - generic [ref=e48]:
+      - img "Hero banner - Fresh from the farm to your table" [ref=e49]
+      - generic [ref=e50]:
+        - generic [ref=e52]:
+          - heading "Fresh from the farm to your table" [level=2] [ref=e53]
+          - paragraph [ref=e54]: Discover locally grown produce, pasture-raised meats, artisan dairy, and more from trusted farmers in your community.
+        - generic [ref=e55]:
+          - link "Buy now" [ref=e56] [cursor=pointer]:
+            - /url: /categories
+            - generic [ref=e57]: Buy now
+            - img [ref=e58]
+          - link "Sell now" [ref=e60] [cursor=pointer]:
+            - /url: http://localhost:7001
+            - generic [ref=e61]: Sell now
+            - img [ref=e62]
+    - generic [ref=e65]:
+      - heading "trending listings" [level=2] [ref=e66]
+      - generic [ref=e70]:
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - link "View Organic Heirloom Tomatoes" [ref=e73] [cursor=pointer]:
+              - /url: /dk/products/organic-heirloom-tomatoes
+              - img "Organic Heirloom Tomatoes image" [ref=e75]
+            - link "See more about Organic Heirloom Tomatoes":
+              - /url: /dk/products/organic-heirloom-tomatoes
+          - link "Go to Organic Heirloom Tomatoes page" [ref=e76] [cursor=pointer]:
+            - /url: /dk/products/organic-heirloom-tomatoes
+            - generic [ref=e78]:
+              - heading "Organic Heirloom Tomatoes" [level=3] [ref=e79]
+              - paragraph [ref=e81]: €414.00
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - link "View Fresh Mixed Salad Greens" [ref=e84] [cursor=pointer]:
+              - /url: /dk/products/fresh-mixed-salad-greens
+              - img "Fresh Mixed Salad Greens image" [ref=e86]
+            - link "See more about Fresh Mixed Salad Greens":
+              - /url: /dk/products/fresh-mixed-salad-greens
+          - link "Go to Fresh Mixed Salad Greens page" [ref=e87] [cursor=pointer]:
+            - /url: /dk/products/fresh-mixed-salad-greens
+            - generic [ref=e89]:
+              - heading "Fresh Mixed Salad Greens" [level=3] [ref=e90]
+              - paragraph [ref=e92]: €552.00
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - link "View Raw Whole Milk" [ref=e95] [cursor=pointer]:
+              - /url: /dk/products/raw-whole-milk
+              - img "Raw Whole Milk image" [ref=e97]
+            - link "See more about Raw Whole Milk":
+              - /url: /dk/products/raw-whole-milk
+          - link "Go to Raw Whole Milk page" [ref=e98] [cursor=pointer]:
+            - /url: /dk/products/raw-whole-milk
+            - generic [ref=e100]:
+              - heading "Raw Whole Milk" [level=3] [ref=e101]
+              - paragraph [ref=e103]: €736.00
+        - generic [ref=e104]:
+          - generic [ref=e105]:
+            - link "View Farm Fresh Eggs" [ref=e106] [cursor=pointer]:
+              - /url: /dk/products/farm-fresh-eggs
+              - img "Farm Fresh Eggs image" [ref=e108]
+            - link "See more about Farm Fresh Eggs":
+              - /url: /dk/products/farm-fresh-eggs
+          - link "Go to Farm Fresh Eggs page" [ref=e109] [cursor=pointer]:
+            - /url: /dk/products/farm-fresh-eggs
+            - generic [ref=e111]:
+              - heading "Farm Fresh Eggs" [level=3] [ref=e112]
+              - paragraph [ref=e114]: €598.00
+    - generic [ref=e116]:
+      - heading "SHOP BY CATEGORY" [level=2] [ref=e118]
+      - generic [ref=e121]:
+        - link "category - Sneakers Sneakers" [ref=e122] [cursor=pointer]:
+          - /url: /dk/categories/sneakers
+          - img "category - Sneakers" [ref=e124]
+          - heading "Sneakers" [level=3] [ref=e125]
+        - link "category - Sandals Sandals" [ref=e126] [cursor=pointer]:
+          - /url: /dk/categories/sandals
+          - img "category - Sandals" [ref=e128]
+          - heading "Sandals" [level=3] [ref=e129]
+        - link "category - Boots Boots" [ref=e130] [cursor=pointer]:
+          - /url: /dk/categories/boots
+          - img "category - Boots" [ref=e132]
+          - heading "Boots" [level=3] [ref=e133]
+        - link "category - Sport Sport" [ref=e134] [cursor=pointer]:
+          - /url: /dk/categories/sport
+          - img "category - Sport" [ref=e136]
+          - heading "Sport" [level=3] [ref=e137]
+        - link "category - Accessories Accessories" [ref=e138] [cursor=pointer]:
+          - /url: /dk/categories/accessories
+          - img "category - Accessories" [ref=e140]
+          - heading "Accessories" [level=3] [ref=e141]
+    - generic [ref=e143]:
+      - generic [ref=e144]:
+        - generic [ref=e145]:
+          - generic [ref=e146]: "#COLLECTION"
+          - 'heading "BOHO VIBES: WHERE COMFORT MEETS CREATIVITY" [level=2] [ref=e147]'
+          - paragraph [ref=e148]: Discover boho styles that inspire adventure and embrace the beauty of the unconventional.
+        - link "EXPLORE" [ref=e149] [cursor=pointer]:
+          - /url: /dk/collections/boho
+          - button "EXPLORE" [ref=e150]
+      - img "Boho fashion collection - Model wearing a floral dress with yellow boots" [ref=e152]
+    - generic [ref=e153]:
+      - heading "SHOP BY STYLE" [level=2] [ref=e154]
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - link "LUXURY" [ref=e157] [cursor=pointer]:
+            - /url: /dk/collections/luxury
+            - generic [ref=e158]: LUXURY
+            - img [ref=e159]
+          - link "VINTAGE" [ref=e161] [cursor=pointer]:
+            - /url: /dk/collections/vintage
+            - generic [ref=e162]: VINTAGE
+            - img [ref=e163]
+          - link "CASUAL" [ref=e165] [cursor=pointer]:
+            - /url: /dk/collections/casual
+            - generic [ref=e166]: CASUAL
+            - img [ref=e167]
+          - link "STREETWEAR" [ref=e169] [cursor=pointer]:
+            - /url: /dk/collections/streetwear
+            - generic [ref=e170]: STREETWEAR
+            - img [ref=e171]
+          - link "Y2K" [ref=e173] [cursor=pointer]:
+            - /url: /dk/collections/y2k
+            - generic [ref=e174]: Y2K
+            - img [ref=e175]
+        - img "Models showcasing luxury fashion styles" [ref=e178]
+    - generic [ref=e179]:
+      - heading "STAY UP TO DATE" [level=2] [ref=e181]
+      - generic [ref=e182]:
+        - link "Summer's Most Elegant Accessories Summer's Most Elegant Accessories Discover this season's most sophisticated accessories that blend timeless elegance with modern design. Read more" [ref=e183] [cursor=pointer]:
+          - /url: /dk#
+          - img "Summer's Most Elegant Accessories" [ref=e185]
+          - generic [ref=e186]:
+            - heading "Summer's Most Elegant Accessories" [level=3] [ref=e187]
+            - paragraph [ref=e188]: Discover this season's most sophisticated accessories that blend timeless elegance with modern design.
+            - generic [ref=e189]:
+              - text: Read more
+              - img [ref=e190]
+        - link "The Season’s Hottest Trends The Season’s Hottest Trends From bold colors to nostalgic silhouettes, explore the must-have looks defining this season’s fashion narrative. Read more" [ref=e192] [cursor=pointer]:
+          - /url: /dk#
+          - img "The Season’s Hottest Trends" [ref=e194]
+          - generic [ref=e195]:
+            - heading "The Season’s Hottest Trends" [level=3] [ref=e196]
+            - paragraph [ref=e197]: From bold colors to nostalgic silhouettes, explore the must-have looks defining this season’s fashion narrative.
+            - generic [ref=e198]:
+              - text: Read more
+              - img [ref=e199]
+        - link "Minimalist Outerwear Trends Minimalist Outerwear Trends Explore the latest minimalist outerwear pieces that combine functionality with clean aesthetics. Read more" [ref=e201] [cursor=pointer]:
+          - /url: /dk#
+          - img "Minimalist Outerwear Trends" [ref=e203]
+          - generic [ref=e204]:
+            - heading "Minimalist Outerwear Trends" [level=3] [ref=e205]
+            - paragraph [ref=e206]: Explore the latest minimalist outerwear pieces that combine functionality with clean aesthetics.
+            - generic [ref=e207]:
+              - text: Read more
+              - img [ref=e208]
+  - contentinfo [ref=e210]:
+    - generic [ref=e211]:
+      - generic [ref=e212]:
+        - heading "Customer services" [level=2] [ref=e213]
+        - navigation "Customer services navigation" [ref=e214]:
+          - link "FAQs" [ref=e215] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e216] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e217] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e218] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e219] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e220]:
+        - heading "About" [level=2] [ref=e221]
+        - navigation "About navigation" [ref=e222]:
+          - link "About us" [ref=e223] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e224] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e225] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e226] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e227]:
+        - heading "connect" [level=2] [ref=e228]
+        - navigation "Social media navigation" [ref=e229]:
+          - link "Go to Facebook page" [ref=e230] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e231] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e232] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e234]: © 2024 Fleek
+  - region "Notifications alt+T"

@@ -1,0 +1,21 @@
+- generic [ref=e2]:
+  - generic [ref=e52]:
+    - img [ref=e55]:
+      - generic [ref=e57]: M
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - heading "Select a store" [level=1] [ref=e60]
+        - paragraph [ref=e61]: Choose a store to continue.
+      - generic [ref=e62]:
+        - button "G Green Acres Farm Vendor /green-acres-farm-vendor Active" [ref=e63] [cursor=pointer]:
+          - generic [ref=e64]:
+            - generic: G
+          - generic [ref=e65]:
+            - paragraph [ref=e66]: Green Acres Farm Vendor
+            - paragraph [ref=e67]: /green-acres-farm-vendor
+          - generic [ref=e68]: Active
+          - img [ref=e70]
+        - button "Add new store" [ref=e72] [cursor=pointer]:
+          - img [ref=e73]
+          - paragraph [ref=e75]: Add new store
+  - region "Notifications alt+T"

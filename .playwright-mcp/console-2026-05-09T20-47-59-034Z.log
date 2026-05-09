@@ -1,0 +1,671 @@
+[     224ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:7002/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=958d8fd5:21550
+[     277ms] [LOG] i18next: languageChanged en @ http://localhost:7002/node_modules/.vite/deps/i18next.js?v=61a83ae1:15
+[     278ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:7002/node_modules/.vite/deps/i18next.js?v=61a83ae1:15
+[     286ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4435
+[   70407ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[   71412ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  131424ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  132430ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  192438ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  193443ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  253458ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  254464ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  314472ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  315505ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  375533ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  376538ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  436545ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  437550ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  497560ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  498570ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  558578ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  559583ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  619592ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  620596ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  680609ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  680609ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  681614ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  681614ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  741619ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  741619ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  742623ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  742623ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  802630ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  802630ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  803633ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  803633ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  837763ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/sellers?limit=10&offset=0&status%5B0%5D=open&status%5B1%5D=pending_approval&status%5B2%5D=suspended' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/stores:0
+[  837763ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/sellers?limit=10&offset=0&status%5B0%5D=open&status%5B1%5D=pending_approval&status%5B2%5D=suspended:0
+[  838765ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/sellers?limit=10&offset=0&status%5B0%5D=open&status%5B1%5D=pending_approval&status%5B2%5D=suspended' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/stores:0
+[  838765ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/sellers?limit=10&offset=0&status%5B0%5D=open&status%5B1%5D=pending_approval&status%5B2%5D=suspended:0
+[  840422ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/price-lists?limit=20&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/price-lists:0
+[  840422ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/price-lists?limit=20&offset=0:0
+[  841177ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/promotions?limit=20&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/promotions:0
+[  841177ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/promotions?limit=20&offset=0:0
+[  841994ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/customers?limit=20&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/customers:0
+[  841994ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/customers?limit=20&offset=0:0
+[  841995ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/customer-groups?limit=1000' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/customers:0
+[  841995ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/customer-groups?limit=1000:0
+[  842999ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/customers?limit=20&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/customers:0
+[  842999ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/customers?limit=20&offset=0:0
+[  843000ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  843003ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  843003ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  843004ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  843004ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  843004ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  843005ms] [ERROR] The above error occurred in the <CustomerListDataTable> component:
+
+    at CustomerListDataTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-KERTIEWE.js:105:7)
+    at div
+    at http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:56247:40
+    at CustomerListTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-KERTIEWE.js:177:3)
+    at div
+    at SingleColumnPage (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-XIZLPYEE.js:280:3)
+    at Root (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-KERTIEWE.js:230:3)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at div
+    at Gutter (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1997:3)
+    at main
+    at div
+    at div
+    at KeybindProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:463:3)
+    at Shell (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1931:3)
+    at MainLayout
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at SearchProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1369:3)
+    at SidebarProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:165:3)
+    at ProtectedRoute (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1432:7)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at DataRoutes (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5282:5)
+    at Router (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4544:15)
+    at RouterProvider (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5096:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithDefaultLocale (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35803:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35810:9)
+    at I18nProvider
+    at ThemeProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:109:3)
+    at QueryClientProvider (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:2829:3)
+    at _a (http://localhost:7002/node_modules/.vite/deps/react-helmet-async.js?v=dc9b2c6f:624:5)
+    at Provider4 (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:313:15)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:11505:5)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:55859:26)
+    at App (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:4882:18)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:7002/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=958d8fd5:14031
+[  843005ms] [ERROR] React Router caught the following error during render TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 {componentStack: 
+    at CustomerListDataTable (http://localhost:70…ouse/mercur/packages/admin/dist/index.js:4882:18)} @ http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4117
+[  843006ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/customer-groups?limit=1000' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/customers:0
+[  843006ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/customer-groups?limit=1000:0
+[  843007ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  843007ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  843023ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  843023ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-PRBE5CM3.js:158:40)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  843074ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/inventory-items?limit=20' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/inventory:0
+[  843074ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/inventory-items?limit=20:0
+[  843074ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/stock-locations?limit=1000' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/inventory:0
+[  843074ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/stock-locations?limit=1000:0
+[  843826ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/products?limit=20&offset=0&is_giftcard=false&fields=id%2Ctitle%2Chandle%2Cstatus%2C%2Acollection%2C%2Asales_channels%2Cvariants.id%2Cthumbnail%2Cseller.%2A' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  843826ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/products?limit=20&offset=0&is_giftcard=false&fields=id%2Ctitle%2Chandle%2Cstatus%2C%2Acollection%2C%2Asales_channels%2Cvariants.id%2Cthumbnail%2Cseller.%2A:0
+[  843826ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/product-types?limit=1000&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  843826ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/product-types?limit=1000&offset=0:0
+[  843826ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/product-tags?limit=1000&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  843826ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/product-tags?limit=1000&offset=0:0
+[  843826ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/sellers?limit=1000&fields=id%2Cname' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  843826ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/sellers?limit=1000&fields=id%2Cname:0
+[  843827ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/sales-channels?limit=1000&fields=id%2Cname' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  843827ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/sales-channels?limit=1000&fields=id%2Cname:0
+[  844487ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/order-groups?limit=20&offset=0&order=-display_id&fields=id%2Cdisplay_id%2Ccustomer_id%2Cseller_count%2Ctotal%2Ccreated_at%2Corders.id%2Corders.status%2Corders.created_at%2Corders.email%2Corders.display_id%2Corders.custom_display_id%2Corders.payment_status%2Corders.fulfillment_status%2Corders.total%2Corders.currency_code%2C%2Aorders.payment_collections%2C%2Aorders.customer%2C%2Aorders.sales_channel%2C%2Aorders.seller' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  844487ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/order-groups?limit=20&offset=0&order=-display_id&fields=id%2Cdisplay_id%2Ccustomer_id%2Cseller_count%2Ctotal%2Ccreated_at%2Corders.id%2Corders.status%2Corders.created_at%2Corders.email%2Corders.display_id%2Corders.custom_display_id%2Corders.payment_status%2Corders.fulfillment_status%2Corders.total%2Corders.currency_code%2C%2Aorders.payment_collections%2C%2Aorders.customer%2C%2Aorders.sales_channel%2C%2Aorders.seller:0
+[  844487ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/customers?limit=1000&fields=id%2Cfirst_name%2Clast_name%2Cemail' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  844487ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/customers?limit=1000&fields=id%2Cfirst_name%2Clast_name%2Cemail:0
+[  844830ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/sellers?limit=1000&fields=id%2Cname' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  844830ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/sellers?limit=1000&fields=id%2Cname:0
+[  844830ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/sales-channels?limit=1000&fields=id%2Cname' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/orders:0
+[  844831ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/sales-channels?limit=1000&fields=id%2Cname:0
+[  845420ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/products?limit=20&offset=0&is_giftcard=false&fields=id%2Ctitle%2Chandle%2Cstatus%2C%2Acollection%2C%2Asales_channels%2Cvariants.id%2Cthumbnail%2Cseller.%2A' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  845420ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/products?limit=20&offset=0&is_giftcard=false&fields=id%2Ctitle%2Chandle%2Cstatus%2C%2Acollection%2C%2Asales_channels%2Cvariants.id%2Cthumbnail%2Cseller.%2A:0
+[  845420ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/product-types?limit=1000&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  845420ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/product-types?limit=1000&offset=0:0
+[  845420ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/product-tags?limit=1000&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  845420ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/product-tags?limit=1000&offset=0:0
+[  845420ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/sellers?limit=1000&fields=id%2Cname' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  845420ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/sellers?limit=1000&fields=id%2Cname:0
+[  845420ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/sales-channels?limit=1000&fields=id%2Cname' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/products:0
+[  845420ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/sales-channels?limit=1000&fields=id%2Cname:0
+[  846036ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/collections?limit=20&offset=0&fields=%2Bproducts.id' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/collections:0
+[  846036ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/collections?limit=20&offset=0&fields=%2Bproducts.id:0
+[  847039ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/collections?limit=20&offset=0&fields=%2Bproducts.id' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/collections:0
+[  847039ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/collections?limit=20&offset=0&fields=%2Bproducts.id:0
+[  847040ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  847040ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  847041ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  847041ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  847041ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  847041ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  847042ms] [ERROR] The above error occurred in the <CollectionListDataTable> component:
+
+    at CollectionListDataTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-IXHIM2HR.js:167:7)
+    at div
+    at http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:56247:40
+    at CollectionListTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-IXHIM2HR.js:250:3)
+    at div
+    at SingleColumnPage (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-XIZLPYEE.js:280:3)
+    at Root (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-IXHIM2HR.js:264:3)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at div
+    at Gutter (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1997:3)
+    at main
+    at div
+    at div
+    at KeybindProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:463:3)
+    at Shell (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1931:3)
+    at MainLayout
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at SearchProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1369:3)
+    at SidebarProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:165:3)
+    at ProtectedRoute (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1432:7)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at DataRoutes (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5282:5)
+    at Router (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4544:15)
+    at RouterProvider (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5096:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithDefaultLocale (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35803:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35810:9)
+    at I18nProvider
+    at ThemeProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:109:3)
+    at QueryClientProvider (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:2829:3)
+    at _a (http://localhost:7002/node_modules/.vite/deps/react-helmet-async.js?v=dc9b2c6f:624:5)
+    at Provider4 (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:313:15)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:11505:5)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:55859:26)
+    at App (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:4882:18)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:7002/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=958d8fd5:14031
+[  847042ms] [ERROR] React Router caught the following error during render TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 {componentStack: 
+    at CollectionListDataTable (http://localhost:…ouse/mercur/packages/admin/dist/index.js:4882:18)} @ http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4117
+[  847042ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  847042ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-U7WZYWGA.js:32:42)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  847183ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/inventory-items?limit=20' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/inventory:0
+[  847183ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/inventory-items?limit=20:0
+[  847184ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/stock-locations?limit=1000' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/inventory:0
+[  847184ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/stock-locations?limit=1000:0
+[  847870ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/promotions?limit=20&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/promotions:0
+[  847870ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/promotions?limit=20&offset=0:0
+[  848873ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/promotions?limit=20&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/promotions:0
+[  848873ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/promotions?limit=20&offset=0:0
+[  848873ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  848874ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  848874ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  848874ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  848875ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  848875ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  848875ms] [ERROR] The above error occurred in the <PromotionListDataTable> component:
+
+    at PromotionListDataTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-5Q2DL7Z2.js:105:7)
+    at div
+    at http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:56247:40
+    at PromotionListTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-5Q2DL7Z2.js:166:3)
+    at div
+    at SingleColumnPage (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-XIZLPYEE.js:280:3)
+    at Root (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-5Q2DL7Z2.js:256:3)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at div
+    at Gutter (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1997:3)
+    at main
+    at div
+    at div
+    at KeybindProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:463:3)
+    at Shell (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1931:3)
+    at MainLayout
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at SearchProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1369:3)
+    at SidebarProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:165:3)
+    at ProtectedRoute (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1432:7)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at DataRoutes (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5282:5)
+    at Router (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4544:15)
+    at RouterProvider (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5096:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithDefaultLocale (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35803:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35810:9)
+    at I18nProvider
+    at ThemeProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:109:3)
+    at QueryClientProvider (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:2829:3)
+    at _a (http://localhost:7002/node_modules/.vite/deps/react-helmet-async.js?v=dc9b2c6f:624:5)
+    at Provider4 (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:313:15)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:11505:5)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:55859:26)
+    at App (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:4882:18)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:7002/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=958d8fd5:14031
+[  848875ms] [ERROR] React Router caught the following error during render TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 {componentStack: 
+    at PromotionListDataTable (http://localhost:7…ouse/mercur/packages/admin/dist/index.js:4882:18)} @ http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4117
+[  848875ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  848876ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-ZN7LWXVC.js:124:47)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  849419ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/price-lists?limit=20&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/price-lists:0
+[  849419ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/price-lists?limit=20&offset=0:0
+[  850422ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/price-lists?limit=20&offset=0' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/price-lists:0
+[  850422ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/price-lists?limit=20&offset=0:0
+[  850423ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  850423ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  850423ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  850424ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  850424ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  850424ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  850424ms] [ERROR] The above error occurred in the <PriceListListDataTable> component:
+
+    at PriceListListDataTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-NHHZHVP6.js:249:7)
+    at div
+    at http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:56247:40
+    at PriceListListTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-NHHZHVP6.js:314:3)
+    at div
+    at SingleColumnPage (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-XIZLPYEE.js:280:3)
+    at Root (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-NHHZHVP6.js:328:3)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at div
+    at Gutter (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1997:3)
+    at main
+    at div
+    at div
+    at KeybindProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:463:3)
+    at Shell (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1931:3)
+    at MainLayout
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at SearchProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1369:3)
+    at SidebarProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:165:3)
+    at ProtectedRoute (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1432:7)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at DataRoutes (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5282:5)
+    at Router (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4544:15)
+    at RouterProvider (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5096:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithDefaultLocale (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35803:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35810:9)
+    at I18nProvider
+    at ThemeProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:109:3)
+    at QueryClientProvider (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:2829:3)
+    at _a (http://localhost:7002/node_modules/.vite/deps/react-helmet-async.js?v=dc9b2c6f:624:5)
+    at Provider4 (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:313:15)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:11505:5)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:55859:26)
+    at App (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:4882:18)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:7002/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=958d8fd5:14031
+[  850424ms] [ERROR] React Router caught the following error during render TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 {componentStack: 
+    at PriceListListDataTable (http://localhost:7…ouse/mercur/packages/admin/dist/index.js:4882:18)} @ http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4117
+[  850426ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  850426ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  851771ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  851771ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-DBNPVU3L.js:34:41)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  851801ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/payouts?limit=10&offset=0&order=-created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/payouts:0
+[  851801ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/payouts?limit=10&offset=0&order=-created_at:0
+[  852811ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/payouts?limit=10&offset=0&order=-created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/payouts:0
+[  852811ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/payouts?limit=10&offset=0&order=-created_at:0
+[  852833ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  852812ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  852812ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  852833ms] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11
+[  852813ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  852813ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  852814ms] [ERROR] The above error occurred in the <PayoutListDataTable> component:
+
+    at PayoutListDataTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-OVB4R5U5.js:65:7)
+    at div
+    at http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:56247:40
+    at PayoutListTable (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-OVB4R5U5.js:121:3)
+    at div
+    at SingleColumnPage (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-XIZLPYEE.js:280:3)
+    at Root (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-OVB4R5U5.js:132:3)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at div
+    at Gutter (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1997:3)
+    at main
+    at div
+    at div
+    at KeybindProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:463:3)
+    at Shell (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1931:3)
+    at MainLayout
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at Outlet (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4537:26)
+    at SearchProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1369:3)
+    at SidebarProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:165:3)
+    at ProtectedRoute (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:1432:7)
+    at RenderedRoute (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4131:5)
+    at RenderErrorBoundary (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4091:5)
+    at DataRoutes (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5282:5)
+    at Router (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4544:15)
+    at RouterProvider (http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:5096:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithDefaultLocale (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35803:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:35810:9)
+    at I18nProvider
+    at ThemeProvider (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:109:3)
+    at QueryClientProvider (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:2829:3)
+    at _a (http://localhost:7002/node_modules/.vite/deps/react-helmet-async.js?v=dc9b2c6f:624:5)
+    at Provider4 (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:313:15)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/chunk-6NMXABDH.js?v=958d8fd5:11505:5)
+    at TooltipProvider (http://localhost:7002/node_modules/.vite/deps/@medusajs_ui.js?v=37eee552:55859:26)
+    at App (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:4882:18)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:7002/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=958d8fd5:14031
+[  852814ms] [ERROR] React Router caught the following error during render TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 {componentStack: 
+    at PayoutListDataTable (http://localhost:7002…ouse/mercur/packages/admin/dist/index.js:4882:18)} @ http://localhost:7002/node_modules/.vite/deps/react-router-dom.js?v=37eee552:4117
+[  852815ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  852815ms] [ERROR] TypeError: Failed to fetch
+    at http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2634:12
+    at Object.apply (http://localhost:7002/node_modules/.vite/deps/@mercurjs_client.js?v=37eee552:2583:14)
+    at queryFn (http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/chunk-LAPEZATU.js:22:38)
+    at Object.fetchFn [as fn] (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:839:14)
+    at run (http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:493:49)
+    at http://localhost:7002/node_modules/.vite/deps/@tanstack_react-query.js?v=37eee552:518:11 @ http://localhost:7002/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/admin/dist/index.js:2590
+[  863637ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/payouts:0
+[  863637ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  864641ms] [ERROR] Access to fetch at 'http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at' from origin 'http://localhost:7002' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:7002/payouts:0
+[  864641ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:9001/admin/notifications?limit=1&offset=0&fields=created_at:0

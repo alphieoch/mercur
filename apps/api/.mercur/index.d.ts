@@ -434,6 +434,7 @@ export type Routes = {
         reviews: typeof import("../../src/api/admin/reviews/route") & {
             $id: typeof import("../../src/api/admin/reviews/[id]/route");
         };
+        typesense: typeof import("../../src/api/admin/typesense/route");
     };
     auth: {
         $actorType: {
@@ -506,6 +507,7 @@ export type Routes = {
         };
         products: typeof import("@medusajs/medusa/api/store/products/route") & {
             $id: typeof import("@medusajs/medusa/api/store/products/[id]/route");
+            search: typeof import("../../src/api/store/products/search/route");
         };
         regions: typeof import("@medusajs/medusa/api/store/regions/route") & {
             $id: typeof import("@medusajs/medusa/api/store/regions/[id]/route");

@@ -1,0 +1,22 @@
+[   43392ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/dk/sellers/heritage-meat-co:0
+[   43643ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[   43888ms] RangeError: Invalid time value
+    at format (http://localhost:3000/_next/static/chunks/7578a_date-fns_86057b2f._.js:2283:15)
+    at SellerFooter (http://localhost:3000/_next/static/chunks/apps_storefront_src_components_organisms_33045fce._.js:1423:251)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:13072:24)
+    at renderWithHooks (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:4091:24)
+    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:5523:21)
+    at beginWork (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:6090:639)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:886:74)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8298:97)
+    at workLoopSync (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8190:40)
+    at renderRootSync (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8173:13)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:7932:56)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8882:9)
+    at MessagePort.performWorkUntilDeadline (http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_3ef33c25._.js:2601:64)
+[   85180ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[   85182ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:6282
+[   85210ms] [LOG] [Fast Refresh] done in 76ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[   85373ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[   85401ms] [LOG] [Fast Refresh] done in 128ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[   85913ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537

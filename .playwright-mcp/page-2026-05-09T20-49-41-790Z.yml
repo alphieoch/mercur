@@ -1,0 +1,10 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - heading "Page not found" [level=1] [ref=e3]
+    - paragraph [ref=e4]: The page you tried to access does not exist.
+    - link "Go to frontpage" [ref=e5] [cursor=pointer]:
+      - /url: /dk
+      - text: Go to frontpage
+      - img [ref=e6]
+  - region "Notifications alt+T"
+  - alert [ref=e8]

@@ -1,0 +1,359 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+      - link "Logo" [ref=e12] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Shipping to
+          - button "DK flag DK" [ref=e18]:
+            - generic [ref=e20]:
+              - img "DK flag" [ref=e21]
+              - text: DK
+        - link "Go to user profile" [ref=e23] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e24]
+        - link "Go to cart" [ref=e28] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e29]
+    - generic [ref=e34]:
+      - navigation "Category navigation" [ref=e35]:
+        - link "All Products" [ref=e36] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e40]:
+        - button "Search" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - searchbox "Search product" [ref=e45]
+  - main [ref=e46]:
+    - navigation "Breadcrumb" [ref=e48]:
+      - list [ref=e49]:
+        - listitem [ref=e50]:
+          - link "All Products" [ref=e51] [cursor=pointer]:
+            - /url: /dk
+    - heading "All Products" [level=1] [ref=e52]
+    - generic [ref=e53]:
+      - generic [ref=e55]: 6 listings
+      - generic [ref=e56]:
+        - complementary [ref=e57]:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - heading "Price" [level=4]
+                  - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img
+                            - spinbutton
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img
+                            - spinbutton
+              - generic:
+                - generic:
+                  - heading "Size" [level=4]
+                  - img
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - button "One size"
+                      - listitem:
+                        - button "1"
+                      - listitem:
+                        - button "3"
+                      - listitem:
+                        - button "3.5"
+                      - listitem:
+                        - button "4"
+                      - listitem:
+                        - button "4.5"
+                      - listitem:
+                        - button "5"
+                      - listitem:
+                        - button "5.5"
+                      - listitem:
+                        - button "6"
+                      - listitem:
+                        - button "6.5"
+                      - listitem:
+                        - button "7"
+                      - listitem:
+                        - button "7.5"
+                      - listitem:
+                        - button "8"
+                      - listitem:
+                        - button "8.5"
+              - generic:
+                - generic:
+                  - heading "Color" [level=4]
+                  - img
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Black (40)"
+                          - paragraph:
+                            - text: Black
+                            - generic: (40)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Grey (78)"
+                          - paragraph:
+                            - text: Grey
+                            - generic: (78)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "White (7)"
+                          - paragraph:
+                            - text: White
+                            - generic: (7)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Yellow (7)"
+                          - paragraph:
+                            - text: Yellow
+                            - generic: (7)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Red (16)"
+                          - paragraph:
+                            - text: Red
+                            - generic: (16)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Orange 0" [disabled]
+                          - paragraph: Orange 0
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Blue (46)"
+                          - paragraph:
+                            - text: Blue
+                            - generic: (46)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Navi (87)"
+                          - paragraph:
+                            - text: Navi
+                            - generic: (87)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Green (32)"
+                          - paragraph:
+                            - text: Green
+                            - generic: (32)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Multi (6)"
+                          - paragraph:
+                            - text: Multi
+                            - generic: (6)
+              - generic:
+                - generic:
+                  - heading "Condition" [level=4]
+                  - img
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "New (78)"
+                          - paragraph:
+                            - text: New
+                            - generic: (78)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "New - With tags (40)"
+                          - paragraph:
+                            - text: New - With tags
+                            - generic: (40)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Used - Excellent (7)"
+                          - paragraph:
+                            - text: Used - Excellent
+                            - generic: (7)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Used - Good (16)"
+                          - paragraph:
+                            - text: Used - Good
+                            - generic: (16)
+                      - listitem:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - checkbox "Used - Fair 0" [disabled]
+                          - paragraph: Used - Fair 0
+          - generic [ref=e58]: Set your Algolia ID and configure filters to enable product filtering
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - generic [ref=e62]:
+                - link "View Heritage Breed Pork Chops" [ref=e63] [cursor=pointer]:
+                  - /url: /dk/products/heritage-breed-pork-chops
+                  - img "Heritage Breed Pork Chops image" [ref=e65]
+                - link "See more about Heritage Breed Pork Chops":
+                  - /url: /dk/products/heritage-breed-pork-chops
+              - link "Go to Heritage Breed Pork Chops page" [ref=e66] [cursor=pointer]:
+                - /url: /dk/products/heritage-breed-pork-chops
+                - generic [ref=e68]:
+                  - heading "Heritage Breed Pork Chops" [level=3] [ref=e69]
+                  - paragraph [ref=e71]: €11.04
+            - generic [ref=e72]:
+              - generic [ref=e73]:
+                - link "View Grass-Fed Ground Beef" [ref=e74] [cursor=pointer]:
+                  - /url: /dk/products/grass-fed-ground-beef
+                  - img "Grass-Fed Ground Beef image" [ref=e76]
+                - link "See more about Grass-Fed Ground Beef":
+                  - /url: /dk/products/grass-fed-ground-beef
+              - link "Go to Grass-Fed Ground Beef page" [ref=e77] [cursor=pointer]:
+                - /url: /dk/products/grass-fed-ground-beef
+                - generic [ref=e79]:
+                  - heading "Grass-Fed Ground Beef" [level=3] [ref=e80]
+                  - paragraph [ref=e82]: €8.74
+            - generic [ref=e83]:
+              - generic [ref=e84]:
+                - link "View Farm Fresh Eggs" [ref=e85] [cursor=pointer]:
+                  - /url: /dk/products/farm-fresh-eggs
+                  - img "Farm Fresh Eggs image" [ref=e87]
+                - link "See more about Farm Fresh Eggs":
+                  - /url: /dk/products/farm-fresh-eggs
+              - link "Go to Farm Fresh Eggs page" [ref=e88] [cursor=pointer]:
+                - /url: /dk/products/farm-fresh-eggs
+                - generic [ref=e90]:
+                  - heading "Farm Fresh Eggs" [level=3] [ref=e91]
+                  - paragraph [ref=e93]: €5.98
+            - generic [ref=e94]:
+              - generic [ref=e95]:
+                - link "View Raw Whole Milk" [ref=e96] [cursor=pointer]:
+                  - /url: /dk/products/raw-whole-milk
+                  - img "Raw Whole Milk image" [ref=e98]
+                - link "See more about Raw Whole Milk":
+                  - /url: /dk/products/raw-whole-milk
+              - link "Go to Raw Whole Milk page" [ref=e99] [cursor=pointer]:
+                - /url: /dk/products/raw-whole-milk
+                - generic [ref=e101]:
+                  - heading "Raw Whole Milk" [level=3] [ref=e102]
+                  - paragraph [ref=e104]: €7.36
+            - generic [ref=e105]:
+              - generic [ref=e106]:
+                - link "View Fresh Mixed Salad Greens" [ref=e107] [cursor=pointer]:
+                  - /url: /dk/products/fresh-mixed-salad-greens
+                  - img "Fresh Mixed Salad Greens image" [ref=e109]
+                - link "See more about Fresh Mixed Salad Greens":
+                  - /url: /dk/products/fresh-mixed-salad-greens
+              - link "Go to Fresh Mixed Salad Greens page" [ref=e110] [cursor=pointer]:
+                - /url: /dk/products/fresh-mixed-salad-greens
+                - generic [ref=e112]:
+                  - heading "Fresh Mixed Salad Greens" [level=3] [ref=e113]
+                  - paragraph [ref=e115]: €5.52
+            - generic [ref=e116]:
+              - generic [ref=e117]:
+                - link "View Organic Heirloom Tomatoes" [ref=e118] [cursor=pointer]:
+                  - /url: /dk/products/organic-heirloom-tomatoes
+                  - img "Organic Heirloom Tomatoes image" [ref=e120]
+                - link "See more about Organic Heirloom Tomatoes":
+                  - /url: /dk/products/organic-heirloom-tomatoes
+              - link "Go to Organic Heirloom Tomatoes page" [ref=e121] [cursor=pointer]:
+                - /url: /dk/products/organic-heirloom-tomatoes
+                - generic [ref=e123]:
+                  - heading "Organic Heirloom Tomatoes" [level=3] [ref=e124]
+                  - paragraph [ref=e126]: €4.14
+          - generic [ref=e128]:
+            - button "Previous page" [disabled] [ref=e129]:
+              - img [ref=e130]
+            - button "Current page, page 1" [ref=e132] [cursor=pointer]: "1"
+            - button "Next page" [disabled] [ref=e133]:
+              - img [ref=e134]
+  - contentinfo [ref=e136]:
+    - generic [ref=e137]:
+      - generic [ref=e138]:
+        - heading "Customer services" [level=2] [ref=e139]
+        - navigation "Customer services navigation" [ref=e140]:
+          - link "FAQs" [ref=e141] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e142] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e143] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e144] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e145] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e146]:
+        - heading "About" [level=2] [ref=e147]
+        - navigation "About navigation" [ref=e148]:
+          - link "About us" [ref=e149] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e150] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e151] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e152] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e153]:
+        - heading "connect" [level=2] [ref=e154]
+        - navigation "Social media navigation" [ref=e155]:
+          - link "Go to Facebook page" [ref=e156] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e157] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e158] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e160]: © 2024 Farm Marketplace
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e166] [cursor=pointer]:
+    - img [ref=e167]
+  - alert [ref=e170]

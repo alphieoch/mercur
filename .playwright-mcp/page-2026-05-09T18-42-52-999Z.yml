@@ -1,0 +1,234 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+      - link "Logo" [ref=e12] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Shipping to
+          - button "DK flag DK" [ref=e18]:
+            - generic [ref=e20]:
+              - img "DK flag" [ref=e21]
+              - text: DK
+        - link "Go to user profile" [ref=e23] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e24]
+        - link "Go to cart" [ref=e28] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e29]
+    - generic [ref=e34]:
+      - navigation "Category navigation" [ref=e35]:
+        - link "All Products" [ref=e36] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e40]:
+        - button "Search" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+        - searchbox "Search product" [ref=e45]
+  - main [ref=e46]:
+    - generic [ref=e47]:
+      - img "Hero banner - Fresh from the farm to your table" [ref=e48]
+      - generic [ref=e49]:
+        - generic [ref=e51]:
+          - heading "Fresh from the farm to your table" [level=2] [ref=e52]
+          - paragraph [ref=e53]: Discover locally grown produce, pasture-raised meats, artisan dairy, and more from trusted farmers in your community.
+        - generic [ref=e54]:
+          - link "Buy now" [ref=e55] [cursor=pointer]:
+            - /url: /categories
+            - generic [ref=e56]: Buy now
+            - img [ref=e57]
+          - link "Sell now" [ref=e59] [cursor=pointer]:
+            - /url: http://localhost:7001
+            - generic [ref=e60]: Sell now
+            - img [ref=e61]
+    - generic [ref=e64]:
+      - heading "trending listings" [level=2] [ref=e65]
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - generic [ref=e71]:
+            - link "View Organic Heirloom Tomatoes" [ref=e72] [cursor=pointer]:
+              - /url: /dk/products/organic-heirloom-tomatoes
+              - img "Organic Heirloom Tomatoes image" [ref=e74]
+            - link "See more about Organic Heirloom Tomatoes":
+              - /url: /dk/products/organic-heirloom-tomatoes
+          - link "Go to Organic Heirloom Tomatoes page" [ref=e75] [cursor=pointer]:
+            - /url: /dk/products/organic-heirloom-tomatoes
+            - generic [ref=e77]:
+              - heading "Organic Heirloom Tomatoes" [level=3] [ref=e78]
+              - paragraph [ref=e80]: €4.14
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - link "View Fresh Mixed Salad Greens" [ref=e83] [cursor=pointer]:
+              - /url: /dk/products/fresh-mixed-salad-greens
+              - img "Fresh Mixed Salad Greens image" [ref=e85]
+            - link "See more about Fresh Mixed Salad Greens":
+              - /url: /dk/products/fresh-mixed-salad-greens
+          - link "Go to Fresh Mixed Salad Greens page" [ref=e86] [cursor=pointer]:
+            - /url: /dk/products/fresh-mixed-salad-greens
+            - generic [ref=e88]:
+              - heading "Fresh Mixed Salad Greens" [level=3] [ref=e89]
+              - paragraph [ref=e91]: €5.52
+        - generic [ref=e92]:
+          - generic [ref=e93]:
+            - link "View Raw Whole Milk" [ref=e94] [cursor=pointer]:
+              - /url: /dk/products/raw-whole-milk
+              - img "Raw Whole Milk image" [ref=e96]
+            - link "See more about Raw Whole Milk":
+              - /url: /dk/products/raw-whole-milk
+          - link "Go to Raw Whole Milk page" [ref=e97] [cursor=pointer]:
+            - /url: /dk/products/raw-whole-milk
+            - generic [ref=e99]:
+              - heading "Raw Whole Milk" [level=3] [ref=e100]
+              - paragraph [ref=e102]: €7.36
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - link "View Farm Fresh Eggs" [ref=e105] [cursor=pointer]:
+              - /url: /dk/products/farm-fresh-eggs
+              - img "Farm Fresh Eggs image" [ref=e107]
+            - link "See more about Farm Fresh Eggs":
+              - /url: /dk/products/farm-fresh-eggs
+          - link "Go to Farm Fresh Eggs page" [ref=e108] [cursor=pointer]:
+            - /url: /dk/products/farm-fresh-eggs
+            - generic [ref=e110]:
+              - heading "Farm Fresh Eggs" [level=3] [ref=e111]
+              - paragraph [ref=e113]: €5.98
+    - generic [ref=e115]:
+      - heading "SHOP BY CATEGORY" [level=2] [ref=e117]
+      - generic [ref=e120]:
+        - link "category - Produce Produce" [ref=e121] [cursor=pointer]:
+          - /url: /dk/categories/produce
+          - img "category - Produce" [ref=e123]
+          - heading "Produce" [level=3] [ref=e124]
+        - link "category - Dairy & Eggs Dairy & Eggs" [ref=e125] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+          - img "category - Dairy & Eggs" [ref=e127]
+          - heading "Dairy & Eggs" [level=3] [ref=e128]
+        - link "category - Meat & Poultry Meat & Poultry" [ref=e129] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+          - img "category - Meat & Poultry" [ref=e131]
+          - heading "Meat & Poultry" [level=3] [ref=e132]
+        - link "category - Pantry Pantry" [ref=e133] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+          - img "category - Pantry" [ref=e135]
+          - heading "Pantry" [level=3] [ref=e136]
+        - link "category - Plants & Seeds Plants & Seeds" [ref=e137] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+          - img "category - Plants & Seeds" [ref=e139]
+          - heading "Plants & Seeds" [level=3] [ref=e140]
+    - generic [ref=e142]:
+      - generic [ref=e143]:
+        - generic [ref=e144]:
+          - generic [ref=e145]: "#SEASONAL"
+          - 'heading "HARVEST COLLECTION: FRESH FROM THE FIELD" [level=2] [ref=e146]'
+          - paragraph [ref=e147]: Explore our seasonal harvest featuring the freshest produce, pasture-raised meats, and artisan goods from local farms.
+        - link "EXPLORE" [ref=e148] [cursor=pointer]:
+          - /url: /dk/categories
+          - button "EXPLORE" [ref=e149]
+      - img "Fresh farm harvest - seasonal produce and goods" [ref=e151]
+    - generic [ref=e152]:
+      - heading "SHOP BY VALUES" [level=2] [ref=e153]
+      - generic [ref=e154]:
+        - generic [ref=e155]:
+          - link "ORGANIC" [ref=e156] [cursor=pointer]:
+            - /url: /dk/categories/produce
+            - generic [ref=e157]: ORGANIC
+            - img [ref=e158]
+          - link "PASTURE-RAISED" [ref=e160] [cursor=pointer]:
+            - /url: /dk/categories/meat-poultry
+            - generic [ref=e161]: PASTURE-RAISED
+            - img [ref=e162]
+          - link "LOCAL" [ref=e164] [cursor=pointer]:
+            - /url: /dk/categories
+            - generic [ref=e165]: LOCAL
+            - img [ref=e166]
+          - link "SUSTAINABLE" [ref=e168] [cursor=pointer]:
+            - /url: /dk/categories
+            - generic [ref=e169]: SUSTAINABLE
+            - img [ref=e170]
+          - link "SEASONAL" [ref=e172] [cursor=pointer]:
+            - /url: /dk/categories/produce
+            - generic [ref=e173]: SEASONAL
+            - img [ref=e174]
+        - img "Sustainable farming practices" [ref=e177]
+    - generic [ref=e178]:
+      - heading "STAY UP TO DATE" [level=2] [ref=e180]
+      - generic [ref=e181]:
+        - 'link "What''s in Season: Spring Produce Guide What''s in Season: Spring Produce Guide Discover the freshest spring vegetables and fruits hitting our marketplace this month from local organic farms. Read more" [ref=e182] [cursor=pointer]':
+          - /url: /dk#
+          - 'img "What''s in Season: Spring Produce Guide" [ref=e184]'
+          - generic [ref=e185]:
+            - 'heading "What''s in Season: Spring Produce Guide" [level=3] [ref=e186]'
+            - paragraph [ref=e187]: Discover the freshest spring vegetables and fruits hitting our marketplace this month from local organic farms.
+            - generic [ref=e188]:
+              - text: Read more
+              - img [ref=e189]
+        - 'link "Meet the Farmers: Heritage Meat Co. Meet the Farmers: Heritage Meat Co. Learn how Heritage Meat Co. raises ethically bred Berkshire hogs and grass-fed cattle on open pastures. Read more" [ref=e191] [cursor=pointer]':
+          - /url: /dk#
+          - 'img "Meet the Farmers: Heritage Meat Co." [ref=e193]'
+          - generic [ref=e194]:
+            - 'heading "Meet the Farmers: Heritage Meat Co." [level=3] [ref=e195]'
+            - paragraph [ref=e196]: Learn how Heritage Meat Co. raises ethically bred Berkshire hogs and grass-fed cattle on open pastures.
+            - generic [ref=e197]:
+              - text: Read more
+              - img [ref=e198]
+        - 'link "Raw Milk: Benefits & Safety Raw Milk: Benefits & Safety Everything you need to know about raw dairy, from nutritional benefits to safe handling practices at home. Read more" [ref=e200] [cursor=pointer]':
+          - /url: /dk#
+          - 'img "Raw Milk: Benefits & Safety" [ref=e202]'
+          - generic [ref=e203]:
+            - 'heading "Raw Milk: Benefits & Safety" [level=3] [ref=e204]'
+            - paragraph [ref=e205]: Everything you need to know about raw dairy, from nutritional benefits to safe handling practices at home.
+            - generic [ref=e206]:
+              - text: Read more
+              - img [ref=e207]
+  - contentinfo [ref=e209]:
+    - generic [ref=e210]:
+      - generic [ref=e211]:
+        - heading "Customer services" [level=2] [ref=e212]
+        - navigation "Customer services navigation" [ref=e213]:
+          - link "FAQs" [ref=e214] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e215] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e216] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e217] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e218] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e219]:
+        - heading "About" [level=2] [ref=e220]
+        - navigation "About navigation" [ref=e221]:
+          - link "About us" [ref=e222] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e223] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e224] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e225] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e226]:
+        - heading "connect" [level=2] [ref=e227]
+        - navigation "Social media navigation" [ref=e228]:
+          - link "Go to Facebook page" [ref=e229] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e230] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e231] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e233]: © 2024 Farm Marketplace
+  - region "Notifications alt+T"
+  - alert [ref=e234]
