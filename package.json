@@ -10,6 +10,7 @@
     "check-types": "turbo run check-types"
   },
   "dependencies": {
+    "@medusajs/core-flows": "2.13.4",
     "@mercurjs/core": "workspace:*"
   },
   "devDependencies": {

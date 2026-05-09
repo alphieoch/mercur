@@ -430,6 +430,10 @@ export type Routes = {
             $id: typeof import("@mercurjs/core/api/admin/sellers/[id]/route");
         };
         custom: typeof import("../../src/api/admin/custom/route");
+        meilisearch: typeof import("../../src/api/admin/meilisearch/route");
+        reviews: typeof import("../../src/api/admin/reviews/route") & {
+            $id: typeof import("../../src/api/admin/reviews/[id]/route");
+        };
     };
     auth: {
         $actorType: {
@@ -522,6 +526,19 @@ export type Routes = {
             $id: typeof import("@mercurjs/core/api/store/sellers/[id]/route");
         };
         custom: typeof import("../../src/api/store/custom/route");
+        meilisearch: {
+            products: {
+                search: typeof import("../../src/api/store/meilisearch/products/search/route");
+            };
+        };
+        reviews: typeof import("../../src/api/store/reviews/route") & {
+            $id: typeof import("../../src/api/store/reviews/[id]/route");
+        };
+        wishlist: typeof import("../../src/api/store/wishlist/route") & {
+            product: {
+                $referenceId: typeof import("../../src/api/store/wishlist/product/[reference_id]/route");
+            };
+        };
     };
     vendor: {
         campaigns: typeof import("@mercurjs/core/api/vendor/campaigns/route") & {
@@ -613,6 +630,8 @@ export type Routes = {
                     $variantId: typeof import("@mercurjs/core/api/vendor/products/[id]/variants/[variant_id]/route");
                 };
             };
+            export: typeof import("../../src/api/vendor/products/export/route");
+            import: typeof import("../../src/api/vendor/products/import/route");
         };
         promotions: typeof import("@mercurjs/core/api/vendor/promotions/route") & {
             $id: typeof import("@mercurjs/core/api/vendor/promotions/[id]/route") & {
@@ -695,5 +714,9 @@ export type Routes = {
             };
         };
         uploads: typeof import("@mercurjs/core/api/vendor/uploads/route");
+        reviews: typeof import("../../src/api/vendor/reviews/route") & {
+            $id: typeof import("../../src/api/vendor/reviews/[id]/route");
+        };
     };
+    seedFarm: typeof import("../../src/api/seed-farm/route");
 };

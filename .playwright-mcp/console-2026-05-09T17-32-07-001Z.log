@@ -1,0 +1,262 @@
+[      95ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/:0
+[     195ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0c19c_react-dom_69b2f7ae._.js:15305
+[     240ms] Error: A valid publishable key is required to proceed with the request
+    at <unknown> (file:///Users/alphie/Project Farmhouse/mercur/apps/storefront/.next/server/edge/chunks/[root-of-the-server]__bcf4639b._.js:204:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async getRegionMap (file:///Users/alphie/Project Farmhouse/mercur/apps/storefront/.next/server/edge/chunks/[root-of-the-server]__bcf4639b._.js:190:29)
+    at async middleware (file:///Users/alphie/Project Farmhouse/mercur/apps/storefront/.next/server/edge/chunks/[root-of-the-server]__bcf4639b._.js:278:23)
+    at async (file:///Users/alphie/Project Farmhouse/mercur/apps/storefront/.next/server/edge/chunks/_06024f6a._.js:12809:20)
+    at async (file:///Users/alphie/Project Farmhouse/mercur/apps/storefront/.next/server/edge/chunks/_06024f6a._.js:7588:28)
+    at async adapter (file:///Users/alphie/Project Farmhouse/mercur/apps/storefront/.next/server/edge/chunks/_06024f6a._.js:7543:16)
+    at async (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/web/sandbox/sandbox.js:112:26)
+    at async runWithTaggedErrors (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/web/sandbox/sandbox.js:109:9)
+    at async DevServer.runMiddleware (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/next-server.js:1261:22)
+[     239ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2207
+[   86373ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2495
+[   86408ms] [LOG] [Fast Refresh] done in 16ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2355
+[   86654ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2495
+[   88400ms] [ERROR] ./apps/storefront/src/lib/helpers/toast.tsx:1:1
+Module not found: Can't resolve 'sonner'
+> 1 | import { toast as sonnerToast } from 'sonner';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | import { DoneIcon, ErrorIcon, CloseIcon } from '@/icons';
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/Header/Header.tsx [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/ProductDetailsHeader/ProductDetailsHeader.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/organisms/ProductSidebar/ProductSidebar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/ProductSidebar/ProductSidebar.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_a733ae88._.js:1747
+[   88402ms] [LOG] {file: Object} @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_next-devtools_index_a25e2e42.js:16058
+[   88509ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2495
+[   88590ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/dk:0
+[   88695ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0c19c_react-dom_69b2f7ae._.js:15305
+[   88703ms] Error: ./apps/storefront/src/lib/helpers/toast.tsx:1:1
+Module not found: Can't resolve 'sonner'
+> 1 | import { toast as sonnerToast } from 'sonner';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | import { DoneIcon, ErrorIcon, CloseIcon } from '@/icons';
+  4 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/Header/Header.tsx [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/ProductDetailsHeader/ProductDetailsHeader.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/organisms/ProductSidebar/ProductSidebar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/ProductSidebar/ProductSidebar.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./apps/storefront/src/lib/helpers/toast.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at Object.getCompilationErrors (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:775:59)
+    at DevBundlerService.getCompilationError (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/lib/dev-bundler-service.js:39:55)
+    at DevServer.getCompilationError (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/dev/next-dev-server.js:720:42)
+    at DevServer.findPageComponents (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/dev/next-dev-server.js:690:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/base-server.js:1687:26)
+[   88707ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2207
+[   88711ms] [ERROR] ./apps/storefront/src/lib/helpers/toast.tsx:1:1
+Module not found: Can't resolve 'sonner'
+> 1 | import { toast as sonnerToast } from 'sonner';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | import { DoneIcon, ErrorIcon, CloseIcon } from '@/icons';
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/Header/Header.tsx [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/ProductDetailsHeader/ProductDetailsHeader.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/organisms/ProductSidebar/ProductSidebar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/ProductSidebar/ProductSidebar.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_a733ae88._.js:1747
+[   88712ms] [LOG] {file: Object} @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_next-devtools_index_a25e2e42.js:16058
+[   88803ms] [ERROR] ./apps/storefront/src/lib/helpers/toast.tsx:1:1
+Module not found: Can't resolve 'sonner'
+> 1 | import { toast as sonnerToast } from 'sonner';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | import { DoneIcon, ErrorIcon, CloseIcon } from '@/icons';
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/Header/Header.tsx [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/ProductDetailsHeader/ProductDetailsHeader.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/organisms/ProductSidebar/ProductSidebar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/ProductSidebar/ProductSidebar.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_a733ae88._.js:1747
+[   88816ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/favicon.ico:0
+[   88832ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2495
+[   92141ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2250
+[   93144ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2250
+[   94760ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2207
+[  101537ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/dk:0
+[  101599ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0c19c_react-dom_69b2f7ae._.js:15305
+[  101605ms] Error: ./apps/storefront/src/lib/helpers/toast.tsx:1:1
+Module not found: Can't resolve 'sonner'
+> 1 | import { toast as sonnerToast } from 'sonner';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | import { DoneIcon, ErrorIcon, CloseIcon } from '@/icons';
+  4 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Reviews/ReviewsToWrite.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Reviews/ReviewsToWrite.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component SSR]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/Header/Header.tsx [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./apps/storefront/src/lib/helpers/toast.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at Object.getCompilationErrors (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:775:59)
+    at DevBundlerService.getCompilationError (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/lib/dev-bundler-service.js:39:55)
+    at DevServer.getCompilationError (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/dev/next-dev-server.js:720:42)
+    at DevServer.findPageComponents (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/dev/next-dev-server.js:690:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/alphie/Project Farmhouse/mercur/node_modules/.bun/next@15.5.9+832699bcfd442582/node_modules/next/dist/server/base-server.js:1687:26)
+[  101606ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2207
+[  101608ms] [ERROR] ./apps/storefront/src/lib/helpers/toast.tsx:1:1
+Module not found: Can't resolve 'sonner'
+> 1 | import { toast as sonnerToast } from 'sonner';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | import { DoneIcon, ErrorIcon, CloseIcon } from '@/icons';
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Reviews/ReviewsToWrite.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Reviews/ReviewsToWrite.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component SSR]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/Header/Header.tsx [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_a733ae88._.js:1747
+[  101627ms] [LOG] {file: Object} @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_next-devtools_index_a25e2e42.js:16058
+[  101708ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2495
+[  101804ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/favicon.ico:0
+[  101828ms] [ERROR] ./apps/storefront/src/lib/helpers/toast.tsx:1:1
+Module not found: Can't resolve 'sonner'
+> 1 | import { toast as sonnerToast } from 'sonner';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | import { DoneIcon, ErrorIcon, CloseIcon } from '@/icons';
+  4 |
+
+Import traces:
+  Client Component Browser:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Reviews/ReviewsToWrite.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Reviews/ReviewsToWrite.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/lib/helpers/toast.tsx [Client Component SSR]
+    ./apps/storefront/src/components/molecules/RegisterForm/RegisterForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/molecules/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/CartDropdown/CartDropdown.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/Header/Header.tsx [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_a733ae88._.js:1747
+[  197703ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2495
+[  198453ms] [LOG] [Fast Refresh] done in 822ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2355
+[  198597ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2495
+[  198676ms] [LOG] [Fast Refresh] done in 181ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_0e796bb7._.js:2355
+[  201036ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[  201175ms] [WARNING] Image with src "/images/hero/Image.jpg" is using quality "50" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[  201337ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5949
+[  201386ms] [LOG] [Fast Refresh] done in 150ms @ http://localhost:3000/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5809
+[  205499ms] [WARNING] The resource http://localhost:3000/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/dk:0

@@ -6,6 +6,7 @@ loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 module.exports = withMercur({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
+    redisUrl: process.env.REDIS_URL,
     http: {
       storeCors: process.env.STORE_CORS!,
       adminCors: process.env.ADMIN_CORS!,
@@ -33,6 +34,19 @@ module.exports = withMercur({
         appDir: '',
         path: '/seller',
         disable: true
+      }
+    },
+    {
+      resolve: './modules/reviews',
+    },
+    {
+      resolve: './modules/wishlist',
+    },
+    {
+      resolve: './modules/meilisearch',
+      options: {
+        host: process.env.MEILISEARCH_HOST || 'http://localhost:7700',
+        apiKey: process.env.MEILISEARCH_API_KEY || 'masterKey',
       }
     },
   ],

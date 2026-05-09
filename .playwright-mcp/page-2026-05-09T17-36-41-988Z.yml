@@ -1,0 +1,194 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - navigation "Parent categories" [ref=e5]:
+        - link "Produce" [ref=e6] [cursor=pointer]:
+          - /url: /dk/categories/produce
+        - link "Dairy & Eggs" [ref=e7] [cursor=pointer]:
+          - /url: /dk/categories/dairy-eggs
+        - link "Meat & Poultry" [ref=e8] [cursor=pointer]:
+          - /url: /dk/categories/meat-poultry
+        - link "Pantry" [ref=e9] [cursor=pointer]:
+          - /url: /dk/categories/pantry
+        - link "Plants & Seeds" [ref=e10] [cursor=pointer]:
+          - /url: /dk/categories/plants-seeds
+        - link "Shirts" [ref=e11] [cursor=pointer]:
+          - /url: /dk/categories/shirts
+        - link "Sweatshirts" [ref=e12] [cursor=pointer]:
+          - /url: /dk/categories/sweatshirts
+        - link "Pants" [ref=e13] [cursor=pointer]:
+          - /url: /dk/categories/pants
+        - link "Merch" [ref=e14] [cursor=pointer]:
+          - /url: /dk/categories/merch
+      - link "Logo" [ref=e16] [cursor=pointer]:
+        - /url: /dk
+        - img "Logo" [ref=e17]
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e20]: Shipping to
+          - button "DK flag DK" [ref=e22]:
+            - generic [ref=e24]:
+              - img "DK flag" [ref=e25]
+              - text: DK
+        - link "Go to user profile" [ref=e27] [cursor=pointer]:
+          - /url: /dk/login
+          - img [ref=e28]
+        - link "Go to cart" [ref=e32] [cursor=pointer]:
+          - /url: /dk/cart
+          - img [ref=e33]
+    - generic [ref=e38]:
+      - navigation "Category navigation" [ref=e39]:
+        - link "All Products" [ref=e40] [cursor=pointer]:
+          - /url: /dk/categories
+      - generic [ref=e44]:
+        - button "Search" [ref=e45] [cursor=pointer]:
+          - img [ref=e46]
+        - searchbox "Search product" [ref=e49]
+  - main [ref=e50]:
+    - generic [ref=e51]:
+      - img "Hero banner - Snag your style in a flash" [ref=e52]
+      - generic [ref=e53]:
+        - generic [ref=e55]:
+          - heading "Snag your style in a flash" [level=2] [ref=e56]
+          - paragraph [ref=e57]: Buy, sell, and discover pre-loved gems from the trendiest brands.
+        - generic [ref=e58]:
+          - link "Buy now" [ref=e59] [cursor=pointer]:
+            - /url: /categories
+            - generic [ref=e60]: Buy now
+            - img [ref=e61]
+          - link "Sell now" [ref=e63] [cursor=pointer]:
+            - /url: http://localhost:7001
+            - generic [ref=e64]: Sell now
+            - img [ref=e65]
+    - heading "trending listings" [level=2] [ref=e69]
+    - generic [ref=e71]:
+      - heading "SHOP BY CATEGORY" [level=2] [ref=e73]
+      - generic [ref=e76]:
+        - link "category - Sneakers Sneakers" [ref=e77] [cursor=pointer]:
+          - /url: /dk/categories/sneakers
+          - img "category - Sneakers" [ref=e79]
+          - heading "Sneakers" [level=3] [ref=e80]
+        - link "category - Sandals Sandals" [ref=e81] [cursor=pointer]:
+          - /url: /dk/categories/sandals
+          - img "category - Sandals" [ref=e83]
+          - heading "Sandals" [level=3] [ref=e84]
+        - link "category - Boots Boots" [ref=e85] [cursor=pointer]:
+          - /url: /dk/categories/boots
+          - img "category - Boots" [ref=e87]
+          - heading "Boots" [level=3] [ref=e88]
+        - link "category - Sport Sport" [ref=e89] [cursor=pointer]:
+          - /url: /dk/categories/sport
+          - img "category - Sport" [ref=e91]
+          - heading "Sport" [level=3] [ref=e92]
+        - link "category - Accessories Accessories" [ref=e93] [cursor=pointer]:
+          - /url: /dk/categories/accessories
+          - img "category - Accessories" [ref=e95]
+          - heading "Accessories" [level=3] [ref=e96]
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e101]: "#COLLECTION"
+          - 'heading "BOHO VIBES: WHERE COMFORT MEETS CREATIVITY" [level=2] [ref=e102]'
+          - paragraph [ref=e103]: Discover boho styles that inspire adventure and embrace the beauty of the unconventional.
+        - link "EXPLORE" [ref=e104] [cursor=pointer]:
+          - /url: /dk/collections/boho
+          - button "EXPLORE" [ref=e105]
+      - img "Boho fashion collection - Model wearing a floral dress with yellow boots" [ref=e107]
+    - generic [ref=e108]:
+      - heading "SHOP BY STYLE" [level=2] [ref=e109]
+      - generic [ref=e110]:
+        - generic [ref=e111]:
+          - link "LUXURY" [ref=e112] [cursor=pointer]:
+            - /url: /dk/collections/luxury
+            - generic [ref=e113]: LUXURY
+            - img [ref=e114]
+          - link "VINTAGE" [ref=e116] [cursor=pointer]:
+            - /url: /dk/collections/vintage
+            - generic [ref=e117]: VINTAGE
+            - img [ref=e118]
+          - link "CASUAL" [ref=e120] [cursor=pointer]:
+            - /url: /dk/collections/casual
+            - generic [ref=e121]: CASUAL
+            - img [ref=e122]
+          - link "STREETWEAR" [ref=e124] [cursor=pointer]:
+            - /url: /dk/collections/streetwear
+            - generic [ref=e125]: STREETWEAR
+            - img [ref=e126]
+          - link "Y2K" [ref=e128] [cursor=pointer]:
+            - /url: /dk/collections/y2k
+            - generic [ref=e129]: Y2K
+            - img [ref=e130]
+        - img "Models showcasing luxury fashion styles" [ref=e133]
+    - generic [ref=e134]:
+      - heading "STAY UP TO DATE" [level=2] [ref=e136]
+      - generic [ref=e137]:
+        - link "Summer's Most Elegant Accessories Summer's Most Elegant Accessories Discover this season's most sophisticated accessories that blend timeless elegance with modern design. Read more" [ref=e138] [cursor=pointer]:
+          - /url: /dk#
+          - img "Summer's Most Elegant Accessories" [ref=e140]
+          - generic [ref=e141]:
+            - heading "Summer's Most Elegant Accessories" [level=3] [ref=e142]
+            - paragraph [ref=e143]: Discover this season's most sophisticated accessories that blend timeless elegance with modern design.
+            - generic [ref=e144]:
+              - text: Read more
+              - img [ref=e145]
+        - link "The Season’s Hottest Trends The Season’s Hottest Trends From bold colors to nostalgic silhouettes, explore the must-have looks defining this season’s fashion narrative. Read more" [ref=e147] [cursor=pointer]:
+          - /url: /dk#
+          - img "The Season’s Hottest Trends" [ref=e149]
+          - generic [ref=e150]:
+            - heading "The Season’s Hottest Trends" [level=3] [ref=e151]
+            - paragraph [ref=e152]: From bold colors to nostalgic silhouettes, explore the must-have looks defining this season’s fashion narrative.
+            - generic [ref=e153]:
+              - text: Read more
+              - img [ref=e154]
+        - link "Minimalist Outerwear Trends Minimalist Outerwear Trends Explore the latest minimalist outerwear pieces that combine functionality with clean aesthetics. Read more" [ref=e156] [cursor=pointer]:
+          - /url: /dk#
+          - img "Minimalist Outerwear Trends" [ref=e158]
+          - generic [ref=e159]:
+            - heading "Minimalist Outerwear Trends" [level=3] [ref=e160]
+            - paragraph [ref=e161]: Explore the latest minimalist outerwear pieces that combine functionality with clean aesthetics.
+            - generic [ref=e162]:
+              - text: Read more
+              - img [ref=e163]
+  - contentinfo [ref=e165]:
+    - generic [ref=e166]:
+      - generic [ref=e167]:
+        - heading "Customer services" [level=2] [ref=e168]
+        - navigation "Customer services navigation" [ref=e169]:
+          - link "FAQs" [ref=e170] [cursor=pointer]:
+            - /url: /dk#
+          - link "Track Order" [ref=e171] [cursor=pointer]:
+            - /url: /dk#
+          - link "Returns" [ref=e172] [cursor=pointer]:
+            - /url: /dk#
+          - link "Delivery" [ref=e173] [cursor=pointer]:
+            - /url: /dk#
+          - link "Payment" [ref=e174] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e175]:
+        - heading "About" [level=2] [ref=e176]
+        - navigation "About navigation" [ref=e177]:
+          - link "About us" [ref=e178] [cursor=pointer]:
+            - /url: /dk#
+          - link "Blog" [ref=e179] [cursor=pointer]:
+            - /url: /dk#
+          - link "Privacy Policy" [ref=e180] [cursor=pointer]:
+            - /url: /dk#
+          - link "Terms & Conditions" [ref=e181] [cursor=pointer]:
+            - /url: /dk#
+      - generic [ref=e182]:
+        - heading "connect" [level=2] [ref=e183]
+        - navigation "Social media navigation" [ref=e184]:
+          - link "Go to Facebook page" [ref=e185] [cursor=pointer]:
+            - /url: https://facebook.com
+            - text: Facebook
+          - link "Go to Instagram page" [ref=e186] [cursor=pointer]:
+            - /url: https://instagram.com
+            - text: Instagram
+          - link "Go to LinekdIn page" [ref=e187] [cursor=pointer]:
+            - /url: https://linkedin.com
+            - text: LinekdIn
+    - paragraph [ref=e189]: © 2024 Fleek
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e195] [cursor=pointer]:
+    - img [ref=e196]
+  - alert [ref=e199]

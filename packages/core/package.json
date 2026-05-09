@@ -53,12 +53,12 @@
   },
   "devDependencies": {
     "cors": "^2.8.5",
-    "@medusajs/core-flows": "^2.13.4",
-    "@medusajs/cli": "^2.13.4",
-    "@medusajs/framework": "^2.13.4",
-    "@medusajs/icons": "^2.13.4",
-    "@medusajs/medusa": "^2.13.4",
-    "@medusajs/test-utils": "^2.13.4",
+    "@medusajs/core-flows": "2.13.4",
+    "@medusajs/cli": "2.13.4",
+    "@medusajs/framework": "2.13.4",
+    "@medusajs/icons": "2.13.4",
+    "@medusajs/medusa": "2.13.4",
+    "@medusajs/test-utils": "2.13.4",
     "@medusajs/ui": "4.1.1",
     "@mercurjs/types": "workspace:*",
     "@swc/core": "^1.7.28",
@@ -83,12 +83,12 @@
     "@mercurjs/cli": "workspace:*"
   },
   "peerDependencies": {
-    "@medusajs/admin-sdk": "^2.13.4",
-    "@medusajs/cli": "^2.13.4",
-    "@medusajs/framework": "^2.13.4",
-    "@medusajs/icons": "^2.13.4",
-    "@medusajs/medusa": "^2.13.4",
-    "@medusajs/test-utils": "^2.13.4",
+    "@medusajs/admin-sdk": "2.13.4",
+    "@medusajs/cli": "2.13.4",
+    "@medusajs/framework": "2.13.4",
+    "@medusajs/icons": "2.13.4",
+    "@medusajs/medusa": "2.13.4",
+    "@medusajs/test-utils": "2.13.4",
     "express": "^4.21.0"
   },
   "engines": {
