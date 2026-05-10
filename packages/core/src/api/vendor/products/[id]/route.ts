@@ -9,7 +9,7 @@ import {
 } from "@medusajs/framework/utils"
 import { HttpTypes } from "@mercurjs/types"
 
-import { validateSellerProduct } from "../helpers"
+import { assertSellerComplianceReadyForListing, validateSellerProduct } from "../helpers"
 import { VendorUpdateProductType } from "../validators"
 import { transformProductWithInformationalAttributes } from "../utils/transform-product-attributes"
 import { updateProductWithVariantImagesWorkflow } from "../../../../workflows/product-attribute/workflows/update-product-with-variant-images"
@@ -54,6 +54,9 @@ export const POST = async (
   const { additional_data, ...update } = req.validatedBody
 
   await validateSellerProduct(req.scope, sellerId, req.params.id)
+  if (update.status === "published") {
+    await assertSellerComplianceReadyForListing(req.scope, sellerId)
+  }
 
   const { result } = await updateProductWithVariantImagesWorkflow(
     req.scope

@@ -7,6 +7,7 @@ import { meilisearchStoreMiddlewares } from "./store/meilisearch/products/search
 import { storeSearchMiddlewares } from "./store/products/search/middlewares";
 import { productImportExportMiddlewares } from "./vendor/products/middlewares";
 import { storeProductsFixMiddlewares } from "./store/products/middlewares";
+import { storeOrderMiddlewares } from "./store/orders/middlewares";
 
 export default defineMiddlewares({
   routes: [
@@ -18,5 +19,6 @@ export default defineMiddlewares({
     ...storeSearchMiddlewares,
     ...productImportExportMiddlewares,
     ...storeProductsFixMiddlewares,
+    ...storeOrderMiddlewares,
   ],
 });

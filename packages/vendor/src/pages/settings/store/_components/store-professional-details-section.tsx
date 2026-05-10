@@ -17,6 +17,12 @@ export const StoreProfessionalDetailsSection = ({
   const details = seller.professional_details;
 
   const hasDetails = details?.corporate_name || details?.registration_number || details?.tax_id;
+  const isComplianceReady = Boolean(
+    details?.county &&
+    details?.national_id_number &&
+    details?.ownership_attestation &&
+    details?.animal_health_attestation
+  );
 
   return (
     <Container className="p-0">
@@ -57,6 +63,17 @@ export const StoreProfessionalDetailsSection = ({
                   {[details?.registration_number, details?.tax_id]
                     .filter(Boolean)
                     .join(" · ") || "-"}
+                </Text>
+                <Text size="small" leading="compact" className="text-ui-fg-subtle">
+                  {details?.county || t("store.professionalDetails.fields.county", "County")} ·{" "}
+                  {details?.national_id_number
+                    ? t("store.professionalDetails.compliance.identityProvided", "Identity provided")
+                    : t("store.professionalDetails.compliance.identityMissing", "Identity missing")}
+                </Text>
+                <Text size="small" leading="compact" className="text-ui-fg-subtle">
+                  {isComplianceReady
+                    ? t("store.professionalDetails.compliance.ready", "Compliance ready for admin review")
+                    : t("store.professionalDetails.compliance.incomplete", "Compliance checklist incomplete")}
                 </Text>
               </div>
             </div>

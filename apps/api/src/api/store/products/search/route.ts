@@ -21,6 +21,16 @@ function buildTypesenseFilter(filters?: StoreSearchType['filters']): string {
   if (filters?.seller_handle) {
     parts.push(`seller.handle:=${filters.seller_handle}`)
   }
+  if (filters?.region_codes?.length) {
+    const countryCodes = filters.region_codes.map((code) => code.toLowerCase()).join(',')
+    parts.push(`seller.country_code:=[${countryCodes}]`)
+  }
+  if (filters?.fulfillment_types?.length) {
+    const fulfillmentTypes = filters.fulfillment_types
+      .map((type) => type.toLowerCase())
+      .join(',')
+    parts.push(`seller.fulfillment_types:=[${fulfillmentTypes}]`)
+  }
 
   return parts.join(' && ')
 }

@@ -2,7 +2,7 @@ import {
   AuthenticatedMedusaRequest,
   MedusaResponse,
 } from "@medusajs/framework/http"
-import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
+import { ContainerRegistrationKeys, MedusaError } from "@medusajs/framework/utils"
 import { HttpTypes } from "@mercurjs/types"
 
 import { createPayoutAccountWorkflow } from "../../../workflows/payout"
@@ -35,6 +35,31 @@ export const POST = async (
 ) => {
   const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
   const sellerId = req.seller_context!.seller_id
+
+  const {
+    data: [seller],
+  } = await query.graph({
+    entity: "seller",
+    fields: ["id", "currency_code", "payment_details.country_code"],
+    filters: { id: sellerId },
+  })
+
+  if (!seller) {
+    throw new MedusaError(
+      MedusaError.Types.NOT_FOUND,
+      `Seller with id: ${sellerId} was not found`
+    )
+  }
+
+  const sellerCurrency = String(seller.currency_code || "").toLowerCase()
+  const payoutCountry = String(seller.payment_details?.country_code || "").toLowerCase()
+
+  if (payoutCountry !== "ke" || sellerCurrency !== "kes") {
+    throw new MedusaError(
+      MedusaError.Types.NOT_ALLOWED,
+      "Kenya escrow-style payouts require seller payout country 'KE' and seller currency 'KES'. Update payment details and currency before creating a payout account."
+    )
+  }
 
   const { result } = await createPayoutAccountWorkflow(req.scope).run({
     input: {

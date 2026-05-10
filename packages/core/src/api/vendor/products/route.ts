@@ -7,6 +7,7 @@ import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
 import { HttpTypes } from "@mercurjs/types"
 
 import { VendorCreateProductType, VendorGetProductsParamsType } from "./validators"
+import { assertSellerComplianceReadyForListing } from "./helpers"
 
 export const GET = async (
   req: AuthenticatedMedusaRequest<VendorGetProductsParamsType>,
@@ -36,6 +37,8 @@ export const POST = async (
   const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
   const sellerId =  req.seller_context!.seller_id
   const { additional_data, ...productData } = req.validatedBody
+
+  await assertSellerComplianceReadyForListing(req.scope, sellerId)
 
   const {
     result: [createdProduct],

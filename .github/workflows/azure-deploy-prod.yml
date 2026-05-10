@@ -13,8 +13,7 @@ on:
         default: 'main'
 
 env:
-  AZURE_RESOURCE_GROUP: openstore-prod-rg
-  AZURE_LOCATION: eastus
+  AZURE_LOCATION: uksouth
   ACR_NAME: openstoreprodacr
   ENVIRONMENT: prod
 
@@ -88,6 +87,7 @@ jobs:
     outputs:
       apiUrl: ${{ steps.deploy.outputs.apiUrl }}
       storefrontUrl: ${{ steps.deploy.outputs.storefrontUrl }}
+      resourceGroupName: ${{ steps.deploy.outputs.resourceGroupName }}
 
     steps:
       - name: Checkout
@@ -102,10 +102,16 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Ensure Meilisearch Key Exists
+        run: |
+          KV_NAME=$(az keyvault list --resource-group openstore-${{ env.ENVIRONMENT }}-rg --query "[0].name" -o tsv)
+          az keyvault secret show --name meili-master-key --vault-name $KV_NAME 2>/dev/null || \
+            az keyvault secret set --name meili-master-key --vault-name $KV_NAME --value "$(openssl rand -hex 32)"
+
       - name: Bicep What-If
         run: |
-          az deployment group what-if \
-            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          az deployment sub what-if \
+            --location ${{ env.AZURE_LOCATION }} \
             --template-file infra/main.bicep \
             --parameters infra/parameters.${{ env.ENVIRONMENT }}.json \
             --parameters sqlAdminPassword='${{ secrets.SQL_ADMIN_PASSWORD }}' \
@@ -114,8 +120,8 @@ jobs:
       - name: Deploy Bicep
         id: deploy
         run: |
-          az deployment group create \
-            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          az deployment sub create \
+            --location ${{ env.AZURE_LOCATION }} \
             --template-file infra/main.bicep \
             --parameters infra/parameters.${{ env.ENVIRONMENT }}.json \
             --parameters sqlAdminPassword='${{ secrets.SQL_ADMIN_PASSWORD }}' \
@@ -124,6 +130,7 @@ jobs:
 
           echo "apiUrl=$(jq -r '.apiUrl.value' outputs.json)" >> $GITHUB_OUTPUT
           echo "storefrontUrl=$(jq -r '.storefrontUrl.value' outputs.json)" >> $GITHUB_OUTPUT
+          echo "resourceGroupName=$(jq -r '.resourceGroupName.value' outputs.json)" >> $GITHUB_OUTPUT
 
   smoke-test:
     name: Smoke Test
@@ -134,6 +141,13 @@ jobs:
       - name: Wait for rollout
         run: sleep 120
 
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
       - name: Check API Health
         run: |
           curl -sf ${{ needs.deploy-infra.outputs.apiUrl }}/health || exit 1
@@ -142,9 +156,17 @@ jobs:
         run: |
           curl -sf ${{ needs.deploy-infra.outputs.storefrontUrl }} || exit 1
 
+      - name: Show Container Logs on Failure
+        if: failure()
+        run: |
+          az containerapp logs show \
+            --name openstore-api-${{ env.ENVIRONMENT }} \
+            --resource-group ${{ needs.deploy-infra.outputs.resourceGroupName }} \
+            --tail 50
+
       - name: Summary
         run: |
           echo "## ✅ Production Deployment Complete (Startup Tier)" >> $GITHUB_STEP_SUMMARY
-          echo "Estimated monthly cost: ~$50-80 (scales to near-$0 when idle)" >> $GITHUB_STEP_SUMMARY
+          echo "Estimated monthly cost: ~$60-90 (scales to near-$0 when idle)" >> $GITHUB_STEP_SUMMARY
           echo "- API: ${{ needs.deploy-infra.outputs.apiUrl }}" >> $GITHUB_STEP_SUMMARY
           echo "- Storefront: ${{ needs.deploy-infra.outputs.storefrontUrl }}" >> $GITHUB_STEP_SUMMARY

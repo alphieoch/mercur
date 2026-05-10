@@ -207,9 +207,42 @@ async function seedFarmData(req: MedusaRequest) {
 
   if (existingSellers.data.length <= 1) {
     const demoSellers = [
-      { name: "Green Acres Farm", handle: "green-acres-farm", email: "hello@greenacres.farm", phone: "555-0101", description: "Family-owned organic vegetable farm since 1985.", currency_code: "usd", status: SellerStatus.OPEN },
-      { name: "Sunset Valley Dairy", handle: "sunset-valley-dairy", email: "orders@sunsetvalleydairy.com", phone: "555-0102", description: "Grass-fed dairy farm producing raw milk and artisan cheeses.", currency_code: "usd", status: SellerStatus.OPEN },
-      { name: "Heritage Meat Co.", handle: "heritage-meat-co", email: "sales@heritagemeat.co", phone: "555-0103", description: "Ethically raised heritage breed pork and grass-fed beef.", currency_code: "usd", status: SellerStatus.OPEN },
+      {
+        name: "Green Acres Farm",
+        handle: "green-acres-farm",
+        email: "hello@greenacres.farm",
+        phone: "555-0101",
+        description: "Family-owned organic vegetable farm since 1985.",
+        currency_code: "usd",
+        status: SellerStatus.OPEN,
+        metadata: {
+          store_hours: "Farm stand: Mon–Sat 7:00 AM – 6:00 PM · Sun 9:00 AM – 2:00 PM",
+        },
+      },
+      {
+        name: "Sunset Valley Dairy",
+        handle: "sunset-valley-dairy",
+        email: "orders@sunsetvalleydairy.com",
+        phone: "555-0102",
+        description: "Grass-fed dairy farm producing raw milk and artisan cheeses.",
+        currency_code: "usd",
+        status: SellerStatus.OPEN,
+        metadata: {
+          store_hours: "Creamery pickup: Tue–Sat 8:00 AM – 5:00 PM (closed Sun–Mon)",
+        },
+      },
+      {
+        name: "Heritage Meat Co.",
+        handle: "heritage-meat-co",
+        email: "sales@heritagemeat.co",
+        phone: "555-0103",
+        description: "Ethically raised heritage breed pork and grass-fed beef.",
+        currency_code: "usd",
+        status: SellerStatus.OPEN,
+        metadata: {
+          store_hours: "Butcher counter: Wed–Fri 10:00 AM – 7:00 PM · Sat 9:00 AM – 4:00 PM",
+        },
+      },
     ];
     for (const seller of demoSellers) {
       try {

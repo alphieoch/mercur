@@ -24,6 +24,14 @@ export interface ProfessionalDetailsDTO {
   corporate_name: string | null
   registration_number: string | null
   tax_id: string | null
+  county: string | null
+  national_id_number: string | null
+  kra_pin: string | null
+  ownership_attestation: boolean
+  animal_health_attestation: boolean
+  movement_permit_reference: string | null
+  livestock_health_record_urls: string[] | null
+  equipment_document_urls: string[] | null
   created_at: Date
   updated_at: Date
 }
@@ -32,12 +40,28 @@ export interface CreateProfessionalDetailsDTO {
   corporate_name?: string | null
   registration_number?: string | null
   tax_id?: string | null
+  county?: string | null
+  national_id_number?: string | null
+  kra_pin?: string | null
+  ownership_attestation?: boolean
+  animal_health_attestation?: boolean
+  movement_permit_reference?: string | null
+  livestock_health_record_urls?: string[] | null
+  equipment_document_urls?: string[] | null
 }
 
 export interface UpdateProfessionalDetailsDTO {
   corporate_name?: string | null
   registration_number?: string | null
   tax_id?: string | null
+  county?: string | null
+  national_id_number?: string | null
+  kra_pin?: string | null
+  ownership_attestation?: boolean
+  animal_health_attestation?: boolean
+  movement_permit_reference?: string | null
+  livestock_health_record_urls?: string[] | null
+  equipment_document_urls?: string[] | null
 }
 
 export interface PaymentDetailsDTO {

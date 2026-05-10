@@ -21,22 +21,24 @@ param keyVaultName string
 ])
 param redisSkuName string = 'Basic'
 
-@description('Redis SKU family/size: C0 (250MB, ~$16/mo), C1 (1GB, ~$45/mo)')
+@description('Redis SKU family: C (Basic/Standard), P (Premium)')
 @allowed([
-  'C0'
-  'C1'
-  'C2'
-  'C3'
-  'C4'
-  'C5'
-  'C6'
-  'P1'
-  'P2'
-  'P3'
-  'P4'
-  'P5'
+  'C'
+  'P'
 ])
-param redisSkuFamily string = 'C0'
+param redisSkuFamily string = 'C'
+
+@description('Redis capacity: 0=C0 (250MB), 1=C1 (1GB), etc. For P family use 1-5')
+@allowed([
+  0
+  1
+  2
+  3
+  4
+  5
+  6
+])
+param redisCapacity int = 0
 
 // ---------------------------------------------------------------------------
 // Azure Cache for Redis — Basic C0 (250MB, ~$16/mo)
@@ -52,7 +54,7 @@ resource redisCache 'Microsoft.Cache/redis@2024-11-01' = {
     sku: {
       name: redisSkuName
       family: redisSkuFamily
-      capacity: 0
+      capacity: redisCapacity
     }
     enableNonSslPort: false
     minimumTlsVersion: '1.2'

@@ -27,6 +27,7 @@ import { InferClientOutput } from "@mercurjs/client";
 import { sdk } from "@lib/client";
 import { useUpdateSeller } from "@hooks/api/sellers";
 import { currencies } from "@/lib/data/currencies";
+import { getSellerStorefrontHoursLine } from "@/lib/seller-storefront-hours";
 import { SellerStatus } from "@mercurjs/types";
 
 type Seller = InferClientOutput<typeof sdk.admin.sellers.$id.query>["seller"];
@@ -48,6 +49,13 @@ const EditStoreSchema = zod.object({
     .email({ message: i18n.t("stores.create.validation.emailInvalid") }),
   phone: zod.string().optional().or(zod.literal("")),
   website_url: zod.string().optional().or(zod.literal("")),
+  external_id: zod.string().optional().or(zod.literal("")),
+  status_reason: zod.string().optional().or(zod.literal("")),
+  store_hours: zod
+    .string()
+    .max(500, { message: i18n.t("stores.validation.storeHoursTooLong") })
+    .optional()
+    .or(zod.literal("")),
   is_premium: zod.boolean(),
   media: zod.array(MediaSchema).optional(),
   bannerMedia: zod.array(MediaSchema).optional(),
@@ -106,6 +114,9 @@ export const StoreEditForm = ({ seller }: StoreEditFormProps) => {
       email: seller.email ?? "",
       phone: seller.phone ?? "",
       website_url: stripWebsiteProtocol(seller.website_url),
+      external_id: seller.external_id ?? "",
+      status_reason: seller.status_reason ?? "",
+      store_hours: getSellerStorefrontHoursLine(seller.metadata) ?? "",
       is_premium: seller.is_premium ?? false,
       media: seller.logo
         ? [{ id: "existing-logo", url: seller.logo, isThumbnail: false, file: null }]
@@ -159,6 +170,22 @@ export const StoreEditForm = ({ seller }: StoreEditFormProps) => {
       return;
     }
 
+    const metadataBase: Record<string, unknown> =
+      seller.metadata &&
+      typeof seller.metadata === "object" &&
+      !Array.isArray(seller.metadata)
+        ? { ...(seller.metadata as Record<string, unknown>) }
+        : {};
+
+    const hoursTrimmed = (values.store_hours ?? "").trim();
+    if (hoursTrimmed) {
+      metadataBase.store_hours = hoursTrimmed;
+      delete metadataBase.active_hours;
+    } else {
+      delete metadataBase.store_hours;
+      delete metadataBase.active_hours;
+    }
+
     await mutateAsync(
       {
         status: values.status,
@@ -168,9 +195,12 @@ export const StoreEditForm = ({ seller }: StoreEditFormProps) => {
         phone: values.phone || null,
         description: values.description || null,
         website_url: ensureWebsiteProtocol(values.website_url ?? ""),
+        external_id: values.external_id || null,
+        status_reason: values.status_reason || null,
         is_premium: values.is_premium,
         logo: logoUrl,
         banner: bannerUrl,
+        metadata: metadataBase,
       },
       {
         onSuccess: () => {
@@ -241,7 +271,7 @@ export const StoreEditForm = ({ seller }: StoreEditFormProps) => {
             <Form.Field
               control={form.control}
               name="status"
-              render={({ field: { onChange, value, ref: _ref, ...field } }) => (
+              render={({ field: { onChange, value, ...field } }) => (
                 <Form.Item>
                   <Form.Label>{t("fields.status")}</Form.Label>
                   <Form.Control>
@@ -258,6 +288,9 @@ export const StoreEditForm = ({ seller }: StoreEditFormProps) => {
                         </Select.Item>
                         <Select.Item value={SellerStatus.SUSPENDED}>
                           {t("stores.status.suspended")}
+                        </Select.Item>
+                        <Select.Item value={SellerStatus.TERMINATED}>
+                          {t("stores.status.terminated")}
                         </Select.Item>
                       </Select.Content>
                     </Select>
@@ -342,6 +375,50 @@ export const StoreEditForm = ({ seller }: StoreEditFormProps) => {
                   <Form.Control>
                     <HandleInput prefix="https://" {...field} />
                   </Form.Control>
+                  <Form.ErrorMessage />
+                </Form.Item>
+              )}
+            />
+            <Form.Field
+              control={form.control}
+              name="external_id"
+              render={({ field }) => (
+                <Form.Item>
+                  <Form.Label optional>{t("stores.fields.external_id")}</Form.Label>
+                  <Form.Control>
+                    <Input {...field} />
+                  </Form.Control>
+                  <Form.ErrorMessage />
+                </Form.Item>
+              )}
+            />
+            <Form.Field
+              control={form.control}
+              name="status_reason"
+              render={({ field }) => (
+                <Form.Item>
+                  <Form.Label optional>{t("stores.fields.status_reason")}</Form.Label>
+                  <Form.Control>
+                    <Textarea {...field} rows={2} />
+                  </Form.Control>
+                  <Form.ErrorMessage />
+                </Form.Item>
+              )}
+            />
+            <Form.Field
+              control={form.control}
+              name="store_hours"
+              render={({ field }) => (
+                <Form.Item>
+                  <Form.Label optional>{t("stores.storeHours.label")}</Form.Label>
+                  <Form.Control>
+                    <Textarea
+                      {...field}
+                      placeholder={t("stores.storeHours.placeholder")}
+                      rows={3}
+                    />
+                  </Form.Control>
+                  <Form.Hint>{t("stores.storeHours.hint")}</Form.Hint>
                   <Form.ErrorMessage />
                 </Form.Item>
               )}

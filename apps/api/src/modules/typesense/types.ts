@@ -75,6 +75,8 @@ export const TypesenseProductValidator = z.object({
       handle: z.string().nullish(),
       name: z.string().nullish(),
       status: z.string().nullish(),
+      country_code: z.string().nullish(),
+      fulfillment_types: z.array(z.string()).optional(),
     })
     .nullable()
     .optional(),

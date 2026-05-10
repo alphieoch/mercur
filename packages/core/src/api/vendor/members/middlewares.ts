@@ -15,6 +15,7 @@ const retrieveVendorMemberMeQueryConfig = {
     "member.*",
     "rbac_role.*",
     "seller.*",
+    "seller.metadata",
     "seller.address.*",
     "seller.payment_details.*",
     "seller.professional_details.*",

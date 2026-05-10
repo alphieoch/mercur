@@ -63,6 +63,62 @@ function flattenVariantOptions(variant: any): Record<string, unknown> {
   )
 }
 
+function normalizeFulfillmentType(value: unknown): 'pickup' | 'delivery' | null {
+  if (typeof value !== 'string') {
+    return null
+  }
+
+  const normalized = value.toLowerCase()
+  if (normalized === 'pickup' || normalized === 'delivery') {
+    return normalized
+  }
+
+  return null
+}
+
+function extractFulfillmentTypes(metadata?: Record<string, unknown> | null): string[] {
+  if (!metadata || typeof metadata !== 'object') {
+    return []
+  }
+
+  const values = new Set<'pickup' | 'delivery'>()
+
+  const candidateKeys = [
+    'fulfillment_types',
+    'fulfillment_type',
+    'shipping_methods',
+    'delivery_methods',
+  ]
+
+  candidateKeys.forEach((key) => {
+    const rawValue = metadata[key]
+
+    if (Array.isArray(rawValue)) {
+      rawValue.forEach((value) => {
+        const normalized = normalizeFulfillmentType(value)
+        if (normalized) {
+          values.add(normalized)
+        }
+      })
+      return
+    }
+
+    const normalized = normalizeFulfillmentType(rawValue)
+    if (normalized) {
+      values.add(normalized)
+    }
+  })
+
+  if (metadata.supports_pickup === true || metadata.pickup_available === true) {
+    values.add('pickup')
+  }
+  if (metadata.supports_delivery === true || metadata.delivery_available === true) {
+    values.add('delivery')
+  }
+
+  return Array.from(values)
+}
+
 export async function findAndTransformTypesenseProducts(
   container: MedusaContainer,
   ids: string[] = []
@@ -88,6 +144,8 @@ export async function findAndTransformTypesenseProducts(
       'seller.handle',
       'seller.name',
       'seller.status',
+      'seller.address.country_code',
+      'seller.metadata',
     ],
     filters: ids.length
       ? { id: ids, status: 'published' }
@@ -96,7 +154,13 @@ export async function findAndTransformTypesenseProducts(
 
   const transformed = products.map((product: any) => ({
     ...product,
-    seller: product.seller ?? null,
+    seller: product.seller
+      ? {
+          ...product.seller,
+          country_code: product.seller.address?.country_code?.toLowerCase() ?? null,
+          fulfillment_types: extractFulfillmentTypes(product.seller.metadata),
+        }
+      : null,
     options: flattenProductOptions(product.options),
     variants: (product.variants ?? []).map(flattenVariantOptions),
   }))

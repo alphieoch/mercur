@@ -844,6 +844,11 @@ export function getRouteMap({
                             lazy: () => import("./pages/stores/store-edit"),
                           },
                           {
+                            path: "metadata/edit",
+                            lazy: () =>
+                              import("./pages/stores/store-metadata"),
+                          },
+                          {
                             path: "edit-address",
                             lazy: () =>
                               import("./pages/stores/store-address-edit"),

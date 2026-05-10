@@ -24,6 +24,7 @@ import { currencies } from "@lib/data/currencies";
 import { MediaSchema } from "@pages/products/create/constants";
 import { HttpTypes } from "@mercurjs/types";
 import { useUpdateSeller } from "@hooks/api";
+import { getSellerStorefrontHoursLine } from "@lib/seller-storefront-hours";
 
 type EditStoreFormProps = HttpTypes.StoreSellerResponse;
 
@@ -42,6 +43,11 @@ const EditStoreSchema = zod.object({
   phone: zod.string().optional().or(zod.literal("")),
   description: zod.string().optional().or(zod.literal("")),
   website_url: zod.string().optional().or(zod.literal("")),
+  store_hours: zod
+    .string()
+    .max(500, { message: i18n.t("store.validation.storeHoursTooLong") })
+    .optional()
+    .or(zod.literal("")),
   media: zod.array(MediaSchema).optional(),
   bannerMedia: zod.array(MediaSchema).optional(),
 });
@@ -86,6 +92,7 @@ export const EditStoreForm = ({ seller }: EditStoreFormProps) => {
       phone: seller.phone ?? "",
       description: seller.description ?? "",
       website_url: stripWebsiteProtocol(seller.website_url),
+      store_hours: getSellerStorefrontHoursLine(seller.metadata ?? undefined) ?? "",
       media: seller.logo
         ? [{ id: "existing-logo", url: seller.logo, isThumbnail: false, file: null }]
         : [],
@@ -138,6 +145,22 @@ export const EditStoreForm = ({ seller }: EditStoreFormProps) => {
       return;
     }
 
+    const metadataBase: Record<string, unknown> =
+      seller.metadata &&
+      typeof seller.metadata === "object" &&
+      !Array.isArray(seller.metadata)
+        ? { ...(seller.metadata as Record<string, unknown>) }
+        : {};
+
+    const hoursTrimmed = (values.store_hours ?? "").trim();
+    if (hoursTrimmed) {
+      metadataBase.store_hours = hoursTrimmed;
+      delete metadataBase.active_hours;
+    } else {
+      delete metadataBase.store_hours;
+      delete metadataBase.active_hours;
+    }
+
     await mutateAsync(
       {
         name: values.name,
@@ -148,6 +171,7 @@ export const EditStoreForm = ({ seller }: EditStoreFormProps) => {
         website_url: ensureWebsiteProtocol(values.website_url),
         logo: logoUrl,
         banner: bannerUrl,
+        metadata: metadataBase,
       },
       {
         onSuccess: () => {
@@ -289,6 +313,24 @@ export const EditStoreForm = ({ seller }: EditStoreFormProps) => {
                   <Form.Control>
                     <HandleInput prefix="https://" {...field} />
                   </Form.Control>
+                  <Form.ErrorMessage />
+                </Form.Item>
+              )}
+            />
+            <Form.Field
+              control={form.control}
+              name="store_hours"
+              render={({ field }) => (
+                <Form.Item>
+                  <Form.Label optional>{t("store.storeHours.label")}</Form.Label>
+                  <Form.Control>
+                    <Textarea
+                      {...field}
+                      placeholder={t("store.storeHours.placeholder")}
+                      rows={3}
+                    />
+                  </Form.Control>
+                  <Form.Hint>{t("store.storeHours.hint")}</Form.Hint>
                   <Form.ErrorMessage />
                 </Form.Item>
               )}

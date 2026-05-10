@@ -2698,7 +2698,13 @@
     "validation": {
       "nameRequired": "Please enter a name",
       "nameTooLong": "Name must be at most 100 characters",
-      "emailInvalid": "Please enter a valid email"
+      "emailInvalid": "Please enter a valid email",
+      "storeHoursTooLong": "Storefront hours must be at most 500 characters"
+    },
+    "storeHours": {
+      "label": "Storefront hours",
+      "hint": "Shown on your public store profile (for example pickup windows or farm stand times). Leave empty to hide this line on the storefront.",
+      "placeholder": "e.g. Mon–Sat 8:00 AM – 6:00 PM · Sun 9:00 AM – 2:00 PM"
     },
     "profileCompletion": {
       "title": "Complete store profile",

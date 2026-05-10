@@ -13,6 +13,12 @@ export const StoreSearchFiltersSchema = z.object({
     .min(1)
     .regex(safeStringPattern, 'Invalid seller handle')
     .optional(),
+  region_codes: z
+    .array(z.string().min(2).max(3).regex(/^[a-zA-Z]+$/, 'Invalid region code'))
+    .optional(),
+  fulfillment_types: z
+    .array(z.enum(['pickup', 'delivery']))
+    .optional(),
 })
 
 export const StoreSearchSchema = z.object({

@@ -3419,11 +3419,21 @@
   "stores": {
     "domain": "Stores",
     "handleTooltip": "The handle is used as the URL slug for the store. Leave empty to auto-generate from the name.",
+    "validation": {
+      "storeHoursTooLong": "Storefront hours must be at most 500 characters"
+    },
+    "storeHours": {
+      "label": "Storefront hours",
+      "hint": "Shown on the public store profile. Leave empty to hide this line.",
+      "placeholder": "e.g. Mon-Sat 8:00 AM - 6:00 PM · Sun 9:00 AM - 2:00 PM"
+    },
     "fields": {
       "name": "Name",
       "handle": "Handle",
       "email": "Email",
       "phone": "Phone",
+      "external_id": "External ID",
+      "status_reason": "Status reason",
       "logo": "Logo",
       "cover_image": "Cover Image",
       "address": "Address",

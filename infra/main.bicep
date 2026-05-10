@@ -6,10 +6,10 @@ targetScope = 'subscription'
 // Designed for < 100 users with aggressive scale-to-zero behavior.
 // All services autoscale or auto-pause when idle to minimize cost.
 //
-// Monthly estimate: ~$15-25 (dev) | ~$50-80 (prod)
+// Monthly estimate: ~$25-40 (dev) | ~$60-90 (prod)
 //
 // Architecture:
-// - Azure SQL Database (Serverless/Basic) — auto-pauses when idle
+// - Azure Database for PostgreSQL Flexible Server — MedusaJS v2 requirement
 // - Azure Cache for Redis (Basic C0) — sessions/carts
 // - Azure Blob Storage (Standard LRS) — product images
 // - Azure Container Apps (Consumption) — scales to 0 replicas
@@ -28,16 +28,16 @@ targetScope = 'subscription'
 param environment string = 'dev'
 
 @description('Azure region for resources')
-param location string = 'eastus'
+param location string = 'uksouth'
 
 @description('Project name prefix for resources')
 param projectName string = 'openstore'
 
-@description('SQL Server admin username')
+@description('PostgreSQL admin username')
 @secure()
 param sqlAdminUsername string
 
-@description('SQL Server admin password')
+@description('PostgreSQL admin password')
 @secure()
 param sqlAdminPassword string
 
@@ -88,6 +88,10 @@ module keyVault 'modules/keyVault.bicep' = {
     projectName: projectName
     environment: environment
     tags: tags
+    apiIdentityPrincipalId: managedIdentity.outputs.apiIdentityPrincipalId
+    storefrontIdentityPrincipalId: managedIdentity.outputs.storefrontIdentityPrincipalId
+    adminIdentityPrincipalId: managedIdentity.outputs.adminIdentityPrincipalId
+    vendorIdentityPrincipalId: managedIdentity.outputs.vendorIdentityPrincipalId
   }
 }
 
@@ -106,10 +110,11 @@ module containerRegistry 'modules/containerRegistry.bicep' = {
 }
 
 // ---------------------------------------------------------------------------
-// Azure SQL Database (Serverless — auto-pauses after 1hr idle)
+// Azure Database for PostgreSQL Flexible Server
+// Required for MedusaJS v2 — replaces Azure SQL Database
 // ---------------------------------------------------------------------------
-module sqlDatabase 'modules/sqlDatabase.bicep' = {
-  name: 'sqlDatabaseDeployment'
+module postgres 'modules/postgres.bicep' = {
+  name: 'postgresDeployment'
   scope: resourceGroup
   params: {
     location: location
@@ -184,9 +189,12 @@ module containerApps 'modules/containerApps.bicep' = {
     storefrontIdentityId: managedIdentity.outputs.storefrontIdentityId
     adminIdentityId: managedIdentity.outputs.adminIdentityId
     vendorIdentityId: managedIdentity.outputs.vendorIdentityId
-    sqlConnectionStringKeyVaultUri: sqlDatabase.outputs.connectionStringKeyVaultUri
+    sqlConnectionStringKeyVaultUri: postgres.outputs.connectionStringKeyVaultUri
     redisConnectionStringKeyVaultUri: redis.outputs.connectionStringKeyVaultUri
     blobStorageConnectionStringKeyVaultUri: storage.outputs.connectionStringKeyVaultUri
+    jwtSecretKeyVaultUri: keyVault.outputs.jwtSecretUri
+    cookieSecretKeyVaultUri: keyVault.outputs.cookieSecretUri
+    keyVaultName: keyVault.outputs.keyVaultName
   }
 }
 
@@ -200,4 +208,4 @@ output storefrontUrl string = containerApps.outputs.storefrontUrl
 output adminUrl string = containerApps.outputs.adminUrl
 output vendorUrl string = containerApps.outputs.vendorUrl
 output meilisearchUrl string = containerApps.outputs.meilisearchUrl
-output sqlServerFqdn string = sqlDatabase.outputs.sqlServerFqdn
+output postgresServerFqdn string = postgres.outputs.postgresServerFqdn

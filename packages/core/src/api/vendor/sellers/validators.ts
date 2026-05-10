@@ -45,6 +45,14 @@ export const VendorCreateSellerAccount = z.object({
       corporate_name: z.string().nullable().optional(),
       registration_number: z.string().nullable().optional(),
       tax_id: z.string().nullable().optional(),
+      county: z.string().nullable().optional(),
+      national_id_number: z.string().nullable().optional(),
+      kra_pin: z.string().nullable().optional(),
+      ownership_attestation: z.boolean().optional(),
+      animal_health_attestation: z.boolean().optional(),
+      movement_permit_reference: z.string().nullable().optional(),
+      livestock_health_record_urls: z.array(z.string().url()).nullable().optional(),
+      equipment_document_urls: z.array(z.string().url()).nullable().optional(),
     })
     .optional(),
   payment_details: z
@@ -120,6 +128,14 @@ export const VendorUpsertSellerProfessionalDetails = z.object({
   corporate_name: z.string().nullable().optional(),
   registration_number: z.string().nullable().optional(),
   tax_id: z.string().nullable().optional(),
+  county: z.string().nullable().optional(),
+  national_id_number: z.string().nullable().optional(),
+  kra_pin: z.string().nullable().optional(),
+  ownership_attestation: z.boolean().optional(),
+  animal_health_attestation: z.boolean().optional(),
+  movement_permit_reference: z.string().nullable().optional(),
+  livestock_health_record_urls: z.array(z.string().url()).nullable().optional(),
+  equipment_document_urls: z.array(z.string().url()).nullable().optional(),
 })
 
 export type VendorSelectSellerType = z.infer<typeof VendorSelectSeller>

@@ -24,6 +24,8 @@ const SEARCHABLE_ATTRIBUTES = [
 const FILTERABLE_ATTRIBUTES = [
   'seller.status',
   'seller.handle',
+  'seller.country_code',
+  'seller.fulfillment_types',
   'categories.id',
   'categories.name',
   'variants.prices.amount',
@@ -55,6 +57,8 @@ const SCHEMA = {
     { name: 'seller.handle', type: 'string' as const, facet: true, optional: true },
     { name: 'seller.name', type: 'string' as const, facet: true, optional: true },
     { name: 'seller.status', type: 'string' as const, facet: true, optional: true },
+    { name: 'seller.country_code', type: 'string' as const, facet: true, optional: true },
+    { name: 'seller.fulfillment_types', type: 'string[]' as const, facet: true, optional: true },
   ],
 }
 
@@ -176,7 +180,19 @@ class TypesenseModuleService {
       return
     }
     try {
-      await this.client_.collections(IndexType.PRODUCT).retrieve()
+      const collection = await this.client_.collections(IndexType.PRODUCT).retrieve()
+      const existingFields = new Set(
+        (collection as { fields?: Array<{ name?: string }> }).fields
+          ?.map((field) => field.name)
+          .filter(Boolean)
+      )
+      const missingFields = SCHEMA.fields.filter((field) => !existingFields.has(field.name))
+
+      if (missingFields.length) {
+        await this.client_
+          .collections(IndexType.PRODUCT)
+          .update({ fields: missingFields } as any)
+      }
     } catch {
       await this.client_.collections().create(SCHEMA)
     }

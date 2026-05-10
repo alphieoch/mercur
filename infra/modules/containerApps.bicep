@@ -37,8 +37,31 @@ param redisConnectionStringKeyVaultUri string
 @description('Blob Storage connection string Key Vault secret URI')
 param blobStorageConnectionStringKeyVaultUri string
 
+@description('Key Vault name for Meilisearch secret reference')
+param keyVaultName string
+
+@description('JWT secret Key Vault secret URI')
+@secure()
+param jwtSecretKeyVaultUri string
+
+@description('Cookie secret Key Vault secret URI')
+@secure()
+param cookieSecretKeyVaultUri string
+
 @description('Scale-to-zero: min replicas for user-facing apps (0 = scales to zero when idle)')
 param scaleToZero bool = true
+
+@description('Store CORS origins')
+param storeCors string = '*'
+
+@description('Admin CORS origins')
+param adminCors string = '*'
+
+@description('Vendor CORS origins')
+param vendorCors string = '*'
+
+@description('Auth CORS origins')
+param authCors string = '*'
 
 // ---------------------------------------------------------------------------
 // Container Apps — Startup Tier with Scale-to-Zero
@@ -47,7 +70,7 @@ param scaleToZero bool = true
 // Meilisearch: Stays at 1 replica (search needs to be warm).
 //
 // This means when no one is using the site, you pay ~$0 for compute.
-// Only SQL (if serverless) and Redis have baseline costs.
+// Only PostgreSQL and Redis have baseline costs.
 // ---------------------------------------------------------------------------
 
 var apiMinReplicas = scaleToZero ? 0 : 1
@@ -100,6 +123,16 @@ resource apiApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
           keyVaultUrl: blobStorageConnectionStringKeyVaultUri
           identity: apiIdentityId
         }
+        {
+          name: 'jwt-secret'
+          keyVaultUrl: jwtSecretKeyVaultUri
+          identity: apiIdentityId
+        }
+        {
+          name: 'cookie-secret'
+          keyVaultUrl: cookieSecretKeyVaultUri
+          identity: apiIdentityId
+        }
       ]
     }
     template: {
@@ -119,12 +152,12 @@ resource apiApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
             { name: 'MEILISEARCH_HOST', value: 'http://localhost:7700' }
             { name: 'MEILISEARCH_API_KEY', value: 'masterKey' }
             { name: 'BLOB_STORAGE_CONNECTION_STRING', secretRef: 'blob-storage-connection-string' }
-            { name: 'STORE_CORS', value: '*' }
-            { name: 'ADMIN_CORS', value: '*' }
-            { name: 'VENDOR_CORS', value: '*' }
-            { name: 'AUTH_CORS', value: '*' }
-            { name: 'JWT_SECRET', secretRef: 'database-url' }
-            { name: 'COOKIE_SECRET', secretRef: 'database-url' }
+            { name: 'STORE_CORS', value: storeCors }
+            { name: 'ADMIN_CORS', value: adminCors }
+            { name: 'VENDOR_CORS', value: vendorCors }
+            { name: 'AUTH_CORS', value: authCors }
+            { name: 'JWT_SECRET', secretRef: 'jwt-secret' }
+            { name: 'COOKIE_SECRET', secretRef: 'cookie-secret' }
           ]
           probes: [
             {
@@ -178,7 +211,7 @@ resource apiApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
 
 // --- Meilisearch Container App (Search) ---
 // Runs as a separate container so API can scale to 0 independently.
-// Uses getmeili/meilisearch:latest — small memory footprint.
+// Uses getmeili/meilisearch:v1.8 — small memory footprint.
 resource meilisearchApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
   name: '${projectName}-meilisearch-${environment}'
   location: location
@@ -194,7 +227,8 @@ resource meilisearchApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
       secrets: [
         {
           name: 'meili-master-key'
-          value: '@Microsoft.KeyVault(VaultName=${projectName}-${environment}-kv;SecretName=meili-master-key)'
+          keyVaultUrl: 'https://${keyVaultName}${az.environment().suffixes.keyvaultDns}/secrets/meili-master-key'
+          identity: apiIdentityId
         }
       ]
     }
@@ -205,7 +239,7 @@ resource meilisearchApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
           image: 'getmeili/meilisearch:v1.8'
           resources: {
             cpu: json('0.25')
-            memory: '512Mi'
+            memory: '0.5Gi'
           }
           env: [
             { name: 'MEILI_MASTER_KEY', secretRef: 'meili-master-key' }
@@ -266,7 +300,7 @@ resource storefrontApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
           image: '${acrLoginServer}/${projectName}/storefront:${environment}'
           resources: {
             cpu: json('0.25')
-            memory: '512Mi'
+            memory: '0.5Gi'
           }
           env: [
             { name: 'NODE_ENV', value: environment == 'prod' ? 'production' : 'development' }
@@ -326,7 +360,7 @@ resource adminApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
           image: '${acrLoginServer}/${projectName}/admin:${environment}'
           resources: {
             cpu: json('0.25')
-            memory: '256Mi'
+            memory: '0.25Gi'
           }
           env: [
             { name: 'NODE_ENV', value: environment == 'prod' ? 'production' : 'development' }
@@ -384,7 +418,7 @@ resource vendorApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
           image: '${acrLoginServer}/${projectName}/vendor:${environment}'
           resources: {
             cpu: json('0.25')
-            memory: '256Mi'
+            memory: '0.25Gi'
           }
           env: [
             { name: 'NODE_ENV', value: environment == 'prod' ? 'production' : 'development' }
