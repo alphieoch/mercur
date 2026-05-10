@@ -7,6 +7,7 @@ import { sdk } from "@lib/client";
 
 import { StoreDetailHeader } from "./store-detail-header";
 import { currencies } from "@/lib/data/currencies";
+import { getSellerStorefrontHoursLine } from "@/lib/seller-storefront-hours";
 
 type Seller = InferClientOutput<typeof sdk.admin.sellers.$id.query>["seller"];
 
@@ -20,6 +21,7 @@ export const StoreGeneralSection = ({
   children,
 }: StoreGeneralSectionProps) => {
   const { t } = useTranslation();
+  const storefrontHours = getSellerStorefrontHoursLine(seller.metadata);
 
   return (
     <Container className="divide-y p-0">
@@ -52,7 +54,7 @@ export const StoreGeneralSection = ({
             )}
           </div>
           <StoreDetailHeader seller={seller} />
-          <div className="text-ui-fg-subtle grid grid-cols-2 px-6 py-4">
+          <div className="text-ui-fg-subtle grid grid-cols-1 gap-y-1 px-4 py-4 sm:grid-cols-2 sm:gap-y-0 sm:px-6">
             <Text size="small" leading="compact" weight="plus">
               {t("fields.description")}
             </Text>
@@ -60,7 +62,7 @@ export const StoreGeneralSection = ({
               {seller.description || "-"}
             </Text>
           </div>
-          <div className="text-ui-fg-subtle grid grid-cols-2 px-6 py-4">
+          <div className="text-ui-fg-subtle grid grid-cols-1 gap-y-1 px-4 py-4 sm:grid-cols-2 sm:gap-y-0 sm:px-6">
             <Text size="small" leading="compact" weight="plus">
               {t("fields.handle")}
             </Text>
@@ -68,7 +70,7 @@ export const StoreGeneralSection = ({
               {seller.handle ? `/${seller.handle}` : "-"}
             </Text>
           </div>
-          <div className="text-ui-fg-subtle grid grid-cols-2 px-6 py-4">
+          <div className="text-ui-fg-subtle grid grid-cols-1 gap-y-1 px-4 py-4 sm:grid-cols-2 sm:gap-y-0 sm:px-6">
             <Text size="small" leading="compact" weight="plus">
               {t("fields.email")}
             </Text>
@@ -76,7 +78,7 @@ export const StoreGeneralSection = ({
               {seller.email || "-"}
             </Text>
           </div>
-          <div className="text-ui-fg-subtle grid grid-cols-2 px-6 py-4">
+          <div className="text-ui-fg-subtle grid grid-cols-1 gap-y-1 px-4 py-4 sm:grid-cols-2 sm:gap-y-0 sm:px-6">
             <Text size="small" leading="compact" weight="plus">
               {t("fields.phone")}
             </Text>
@@ -84,7 +86,7 @@ export const StoreGeneralSection = ({
               {seller.phone || "-"}
             </Text>
           </div>
-          <div className="text-ui-fg-subtle grid grid-cols-2 px-6 py-4">
+          <div className="text-ui-fg-subtle grid grid-cols-1 gap-y-1 px-4 py-4 sm:grid-cols-2 sm:gap-y-0 sm:px-6">
             <Text size="small" leading="compact" weight="plus">
               {t("fields.website")}
             </Text>
@@ -92,7 +94,15 @@ export const StoreGeneralSection = ({
               {seller.website_url || "-"}
             </Text>
           </div>
-          <div className="text-ui-fg-subtle grid grid-cols-2 px-6 py-4">
+          <div className="text-ui-fg-subtle grid grid-cols-1 gap-y-1 px-4 py-4 sm:grid-cols-2 sm:gap-y-0 sm:px-6">
+            <Text size="small" leading="compact" weight="plus">
+              {t("stores.storeHours.label")}
+            </Text>
+            <Text size="small" leading="compact">
+              {storefrontHours || "-"}
+            </Text>
+          </div>
+          <div className="text-ui-fg-subtle grid grid-cols-1 gap-y-1 px-4 py-4 sm:grid-cols-2 sm:gap-y-0 sm:px-6">
             <Text size="small" leading="compact" weight="plus">
               {t("fields.currency")}
             </Text>

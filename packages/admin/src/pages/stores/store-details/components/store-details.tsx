@@ -48,7 +48,7 @@ const TabBar = ({
     <div
       role="tablist"
       aria-label={t("stores.domain")}
-      className="flex flex-wrap items-center gap-x-3 py-2"
+      className="-mx-1 flex flex-nowrap items-center gap-x-2 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:gap-x-3 sm:overflow-visible"
       data-testid="store-detail-tabs"
     >
       {TABS.map((tab) => {
@@ -60,11 +60,11 @@ const TabBar = ({
             type="button"
             onClick={() => onTabChange(tab)}
             role="tab"
-            aria-selected={isActive}
+            aria-selected={isActive ? "true" : "false"}
             aria-controls={`store-detail-tab-panel-${tab}`}
             id={`store-detail-tab-${tab}`}
             data-testid={`store-detail-tab-${tab}`}
-            className={`txt-compact-medium-plus rounded-full px-4 py-1.5 transition-colors ${
+            className={`txt-compact-medium-plus shrink-0 rounded-full px-4 py-1.5 transition-colors sm:shrink ${
               isActive
                 ? "border-ui-border-base bg-ui-bg-base shadow-borders-base text-ui-fg-base"
                 : "text-ui-fg-subtle hover:text-ui-fg-base"
@@ -94,14 +94,24 @@ const Root = ({ children }: { children?: ReactNode }) => {
 
   if (Children.count(children) > 0) {
     return (
-      <TwoColumnPage data={seller} hasOutlet data-testid="store-detail-page">
+      <TwoColumnPage
+        data={seller}
+        hasOutlet
+        showMetadata
+        data-testid="store-detail-page"
+      >
         {children}
       </TwoColumnPage>
     );
   }
 
   return (
-    <TwoColumnPage data={seller} hasOutlet data-testid="store-detail-page">
+    <TwoColumnPage
+      data={seller}
+      hasOutlet
+      showMetadata
+      data-testid="store-detail-page"
+    >
       <TwoColumnPage.Main>
         {seller.status === SellerStatus.PENDING_APPROVAL &&
           !seller.approved_at &&

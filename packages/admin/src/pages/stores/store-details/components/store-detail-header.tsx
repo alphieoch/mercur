@@ -48,18 +48,18 @@ export const StoreDetailTitle = ({ seller }: StoreProps) => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center gap-x-4">
+    <div className="flex min-w-0 items-center gap-x-3 sm:gap-x-4">
       <Avatar
         variant="squared"
         size="large"
         src={seller.logo || undefined}
         fallback={seller.name.charAt(0).toUpperCase()}
       />
-      <div className="flex items-center gap-x-2">
-        <Heading>{seller.name}</Heading>
+      <div className="flex min-w-0 items-center gap-x-2">
+        <Heading className="truncate">{seller.name}</Heading>
         {seller.is_premium && (
           <Tooltip content={t("stores.fields.premium")}>
-            <CheckCircleSolid className="text-ui-tag-blue-icon" />
+            <CheckCircleSolid className="text-ui-tag-blue-icon shrink-0" />
           </Tooltip>
         )}
       </div>
@@ -93,7 +93,7 @@ export const StoreDetailActions = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center gap-x-2">
+    <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-x-2">
       {Children.count(children) > 0 ? (
         children
       ) : (
@@ -125,7 +125,7 @@ export const StoreDetailHeader = ({
   children,
 }: StoreProps & { children?: ReactNode }) => {
   return (
-    <div className="flex items-center justify-between px-6 py-4">
+    <div className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:px-6">
       {Children.count(children) > 0 ? (
         children
       ) : (
