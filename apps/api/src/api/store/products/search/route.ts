@@ -3,6 +3,7 @@ import { ContainerRegistrationKeys, Modules, QueryContext } from '@medusajs/fram
 
 import { TYPESENSE_MODULE, TypesenseModuleService } from '../../../../modules/typesense'
 import { StoreSearchType } from './validators'
+import { posthog } from '../../../../lib/posthog'
 
 function buildTypesenseFilter(filters?: StoreSearchType['filters']): string {
   const parts: string[] = ['seller.status:=open']
@@ -117,6 +118,22 @@ export const POST = async (
   const orderedProducts = productIds
     .map((id) => productMap.get(id))
     .filter(Boolean)
+
+  const distinctId = req.headers["x-posthog-distinct-id"] as string | undefined
+    ?? customer_id
+    ?? "anonymous"
+
+  posthog?.capture({
+    distinctId,
+    event: "product_search_performed",
+    properties: {
+      query: searchQuery,
+      nb_hits: searchResult.totalHits,
+      page: searchResult.page,
+      filters: filters ?? null,
+      $session_id: req.headers["x-posthog-session-id"] as string | undefined,
+    },
+  })
 
   return res.json({
     products: orderedProducts,

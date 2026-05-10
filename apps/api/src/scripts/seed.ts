@@ -69,7 +69,8 @@ export default async function seedDemoData({ container }: ExecArgs) {
   const salesChannelModuleService = container.resolve(Modules.SALES_CHANNEL);
   const storeModuleService = container.resolve(Modules.STORE);
 
-  const countries = ["gb", "de", "dk", "se", "fr", "es", "it"];
+  const europeCountries = ["gb", "de", "dk", "se", "fr", "es", "it"];
+  const kenyaCountry = "ke";
 
   logger.info("Seeding store data...");
   const [store] = await storeModuleService.listStores();
@@ -104,6 +105,9 @@ export default async function seedDemoData({ container }: ExecArgs) {
         {
           currency_code: "usd",
         },
+        {
+          currency_code: "kes",
+        },
       ],
     },
   });
@@ -131,16 +135,18 @@ export default async function seedDemoData({ container }: ExecArgs) {
     }
   }
 
-  const unassignedCountries = countries.filter(c => !assignedCountries.has(c));
+  const unassignedCountries = europeCountries.filter(
+    (c) => !assignedCountries.has(c)
+  );
 
   let region;
   if (unassignedCountries.length === 0) {
     // All countries already assigned - find the region that has most of our countries
     region = existingRegions.find(r =>
-      r.countries?.some(c => countries.includes(c.iso_2))
+      r.countries?.some(c => europeCountries.includes(c.iso_2))
     ) || existingRegions[0];
     logger.info("Countries already assigned to a region, skipping region creation.");
-  } else if (unassignedCountries.length < countries.length) {
+  } else if (unassignedCountries.length < europeCountries.length) {
     // Some countries assigned, some not - only create with unassigned ones
     logger.info(`Some countries already assigned, creating region with: ${unassignedCountries.join(", ")}`);
     const { result: regionResult } = await createRegionsWorkflow(container).run({
@@ -150,7 +156,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
             name: "Europe",
             currency_code: "eur",
             countries: unassignedCountries,
-            payment_providers: ["pp_system_default"],
+            payment_providers: ["pp_stripe_stripe", "pp_system_default"],
           },
         ],
       },
@@ -164,13 +170,36 @@ export default async function seedDemoData({ container }: ExecArgs) {
           {
             name: "Europe",
             currency_code: "eur",
-            countries,
-            payment_providers: ["pp_system_default"],
+            countries: europeCountries,
+            payment_providers: ["pp_stripe_stripe", "pp_system_default"],
           },
         ],
       },
     });
     region = regionResult[0];
+  }
+
+  const kenyaAssigned = existingRegions.some((r) =>
+    r.countries?.some((c) => c.iso_2 === kenyaCountry)
+  );
+
+  if (!kenyaAssigned) {
+    const { result: kenyaRegionResult } = await createRegionsWorkflow(container).run({
+      input: {
+        regions: [
+          {
+            name: "Kenya",
+            currency_code: "kes",
+            countries: [kenyaCountry],
+            payment_providers: ["pp_stripe_stripe", "pp_system_default"],
+          },
+        ],
+      },
+    });
+
+    logger.info(`Created Kenya region: ${kenyaRegionResult[0]?.id}`);
+  } else {
+    logger.info("Kenya country already assigned to a region, skipping Kenya region creation.");
   }
   logger.info("Finished seeding regions.");
 
@@ -178,7 +207,9 @@ export default async function seedDemoData({ container }: ExecArgs) {
   const taxModuleService = container.resolve(Modules.TAX);
   const existingTaxRegions = await taxModuleService.listTaxRegions();
   const existingCountryCodes = new Set(existingTaxRegions.map((tr) => tr.country_code));
-  const countriesToCreate = countries.filter((c) => !existingCountryCodes.has(c));
+  const countriesToCreate = [...europeCountries, kenyaCountry].filter(
+    (c) => !existingCountryCodes.has(c)
+  );
 
   if (countriesToCreate.length > 0) {
     await createTaxRegionsWorkflow(container).run({

@@ -1,0 +1,57 @@
+# Dependencies
+node_modules
+**/node_modules
+.pnpm-store
+
+# Build outputs
+.next
+.next/standalone
+.turbo
+**/.turbo
+
+# Medusa
+.medusa
+**/.medusa
+
+# Environment files
+.env
+.env.*
+!.env.template
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs
+
+# Test coverage
+coverage
+.nyc_output
+
+# Documentation
+docs
+*.md
+
+# Local data
+data
+postgres_data
+redis_data
+meilisearch_data
+azurite_data
+
+# Misc
+.playwright-mcp
+.claude
+.cursor

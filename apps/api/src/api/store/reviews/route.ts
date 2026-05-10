@@ -8,6 +8,7 @@ import customerReview from "../../../links/customer-review";
 import { StoreReviewListResponse, StoreReviewResponse } from "../../../modules/reviews/types";
 import { createReviewWorkflow } from "../../../workflows/review/workflows";
 import { StoreCreateReviewType, StoreGetReviewsParamsType } from "./validators";
+import { posthog } from "../../../lib/posthog";
 
 export const POST = async (
   req: AuthenticatedMedusaRequest<StoreCreateReviewType>,
@@ -32,6 +33,20 @@ export const POST = async (
       id: result.id,
     },
   });
+
+  const distinctId = req.headers["x-posthog-distinct-id"] as string | undefined
+    ?? req.auth_context.actor_id
+
+  posthog?.capture({
+    distinctId,
+    event: "review_created",
+    properties: {
+      review_id: result.id,
+      customer_id: req.auth_context.actor_id,
+      rating: req.validatedBody.rating,
+      $session_id: req.headers["x-posthog-session-id"] as string | undefined,
+    },
+  })
 
   res.status(201).json({ review });
 };

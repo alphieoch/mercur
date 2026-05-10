@@ -1,4 +1,4 @@
-import { Meilisearch } from 'meilisearch'
+import type { Meilisearch } from 'meilisearch'
 
 import { IndexType, MeilisearchEntity, MeilisearchSearchResult } from './types'
 
@@ -32,10 +32,12 @@ const FILTERABLE_ATTRIBUTES = [
 const SORTABLE_ATTRIBUTES = ['title', 'variants.prices.amount']
 
 class MeilisearchModuleService {
-  private client_: Meilisearch
+  private client_: Meilisearch | undefined
   private host_: string
-  private productIndex_: ReturnType<Meilisearch['index']>
+  private apiKey_: string
+  private productIndex_: ReturnType<Meilisearch['index']> | undefined
   private settingsApplied_ = false
+  private initPromise_: Promise<void> | undefined
 
   constructor(_: unknown, options: ModuleOptions) {
     if (!options?.host || !options?.apiKey) {
@@ -50,11 +52,27 @@ class MeilisearchModuleService {
       )
     }
     this.host_ = options.host
-    this.client_ = new Meilisearch({
-      host: options.host,
-      apiKey: options.apiKey,
-    })
-    this.productIndex_ = this.client_.index(IndexType.PRODUCT)
+    this.apiKey_ = options.apiKey
+  }
+
+  private async ensureInitialized(): Promise<void> {
+    if (this.client_) {
+      return
+    }
+    if (this.initPromise_) {
+      return this.initPromise_
+    }
+
+    this.initPromise_ = (async () => {
+      const { Meilisearch } = await import('meilisearch')
+      this.client_ = new Meilisearch({
+        host: this.host_,
+        apiKey: this.apiKey_,
+      })
+      this.productIndex_ = this.client_.index(IndexType.PRODUCT)
+    })()
+
+    return this.initPromise_
   }
 
   getHost(): string {
@@ -62,8 +80,9 @@ class MeilisearchModuleService {
   }
 
   async getStatus(): Promise<{ documentCount: number; isHealthy: boolean }> {
+    await this.ensureInitialized()
     try {
-      const stats = await this.productIndex_.getStats()
+      const stats = await this.productIndex_!.getStats()
       return { documentCount: stats.numberOfDocuments, isHealthy: true }
     } catch {
       return { documentCount: 0, isHealthy: false }
@@ -71,24 +90,27 @@ class MeilisearchModuleService {
   }
 
   async batchUpsert(documents: MeilisearchEntity[]): Promise<void> {
+    await this.ensureInitialized()
     if (!documents.length) {
       return
     }
-    await this.productIndex_.addDocuments(documents, { primaryKey: 'id' })
+    await this.productIndex_!.addDocuments(documents, { primaryKey: 'id' })
   }
 
   async batchDelete(ids: string[]): Promise<void> {
+    await this.ensureInitialized()
     if (!ids.length) {
       return
     }
-    await this.productIndex_.deleteDocuments(ids)
+    await this.productIndex_!.deleteDocuments(ids)
   }
 
   async search(
     query: string,
     options: Record<string, unknown>
   ): Promise<MeilisearchSearchResult> {
-    const result = await this.productIndex_.search(query, options)
+    await this.ensureInitialized()
+    const result = await this.productIndex_!.search(query, options)
     return {
       hits: (result.hits ?? []) as Array<{ id: string }>,
       totalHits: result.totalHits ?? result.estimatedTotalHits ?? 0,
@@ -102,10 +124,11 @@ class MeilisearchModuleService {
   }
 
   async ensureSettings(): Promise<void> {
+    await this.ensureInitialized()
     if (this.settingsApplied_) {
       return
     }
-    await this.productIndex_.updateSettings({
+    await this.productIndex_!.updateSettings({
       searchableAttributes: SEARCHABLE_ATTRIBUTES,
       filterableAttributes: FILTERABLE_ATTRIBUTES,
       sortableAttributes: SORTABLE_ATTRIBUTES,

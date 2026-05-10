@@ -48,8 +48,11 @@
   ],
   "scripts": {
     "build": "bunx @mercurjs/cli@2.0.2 codegen && rm -rf .medusa && tsc --declaration --outDir .medusa/server",
-    "dev": "medusa plugin:develop",
+    "dev": "tsc --watch --declaration --outDir .medusa/server --preserveWatchOutput",
     "prepublishOnly": "tsc --declaration --outDir .medusa/server"
+  },
+  "dependencies": {
+    "posthog-node": "^5.33.4"
   },
   "devDependencies": {
     "cors": "^2.8.5",

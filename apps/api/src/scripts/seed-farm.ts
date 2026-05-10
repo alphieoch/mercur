@@ -90,6 +90,45 @@ const FARM_CATEGORIES = [
       { name: "Herbs", handle: "herbs", rank: 3 },
     ],
   },
+  {
+    name: "Machinery",
+    description: "Farm machinery and power tools",
+    handle: "machinery",
+    is_internal: false,
+    is_active: true,
+    rank: 5,
+    children: [
+      { name: "Tractors", handle: "tractors", rank: 0 },
+      { name: "Irrigation Equipment", handle: "irrigation-equipment", rank: 1 },
+      { name: "Sprayers", handle: "sprayers", rank: 2 },
+    ],
+  },
+  {
+    name: "Cattle & Livestock",
+    description: "Livestock and animal-related supplies",
+    handle: "cattle-livestock",
+    is_internal: false,
+    is_active: true,
+    rank: 6,
+    children: [
+      { name: "Dairy Cattle", handle: "dairy-cattle", rank: 0 },
+      { name: "Beef Cattle", handle: "beef-cattle", rank: 1 },
+      { name: "Small Stock", handle: "small-stock", rank: 2 },
+    ],
+  },
+  {
+    name: "Agrovet Supplies",
+    description: "Animal health, crop protection, and farm essentials",
+    handle: "farm-inputs",
+    is_internal: false,
+    is_active: true,
+    rank: 7,
+    children: [
+      { name: "Animal Health", handle: "animal-health", rank: 0 },
+      { name: "Crop Protection", handle: "crop-protection", rank: 1 },
+      { name: "Seeds & Fertilizer", handle: "seeds-fertilizer", rank: 2 },
+    ],
+  },
 ];
 
 const FARM_PRODUCT_TYPES = [
@@ -97,6 +136,12 @@ const FARM_PRODUCT_TYPES = [
   "Grass-Fed", "Grain-Fed", "Pasture-Raised", "Free-Range", "Cage-Free",
   "Heirloom", "Heritage", "GMO-Free", "Raw", "Pasteurized", "Aged",
 ];
+
+const FARM_EXTENSION_HANDLES = new Set([
+  "machinery",
+  "cattle-livestock",
+  "farm-inputs",
+]);
 
 const B2B_CUSTOMER_GROUPS = [
   { name: "Wholesale", metadata: { type: "b2b_wholesale" } },
@@ -110,16 +155,47 @@ async function createCategoryTree(
   parentId?: string
 ) {
   const results: any[] = [];
+  const existing = await productModule.listProductCategories({});
+  const existingByHandle = new Map(
+    existing.map((category: any) => [category.handle, category])
+  );
+
   for (const cat of categories) {
     const { children, ...categoryData } = cat;
-    const input = {
-      ...categoryData,
-      parent_category_id: parentId,
-    };
-    const created = await productModule.createProductCategories([input]);
-    results.push(...created);
+
+    const existingCategory = existingByHandle.get(categoryData.handle);
+    let currentCategory = existingCategory;
+
+    if (!existingCategory) {
+      const input = {
+        ...categoryData,
+        parent_category_id: parentId,
+      };
+
+      try {
+        const created = await productModule.createProductCategories([input]);
+        currentCategory = created[0];
+        existingByHandle.set(currentCategory.handle, currentCategory);
+        results.push(...created);
+      } catch (error: any) {
+        const message = error?.message || "";
+        if (message.includes("already exists")) {
+          const refreshed = await productModule.listProductCategories({});
+          currentCategory = refreshed.find(
+            (category: any) => category.handle === categoryData.handle
+          );
+        } else {
+          throw error;
+        }
+      }
+    }
+
     if (children?.length) {
-      const childResults = await createCategoryTree(productModule, children, created[0].id);
+      const childResults = await createCategoryTree(
+        productModule,
+        children,
+        currentCategory?.id
+      );
       results.push(...childResults);
     }
   }
@@ -144,11 +220,18 @@ export default async function seedFarmData({ container }: ExecArgs) {
   // ─── 1. Product Categories ───
   logger.info("Checking existing categories...");
   const existingCats = await productModule.listProductCategories({});
-  if (existingCats.length > 4) {
+  const existingHandles = new Set(existingCats.map((cat: any) => cat.handle));
+  const categoriesToCreate = FARM_CATEGORIES.filter(
+    (cat) =>
+      FARM_EXTENSION_HANDLES.has(cat.handle) &&
+      !existingHandles.has(cat.handle)
+  );
+
+  if (!categoriesToCreate.length) {
     logger.info(`Found ${existingCats.length} categories, skipping category seed.`);
   } else {
-    logger.info("Creating farm product categories...");
-    await createCategoryTree(productModule, FARM_CATEGORIES);
+    logger.info(`Creating ${categoriesToCreate.length} missing farm categories...`);
+    await createCategoryTree(productModule, categoriesToCreate);
     logger.info("Farm categories created.");
   }
 
@@ -438,6 +521,39 @@ export default async function seedFarmData({ container }: ExecArgs) {
       price: 1200,
       unit: "lb",
       image: "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=800",
+    },
+    {
+      title: "2-Wheel Walk-Behind Tractor",
+      handle: "2-wheel-walk-behind-tractor",
+      description: "Compact farm tractor ideal for smallholder farms, ploughing, and cultivation tasks.",
+      category_handle: "machinery",
+      type_value: "Conventional",
+      seller_handle: "green-acres-farm",
+      price: 185000,
+      unit: "each",
+      image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0f57cf?w=800",
+    },
+    {
+      title: "Friesian Heifer (18 Months)",
+      handle: "friesian-heifer-18-months",
+      description: "Healthy in-calf Friesian heifer from vaccinated and regularly monitored stock.",
+      category_handle: "cattle-livestock",
+      type_value: "Conventional",
+      seller_handle: "sunset-valley-dairy",
+      price: 125000,
+      unit: "each",
+      image: "https://images.unsplash.com/photo-1465446751832-9f11e125aa31?w=800",
+    },
+    {
+      title: "Dairy Mineral Supplement Mix",
+      handle: "dairy-mineral-supplement-mix",
+      description: "Balanced mineral supplement mix formulated for lactating dairy cows.",
+      category_handle: "farm-inputs",
+      type_value: "Conventional",
+      seller_handle: "heritage-meat-co",
+      price: 4200,
+      unit: "case",
+      image: "https://images.unsplash.com/photo-1615486363973-0fbd8a6f6f9b?w=800",
     },
   ];
 

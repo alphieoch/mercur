@@ -6,6 +6,7 @@ import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
 import { HttpTypes } from "@mercurjs/types"
 
 import { approveSellerWorkflow } from "../../../../../workflows/seller"
+import { posthog } from "../../../../../lib/posthog"
 
 export const POST = async (
   req: AuthenticatedMedusaRequest,
@@ -24,6 +25,14 @@ export const POST = async (
     entity: "seller",
     fields: req.queryConfig.fields,
     filters: { id: req.params.id },
+  })
+
+  posthog?.capture({
+    distinctId: req.auth_context.actor_id ?? "admin",
+    event: "seller_approved",
+    properties: {
+      seller_id: req.params.id,
+    },
   })
 
   res.json({ seller })

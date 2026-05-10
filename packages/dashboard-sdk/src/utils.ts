@@ -1,92 +1,97 @@
-import type { ParserOptions } from "@babel/parser"
-import { traverse } from "./babel"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { ParserOptions } from "@babel/parser";
+import { createRequire } from "module";
+import { traverse } from "./babel";
 
 export function normalizePath(filePath: string): string {
-    return filePath.replace(/\\/g, "/")
+  return filePath.replace(/\\/g, "/");
 }
 
 export function getParserOptions(file: string): ParserOptions {
-    const options: ParserOptions = {
-        sourceType: "module",
-        plugins: ["jsx"],
-    }
+  const options: ParserOptions = {
+    sourceType: "module",
+    plugins: ["jsx"],
+  };
 
-    if (file.endsWith(".ts") || file.endsWith(".tsx")) {
-        options.plugins!.push("typescript")
-    }
+  if (file.endsWith(".ts") || file.endsWith(".tsx")) {
+        options.plugins!.push("typescript");
+  }
 
-    return options
+  return options;
 }
 
 export function resolveExports(moduleExports: any) {
-    if (
-        "default" in moduleExports &&
+  if (
+    "default" in moduleExports &&
         moduleExports.default &&
         "default" in moduleExports.default
-    ) {
-        return resolveExports(moduleExports.default)
-    }
-    return moduleExports
+  ) {
+    return resolveExports(moduleExports.default);
+  }
+  return moduleExports;
 }
 
-export async function getFileExports(path: string): Promise<any> {
-    const { unregister } = await safeRegister()
-    const module = require(path)
-    unregister()
+const requireFromFile = createRequire(
+  typeof __filename !== "undefined" ? __filename : import.meta.url
+);
 
-    return resolveExports(module)
+export async function getFileExports(filePath: string): Promise<any> {
+  const { unregister } = await safeRegister();
+  const module = requireFromFile(filePath);
+  unregister();
+
+  return resolveExports(module);
 }
 
 export const safeRegister = async () => {
-    const { register } = await import("esbuild-register/dist/node")
-    let res: { unregister: () => void }
-    try {
-        res = register({
-            format: "cjs",
-            loader: "ts",
-        })
-    } catch {
-        res = {
-            unregister: () => {},
-        }
-    }
+  const { register } = await import("esbuild-register/dist/node");
+  let res: { unregister: () => void };
+  try {
+    res = register({
+      format: "cjs",
+      loader: "ts",
+    });
+  } catch {
+    res = {
+      unregister: () => {},
+    };
+  }
 
-    return res
-}
+  return res;
+};
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function hasDefaultExport(ast: any): boolean {
-    let found = false
+  let found = false;
 
-    traverse(ast, {
-        ExportDefaultDeclaration() {
-            found = true
-        },
-        AssignmentExpression(path: any) {
-            if (
-                path.node.left.type === "MemberExpression" &&
+  traverse(ast, {
+    ExportDefaultDeclaration() {
+      found = true;
+    },
+    AssignmentExpression(path: any) {
+      if (
+        path.node.left.type === "MemberExpression" &&
                 path.node.left.object.type === "Identifier" &&
                 path.node.left.object.name === "exports" &&
                 path.node.left.property.type === "Identifier" &&
                 path.node.left.property.name === "default"
-            ) {
-                found = true
-            }
-        },
-        ExportNamedDeclaration(path: any) {
-            const specifiers = path.node.specifiers
-            if (
-                specifiers?.some(
-                    (s: any) =>
-                        s.type === "ExportSpecifier" &&
+      ) {
+        found = true;
+      }
+    },
+    ExportNamedDeclaration(path: any) {
+      const specifiers = path.node.specifiers;
+      if (
+        specifiers?.some(
+          (s: any) =>
+            s.type === "ExportSpecifier" &&
                         s.exported.type === "Identifier" &&
                         s.exported.name === "default"
-                )
-            ) {
-                found = true
-            }
-        },
-    })
+        )
+      ) {
+        found = true;
+      }
+    },
+  });
 
-    return found
+  return found;
 }

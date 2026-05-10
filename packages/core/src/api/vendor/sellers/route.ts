@@ -8,6 +8,7 @@ import { HttpTypes, SellerStatus } from "@mercurjs/types"
 import { VendorCreateSellerAccountType } from "./validators"
 import { createSellerAccountWorkflow } from "../../../workflows/seller"
 import SellerRegistrationFeatureFlag from "../../../feature-flags/seller-registration"
+import { posthog } from "../../../lib/posthog"
 
 export const GET = async (
   req: AuthenticatedMedusaRequest,
@@ -70,6 +71,22 @@ export const POST = async (
       address,
       professional_details,
       payment_details,
+    },
+  })
+
+  const memberId = req.auth_context.actor_id
+  const distinctId = req.headers["x-posthog-distinct-id"] as string | undefined
+    ?? memberId
+    ?? "anonymous"
+
+  posthog?.capture({
+    distinctId,
+    event: "seller_registered",
+    properties: {
+      seller_id: seller.id,
+      seller_name: seller.name,
+      member_email,
+      $session_id: req.headers["x-posthog-session-id"] as string | undefined,
     },
   })
 

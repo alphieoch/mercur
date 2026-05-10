@@ -7,6 +7,7 @@ import { HttpTypes } from "@mercurjs/types"
 
 import { AdminSuspendSellerType } from "../../validators"
 import { suspendSellerWorkflow } from "../../../../../workflows/seller"
+import { posthog } from "../../../../../lib/posthog"
 
 export const POST = async (
   req: AuthenticatedMedusaRequest<AdminSuspendSellerType>,
@@ -26,6 +27,15 @@ export const POST = async (
     entity: "seller",
     fields: req.queryConfig.fields,
     filters: { id: req.params.id },
+  })
+
+  posthog?.capture({
+    distinctId: req.auth_context.actor_id ?? "admin",
+    event: "seller_suspended",
+    properties: {
+      seller_id: req.params.id,
+      reason: req.validatedBody.reason,
+    },
   })
 
   res.json({ seller })

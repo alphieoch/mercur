@@ -5,6 +5,7 @@ import { HttpTypes } from "@mercurjs/types"
 import { completeCartWithSplitOrdersWorkflow } from "../../../../../workflows/cart"
 import { defaultStoreCartFields, refetchCart } from "../../helpers"
 import { StoreCompleteCartParamsType } from "./validators"
+import { posthog } from "../../../../../lib/posthog"
 
 export const POST = async (
     req: MedusaRequest<{}, StoreCompleteCartParamsType>,
@@ -56,6 +57,19 @@ export const POST = async (
         entity: "order_group",
         fields: req.queryConfig.fields,
         filters: { id: result.order_group_id },
+    })
+
+    const distinctId = req.headers["x-posthog-distinct-id"] as string | undefined
+        ?? "anonymous"
+
+    posthog?.capture({
+        distinctId,
+        event: "checkout_completed",
+        properties: {
+            cart_id,
+            order_group_id: result.order_group_id,
+            $session_id: req.headers["x-posthog-session-id"] as string | undefined,
+        },
     })
 
     res.status(200).json({

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": {
+      "value": "dev"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "projectName": {
+      "value": "openstore"
+    },
+    "sqlAdminUsername": {
+      "value": "openstoreadmin"
+    },
+    "sqlAdminPassword": {
+      "value": ""
+    },
+    "tags": {
+      "value": {
+        "Project": "OpenStore",
+        "Environment": "dev",
+        "ManagedBy": "Bicep"
+      }
+    }
+  }
+}

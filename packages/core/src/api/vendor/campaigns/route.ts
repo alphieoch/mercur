@@ -11,6 +11,7 @@ import {
   VendorCreateCampaignType,
   VendorGetCampaignsParamsType,
 } from "./validators"
+import { posthog } from "../../../lib/posthog"
 
 export const GET = async (
   req: AuthenticatedMedusaRequest<VendorGetCampaignsParamsType>,
@@ -51,6 +52,15 @@ export const POST = async (
     req.scope,
     req.queryConfig.fields
   )
+
+  posthog?.capture({
+    distinctId: req.auth_context.actor_id ?? "vendor",
+    event: "campaign_created",
+    properties: {
+      campaign_id: result[0].id,
+      seller_id: sellerId,
+    },
+  })
 
   res.json({ campaign })
 }

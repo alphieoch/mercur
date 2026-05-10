@@ -12,6 +12,7 @@ import customerWishlist from "../../../links/customer-wishlist";
 import { createWishlistEntryWorkflow } from "../../../workflows/wishlist/workflows/create-wishlist";
 import { StoreCreateWishlistType } from "./validators";
 import { ProductDTO } from "@mercurjs/types";
+import { posthog } from "../../../lib/posthog";
 
 export const POST = async (
   req: AuthenticatedMedusaRequest<StoreCreateWishlistType>,
@@ -36,6 +37,21 @@ export const POST = async (
       id: result.id,
     },
   });
+
+  const distinctId = req.headers["x-posthog-distinct-id"] as string | undefined
+    ?? req.auth_context.actor_id
+
+  posthog?.capture({
+    distinctId,
+    event: "wishlist_item_added",
+    properties: {
+      wishlist_id: result.id,
+      customer_id: req.auth_context.actor_id,
+      reference: req.validatedBody.reference,
+      reference_id: req.validatedBody.reference_id,
+      $session_id: req.headers["x-posthog-session-id"] as string | undefined,
+    },
+  })
 
   res.status(201).json({ wishlist });
 };

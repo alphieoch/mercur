@@ -1,0 +1,79 @@
+# ---------------------------------------------------------------------------
+# OpenStore Local Development Stack
+# Includes Azure emulator alternatives for local testing.
+# ---------------------------------------------------------------------------
+
+version: '3.8'
+
+services:
+  # PostgreSQL (local equivalent of Azure SQL)
+  postgres:
+    image: postgres:16-alpine
+    container_name: openstore-postgres
+    environment:
+      POSTGRES_USER: openstore
+      POSTGRES_PASSWORD: openstore
+      POSTGRES_DB: openstore_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openstore"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis (local equivalent of Azure Cache for Redis)
+  redis:
+    image: redis:7-alpine
+    container_name: openstore-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Meilisearch (local search, replaceable with Azure AI Search in prod)
+  meilisearch:
+    image: getmeili/meilisearch:v1.8
+    container_name: openstore-meilisearch
+    environment:
+      MEILI_MASTER_KEY: masterKey
+    ports:
+      - "7700:7700"
+    volumes:
+      - meilisearch_data:/meili_data
+
+  # Azurite (Azure Storage emulator for local Blob Storage testing)
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    container_name: openstore-azurite
+    ports:
+      - "10000:10000"  # Blob service
+      - "10001:10001"  # Queue service
+      - "10002:10002"  # Table service
+    volumes:
+      - azurite_data:/data
+    command: "azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0 --loose --skipApiVersionCheck"
+
+  # SQL Server (optional - for testing Azure SQL compatibility)
+  # Uncomment to test T-SQL queries against SQL Server instead of PostgreSQL
+  # sqlserver:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: openstore-sqlserver
+  #   environment:
+  #     ACCEPT_EULA: Y
+  #     SA_PASSWORD: YourStrong@Passw0rd
+  #   ports:
+  #     - "1433:1433"
+
+volumes:
+  postgres_data:
+  redis_data:
+  meilisearch_data:
+  azurite_data:

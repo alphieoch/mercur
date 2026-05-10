@@ -7,6 +7,7 @@ import { HttpTypes } from "@mercurjs/types"
 
 import { VendorUpsertSellerPaymentDetailsType } from "../../validators"
 import { updateSellerPaymentDetailsWorkflow } from "../../../../../workflows/seller"
+import { posthog } from "../../../../../lib/posthog"
 
 export const POST = async (
   req: AuthenticatedMedusaRequest<VendorUpsertSellerPaymentDetailsType>,
@@ -26,6 +27,14 @@ export const POST = async (
     entity: "seller",
     fields: req.queryConfig.fields,
     filters: { id: req.params.id },
+  })
+
+  posthog?.capture({
+    distinctId: req.auth_context.actor_id ?? "vendor",
+    event: "seller_payment_details_updated",
+    properties: {
+      seller_id: req.params.id,
+    },
   })
 
   res.json({ seller })

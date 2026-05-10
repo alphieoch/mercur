@@ -721,4 +721,10 @@ export type Routes = {
         };
     };
     seedFarm: typeof import("../../src/api/seed-farm/route");
+    workos: {
+        auth: typeof import("../../src/api/workos/auth/route");
+        debug: typeof import("../../src/api/workos/debug/route");
+        sync: typeof import("../../src/api/workos/sync/route");
+        webhooks: typeof import("../../src/api/workos/webhooks/route");
+    };
 };
