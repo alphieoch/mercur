@@ -106,6 +106,10 @@ module containerRegistry 'modules/containerRegistry.bicep' = {
     acrName: acrName
     tags: tags
     keyVaultName: keyVault.outputs.keyVaultName
+    apiIdentityPrincipalId: managedIdentity.outputs.apiIdentityPrincipalId
+    storefrontIdentityPrincipalId: managedIdentity.outputs.storefrontIdentityPrincipalId
+    adminIdentityPrincipalId: managedIdentity.outputs.adminIdentityPrincipalId
+    vendorIdentityPrincipalId: managedIdentity.outputs.vendorIdentityPrincipalId
   }
 }
 

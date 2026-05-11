@@ -216,6 +216,12 @@ resource meilisearchApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
   name: '${projectName}-meilisearch-${environment}'
   location: location
   tags: tags
+  identity: {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${apiIdentityId}': {}
+    }
+  }
   properties: {
     managedEnvironmentId: containerAppsEnvironmentId
     configuration: {
@@ -360,7 +366,7 @@ resource adminApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
           image: '${acrLoginServer}/${projectName}/admin:${environment}'
           resources: {
             cpu: json('0.25')
-            memory: '0.25Gi'
+            memory: '0.5Gi'
           }
           env: [
             { name: 'NODE_ENV', value: environment == 'prod' ? 'production' : 'development' }
@@ -418,7 +424,7 @@ resource vendorApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
           image: '${acrLoginServer}/${projectName}/vendor:${environment}'
           resources: {
             cpu: json('0.25')
-            memory: '0.25Gi'
+            memory: '0.5Gi'
           }
           env: [
             { name: 'NODE_ENV', value: environment == 'prod' ? 'production' : 'development' }

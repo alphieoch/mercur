@@ -125,6 +125,14 @@ resource cookieSecretResource 'Microsoft.KeyVault/vaults/secrets@2024-04-01-prev
   }
 }
 
+resource meiliMasterKey 'Microsoft.KeyVault/vaults/secrets@2024-04-01-preview' = {
+  parent: keyVault
+  name: 'meili-master-key'
+  properties: {
+    value: uniqueString(keyVault.id, subscription().subscriptionId, 'meili')
+  }
+}
+
 output keyVaultName string = keyVault.name
 output keyVaultUri string = keyVault.properties.vaultUri
 output jwtSecretUri string = jwtSecretResource.properties.secretUri

@@ -116,6 +116,7 @@ const modules: any[] = [
 // ---------------------------------------------------------------------------
 if (process.env.BLOB_STORAGE_CONNECTION_STRING) {
   modules.push({
+    key: 'azure_blob',
     resolve: './modules/azure-blob',
     options: {
       connectionString: process.env.BLOB_STORAGE_CONNECTION_STRING,

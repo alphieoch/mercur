@@ -11,7 +11,7 @@ on:
 
 env:
   AZURE_LOCATION: uksouth
-  ACR_NAME: openstoredevacr
+  ACR_NAME: openstorexdevacr
   ENVIRONMENT: dev
 
 permissions:
@@ -27,19 +27,19 @@ jobs:
         app: [api, storefront, admin, vendor]
         include:
           - app: api
-            context: ./apps/api
+            context: .
             dockerfile: ./apps/api/Dockerfile
             image_name: api
           - app: storefront
-            context: ./apps/storefront
+            context: .
             dockerfile: ./apps/storefront/Dockerfile
             image_name: storefront
           - app: admin
-            context: ./apps/admin-test
+            context: .
             dockerfile: ./apps/admin-test/Dockerfile
             image_name: admin
           - app: vendor
-            context: ./apps/vendor
+            context: .
             dockerfile: ./apps/vendor/Dockerfile
             image_name: vendor
 
@@ -53,6 +53,14 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Ensure Resource Group and ACR Exist
+        run: |
+          RG_NAME="openstorex-${{ env.ENVIRONMENT }}-rg"
+          az group show --name "$RG_NAME" >/dev/null 2>&1 || \
+            az group create --name "$RG_NAME" --location "${{ env.AZURE_LOCATION }}"
+          az acr show --name "${{ env.ACR_NAME }}" --resource-group "$RG_NAME" >/dev/null 2>&1 || \
+            az acr create --name "${{ env.ACR_NAME }}" --resource-group "$RG_NAME" --sku Basic --admin-enabled false
 
       - name: ACR Login
         run: az acr login --name ${{ env.ACR_NAME }}
@@ -96,7 +104,7 @@ jobs:
 
       - name: Ensure Meilisearch Key Exists
         run: |
-          KV_NAME=$(az keyvault list --resource-group openstore-${{ env.ENVIRONMENT }}-rg --query "[0].name" -o tsv)
+          KV_NAME=$(az keyvault list --resource-group openstorex-${{ env.ENVIRONMENT }}-rg --query "[0].name" -o tsv)
           az keyvault secret show --name meili-master-key --vault-name $KV_NAME 2>/dev/null || \
             az keyvault secret set --name meili-master-key --vault-name $KV_NAME --value "$(openssl rand -hex 32)"
 
@@ -114,6 +122,17 @@ jobs:
           echo "apiUrl=$(jq -r '.apiUrl.value' outputs.json)" >> $GITHUB_OUTPUT
           echo "storefrontUrl=$(jq -r '.storefrontUrl.value' outputs.json)" >> $GITHUB_OUTPUT
           echo "resourceGroupName=$(jq -r '.resourceGroupName.value' outputs.json)" >> $GITHUB_OUTPUT
+
+      - name: Force Container App Rollout
+        run: |
+          RG_NAME="${{ steps.deploy.outputs.resourceGroupName }}"
+          STAMP="${GITHUB_SHA::12}-$(date +%s)"
+          for app in api storefront admin vendor; do
+            az containerapp update \
+              --name "openstorex-${app}-${{ env.ENVIRONMENT }}" \
+              --resource-group "$RG_NAME" \
+              --set-env-vars IMAGE_STAMP="$STAMP" REDEPLOY_TS="$(date +%s)"
+          done
 
   health-check:
     name: Health Check
@@ -143,7 +162,7 @@ jobs:
         if: failure()
         run: |
           az containerapp logs show \
-            --name openstore-api-${{ env.ENVIRONMENT }} \
+            --name openstorex-api-${{ env.ENVIRONMENT }} \
             --resource-group ${{ needs.deploy-infra.outputs.resourceGroupName }} \
             --tail 50
 

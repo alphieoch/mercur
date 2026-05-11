@@ -495,6 +495,37 @@ export default async function seedDemoData({ container }: ExecArgs) {
     publishableApiKey = publishableApiKeyResult as ApiKey;
   }
 
+  logger.info(
+    `Publishable API key ready: id=${publishableApiKey.id}, token=${(publishableApiKey as any).token ?? "unavailable"}`
+  );
+
+  if (!(publishableApiKey as any).token) {
+    const {
+      result: [runtimeApiKey],
+    } = await createApiKeysWorkflow(container).run({
+      input: {
+        api_keys: [
+          {
+            title: `Runtime Webshop ${new Date().toISOString()}`,
+            type: "publishable",
+            created_by: "",
+          },
+        ],
+      },
+    });
+
+    await linkSalesChannelsToApiKeyWorkflow(container).run({
+      input: {
+        id: runtimeApiKey.id,
+        add: [defaultSalesChannel[0].id],
+      },
+    });
+
+    logger.info(
+      `Generated runtime publishable key: id=${runtimeApiKey.id}, token=${(runtimeApiKey as any).token ?? "unavailable"}`
+    );
+  }
+
   // Link sales channel to API key (idempotent)
   try {
     await linkSalesChannelsToApiKeyWorkflow(container).run({

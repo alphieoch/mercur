@@ -6,6 +6,7 @@
 FROM node:20-alpine AS builder
 
 WORKDIR /app
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Install bun
 RUN npm install -g bun
@@ -13,10 +14,14 @@ RUN npm install -g bun
 # Copy workspace files for monorepo resolution
 COPY package.json bun.lockb* ./
 COPY packages/admin/package.json ./packages/admin/
+COPY packages/cli/package.json ./packages/cli/
+COPY packages/core/package.json ./packages/core/
 COPY packages/dashboard-shared/package.json ./packages/dashboard-shared/
 COPY packages/dashboard-sdk/package.json ./packages/dashboard-sdk/
 COPY packages/client/package.json ./packages/client/
 COPY packages/types/package.json ./packages/types/
+COPY packages/providers/payout-stripe-connect/package.json ./packages/providers/payout-stripe-connect/
+COPY integration-tests/package.json ./integration-tests/
 COPY apps/admin-test/package.json ./apps/admin-test/
 
 # Install dependencies
@@ -25,6 +30,7 @@ RUN bun install --frozen-lockfile
 # Copy source code
 COPY packages/ ./packages/
 COPY apps/admin-test/ ./apps/admin-test/
+COPY apps/api/medusa-config.ts ./apps/api/medusa-config.ts
 COPY tsconfig.json ./
 
 # Build packages in dependency order
@@ -34,18 +40,14 @@ RUN bun run build
 WORKDIR /app/packages/dashboard-sdk
 RUN bun run build
 
-WORKDIR /app/packages/dashboard-shared
-RUN bun run build
-
 WORKDIR /app/packages/client
 RUN bun run build
 
-WORKDIR /app/packages/admin
+WORKDIR /app/packages/dashboard-shared
 RUN bun run build
 
-# Build admin app
 WORKDIR /app/apps/admin-test
-RUN bun run build
+RUN bunx vite build
 
 # ---------------------------------------------------------------------------
 # Production stage — Nginx static server

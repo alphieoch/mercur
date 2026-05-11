@@ -12,6 +12,8 @@ node_modules
 # Medusa
 .medusa
 **/.medusa
+!packages/core/.medusa
+!packages/core/.medusa/**
 
 # Environment files
 .env
