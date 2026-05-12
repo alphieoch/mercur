@@ -2,6 +2,7 @@ import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
 import {
   MercurModules,
   ProfessionalDetailsDTO,
+  SellerDTO,
   UpdateProfessionalDetailsDTO,
 } from "@mercurjs/types"
 
@@ -21,17 +22,17 @@ export const updateSellerProfessionalDetailsStep = createStep<
     const service =
       container.resolve<SellerModuleService>(MercurModules.SELLER)
 
-    const [seller] = await service.listSellers(
+    const [seller] = (await service.listSellers(
       { id: seller_id },
       { relations: ["professional_details"] }
-    )
+    )) as SellerDTO[]
 
     if (seller.professional_details) {
       const updated = await service.updateProfessionalDetails({
         id: seller.professional_details.id,
         ...data,
-      })
-      return new StepResponse(updated, {
+      } as any)
+      return new StepResponse(updated as ProfessionalDetailsDTO, {
         existing: seller.professional_details,
         seller_id,
       })
@@ -40,8 +41,8 @@ export const updateSellerProfessionalDetailsStep = createStep<
     const created = await service.createProfessionalDetails({
       ...data,
       seller_id,
-    })
-    return new StepResponse(created, { existing: null, seller_id })
+    } as any)
+    return new StepResponse(created as ProfessionalDetailsDTO, { existing: null, seller_id })
   },
   async ({ existing, seller_id }, { container }) => {
     const service =

@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
       react(),
       mercurDashboardPlugin({
         medusaConfigPath: '../api/medusa-config.ts',
+        enableSellerRegistration: true,
         ...(backendUrl ? { backendUrl } : {}),
         components: {
           StoreSetup: 'components/store-setup/store-setup',

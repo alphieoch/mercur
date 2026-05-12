@@ -1,0 +1,6 @@
+[     182ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:21550
+[     241ms] [LOG] i18next: languageChanged en @ http://localhost:7001/node_modules/.vite/deps/i18next.js?v=09f6123d:15
+[     242ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:7001/node_modules/.vite/deps/i18next.js?v=09f6123d:15
+[     245ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4435
+[     447ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:7001/register:0
+[ 2827927ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ chrome-error://chromewebdata/:0

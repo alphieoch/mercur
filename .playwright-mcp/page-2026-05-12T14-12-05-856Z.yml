@@ -1,0 +1,385 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - button [expanded] [ref=e5] [cursor=pointer]:
+        - img [ref=e6]
+      - link [ref=e361] [cursor=pointer]:
+        - /url: /ke/
+        - img [ref=e362]
+      - generic [ref=e10]:
+        - link [ref=e363] [cursor=pointer]:
+          - /url: /ke/login
+          - img [ref=e13]
+        - link [ref=e364] [cursor=pointer]:
+          - /url: /ke/cart
+          - img [ref=e18]
+    - generic [ref=e26]:
+      - button [ref=e365] [cursor=pointer]:
+        - img [ref=e28]
+      - searchbox [ref=e366]
+  - main [ref=e32]:
+    - generic [ref=e33]:
+      - img [ref=e367]
+      - generic [ref=e35]:
+        - generic [ref=e37]:
+          - heading [level=2] [ref=e368]: Fresh from the farm to your table
+          - paragraph [ref=e39]: Discover locally grown produce, pasture-raised meats, artisan dairy, and more from trusted farmers in your community.
+        - generic [ref=e40]:
+          - link [ref=e369] [cursor=pointer]:
+            - /url: /categories
+            - generic [ref=e42]: Buy now
+            - img [ref=e43]
+          - link [ref=e370] [cursor=pointer]:
+            - /url: http://localhost:7001
+            - generic [ref=e46]: Sell now
+            - img [ref=e47]
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - heading [level=2] [ref=e371]: trending listings
+        - link [ref=e372] [cursor=pointer]:
+          - /url: /ke/products
+          - text: see all
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e59]:
+            - link [ref=e373] [cursor=pointer]:
+              - /url: /ke/products/organic-heirloom-tomatoes
+              - img [ref=e374]
+            - generic [ref=e63]:
+              - generic [ref=e64]:
+                - img [ref=e65]
+                - generic [ref=e68]: In stock
+              - link [ref=e375] [cursor=pointer]:
+                - /url: /ke/products/organic-heirloom-tomatoes
+                - heading [level=3] [ref=e376]: Organic Heirloom Tomatoes
+              - paragraph [ref=e71]: lb
+              - generic [ref=e72]:
+                - generic [ref=e74]: —
+                - link [ref=e377] [cursor=pointer]:
+                  - /url: /ke/products/organic-heirloom-tomatoes
+                  - text: ADD
+          - generic [ref=e77]:
+            - link [ref=e378] [cursor=pointer]:
+              - /url: /ke/products/fresh-mixed-salad-greens
+              - img [ref=e379]
+            - generic [ref=e81]:
+              - generic [ref=e82]:
+                - img [ref=e83]
+                - generic [ref=e86]: In stock
+              - link [ref=e380] [cursor=pointer]:
+                - /url: /ke/products/fresh-mixed-salad-greens
+                - heading [level=3] [ref=e381]: Fresh Mixed Salad Greens
+              - paragraph [ref=e89]: bunch
+              - generic [ref=e90]:
+                - generic [ref=e92]: —
+                - link [ref=e382] [cursor=pointer]:
+                  - /url: /ke/products/fresh-mixed-salad-greens
+                  - text: ADD
+          - generic [ref=e95]:
+            - link [ref=e383] [cursor=pointer]:
+              - /url: /ke/products/raw-whole-milk
+              - img [ref=e384]
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - img [ref=e101]
+                - generic [ref=e104]: In stock
+              - link [ref=e385] [cursor=pointer]:
+                - /url: /ke/products/raw-whole-milk
+                - heading [level=3] [ref=e386]: Raw Whole Milk
+              - paragraph [ref=e107]: gallon
+              - generic [ref=e108]:
+                - generic [ref=e110]: —
+                - link [ref=e387] [cursor=pointer]:
+                  - /url: /ke/products/raw-whole-milk
+                  - text: ADD
+          - generic [ref=e113]:
+            - link [ref=e388] [cursor=pointer]:
+              - /url: /ke/products/farm-fresh-eggs
+              - img [ref=e389]
+            - generic [ref=e117]:
+              - generic [ref=e118]:
+                - img [ref=e119]
+                - generic [ref=e122]: In stock
+              - link [ref=e390] [cursor=pointer]:
+                - /url: /ke/products/farm-fresh-eggs
+                - heading [level=3] [ref=e391]: Farm Fresh Eggs
+              - paragraph [ref=e125]: dozen
+              - generic [ref=e126]:
+                - generic [ref=e128]: —
+                - link [ref=e392] [cursor=pointer]:
+                  - /url: /ke/products/farm-fresh-eggs
+                  - text: ADD
+        - button [disabled]:
+          - img
+        - button [ref=e393] [cursor=pointer]:
+          - img [ref=e131]
+    - generic [ref=e134]:
+      - heading [level=2] [ref=e394]: SHOP BY CATEGORY
+      - generic [ref=e138]:
+        - generic [ref=e139]:
+          - link [ref=e395] [cursor=pointer]:
+            - /url: /ke/categories/produce
+            - img [ref=e396]
+            - heading [level=3] [ref=e397]: Produce
+          - link [ref=e398] [cursor=pointer]:
+            - /url: /ke/categories/dairy-eggs
+            - img [ref=e399]
+            - heading [level=3] [ref=e400]: Dairy & Eggs
+          - link [ref=e401] [cursor=pointer]:
+            - /url: /ke/categories/meat-poultry
+            - img [ref=e402]
+            - heading [level=3] [ref=e403]: Meat & Poultry
+          - link [ref=e404] [cursor=pointer]:
+            - /url: /ke/categories/pantry
+            - img [ref=e405]
+            - heading [level=3] [ref=e406]: Pantry
+          - link [ref=e407] [cursor=pointer]:
+            - /url: /ke/categories/plants-seeds
+            - img [ref=e408]
+            - heading [level=3] [ref=e409]: Plants & Seeds
+        - generic [ref=e169]:
+          - button [ref=e410] [cursor=pointer]:
+            - img [ref=e171]
+          - button [ref=e411] [cursor=pointer]:
+            - img [ref=e174]
+    - generic [ref=e177]:
+      - generic [ref=e178]:
+        - generic [ref=e179]:
+          - generic [ref=e180]: "#SEASONAL"
+          - heading [level=2] [ref=e412]: "HARVEST COLLECTION: FRESH FROM THE FIELD"
+          - paragraph [ref=e182]: Explore our seasonal harvest featuring the freshest produce, pasture-raised meats, and artisan goods from local farms.
+        - link [ref=e413] [cursor=pointer]:
+          - /url: /ke/categories
+          - button [ref=e414]: EXPLORE
+      - img [ref=e415]
+    - generic [ref=e187]:
+      - heading [level=2] [ref=e416]: SHOP BY VALUES
+      - generic [ref=e190]:
+        - link [ref=e417] [cursor=pointer]:
+          - /url: /ke/categories/produce
+          - generic [ref=e192]: ORGANIC
+          - img [ref=e193]
+        - link [ref=e418] [cursor=pointer]:
+          - /url: /ke/categories/meat-poultry
+          - generic [ref=e196]: PASTURE-RAISED
+          - img [ref=e197]
+        - link [ref=e419] [cursor=pointer]:
+          - /url: /ke/categories
+          - generic [ref=e200]: LOCAL
+          - img [ref=e201]
+        - link [ref=e420] [cursor=pointer]:
+          - /url: /ke/categories
+          - generic [ref=e204]: SUSTAINABLE
+          - img [ref=e205]
+        - link [ref=e421] [cursor=pointer]:
+          - /url: /ke/categories/produce
+          - generic [ref=e208]: SEASONAL
+          - img [ref=e209]
+    - generic [ref=e211]:
+      - heading [level=2] [ref=e422]: STAY UP TO DATE
+      - link [ref=e423] [cursor=pointer]:
+        - /url: /ke#
+        - img [ref=e424]
+        - generic [ref=e218]:
+          - heading [level=3] [ref=e425]: "What's in Season: Spring Produce Guide"
+          - paragraph [ref=e220]: Discover the freshest spring vegetables and fruits hitting our marketplace this month from local organic farms.
+          - generic [ref=e221]:
+            - text: Read more
+            - img [ref=e222]
+  - contentinfo [ref=e224]:
+    - generic [ref=e225]:
+      - link [ref=e226] [cursor=pointer]:
+        - /url: /
+        - paragraph [ref=e227]:
+          - img [ref=e228]
+      - paragraph [ref=e230]: "Welcome to Farm Marketplace, where trusted local sellers and happy customers come together every day. We are building a positive commerce experience that makes it easy to discover quality products, support real businesses, and shop with confidence. From fresh ideas to reliable delivery, our focus is simple: create meaningful connections, keep quality high, and help our community grow stronger with every order."
+    - generic [ref=e233]:
+      - generic [ref=e234]:
+        - heading [level=3] [ref=e426]: Shop
+        - list [ref=e427]:
+          - listitem [ref=e237]:
+            - link [ref=e428] [cursor=pointer]:
+              - /url: /
+              - text: Home
+          - listitem [ref=e239]:
+            - link [ref=e429] [cursor=pointer]:
+              - /url: /categories
+              - text: All Products
+          - listitem [ref=e241]:
+            - link [ref=e430] [cursor=pointer]:
+              - /url: /stores
+              - text: Stores
+          - listitem [ref=e243]:
+            - link [ref=e431] [cursor=pointer]:
+              - /url: /cart
+              - text: Cart
+          - listitem [ref=e245]:
+            - link [ref=e432] [cursor=pointer]:
+              - /url: /checkout
+              - text: Checkout
+      - generic [ref=e247]:
+        - heading [level=3] [ref=e433]: My Account
+        - list [ref=e434]:
+          - listitem [ref=e250]:
+            - link [ref=e435] [cursor=pointer]:
+              - /url: /user
+              - text: Profile
+          - listitem [ref=e252]:
+            - link [ref=e436] [cursor=pointer]:
+              - /url: /user/orders
+              - text: Orders
+          - listitem [ref=e254]:
+            - link [ref=e437] [cursor=pointer]:
+              - /url: /user/wishlist
+              - text: Wishlist
+          - listitem [ref=e256]:
+            - link [ref=e438] [cursor=pointer]:
+              - /url: /user/returns
+              - text: Returns
+          - listitem [ref=e258]:
+            - link [ref=e439] [cursor=pointer]:
+              - /url: /user/reviews
+              - text: Reviews
+          - listitem [ref=e260]:
+            - link [ref=e440] [cursor=pointer]:
+              - /url: /user/messages
+              - text: Messages
+          - listitem [ref=e262]:
+            - link [ref=e441] [cursor=pointer]:
+              - /url: /user/addresses
+              - text: Addresses
+      - generic [ref=e264]:
+        - heading [level=3] [ref=e442]: For Sellers
+        - list [ref=e443]:
+          - listitem [ref=e267]:
+            - link [ref=e444] [cursor=pointer]:
+              - /url: /user
+              - text: My Store
+          - listitem [ref=e269]:
+            - link [ref=e445] [cursor=pointer]:
+              - /url: /register
+              - text: Become a Seller
+          - listitem [ref=e271]:
+            - link [ref=e446] [cursor=pointer]:
+              - /url: /login
+              - text: Seller Sign In
+      - generic [ref=e273]:
+        - heading [level=3] [ref=e447]: Help & Access
+        - list [ref=e448]:
+          - listitem [ref=e276]:
+            - link [ref=e449] [cursor=pointer]:
+              - /url: /login
+              - text: Sign In
+          - listitem [ref=e278]:
+            - link [ref=e450] [cursor=pointer]:
+              - /url: /register
+              - text: Create Account
+          - listitem [ref=e280]:
+            - link [ref=e451] [cursor=pointer]:
+              - /url: /forgot-password
+              - text: Forgot Password
+          - listitem [ref=e282]:
+            - link [ref=e452] [cursor=pointer]:
+              - /url: /user/settings
+              - text: Settings
+    - generic [ref=e285]:
+      - generic [ref=e286]:
+        - generic [ref=e287]: ©
+        - generic [ref=e288]: "2026"
+        - generic [ref=e289]: An
+        - link [ref=e453] [cursor=pointer]:
+          - /url: https://ochiengandco.com/
+          - text: Ochieng & Co
+        - generic [ref=e291]: product. All rights reserved.
+      - generic [ref=e292]:
+        - link [ref=e454] [cursor=pointer]:
+          - /url: mailto:contact@designali.in
+          - img [ref=e294]
+        - link [ref=e455] [cursor=pointer]:
+          - /url: https://x.com/designali_in
+          - img [ref=e298]
+        - link [ref=e456] [cursor=pointer]:
+          - /url: https://www.instagram.com/designali.in/
+          - img [ref=e301]
+        - link [ref=e457] [cursor=pointer]:
+          - /url: https://www.threads.net/designali.in
+          - img [ref=e304]
+        - link [ref=e458] [cursor=pointer]:
+          - /url: https://chat.whatsapp.com/LWsNPcz5BlWDVOha41vzuh
+          - img [ref=e307]
+        - link [ref=e459] [cursor=pointer]:
+          - /url: https://www.behance.net/designali-in
+          - img [ref=e310]
+        - link [ref=e460] [cursor=pointer]:
+          - /url: https://www.facebook.com/designali.agency
+          - img [ref=e316]
+        - link [ref=e461] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/designali
+          - img [ref=e320]
+        - link [ref=e462] [cursor=pointer]:
+          - /url: https://www.youtube.com/@designali-in
+          - img [ref=e324]
+      - generic [ref=e329]:
+        - button [pressed] [ref=e463] [cursor=pointer]:
+          - img [ref=e331]
+          - generic [ref=e337]: Light theme
+        - button [ref=e464] [cursor=pointer]:
+          - img [ref=e339]
+          - generic [ref=e341]: Scroll to top
+        - button [ref=e465] [cursor=pointer]:
+          - img [ref=e343]
+          - generic [ref=e345]: Dark theme
+  - button [ref=e466] [cursor=pointer]:
+    - img [ref=e348]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e356] [cursor=pointer]:
+    - img [ref=e357]
+  - alert [ref=e360]
+  - dialog [active] [ref=e470]:
+    - generic [ref=e472]:
+      - heading "Menu" [level=2] [ref=e473]
+      - button "Close" [ref=e474] [cursor=pointer]
+    - generic [ref=e475]:
+      - generic [ref=e476]:
+        - heading "Your Account" [level=3] [ref=e477]
+        - navigation [ref=e478]:
+          - link "Login" [ref=e479] [cursor=pointer]:
+            - /url: /ke/login
+          - link "Register" [ref=e480] [cursor=pointer]:
+            - /url: /ke/register
+      - generic [ref=e481]:
+        - heading "Farmer Supplies" [level=3] [ref=e482]
+        - navigation [ref=e483]:
+          - link "All Supplies" [ref=e484] [cursor=pointer]:
+            - /url: /ke/categories
+          - link "Farm Equipment" [ref=e485] [cursor=pointer]:
+            - /url: /ke/categories/machinery
+          - link "Cattle & Livestock" [ref=e486] [cursor=pointer]:
+            - /url: /ke/categories/cattle-livestock
+          - link "Agrovet Supplies" [ref=e487] [cursor=pointer]:
+            - /url: /ke/categories/farm-inputs
+      - generic [ref=e488]:
+        - heading "Product Categories" [level=3] [ref=e489]
+        - link "All Products" [ref=e490] [cursor=pointer]:
+          - /url: /ke/categories
+        - navigation "Parent categories" [ref=e491]:
+          - link "Produce" [ref=e492] [cursor=pointer]:
+            - /url: /ke/categories/produce
+          - link "Dairy & Eggs" [ref=e493] [cursor=pointer]:
+            - /url: /ke/categories/dairy-eggs
+          - link "Meat & Poultry" [ref=e494] [cursor=pointer]:
+            - /url: /ke/categories/meat-poultry
+          - link "Pantry" [ref=e495] [cursor=pointer]:
+            - /url: /ke/categories/pantry
+          - link "Plants & Seeds" [ref=e496] [cursor=pointer]:
+            - /url: /ke/categories/plants-seeds
+          - link "Machinery" [ref=e497] [cursor=pointer]:
+            - /url: /ke/categories/machinery
+          - link "Cattle & Livestock" [ref=e498] [cursor=pointer]:
+            - /url: /ke/categories/cattle-livestock
+          - link "Agrovet Supplies" [ref=e499] [cursor=pointer]:
+            - /url: /ke/categories/farm-inputs
+      - link "Stores" [ref=e501] [cursor=pointer]:
+        - /url: /ke/stores
+      - generic [ref=e502]:
+        - navigation "Mobile category navigation"

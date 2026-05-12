@@ -1,0 +1,24 @@
+- generic [ref=e2]:
+  - generic [ref=e6]:
+    - heading "Welcome back" [level=1] [ref=e7]
+    - paragraph [ref=e8]: Sign in to manage your farm store, track orders, and connect with customers.
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - text: Email Address
+        - textbox "Enter your email address" [ref=e12]
+      - generic [ref=e13]:
+        - text: Password
+        - generic [ref=e15]:
+          - textbox "Enter your password" [ref=e16]
+          - button [ref=e17] [cursor=pointer]:
+            - img [ref=e18]
+      - generic [ref=e21]:
+        - generic [ref=e22] [cursor=pointer]:
+          - checkbox "Keep me signed in" [ref=e23]
+          - generic [ref=e24]: Keep me signed in
+        - button "Reset password" [ref=e25] [cursor=pointer]
+      - button "Sign In" [ref=e26] [cursor=pointer]
+    - paragraph [ref=e27]:
+      - text: New to our marketplace?
+      - button "Create Account" [ref=e28] [cursor=pointer]
+  - region "Notifications alt+T"

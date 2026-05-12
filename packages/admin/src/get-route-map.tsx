@@ -31,7 +31,7 @@ function mergeRoutes(
 
     if (existingIndex !== -1) {
       const { children: customChildren, ...customRest } = customRoute;
-      result[existingIndex] = {
+      const merged = {
         ...result[existingIndex],
         ...customRest,
         path: result[existingIndex].path,
@@ -39,6 +39,14 @@ function mergeRoutes(
           ? mergeRoutes(result[existingIndex].children ?? [], customChildren)
           : result[existingIndex].children,
       } as RouteObject;
+
+      // If the custom route provides a Component or element, drop the base
+      // lazy loader so React Router doesn't override the custom component.
+      if ("Component" in customRest || "element" in customRest) {
+        delete (merged as any).lazy;
+      }
+
+      result[existingIndex] = merged;
     } else {
       result.push(customRoute);
     }

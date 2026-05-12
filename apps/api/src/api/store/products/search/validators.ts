@@ -21,11 +21,16 @@ export const StoreSearchFiltersSchema = z.object({
     .optional(),
 })
 
+export const StoreSearchSortSchema = z
+  .enum(['relevance', 'title_asc', 'title_desc', 'price_asc', 'price_desc'])
+  .optional()
+
 export const StoreSearchSchema = z.object({
   query: z.string().default(''),
   page: z.coerce.number().int().min(1).default(1),
   hitsPerPage: z.coerce.number().int().min(1).max(100).default(12),
   filters: StoreSearchFiltersSchema.optional(),
+  sort: StoreSearchSortSchema,
   currency_code: z.string().length(3).optional(),
   region_id: z.string().optional(),
   customer_id: z.string().optional(),

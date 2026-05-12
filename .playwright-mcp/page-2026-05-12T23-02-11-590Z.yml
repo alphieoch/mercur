@@ -1,0 +1,179 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - button [ref=e5] [cursor=pointer]:
+        - img [ref=e6]
+      - link "Logo" [ref=e8] [cursor=pointer]:
+        - /url: /ke/
+        - img "Logo" [ref=e9]
+      - button "Open account and shopping cart menu" [ref=e10] [cursor=pointer]:
+        - img [ref=e11]
+        - img [ref=e14]
+    - generic [ref=e19]:
+      - img [ref=e21]
+      - textbox "search" [ref=e24]:
+        - /placeholder: ""
+      - generic:
+        - generic:
+          - generic:
+            - generic: Search organic tomatoes
+  - main [ref=e25]:
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - heading "Log in" [level=1] [ref=e28]
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]:
+              - paragraph [ref=e32]: E-mail
+              - textbox "E-mail" [ref=e35]:
+                - /placeholder: Your e-mail address
+            - generic [ref=e36]:
+              - paragraph [ref=e37]: Password
+              - generic [ref=e39]:
+                - textbox "Password" [ref=e40]:
+                  - /placeholder: Your password
+                - button [ref=e41] [cursor=pointer]:
+                  - img [ref=e42]
+          - link "Forgot your password?" [ref=e46] [cursor=pointer]:
+            - /url: /forgot-password
+          - button "Log in" [ref=e47] [cursor=pointer]
+        - generic [ref=e48]:
+          - generic [ref=e53]: or
+          - button "Continue with WorkOS" [ref=e54] [cursor=pointer]:
+            - img [ref=e55]
+            - text: Continue with WorkOS
+      - generic [ref=e59]:
+        - heading "Don't have an account yet?" [level=2] [ref=e60]
+        - link "Create account" [ref=e61] [cursor=pointer]:
+          - /url: /register
+          - button "Create account" [ref=e62]
+  - contentinfo [ref=e63]:
+    - generic [ref=e64]:
+      - link [ref=e65] [cursor=pointer]:
+        - /url: /
+        - paragraph [ref=e66]:
+          - img [ref=e67]
+      - paragraph [ref=e69]: "Welcome to Farm Marketplace, where trusted local sellers and happy customers come together every day. We are building a positive commerce experience that makes it easy to discover quality products, support real businesses, and shop with confidence. From fresh ideas to reliable delivery, our focus is simple: create meaningful connections, keep quality high, and help our community grow stronger with every order."
+    - generic [ref=e72]:
+      - generic [ref=e73]:
+        - heading "Shop" [level=3] [ref=e74]
+        - list "Shop" [ref=e75]:
+          - listitem [ref=e76]:
+            - link "Home" [ref=e77] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e78]:
+            - link "All Products" [ref=e79] [cursor=pointer]:
+              - /url: /categories
+          - listitem [ref=e80]:
+            - link "Stores" [ref=e81] [cursor=pointer]:
+              - /url: /stores
+          - listitem [ref=e82]:
+            - link "Cart" [ref=e83] [cursor=pointer]:
+              - /url: /cart
+          - listitem [ref=e84]:
+            - link "Checkout" [ref=e85] [cursor=pointer]:
+              - /url: /checkout
+      - generic [ref=e86]:
+        - heading "My Account" [level=3] [ref=e87]
+        - list "My Account" [ref=e88]:
+          - listitem [ref=e89]:
+            - link "Profile" [ref=e90] [cursor=pointer]:
+              - /url: /user
+          - listitem [ref=e91]:
+            - link "Orders" [ref=e92] [cursor=pointer]:
+              - /url: /user/orders
+          - listitem [ref=e93]:
+            - link "Wishlist" [ref=e94] [cursor=pointer]:
+              - /url: /user/wishlist
+          - listitem [ref=e95]:
+            - link "Returns" [ref=e96] [cursor=pointer]:
+              - /url: /user/returns
+          - listitem [ref=e97]:
+            - link "Reviews" [ref=e98] [cursor=pointer]:
+              - /url: /user/reviews
+          - listitem [ref=e99]:
+            - link "Messages" [ref=e100] [cursor=pointer]:
+              - /url: /user/messages
+          - listitem [ref=e101]:
+            - link "Addresses" [ref=e102] [cursor=pointer]:
+              - /url: /user/addresses
+      - generic [ref=e103]:
+        - heading "For Sellers" [level=3] [ref=e104]
+        - list "For Sellers" [ref=e105]:
+          - listitem [ref=e106]:
+            - link "My Store" [ref=e107] [cursor=pointer]:
+              - /url: /user
+          - listitem [ref=e108]:
+            - link "Become a Seller" [ref=e109] [cursor=pointer]:
+              - /url: /register
+          - listitem [ref=e110]:
+            - link "Seller Sign In" [ref=e111] [cursor=pointer]:
+              - /url: /login
+      - generic [ref=e112]:
+        - heading "Help & Access" [level=3] [ref=e113]
+        - list "Help & Access" [ref=e114]:
+          - listitem [ref=e115]:
+            - link "Sign In" [ref=e116] [cursor=pointer]:
+              - /url: /login
+          - listitem [ref=e117]:
+            - link "Create Account" [ref=e118] [cursor=pointer]:
+              - /url: /register
+          - listitem [ref=e119]:
+            - link "Forgot Password" [ref=e120] [cursor=pointer]:
+              - /url: /forgot-password
+          - listitem [ref=e121]:
+            - link "Settings" [ref=e122] [cursor=pointer]:
+              - /url: /user/settings
+    - generic [ref=e124]:
+      - generic [ref=e125]:
+        - generic [ref=e126]: ©
+        - generic [ref=e127]: "2026"
+        - generic [ref=e128]: An
+        - link "Ochieng & Co website" [ref=e129] [cursor=pointer]:
+          - /url: https://ochiengandco.com/
+          - text: Ochieng & Co
+        - generic [ref=e130]: product. All rights reserved.
+      - generic [ref=e131]:
+        - link "Email" [ref=e132] [cursor=pointer]:
+          - /url: mailto:contact@designali.in
+          - img [ref=e133]
+        - link "X" [ref=e136] [cursor=pointer]:
+          - /url: https://x.com/designali_in
+          - img [ref=e137]
+        - link "Instagram" [ref=e139] [cursor=pointer]:
+          - /url: https://www.instagram.com/designali.in/
+          - img [ref=e140]
+        - link "Threads" [ref=e142] [cursor=pointer]:
+          - /url: https://www.threads.net/designali.in
+          - img [ref=e143]
+        - link "WhatsApp" [ref=e145] [cursor=pointer]:
+          - /url: https://chat.whatsapp.com/LWsNPcz5BlWDVOha41vzuh
+          - img [ref=e146]
+        - link "Behance" [ref=e148] [cursor=pointer]:
+          - /url: https://www.behance.net/designali-in
+          - img [ref=e149]
+        - link "Facebook" [ref=e154] [cursor=pointer]:
+          - /url: https://www.facebook.com/designali.agency
+          - img [ref=e155]
+        - link "LinkedIn" [ref=e158] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/designali
+          - img [ref=e159]
+        - link "YouTube" [ref=e162] [cursor=pointer]:
+          - /url: https://www.youtube.com/@designali-in
+          - img [ref=e163]
+      - generic [ref=e168]:
+        - button "Switch to light theme" [pressed] [ref=e169] [cursor=pointer]:
+          - img [ref=e170]
+          - generic [ref=e176]: Light theme
+        - button "Scroll to top" [ref=e177] [cursor=pointer]:
+          - img [ref=e178]
+          - generic [ref=e180]: Scroll to top
+        - button "Switch to dark theme" [ref=e181] [cursor=pointer]:
+          - img [ref=e182]
+          - generic [ref=e184]: Dark theme
+  - button "Join our marketplace" [ref=e186] [cursor=pointer]:
+    - img [ref=e187]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e195] [cursor=pointer]:
+    - img [ref=e196]
+  - alert [ref=e199]

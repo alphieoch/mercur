@@ -1,0 +1,895 @@
+[     200ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[     324ms] [LOG] [Fast Refresh] done in 226ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[    2060ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8a-b240-75a4-8628-8c1f3d17a159, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:15:12 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    2913ms] [LOG] [PostHog.js] send "$pageleave" {uuid: 019e1c8a-b594-7880-8c49-1ec47a478fad, event: $pageleave, properties: Object, timestamp: Tue May 12 2026 15:15:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3004ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3005ms] [LOG] [PostHog.js] Persistence loaded localStorage+cookie {$device_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, distinct_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, $sesid: Array(3), $epp: true, $initial_person_info: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3006ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 2, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3006ms] [LOG] [PostHog.js] Initializing extensions synchronously @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3006ms] [LOG] [PostHog.js] [Web Vitals] enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3007ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3007ms] [LOG] [PostHog.js] History API monitoring enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3007ms] [LOG] [PostHog.js] [SessionRecording] starting @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3008ms] [LOG] [PostHog.js] [Heatmaps] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3008ms] [LOG] [PostHog.js] Starting in debug mode {this: qn, config: Object, thisC: Object, p: Object, s: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3010ms] [LOG] [PostHog.js] send "$set" {uuid: 019e1c8a-b5f4-760b-aeef-88a9c67a89c8, event: $set, properties: Object, $set_once: Object, timestamp: Tue May 12 2026 15:15:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3012ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[    3028ms] [LOG] [PostHog.js] send "$pageview" {uuid: 019e1c8a-b607-7360-8346-5d33e90dc2a6, event: $pageview, properties: Object, timestamp: Tue May 12 2026 15:15:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3147ms] [WARNING] Image with src "/images/hero/Image.jpg" is using quality "50" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[    3201ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1604503468506-a399da69a440%3Fw%3D400%26h%3D400%26fit%3Dcrop%26q%3D80&w=256&q=75:0
+[    3206ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1540420773420-bd3362c9d999%3Fw%3D400%26h%3D400%26fit%3Dcrop%26q%3D80&w=256&q=75:0
+[    3248ms] [LOG] [PostHog.js] [Dead Clicks] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3255ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 2, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3255ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3255ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3256ms] [LOG] [PostHog.js] [Surveys] flags response received, isSurveysEnabled: false @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3256ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    3259ms] [LOG] [PostHog.js] [Surveys] Surveys loaded successfully @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    8215ms] [LOG] [PostHog.js] send "$web_vitals" {uuid: 019e1c8a-ca4a-7556-9bb3-10f0a3d4e754, event: $web_vitals, properties: Object, timestamp: Tue May 12 2026 15:15:18 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[    9125ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   13883ms] [LOG] [PostHog.js] send "$autocapture" {uuid: 019e1c8a-e06e-7e7e-99b6-b7071c4842a8, event: $autocapture, properties: Object, timestamp: Tue May 12 2026 15:15:24 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   14332ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   15881ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8a-e83c-7b4f-87a5-1d83fca71213, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:15:26 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   18010ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c8a-f08e-7dc5-ae0b-4296adb3466f, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:15:28 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   18916ms] [LOG] [PostHog.js] send "$web_vitals" {uuid: 019e1c8a-f417-7e7c-a804-2a6f3b3da37a, event: $web_vitals, properties: Object, timestamp: Tue May 12 2026 15:15:29 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   20516ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   24129ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   27256ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8b-14ab-714d-a4f8-38ccff9667f1, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:15:37 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   33922ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   51946ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8b-751d-7903-87bb-0daae7f4f120, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:16:02 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   53026ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c8b-7955-7f57-85ee-4f5b881a357f, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:16:03 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   54008ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8b-7d2b-79aa-a995-ef090885294e, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:16:04 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   58689ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   59556ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8b-92d7-73aa-bb7c-75134affd093, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:16:09 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   62979ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8b-a037-7fa2-a967-f01eafd479c7, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:16:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   65083ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8b-a86e-73f4-9387-fb547b5e4f1a, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:16:15 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   66190ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   69131ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8b-b83e-71ba-b59b-403353cb4b82, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:16:19 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   69706ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   74952ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8b-cefc-7563-8f35-001afff15855, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:16:25 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[   75910ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[   81576ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  100431ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8c-3282-7ea7-aa9c-0ff3fa7d1c02, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:16:50 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  107005ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  305265ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8f-52a5-748a-9d67-3a567e8a77a3, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:20:15 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  306398ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  311916ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  315809ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  316316ms] [LOG] [Fast Refresh] done in 581ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  317710ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c8f-8341-709d-ae0c-82c4e8c22788, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:20:27 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  324224ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  537637ms] [LOG] [PostHog.js] send "$autocapture" {uuid: 019e1c92-de58-7c38-a31a-e9371b7cd719, event: $autocapture, properties: Object, timestamp: Tue May 12 2026 15:24:07 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  538049ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c92-dff4-7ec4-9359-9f5b9e086380, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:24:08 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  538436ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c92-e178-78f2-aaff-51868ad10fe9, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:24:08 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  539338ms] [LOG] [PostHog.js] send "$autocapture" {uuid: 019e1c92-e4fd-7e62-bdcb-60a2028c4374, event: $autocapture, properties: Object, timestamp: Tue May 12 2026 15:24:09 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  540539ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c92-e9af-797c-b652-1eefe53553d8, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:24:10 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  541058ms] [LOG] [PostHog.js] send "$autocapture" {uuid: 019e1c92-ebb5-7be5-ac75-83c001a9af9a, event: $autocapture, properties: Object, timestamp: Tue May 12 2026 15:24:11 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  542241ms] [LOG] [PostHog.js] send "$autocapture" {uuid: 019e1c92-f054-7250-ac17-dfb2beab4913, event: $autocapture, properties: Object, timestamp: Tue May 12 2026 15:24:12 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  542547ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c92-f186-741c-b205-acbcbfd8b7b9, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:24:12 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  543049ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c92-f37c-7d4d-bc6a-d618ae25faba, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:24:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  543224ms] [LOG] [PostHog.js] send "$autocapture" {uuid: 019e1c92-f42c-75bc-86bf-28a259daf317, event: $autocapture, properties: Object, timestamp: Tue May 12 2026 15:24:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  544123ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  544479ms] [LOG] [PostHog.js] send "$autocapture" {uuid: 019e1c92-f911-70bb-8480-33adcca8e5a3, event: $autocapture, properties: Object, timestamp: Tue May 12 2026 15:24:14 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  544612ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c92-f998-7817-8337-6a519c6c6018, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:24:14 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  546617ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c93-016c-7d5c-990e-1e76cbeced9d, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:24:16 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  548049ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c93-0704-7bc5-8ea3-8fea2c9ac061, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:24:18 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  551112ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  554180ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  605280ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c93-e694-7ffb-a623-87cfb8cbd7ee, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:25:15 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  606407ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  613212ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke:0
+[  663051ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c94-c83e-7c4e-94ca-2b2dcfff9a0c, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:26:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  663658ms] [LOG] [PostHog.js] send "$autocapture" {uuid: 019e1c94-ca9e-7134-81fd-f3368c9b88da, event: $autocapture, properties: Object, timestamp: Tue May 12 2026 15:26:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  663783ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  664018ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c94-cc05-7f41-ab26-62454bc5fe91, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:26:14 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  664715ms] [LOG] [Fast Refresh] done in 1033ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  664817ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  664964ms] [LOG] [Fast Refresh] done in 248ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  665825ms] [WARNING] Image with src "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800" is using quality "85" which is not configured in images.qualities. This config will be required starting in Next.js 16.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  665967ms] [LOG] [PostHog.js] send "$pageview" {uuid: 019e1c94-d3a2-715e-b58c-ef96ed77589d, event: $pageview, properties: Object, timestamp: Tue May 12 2026 15:26:16 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  666023ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c94-d3da-751f-8685-aab3cb4b3365, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:26:16 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  668028ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c94-dbaf-7fa9-ab99-9d974425fb16, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:26:18 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  668050ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c94-dbc5-726a-9223-9bc3deba35d3, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:26:18 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  669936ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  670047ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c94-e392-74b8-8140-2fc252da6603, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:26:20 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  672241ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c94-ec24-7efd-8148-b35d9e8d2c8d, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:26:22 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  673051ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c94-ef4e-7f87-98a7-e14a24bdc1c7, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:26:23 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  674746ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  679711ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  709761ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c95-7eb4-7b89-845b-7fffd20ef79e, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:26:59 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  713051ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c95-8b8e-7dce-a43e-beb4e7f0fc12, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:27:03 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  719221ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  720352ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c95-a813-7255-9d1b-96e38276e10d, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:27:10 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  723050ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c95-b29d-7b12-b181-58820035ea43, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:27:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  724526ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c95-b861-7724-b1ad-54b41de90fd1, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:27:14 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  726831ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c95-c162-7170-9ff5-6d69b9a53fbc, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:27:16 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  727086ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  728051ms] [LOG] [PostHog.js] send "$$heatmap" {uuid: 019e1c95-c626-7f5a-ba39-b2b4c21c68fe, event: $$heatmap, properties: Object, timestamp: Tue May 12 2026 15:27:18 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  730900ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  734174ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  752509ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  752574ms] [LOG] [Fast Refresh] done in 135ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  752783ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  752988ms] [LOG] [Fast Refresh] done in 307ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  754411ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c96-2d1e-720b-b543-8796a9fa3669, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:27:44 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  756674ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  761220ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  797725ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  798125ms] [LOG] [Fast Refresh] done in 474ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[  799626ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c96-ddbe-751d-804f-bbdb54f7f29a, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:28:29 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  801114ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  806253ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  905297ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c98-7a84-79d2-9bfe-ee6e179ed373, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:30:15 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[  906478ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[  912017ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1203318ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1c9d-06a9-79b0-8628-f5eff0e398f9, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:35:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1206410ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1210007ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1424817ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1425910ms] [LOG] [Fast Refresh] done in 1183ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1428910ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1506411ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1523828ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1524017ms] [LOG] [Fast Refresh] done in 262ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1526996ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1540899ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1541039ms] [LOG] [Fast Refresh] done in 240ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1566794ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1568483ms] [LOG] [Fast Refresh] done in 1760ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1571461ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1719480ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1719637ms] [LOG] [Fast Refresh] done in 231ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1722627ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1789086ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1790635ms] [ERROR] ./apps/storefront/src/components/ui/product-detail-page.tsx:22:1
+Export WishlistButton doesn't exist in target module
+  20 | import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+  21 | import { ProductVariants } from "@/components/molecules"
+> 22 | import { WishlistButton } from "@/components/cells"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  23 | import { Chat } from "@/components/organisms/Chat/Chat"
+  24 | import {
+  25 |   ProductPageDetails,
+
+The export WishlistButton was not found in module [project]/apps/storefront/src/components/cells/index.ts [app-client] (ecmascript).
+Did you mean to import WishlistItem?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./apps/storefront/src/components/ui/product-detail-page.tsx
+    ./apps/storefront/src/app/[locale]/(main)/products/[handle]/page.tsx @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 1790636ms] [ERROR] ./apps/storefront/src/components/ui/product-detail-page.tsx:22:1
+Export WishlistButton doesn't exist in target module
+  20 | import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+  21 | import { ProductVariants } from "@/components/molecules"
+> 22 | import { WishlistButton } from "@/components/cells"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  23 | import { Chat } from "@/components/organisms/Chat/Chat"
+  24 | import {
+  25 |   ProductPageDetails,
+
+The export WishlistButton was not found in module [project]/apps/storefront/src/components/cells/index.ts [app-ssr] (ecmascript).
+Did you mean to import WishlistItem?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./apps/storefront/src/components/ui/product-detail-page.tsx
+    ./apps/storefront/src/app/[locale]/(main)/products/[handle]/page.tsx @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 1790646ms] [LOG] {file: Object} @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1792668ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1ca6-04d0-7f4a-a501-3bef48e9c326, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:45:02 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1793690ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1799411ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1806418ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1862281ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1862452ms] [LOG] [Fast Refresh] done in 239ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1862621ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1862970ms] [LOG] [Fast Refresh] done in 449ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1863168ms] [ERROR] %s is an async Client Component. Only Server Components can be async at the moment. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server. <ProductPostedDate> @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 1863173ms] [ERROR] A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework. @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 1863212ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1863551ms] [LOG] [Fast Refresh] done in 471ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1864182ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1ca7-1c29-7418-ab0e-3600ad8b3f37, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:46:14 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1866456ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1870716ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1880346ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1880715ms] [LOG] [PostHog.js] send "$exception" {uuid: 019e1ca7-5cbe-7ade-a3f0-0fa2e9f64d4f, event: $exception, properties: Object, timestamp: Tue May 12 2026 15:46:30 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1880719ms] Error: An unknown Component is an async Client Component. Only Server Components can be async at the moment. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server.
+    at trackUsedThenable (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3337:98)
+    at unwrapThenable (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3404:16)
+    at reconcileChildFibersImpl (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3727:188)
+    at http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3741:39
+    at reconcileChildren (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:5331:119)
+    at updateFunctionComponent (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:5529:9)
+    at beginWork (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:6111:24)
+    at runWithFiberInDEV (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:886:74)
+    at performUnitOfWork (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8298:97)
+    at workLoopSync (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8190:40)
+    at renderRootSync (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8173:13)
+    at performWorkOnRoot (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:7932:56)
+    at performSyncWorkOnRoot (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8890:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8809:316)
+    at processRootScheduleInMicrotask (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8829:106)
+    at http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8901:158
+[ 1880725ms] [LOG] [Fast Refresh] done in 170ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1882245ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1ca7-62b9-73cf-ae86-ae21a53ba668, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:46:32 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1883758ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1887125ms] [WARNING] The resource http://localhost:3001/images/hero/Image.jpg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3001/ke/products/organic-heirloom-tomatoes:0
+[ 1914879ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1914937ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1914939ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1ca7-e26e-7aa6-8929-d6805c38c142, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:47:05 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1914971ms] [LOG] [Fast Refresh] done in 157ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1914990ms] [ERROR] A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework. @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 1915156ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1915354ms] [LOG] [Fast Refresh] done in 299ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1916800ms] [LOG] [PostHog.js] send "$pageleave" {uuid: 019e1ca7-e9b3-73de-80a0-aab0df2b585d, event: $pageleave, properties: Object, timestamp: Tue May 12 2026 15:47:06 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917135ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917135ms] [LOG] [PostHog.js] Persistence loaded localStorage+cookie {$device_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, distinct_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, $sesid: Array(3), $epp: true, $initial_person_info: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917137ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 2, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917137ms] [LOG] [PostHog.js] Initializing extensions synchronously @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917137ms] [LOG] [PostHog.js] [Web Vitals] enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917138ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917139ms] [LOG] [PostHog.js] History API monitoring enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917139ms] [LOG] [PostHog.js] [SessionRecording] starting @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917140ms] [LOG] [PostHog.js] [Heatmaps] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917140ms] [LOG] [PostHog.js] Starting in debug mode {this: qn, config: Object, thisC: Object, p: Object, s: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917143ms] [LOG] [PostHog.js] send "$set" {uuid: 019e1ca7-eb0a-78d9-9f50-67c2166c2b10, event: $set, properties: Object, $set_once: Object, timestamp: Tue May 12 2026 15:47:07 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917146ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[ 1917170ms] [LOG] [PostHog.js] [Dead Clicks] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917173ms] [LOG] [PostHog.js] send "$pageview" {uuid: 019e1ca7-eb28-7625-a6dc-4d00e121ac30, event: $pageview, properties: Object, timestamp: Tue May 12 2026 15:47:07 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917390ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 3, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917390ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917391ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917391ms] [LOG] [PostHog.js] [Surveys] flags response received, isSurveysEnabled: false @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917391ms] [LOG] [PostHog.js] [Web Vitals] enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917391ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1917416ms] [ERROR] %s is an async Client Component. Only Server Components can be async at the moment. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server. <ProductPostedDate> @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 1917416ms] [ERROR] A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework. @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 1917472ms] [WARNING] Image with src "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:968
+[ 1917602ms] [LOG] [PostHog.js] [Surveys] Surveys loaded successfully @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1922401ms] [LOG] [PostHog.js] send "$web_vitals" {uuid: 019e1ca7-ff94-7d2f-99ca-8fb94549f374, event: $web_vitals, properties: Object, timestamp: Tue May 12 2026 15:47:12 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 1943039ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1943100ms] [LOG] [Fast Refresh] done in 161ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1954503ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1954580ms] [LOG] [Fast Refresh] done in 129ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1954696ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1954909ms] [LOG] [Fast Refresh] done in 314ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 1955119ms] [ERROR] A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework. @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 2008413ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2008502ms] [ERROR] ./apps/storefront/src/components/ui/product-detail-page.tsx:281:54
+Parsing ecmascript source code failed
+  279 |           <div className="flex items-center justify-between">
+  280 |             <div className="flex gap-2">
+> 281 |               {images.map((_img: any, index: number) (
+      |                                                      ^
+  282 |                 <button
+  283 |                   key={index}
+  284 |                   onClick={() => setCurrentImageIndex(index)}
+
+Expected '</', got '('
+
+Import trace:
+  Server Component:
+    ./apps/storefront/src/components/ui/product-detail-page.tsx
+    ./apps/storefront/src/app/[locale]/(main)/products/[handle]/page.tsx @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 2008505ms] [LOG] {file: Object} @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2010514ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1ca9-57c5-7cea-b74f-f1e2afcf3490, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:48:40 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2032364ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2032698ms] [LOG] [Fast Refresh] done in 158ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2032841ms] [LOG] [PostHog.js] send "$exception" {uuid: 019e1ca9-aefb-79df-9d75-cd0d39771106, event: $exception, properties: Object, timestamp: Tue May 12 2026 15:49:02 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2032864ms] Error: An unknown Component is an async Client Component. Only Server Components can be async at the moment. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server.
+    at trackUsedThenable (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3337:98)
+    at unwrapThenable (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3404:16)
+    at reconcileChildFibersImpl (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3727:188)
+    at http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3741:39
+    at reconcileChildren (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:5331:119)
+    at updateFunctionComponent (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:5529:9)
+    at beginWork (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:6111:24)
+    at runWithFiberInDEV (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:886:74)
+    at performUnitOfWork (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8298:97)
+    at workLoopSync (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8190:40)
+    at renderRootSync (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8173:13)
+    at performWorkOnRoot (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:7908:212)
+    at performSyncWorkOnRoot (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8890:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8809:316)
+    at processRootScheduleInMicrotask (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8829:106)
+    at http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8901:158
+[ 2033134ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2033240ms] [LOG] [Fast Refresh] done in 207ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2034265ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1ca9-b48c-79be-aa66-52b43c3e8c31, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:49:04 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2052751ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2052910ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2052912ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1ca9-fd63-70c5-af6e-3122b9cbc304, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:49:23 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2052952ms] [LOG] [Fast Refresh] done in 259ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2052966ms] [ERROR] A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework. @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 2053178ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2053431ms] [LOG] [Fast Refresh] done in 354ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2054560ms] [LOG] [PostHog.js] send "$pageleave" {uuid: 019e1caa-03d3-7712-bd5e-c3743ee44fdc, event: $pageleave, properties: Object, timestamp: Tue May 12 2026 15:49:24 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054808ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054808ms] [LOG] [PostHog.js] Persistence loaded localStorage+cookie {$device_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, distinct_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, $sesid: Array(3), $epp: true, $initial_person_info: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054809ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 3, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054810ms] [LOG] [PostHog.js] Initializing extensions synchronously @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054810ms] [LOG] [PostHog.js] [Web Vitals] enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054811ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054811ms] [LOG] [PostHog.js] History API monitoring enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054812ms] [LOG] [PostHog.js] [SessionRecording] starting @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054812ms] [LOG] [PostHog.js] [Heatmaps] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054813ms] [LOG] [PostHog.js] Starting in debug mode {this: qn, config: Object, thisC: Object, p: Object, s: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054815ms] [LOG] [PostHog.js] send "$set" {uuid: 019e1caa-04d1-7825-862a-715bef9bd35e, event: $set, properties: Object, $set_once: Object, timestamp: Tue May 12 2026 15:49:24 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054818ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[ 2054844ms] [LOG] [PostHog.js] [Dead Clicks] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054846ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 3, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054846ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054846ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054846ms] [LOG] [PostHog.js] [Surveys] flags response received, isSurveysEnabled: false @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054847ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054851ms] [LOG] [PostHog.js] send "$pageview" {uuid: 019e1caa-04f5-7b8b-81fd-ed2e831504c7, event: $pageview, properties: Object, timestamp: Tue May 12 2026 15:49:24 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2054854ms] [LOG] [PostHog.js] [Surveys] Surveys loaded successfully @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2055108ms] [ERROR] %s is an async Client Component. Only Server Components can be async at the moment. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server. <ProductPostedDate> @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 2055109ms] [ERROR] A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework. @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 2055168ms] [WARNING] Image with src "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2057090ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1caa-0db5-714d-98a1-a5280a2ea828, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:49:27 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2059856ms] [LOG] [PostHog.js] send "$web_vitals" {uuid: 019e1caa-1883-720e-bf46-dcff23ed7126, event: $web_vitals, properties: Object, timestamp: Tue May 12 2026 15:49:29 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2094553ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2094858ms] [LOG] [PostHog.js] send "$exception" {uuid: 019e1caa-a13d-7ddb-b0c9-34729447cdfd, event: $exception, properties: Object, timestamp: Tue May 12 2026 15:50:04 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2094863ms] Error: An unknown Component is an async Client Component. Only Server Components can be async at the moment. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server.
+    at trackUsedThenable (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3337:98)
+    at unwrapThenable (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3404:16)
+    at reconcileChildFibersImpl (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3727:188)
+    at http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:3741:39
+    at reconcileChildren (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:5331:119)
+    at updateFunctionComponent (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:5529:9)
+    at beginWork (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:6111:24)
+    at runWithFiberInDEV (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:886:74)
+    at performUnitOfWork (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8298:97)
+    at workLoopSync (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8190:40)
+    at renderRootSync (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8173:13)
+    at performWorkOnRoot (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:7932:56)
+    at performSyncWorkOnRoot (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8890:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8809:316)
+    at processRootScheduleInMicrotask (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8829:106)
+    at http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8901:158
+[ 2094865ms] [LOG] [Fast Refresh] done in 126ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 2096455ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1caa-a77a-77cf-addf-9dad32cd71c7, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:50:06 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2357064ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cae-a17b-7e03-bb6a-cdf881ec3242, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:54:27 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 2655074ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cb3-2d95-7475-9e89-ecb2588d2291, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 15:59:25 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4422459ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5948
+[ 4422585ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:6281
+[ 4422629ms] [LOG] [Fast Refresh] done in 223ms @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5808
+[ 4422654ms] [ERROR] A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework. @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 4422872ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5948
+[ 4423306ms] [LOG] [Fast Refresh] done in 536ms @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_client_9c2e1ff1._.js:5808
+[ 4424372ms] [LOG] [PostHog.js] [SessionId] new session ID generated {sessionId: 019e1cce-2ce7-74c1-b4cd-4fd269cc9def, windowId: 019e1cce-2ce7-74c1-b4cd-4fd3bf9742b7, changeReason: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424373ms] [LOG] [PostHog.js] send "$pageleave" {uuid: 019e1cce-2ce7-74c1-b4cd-4fd1179d8d34, event: $pageleave, properties: Object, timestamp: Tue May 12 2026 16:28:54 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424506ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424506ms] [LOG] [PostHog.js] Persistence loaded localStorage+cookie {$device_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, distinct_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, $sesid: Array(3), $epp: true, $initial_person_info: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424508ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 3, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424508ms] [LOG] [PostHog.js] Initializing extensions synchronously @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424509ms] [LOG] [PostHog.js] [Web Vitals] enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424509ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424510ms] [LOG] [PostHog.js] History API monitoring enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424511ms] [LOG] [PostHog.js] [SessionRecording] starting @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424511ms] [LOG] [PostHog.js] [Heatmaps] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424512ms] [LOG] [PostHog.js] Starting in debug mode {this: qn, config: Object, thisC: Object, p: Object, s: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424514ms] [LOG] [PostHog.js] send "$set" {uuid: 019e1cce-2d74-7c68-acd8-9abfbfa3f030, event: $set, properties: Object, $set_once: Object, timestamp: Tue May 12 2026 16:28:54 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424517ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[ 4424542ms] [LOG] [PostHog.js] [Dead Clicks] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424546ms] [LOG] [PostHog.js] send "$pageview" {uuid: 019e1cce-2d95-7618-a1ce-4c10630bebbe, event: $pageview, properties: Object, timestamp: Tue May 12 2026 16:28:54 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424725ms] [ERROR] %s is an async Client Component. Only Server Components can be async at the moment. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server. <ProductPostedDate> @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 4424726ms] [ERROR] A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework. @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 4424873ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 3, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424873ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424873ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424874ms] [LOG] [PostHog.js] [Surveys] flags response received, isSurveysEnabled: false @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4424874ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4425006ms] [LOG] [PostHog.js] [Surveys] Surveys loaded successfully @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4425105ms] [WARNING] Image with src "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4429745ms] [LOG] [PostHog.js] send "$web_vitals" {uuid: 019e1cce-41e4-76cd-9f43-4ff64da50113, event: $web_vitals, properties: Object, timestamp: Tue May 12 2026 16:28:59 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4618655ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4618923ms] [LOG] [PostHog.js] send "$exception" {uuid: 019e1cd1-24de-7ed4-bfc4-d8ed3e3db4cb, event: $exception, properties: Object, timestamp: Tue May 12 2026 16:32:09 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4618933ms] ReferenceError: ProductDetailsFooter is not defined
+    at ProductDetailPage (http://localhost:3001/_next/static/chunks/apps_storefront_src_components_ui_96d79518._.js?id=%255Bproject%255D%252Fapps%252Fstorefront%252Fsrc%252Fcomponents%252Fui%252Fproduct-detail-page.tsx+%255Bapp-client%255D+%2528ecmascript%2529:676:293)
+    at Object.react_stack_bottom_frame (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:13072:24)
+    at renderWithHooks (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:4091:24)
+    at updateFunctionComponent (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:5523:21)
+    at beginWork (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:6111:24)
+    at runWithFiberInDEV (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:886:74)
+    at performUnitOfWork (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8298:97)
+    at workLoopSync (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8190:40)
+    at renderRootSync (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8173:13)
+    at performWorkOnRoot (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:7932:56)
+    at performSyncWorkOnRoot (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8890:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8809:316)
+    at flushSyncWork$1 (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:8048:86)
+    at Object.scheduleRefresh (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:294:13)
+    at http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_3ef33c25._.js:391:33
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_3ef33c25._.js:384:38)
+    at applyUpdate (http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_3ef33c25._.js:878:31)
+    at http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_3ef33c25._.js:886:13
+[ 4618934ms] [LOG] [Fast Refresh] done in 352ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4621011ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd1-2d06-712a-aa38-6096323c8861, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:32:11 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4633378ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4633534ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4633536ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd1-5df3-7651-8cec-e34b3cb27f58, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:32:23 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4633628ms] [LOG] [Fast Refresh] done in 258ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4635587ms] [LOG] [PostHog.js] send "$pageleave" {uuid: 019e1cd1-65f6-76bb-b9ed-ed4b3052f978, event: $pageleave, properties: Object, timestamp: Tue May 12 2026 16:32:25 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635824ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635825ms] [LOG] [PostHog.js] Persistence loaded localStorage+cookie {$device_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, distinct_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, $sesid: Array(3), $epp: true, $initial_person_info: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635827ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 3, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635828ms] [LOG] [PostHog.js] Initializing extensions synchronously @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635828ms] [LOG] [PostHog.js] [Web Vitals] enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635828ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635829ms] [LOG] [PostHog.js] History API monitoring enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635829ms] [LOG] [PostHog.js] [SessionRecording] starting @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635829ms] [LOG] [PostHog.js] [Heatmaps] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635829ms] [LOG] [PostHog.js] Starting in debug mode {this: qn, config: Object, thisC: Object, p: Object, s: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635831ms] [LOG] [PostHog.js] send "$set" {uuid: 019e1cd1-66ea-77af-81d9-958702086776, event: $set, properties: Object, $set_once: Object, timestamp: Tue May 12 2026 16:32:25 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635833ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[ 4635849ms] [LOG] [PostHog.js] [Dead Clicks] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635849ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 2, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635849ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635849ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635850ms] [LOG] [PostHog.js] [Surveys] flags response received, isSurveysEnabled: false @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635850ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635854ms] [LOG] [PostHog.js] send "$pageview" {uuid: 019e1cd1-6701-7e8a-8537-d9d97dea54fc, event: $pageview, properties: Object, timestamp: Tue May 12 2026 16:32:25 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4635858ms] [LOG] [PostHog.js] [Surveys] Surveys loaded successfully @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4636213ms] [WARNING] Image with src "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4638129ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd1-6fe5-7cc7-a017-24c7bbde2618, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:32:28 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4640860ms] [LOG] [PostHog.js] send "$web_vitals" {uuid: 019e1cd1-7a8f-76b4-9e1a-affbe8c3141e, event: $web_vitals, properties: Object, timestamp: Tue May 12 2026 16:32:30 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4653310ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4653474ms] [LOG] [Fast Refresh] done in 198ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4653588ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4653807ms] [LOG] [Fast Refresh] done in 319ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4655211ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd1-b29e-7e04-b911-48e2434ae53d, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:32:45 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4923834ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4924736ms] [LOG] [Fast Refresh] done in 973ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4925746ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd5-d365-70da-8542-0c2e88f4e710, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:37:15 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4938110ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd6-03b2-77a4-b739-a1721a7f7a3b, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:37:28 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4966209ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd6-7175-7cb4-b525-c15ea935ad99, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:37:56 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4966309ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4967543ms] [ERROR] ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx:12:1
+Export DrawerPopup doesn't exist in target module
+  10 | import { farmerNav } from "@/data/farmer-nav"
+  11 | import { cn } from "@/lib/utils"
+> 12 | import {
+     | ^^^^^^^^
+> 13 |   Drawer,
+     | ^^^^^^^^^
+> 14 |   DrawerClose,
+     | ^^^^^^^^^
+> 15 |   DrawerPopup,
+     | ^^^^^^^^^
+> 16 |   DrawerTrigger,
+     | ^^^^^^^^^
+> 17 | } from "@/components/ui/drawer"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  18 |
+  19 | import { MobileCategoryNavbar } from "./components"
+  20 |
+
+The export DrawerPopup was not found in module [project]/apps/storefront/src/components/ui/drawer.tsx [app-client] (ecmascript).
+Did you mean to import Drawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Server Component:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx
+    ./apps/storefront/src/components/organisms/Header/Header.tsx
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx
+
+  Client Component Browser:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 4967543ms] [ERROR] ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx:12:1
+Export DrawerPopup doesn't exist in target module
+  10 | import { farmerNav } from "@/data/farmer-nav"
+  11 | import { cn } from "@/lib/utils"
+> 12 | import {
+     | ^^^^^^^^
+> 13 |   Drawer,
+     | ^^^^^^^^^
+> 14 |   DrawerClose,
+     | ^^^^^^^^^
+> 15 |   DrawerPopup,
+     | ^^^^^^^^^
+> 16 |   DrawerTrigger,
+     | ^^^^^^^^^
+> 17 | } from "@/components/ui/drawer"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  18 |
+  19 | import { MobileCategoryNavbar } from "./components"
+  20 |
+
+The export DrawerPopup was not found in module [project]/apps/storefront/src/components/ui/drawer.tsx [app-ssr] (ecmascript).
+Did you mean to import Drawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Server Component:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx
+    ./apps/storefront/src/components/organisms/Header/Header.tsx
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx
+
+  Client Component Browser:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 4967548ms] [LOG] {file: Object} @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4969559ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd6-7e8b-7149-b21f-03c2d6fd11e6, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:37:59 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 4978606ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 4978764ms] [ERROR] ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx:12:1
+Export DrawerPopup doesn't exist in target module
+  10 | import { farmerNav } from "@/data/farmer-nav"
+  11 | import { cn } from "@/lib/utils"
+> 12 | import {
+     | ^^^^^^^^
+> 13 |   Drawer,
+     | ^^^^^^^^^
+> 14 |   DrawerClose,
+     | ^^^^^^^^^
+> 15 |   DrawerPopup,
+     | ^^^^^^^^^
+> 16 |   DrawerTrigger,
+     | ^^^^^^^^^
+> 17 | } from "@/components/ui/drawer"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  18 |
+  19 | import { MobileCategoryNavbar } from "./components"
+  20 |
+
+The export DrawerPopup was not found in module [project]/apps/storefront/src/components/ui/drawer.tsx [app-client] (ecmascript).
+Did you mean to import Drawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Server Component:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx
+    ./apps/storefront/src/components/organisms/Header/Header.tsx
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx
+
+  Client Component Browser:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 4978764ms] [ERROR] ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx:12:1
+Export DrawerPopup doesn't exist in target module
+  10 | import { farmerNav } from "@/data/farmer-nav"
+  11 | import { cn } from "@/lib/utils"
+> 12 | import {
+     | ^^^^^^^^
+> 13 |   Drawer,
+     | ^^^^^^^^^
+> 14 |   DrawerClose,
+     | ^^^^^^^^^
+> 15 |   DrawerPopup,
+     | ^^^^^^^^^
+> 16 |   DrawerTrigger,
+     | ^^^^^^^^^
+> 17 | } from "@/components/ui/drawer"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  18 |
+  19 | import { MobileCategoryNavbar } from "./components"
+  20 |
+
+The export DrawerPopup was not found in module [project]/apps/storefront/src/components/ui/drawer.tsx [app-ssr] (ecmascript).
+Did you mean to import Drawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Server Component:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx
+    ./apps/storefront/src/components/organisms/Header/Header.tsx
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx
+
+  Client Component Browser:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 4980508ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd6-a94f-724e-9ce2-b842bce89b2a, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:38:10 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5081801ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5082522ms] [ERROR] ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx:12:1
+Export DrawerPopup doesn't exist in target module
+  10 | import { farmerNav } from "@/data/farmer-nav"
+  11 | import { cn } from "@/lib/utils"
+> 12 | import {
+     | ^^^^^^^^
+> 13 |   Drawer,
+     | ^^^^^^^^^
+> 14 |   DrawerClose,
+     | ^^^^^^^^^
+> 15 |   DrawerPopup,
+     | ^^^^^^^^^
+> 16 |   DrawerTrigger,
+     | ^^^^^^^^^
+> 17 | } from "@/components/ui/drawer"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  18 |
+  19 | import { MobileCategoryNavbar } from "./components"
+  20 |
+
+The export DrawerPopup was not found in module [project]/apps/storefront/src/components/ui/drawer.tsx [app-client] (ecmascript).
+Did you mean to import Drawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Server Component:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx
+    ./apps/storefront/src/components/organisms/Header/Header.tsx
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx
+
+  Client Component Browser:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 5082522ms] [ERROR] ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx:12:1
+Export DrawerPopup doesn't exist in target module
+  10 | import { farmerNav } from "@/data/farmer-nav"
+  11 | import { cn } from "@/lib/utils"
+> 12 | import {
+     | ^^^^^^^^
+> 13 |   Drawer,
+     | ^^^^^^^^^
+> 14 |   DrawerClose,
+     | ^^^^^^^^^
+> 15 |   DrawerPopup,
+     | ^^^^^^^^^
+> 16 |   DrawerTrigger,
+     | ^^^^^^^^^
+> 17 | } from "@/components/ui/drawer"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  18 |
+  19 | import { MobileCategoryNavbar } from "./components"
+  20 |
+
+The export DrawerPopup was not found in module [project]/apps/storefront/src/components/ui/drawer.tsx [app-ssr] (ecmascript).
+Did you mean to import Drawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Server Component:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx
+    ./apps/storefront/src/components/organisms/Header/Header.tsx
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx
+
+  Client Component Browser:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 5083703ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd8-3c6a-7a09-9d33-60e014ca50e9, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:39:53 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5148964ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5149127ms] [ERROR] ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx:12:1
+Export DrawerPopup doesn't exist in target module
+  10 | import { farmerNav } from "@/data/farmer-nav"
+  11 | import { cn } from "@/lib/utils"
+> 12 | import {
+     | ^^^^^^^^
+> 13 |   Drawer,
+     | ^^^^^^^^^
+> 14 |   DrawerClose,
+     | ^^^^^^^^^
+> 15 |   DrawerPopup,
+     | ^^^^^^^^^
+> 16 |   DrawerTrigger,
+     | ^^^^^^^^^
+> 17 | } from "@/components/ui/drawer"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  18 |
+  19 | import { MobileCategoryNavbar } from "./components"
+  20 |
+
+The export DrawerPopup was not found in module [project]/apps/storefront/src/components/ui/drawer.tsx [app-client] (ecmascript).
+Did you mean to import Drawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Server Component:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx
+    ./apps/storefront/src/components/organisms/Header/Header.tsx
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx
+
+  Client Component Browser:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 5149128ms] [ERROR] ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx:12:1
+Export DrawerPopup doesn't exist in target module
+  10 | import { farmerNav } from "@/data/farmer-nav"
+  11 | import { cn } from "@/lib/utils"
+> 12 | import {
+     | ^^^^^^^^
+> 13 |   Drawer,
+     | ^^^^^^^^^
+> 14 |   DrawerClose,
+     | ^^^^^^^^^
+> 15 |   DrawerPopup,
+     | ^^^^^^^^^
+> 16 |   DrawerTrigger,
+     | ^^^^^^^^^
+> 17 | } from "@/components/ui/drawer"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  18 |
+  19 | import { MobileCategoryNavbar } from "./components"
+  20 |
+
+The export DrawerPopup was not found in module [project]/apps/storefront/src/components/ui/drawer.tsx [app-ssr] (ecmascript).
+Did you mean to import Drawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Server Component:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx
+    ./apps/storefront/src/components/organisms/Header/Header.tsx
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx
+
+  Client Component Browser:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component Browser]
+    ./apps/storefront/src/components/cells/index.ts [Client Component Browser]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component Browser]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/storefront/src/components/cells/MobileNavbar/MobileNavbar.tsx [Client Component SSR]
+    ./apps/storefront/src/components/cells/index.ts [Client Component SSR]
+    ./apps/storefront/src/components/molecules/AddressForm/AddressForm.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Client Component SSR]
+    ./apps/storefront/src/components/organisms/Addressess/Addresses.tsx [Server Component]
+    ./apps/storefront/src/components/organisms/index.ts [Server Component]
+    ./apps/storefront/src/app/[locale]/(main)/layout.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_e552cdb3._.js:2364
+[ 5150866ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd9-42c5-73ed-a014-638ed7ce91ce, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:41:00 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5157322ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5158402ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd9-6035-7cbd-ad04-dfc74da54da2, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:41:08 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5158441ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5158442ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd9-605d-72d0-9978-8b99e3147eb9, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:41:08 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5158476ms] [LOG] [Fast Refresh] done in 1154ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5158730ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5158916ms] [LOG] [Fast Refresh] done in 288ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5159598ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5159808ms] [LOG] [Fast Refresh] done in 310ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5160454ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd9-6839-7de1-93b3-bd73a7a9917a, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:41:10 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160683ms] [LOG] [PostHog.js] send "$pageleave" {uuid: 019e1cd9-691e-75d4-9af2-87ecb77ab151, event: $pageleave, properties: Object, timestamp: Tue May 12 2026 16:41:10 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160858ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160859ms] [LOG] [PostHog.js] Persistence loaded localStorage+cookie {$device_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, distinct_id: 019e196c-377b-76e9-9751-6dc0354f6ca7, $sesid: Array(3), $epp: true, $initial_person_info: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160861ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 2, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160861ms] [LOG] [PostHog.js] Initializing extensions synchronously @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160861ms] [LOG] [PostHog.js] [Web Vitals] enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160862ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160862ms] [LOG] [PostHog.js] History API monitoring enabled, starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160862ms] [LOG] [PostHog.js] [SessionRecording] starting @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160862ms] [LOG] [PostHog.js] [Heatmaps] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160863ms] [LOG] [PostHog.js] Starting in debug mode {this: qn, config: Object, thisC: Object, p: Object, s: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160866ms] [LOG] [PostHog.js] send "$set" {uuid: 019e1cd9-69d4-7172-9e88-f6fdf1ee53c6, event: $set, properties: Object, $set_once: Object, timestamp: Tue May 12 2026 16:41:10 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160868ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/8f4ea_next_dist_compiled_react-dom_17a4e3b3._.js:14537
+[ 5160884ms] [LOG] [PostHog.js] [Dead Clicks] starting... @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5160889ms] [LOG] [PostHog.js] send "$pageview" {uuid: 019e1cd9-69ec-714a-b935-4a002e62c768, event: $pageview, properties: Object, timestamp: Tue May 12 2026 16:41:11 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5161228ms] [LOG] [PostHog.js] Persistence loaded sessionStorage {$sdk_debug_extensions_init_method: synchronous, $sdk_debug_extensions_init_time_ms: 2, $referrer: $direct, $referring_domain: $direct, $sdk_debug_replay_remote_trigger_matching_config: null} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5161229ms] [LOG] [PostHog.js] set_config {config: Object, oldConfig: Object, newConfig: Object} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5161229ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5161229ms] [LOG] [PostHog.js] [Surveys] flags response received, isSurveysEnabled: false @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5161229ms] [LOG] [PostHog.js] [ExceptionAutocapture] enabled @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5161354ms] [LOG] [PostHog.js] [Surveys] Surveys loaded successfully @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5161659ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5161717ms] [LOG] [Fast Refresh] done in 158ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5161863ms] [WARNING] Image with src "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5163465ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd9-73fc-76e3-9189-56aaad2adb32, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:41:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5166021ms] [LOG] [PostHog.js] send "$web_vitals" {uuid: 019e1cd9-7df8-7ccb-8f9d-af101e4754ed, event: $web_vitals, properties: Object, timestamp: Tue May 12 2026 16:41:16 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5187971ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5188119ms] [LOG] [Fast Refresh] done in 225ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5189872ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cd9-db24-7893-9a1a-2bbd1fa3eae1, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:41:40 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5378001ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5378104ms] [LOG] [Fast Refresh] done in 185ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5378259ms] [LOG] [Fast Refresh] rebuilding @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5378505ms] [LOG] [Fast Refresh] done in 347ms @ https://us-assets.i.posthog.com/static/posthog-recorder.js?v=1.372.10:0
+[ 5379906ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cdc-c175-7a70-a0b1-e67c34a4cc46, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:44:50 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5463439ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1cde-07c2-7390-bb96-b3ed3cb94a93, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:46:13 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019
+[ 5761435ms] [LOG] [PostHog.js] send "$snapshot" {uuid: 019e1ce2-93cf-7ee1-b092-627d3d7a3f9b, event: $snapshot, properties: Object, timestamp: Tue May 12 2026 16:51:11 GMT+0100 (British Summer Time)} @ http://localhost:3001/_next/static/chunks/b3626_posthog-js_dist_module_c967c4c2.js:1019

@@ -1,0 +1,305 @@
+[     219ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:21550
+[     268ms] [LOG] i18next: languageChanged en @ http://localhost:7001/node_modules/.vite/deps/i18next.js?v=09f6123d:15
+[     268ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:7001/node_modules/.vite/deps/i18next.js?v=09f6123d:15
+[     313ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4435
+[     435ms] [ERROR] Warning: React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://reactjs.org/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+%s RegisterPage 1. useContext                 useContext
+2. useContext                 useContext
+3. useContext                 useContext
+4. useRef                     useRef
+5. useContext                 useContext
+6. useLayoutEffect            useLayoutEffect
+7. useCallback                useCallback
+8. useState                   useState
+9. useContext                 useContext
+10. useContext                useContext
+11. useContext                useContext
+12. useEffect                 useEffect
+13. useState                  useState
+14. useCallback               useCallback
+15. useSyncExternalStore      useSyncExternalStore
+16. useEffect                 useEffect
+17. undefined                 useContext
+ 
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:360:20)
+    at RenderedRoute (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4131:5)
+    at RenderedRoute (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4131:5)
+    at RenderErrorBoundary (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4091:5)
+    at Outlet (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4537:26)
+    at PublicLayout
+    at RenderedRoute (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4131:5)
+    at RenderErrorBoundary (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4091:5)
+    at DataRoutes (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:5282:5)
+    at Router (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4544:15)
+    at RouterProvider (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:5096:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithDefaultLocale (http://localhost:7001/node_modules/.vite/deps/@medusajs_ui.js?v=09f6123d:35803:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (http://localhost:7001/node_modules/.vite/deps/@medusajs_ui.js?v=09f6123d:35810:9)
+    at I18nProvider
+    at ThemeProvider (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:82:3)
+    at QueryClientProvider (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:2829:3)
+    at _a (http://localhost:7001/node_modules/.vite/deps/react-helmet-async.js?v=09f6123d:624:5)
+    at Provider4 (http://localhost:7001/node_modules/.vite/deps/chunk-6NMXABDH.js?v=09f6123d:313:15)
+    at TooltipProvider (http://localhost:7001/node_modules/.vite/deps/chunk-6NMXABDH.js?v=09f6123d:11505:5)
+    at TooltipProvider (http://localhost:7001/node_modules/.vite/deps/@medusajs_ui.js?v=09f6123d:55859:26)
+    at App (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:4327:18) @ http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:520
+[     437ms] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28)
+[     438ms] [ERROR] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:2325
+[     439ms] [ERROR] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:2325
+[     441ms] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28)
+[     440ms] [ERROR] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:2325
+[     440ms] [ERROR] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:2325
+[     442ms] [ERROR] The above error occurred in the <RegisterPage> component:
+
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:360:20)
+    at RenderedRoute (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4131:5)
+    at RenderedRoute (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4131:5)
+    at RenderErrorBoundary (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4091:5)
+    at Outlet (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4537:26)
+    at PublicLayout
+    at RenderedRoute (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4131:5)
+    at RenderErrorBoundary (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4091:5)
+    at DataRoutes (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:5282:5)
+    at Router (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4544:15)
+    at RouterProvider (http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:5096:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithDefaultLocale (http://localhost:7001/node_modules/.vite/deps/@medusajs_ui.js?v=09f6123d:35803:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (http://localhost:7001/node_modules/.vite/deps/@medusajs_ui.js?v=09f6123d:35810:9)
+    at I18nProvider
+    at ThemeProvider (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:82:3)
+    at QueryClientProvider (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:2829:3)
+    at _a (http://localhost:7001/node_modules/.vite/deps/react-helmet-async.js?v=09f6123d:624:5)
+    at Provider4 (http://localhost:7001/node_modules/.vite/deps/chunk-6NMXABDH.js?v=09f6123d:313:15)
+    at TooltipProvider (http://localhost:7001/node_modules/.vite/deps/chunk-6NMXABDH.js?v=09f6123d:11505:5)
+    at TooltipProvider (http://localhost:7001/node_modules/.vite/deps/@medusajs_ui.js?v=09f6123d:55859:26)
+    at App (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:4327:18)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14031
+[     442ms] [ERROR] React Router caught the following error during render Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28) {componentStack: 
+    at RegisterPage (http://localhost:7001/@fs/Us…ges/vendor/dist/index.js?t=1778622605799:4327:18)} @ http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4117
+[     443ms] [ERROR] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:2325
+[     443ms] [ERROR] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11678:21)
+    at updateReducer (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11727:22)
+    at updateState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12021:18)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:12753:24)
+    at Object.useState (http://localhost:7001/node_modules/.vite/deps/chunk-BMNVIOS4.js?v=09f6123d:1066:29)
+    at useMutation (http://localhost:7001/node_modules/.vite/deps/@tanstack_react-query.js?v=09f6123d:3301:30)
+    at useSignUpWithEmailPass (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-F4OJN2F2.js?t=1778622605870:31:10)
+    at RegisterPage (http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js:383:7)
+    at renderWithHooks (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:11548:26)
+    at updateFunctionComponent (http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:14582:28) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778622605799:2325
+[   48762ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-RLETOWCM.js?t=1778623295881:0
+[   48762ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-RLETOWCM.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48763ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js?t=1778623295881:0
+[   48763ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48763ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-2SLAVXFY.js?t=1778623295882:0
+[   48763ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-2SLAVXFY.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48764ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-WQX4ASK4.js?t=1778623295881:0
+[   48764ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-WQX4ASK4.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48768ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-FEUCCLKR.js?t=1778623295881:0
+[   48768ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-FEUCCLKR.js?t=1778623295882:0
+[   48768ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-FEUCCLKR.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48768ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-FEUCCLKR.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48768ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778623295882:0
+[   48768ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/index.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48768ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js?t=1778623295882:0
+[   48768ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48770ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js?t=1778623295882:0
+[   48770ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48772ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-QBBBKJG4.js?t=1778623295882:0
+[   48772ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-QBBBKJG4.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48773ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js?t=1778623295882:0
+[   48773ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48776ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-3BZBEC3Y.js?t=1778623295883:0
+[   48776ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-3BZBEC3Y.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48780ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-3CK6OINO.js?t=1778623295883:0
+[   48780ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-3CK6OINO.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48782ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-2POPPFAP.js?t=1778623295882:0
+[   48783ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-2POPPFAP.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48783ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-3QSRE5LS.js?t=1778623295885:0
+[   48783ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-3QSRE5LS.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48787ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-3EF54XFY.js?t=1778623295884:0
+[   48787ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-3EF54XFY.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48792ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js?t=1778623295888:0
+[   48792ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48803ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js?t=1778623295885:0
+[   48803ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48806ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778623295888:0
+[   48806ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/index.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48868ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js?t=1778623295888:0
+[   48868ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/register-YQQ7ZHUX.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48900ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js?t=1778623295889:0
+[   48900ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48900ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-4F5GP7J7.js?t=1778623295890:0
+[   48900ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-4F5GP7J7.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48901ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-4GPAS5GW.js?t=1778623295892:0
+[   48901ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-4GPAS5GW.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48933ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-5BONGICL.js?t=1778623295895:0
+[   48933ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-5BONGICL.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48933ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js?t=1778623295893:0
+[   48934ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48934ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-5IWBNPZX.js?t=1778623295896:0
+[   48934ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-5IWBNPZX.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48936ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-5LKZCG77.js?t=1778623295896:0
+[   48936ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-5LKZCG77.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48956ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-5WGSVFC3.js?t=1778623295897:0
+[   48956ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-5WGSVFC3.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48963ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js?t=1778623295900:0
+[   48963ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48965ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-7AV5EJJ5.js?t=1778623295901:0
+[   48965ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-7AV5EJJ5.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48970ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-6WY5X4PE.js?t=1778623295900:0
+[   48970ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-6WY5X4PE.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48971ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-7TIZP4YG.js?t=1778623295902:0
+[   48971ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-7TIZP4YG.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48972ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778623295903:0
+[   48972ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/index.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   48973ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js?t=1778623295902:0
+[   48973ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   49103ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.css?t=1778623296011:0
+[   49110ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778623296012:0
+[   52151ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:21550
+[   52213ms] [LOG] i18next: languageChanged en @ http://localhost:7001/node_modules/.vite/deps/i18next.js?v=09f6123d:15
+[   52213ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:7001/node_modules/.vite/deps/i18next.js?v=09f6123d:15
+[   52219ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4435
+[   52447ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:7001/register:0
+[   73131ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js?t=1778623319982:0
+[   73131ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73132ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-WQX4ASK4.js?t=1778623319982:0
+[   73132ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-WQX4ASK4.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73133ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-FEUCCLKR.js?t=1778623319982:0
+[   73133ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-FEUCCLKR.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73141ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-FEUCCLKR.js?t=1778623319989:0
+[   73141ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-FEUCCLKR.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73141ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-RLETOWCM.js?t=1778623319982:0
+[   73141ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-RLETOWCM.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73144ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778623319990:0
+[   73144ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/index.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73144ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-2POPPFAP.js?t=1778623319984:0
+[   73144ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-2POPPFAP.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73146ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js?t=1778623319990:0
+[   73146ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73147ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js?t=1778623319990:0
+[   73147ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73147ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-QBBBKJG4.js?t=1778623319990:0
+[   73147ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-QBBBKJG4.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73149ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-X3YYPPIT.js?t=1778623319990:0
+[   73149ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/register-X3YYPPIT.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73149ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-3BZBEC3Y.js?t=1778623319991:0
+[   73150ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-3BZBEC3Y.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73150ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-3CK6OINO.js?t=1778623319993:0
+[   73150ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-3CK6OINO.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73150ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-3EF54XFY.js?t=1778623319993:0
+[   73150ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-3EF54XFY.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73153ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-3QSRE5LS.js?t=1778623319995:0
+[   73153ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-3QSRE5LS.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73157ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-2SLAVXFY.js?t=1778623319984:0
+[   73157ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-2SLAVXFY.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73162ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778623319998:0
+[   73162ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/index.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73166ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js?t=1778623319997:0
+[   73166ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73166ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js?t=1778623319998:0
+[   73166ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-A4LYFHPW.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73167ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/register-X3YYPPIT.js?t=1778623319998:0
+[   73167ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/register-X3YYPPIT.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73169ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-4F5GP7J7.js?t=1778623320002:0
+[   73169ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-4F5GP7J7.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73171ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js?t=1778623320001:0
+[   73171ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-NCABGI3E.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73171ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-4GPAS5GW.js?t=1778623320003:0
+[   73171ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-4GPAS5GW.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73172ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-5BONGICL.js?t=1778623320007:0
+[   73172ms] [ERROR] [hmr] Failed to reload /@fs/Users/alphie/Project Farmhouse/mercur/packages/vendor/dist/chunk-5BONGICL.js. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:7001/@vite/client:175
+[   73176ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-AIRJ4WZG.js?t=1778623320006:0
+[   73176ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/chunk-5WGSVFC3.js?t=1778623320014:0
+[   73248ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.css?t=1778623320299:0
+[   73249ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:7001/@fs/Users/alphie/Project%20Farmhouse/mercur/packages/vendor/dist/index.js?t=1778623320300:0
+[   78201ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:7001/node_modules/.vite/deps/chunk-P6YNEX7I.js?v=09f6123d:21550
+[   78271ms] [LOG] i18next: languageChanged en @ http://localhost:7001/node_modules/.vite/deps/i18next.js?v=09f6123d:15
+[   78271ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:7001/node_modules/.vite/deps/i18next.js?v=09f6123d:15
+[   78275ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:7001/node_modules/.vite/deps/react-router-dom.js?v=09f6123d:4435
+[   78518ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:7001/register:0

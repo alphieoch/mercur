@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
   const vendorUrl =
     env.VITE_MERCUR_VENDOR_URL || env.MERCUR_VENDOR_URL
 
+  const storefrontUrl =
+    env.VITE_STOREFRONT_URL || env.STOREFRONT_URL
+
   return {
     plugins: [
       react(),
@@ -19,5 +22,8 @@ export default defineConfig(({ mode }) => {
         ...(vendorUrl ? { vendorUrl } : {}),
       }),
     ],
+    define: {
+      __STOREFRONT_URL__: JSON.stringify(storefrontUrl || 'http://localhost:3000'),
+    },
   }
 })

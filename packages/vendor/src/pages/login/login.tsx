@@ -1,216 +1,99 @@
-import { Children, ReactNode } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import i18n from "i18next";
-import { Alert, Button, Heading, Input, Text } from "@medusajs/ui";
-import { useForm } from "react-hook-form";
-import { Trans, useTranslation } from "react-i18next";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import * as z from "zod";
+import { useState } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
 
-import { Form } from "@components/common/form";
-import AvatarBox from "@components/common/logo-box/avatar-box";
-import { AuthLayout } from "@components/layout/auth-layout";
-import { useSignInWithEmailPass } from "@hooks/api";
-import { isFetchError } from "@lib/is-fetch-error";
-import config from "virtual:mercur/config";
+import { SignInPage } from "@components/ui/sign-in"
+import { useSignInWithEmailPass } from "@hooks/api"
+import { isFetchError } from "@lib/is-fetch-error"
 
-const LoginSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: i18n.t("login.validation.emailRequired") })
-    .email({ message: i18n.t("login.validation.emailInvalid") }),
-  password: z
-    .string()
-    .min(1, { message: i18n.t("login.validation.passwordRequired") }),
-});
+const FARM_TESTIMONIALS = [
+  {
+    avatarSrc: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop&q=80",
+    name: "Sarah Chen",
+    handle: "Green Acres Farm",
+    text: "Since joining, we've tripled our direct sales and built lasting relationships with local customers.",
+  },
+  {
+    avatarSrc: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80",
+    name: "Marcus Johnson",
+    handle: "Sunrise Dairy",
+    text: "The platform makes it so easy to manage orders and communicate with buyers. Best decision we made.",
+  },
+  {
+    avatarSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&auto=format&fit=crop&q=80",
+    name: "David Martinez",
+    handle: "Heritage Orchard",
+    text: "We went from selling at one farmers market to reaching customers across the region in just 3 months.",
+  },
+]
 
-const LoginLogo = () => {
-  return <AvatarBox />;
-};
+const HERO_IMAGE = "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1200&auto=format&fit=crop&q=80"
 
-const LoginHeader = () => {
-  const { t } = useTranslation();
+export const LoginPage = () => {
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const [serverError, setServerError] = useState<string | null>(null)
 
-  return (
-    <div className="mb-6 flex flex-col">
-      <Heading>{t("login.title")}</Heading>
-      <Text size="small" className="text-ui-fg-subtle">
-        {t("login.hint")}
-      </Text>
-    </div>
-  );
-};
-
-const LoginForm = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  const reason = searchParams.get("reason") || "";
+  const reason = searchParams.get("reason") || ""
   const reasonMessage =
     reason && reason.toLowerCase() === "unauthorized"
-      ? "Session expired"
-      : reason;
+      ? "Session expired. Please sign in again."
+      : ""
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
-    mode: "onSubmit",
-    reValidateMode: "onSubmit",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+  const { mutateAsync, isPending } = useSignInWithEmailPass()
 
-  const { mutateAsync, isPending } = useSignInWithEmailPass();
-
-  const handleSubmit = form.handleSubmit(async ({ email, password }) => {
-    await mutateAsync(
-      {
-        email,
-        password,
-      },
-      {
-        onError: (error) => {
-          if (isFetchError(error)) {
-            if (error.status === 401) {
-              form.setError("email", {
-                type: "manual",
-                message: error.message,
-              });
-
-              return;
+  const handleSignIn = async ({
+    email,
+    password,
+  }: {
+    email: string
+    password: string
+    rememberMe: boolean
+  }) => {
+    setServerError(null)
+    try {
+      await mutateAsync(
+        { email, password },
+        {
+          onError: (error) => {
+            if (isFetchError(error)) {
+              if (error.status === 401) {
+                setServerError(error.message || "Invalid email or password")
+                return
+              }
             }
-          }
-
-          form.setError("root.serverError", {
-            type: "manual",
-            message: error.message,
-          });
-        },
-        onSuccess: () => {
-          const email = form.getValues("email");
-          setTimeout(() => {
-            navigate("/store-select", {
-              replace: true,
-              state: { email },
-            });
-          }, 1000);
-        },
-      },
-    );
-  });
-
-  const serverError =
-    form.formState.errors?.root?.serverError?.message || reasonMessage;
+            setServerError(error.message || "An error occurred")
+          },
+          onSuccess: () => {
+            setTimeout(() => {
+              navigate("/store-select", {
+                replace: true,
+                state: { email },
+              })
+            }, 600)
+          },
+        }
+      )
+    } catch (error: any) {
+      // Error handled in onError callback
+    }
+  }
 
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit} className="flex w-full flex-col gap-y-6">
-        <div className="flex flex-col gap-y-4">
-          <Form.Field
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <Form.Item>
-                <Form.Label>{t("fields.email")}</Form.Label>
-                <Form.Control>
-                  <Input autoComplete="email" {...field} />
-                </Form.Control>
-                <Form.ErrorMessage />
-              </Form.Item>
-            )}
-          />
-          <Form.Field
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <Form.Item>
-                <Form.Label>{t("fields.password")}</Form.Label>
-                <Form.Control>
-                  <Input
-                    type="password"
-                    autoComplete="current-password"
-                    {...field}
-                  />
-                </Form.Control>
-                <Form.ErrorMessage />
-              </Form.Item>
-            )}
-          />
-          {serverError && (
-            <Alert
-              className="bg-ui-bg-base items-center p-2"
-              dismissible
-              variant="error"
-            >
-              {serverError}
-            </Alert>
-          )}
-        </div>
-        <Button className="w-full" type="submit" isLoading={isPending}>
-          {t("login.submit")}
-        </Button>
-      </form>
-    </Form>
-  );
-};
-
-const LoginFooter = () => {
-  return (
-    <div className="mt-auto flex flex-col gap-y-2">
-      <span className="text-ui-fg-muted txt-small">
-        <Trans
-          i18nKey="login.forgotPassword"
-          components={[
-            <Link
-              key="reset-password-link"
-              to="/reset-password"
-              className="text-ui-fg-interactive transition-fg hover:text-ui-fg-interactive-hover focus-visible:text-ui-fg-interactive-hover font-medium outline-none"
-            />,
-          ]}
-        />
-      </span>
-      {config.enableSellerRegistration && (
-        <span className="text-ui-fg-muted txt-small">
-          <Trans
-            i18nKey="login.notSellerYet"
-            components={[
-              <Link
-                key="register-link"
-                to="/register"
-                className="text-ui-fg-interactive transition-fg hover:text-ui-fg-interactive-hover focus-visible:text-ui-fg-interactive-hover font-medium outline-none"
-              />,
-            ]}
-          />
+    <SignInPage
+      title={
+        <span className="font-light tracking-tighter">
+          Welcome back
         </span>
-      )}
-    </div>
-  );
-};
-
-const Root = ({ children }: { children?: ReactNode }) => {
-  return (
-    <AuthLayout>
-      {Children.count(children) > 0 ? (
-        children
-      ) : (
-        <>
-          <LoginLogo />
-          <div className="mt-6">
-            <LoginHeader />
-            <LoginForm />
-          </div>
-          <LoginFooter />
-        </>
-      )}
-    </AuthLayout>
-  );
-};
-
-export const LoginPage = Object.assign(Root, {
-  Logo: LoginLogo,
-  Header: LoginHeader,
-  Form: LoginForm,
-  Footer: LoginFooter,
-});
+      }
+      description="Sign in to manage your farm store, track orders, and connect with customers."
+      heroImageSrc={HERO_IMAGE}
+      testimonials={FARM_TESTIMONIALS}
+      onSignIn={handleSignIn}
+      onResetPassword={() => navigate("/reset-password")}
+      onCreateAccount={() => navigate("/register")}
+      isLoading={isPending}
+      serverError={serverError || reasonMessage || null}
+      storefrontUrl={(import.meta as any).env?.VITE_MERCUR_STOREFRONT_URL || "http://localhost:3000"}
+    />
+  )
+}

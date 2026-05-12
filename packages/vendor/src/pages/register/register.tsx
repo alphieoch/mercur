@@ -1,173 +1,41 @@
-import { Children, ReactNode, useState } from "react"
-
-import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 import { Spinner } from "@medusajs/icons"
-import { Button, Heading, Hint, Input, Text } from "@medusajs/ui"
-import { MercurFeatureFlags } from "@mercurjs/types"
-import { useForm } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { Link, Navigate, useNavigate } from "react-router-dom"
-import config from "virtual:mercur/config"
-import * as z from "zod"
 
-import { Form } from "@components/common/form"
-import AvatarBox from "@components/common/logo-box/avatar-box"
-import { AuthLayout } from "@components/layout/auth-layout"
+import { SignUpPage } from "@components/ui/sign-up"
 import { useFeatureFlags, useSignUpWithEmailPass } from "@hooks/api"
-
-import { RegisterSchema } from "./register-schema"
+import { MercurFeatureFlags } from "@mercurjs/types"
 
 const REGISTER_DRAFT_KEY = "mercur_register_draft"
 
-const RegisterLogo = () => {
-  return <AvatarBox />
-}
+const FARM_TESTIMONIALS = [
+  {
+    avatarSrc: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80",
+    name: "Emily Parker",
+    handle: "Willow Creek Farm",
+    text: "I started selling my organic vegetables here and now I have a waitlist every harvest season!",
+  },
+  {
+    avatarSrc: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80",
+    name: "James Wilson",
+    handle: "Red Barn Poultry",
+    text: "The onboarding was smooth and we had our first orders within a week. Incredible platform.",
+  },
+  {
+    avatarSrc: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80",
+    name: "Maria Santos",
+    handle: "Santos Family Vineyard",
+    text: "Finally a marketplace that understands local producers. Our wine sales grew 5x in 6 months.",
+  },
+]
 
-const RegisterHeader = () => {
-  const { t } = useTranslation()
+const HERO_IMAGE = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&auto=format&fit=crop&q=80"
 
-  return (
-    <div className="mb-6 flex flex-col">
-      <Heading>{t("register.title")}</Heading>
-      <Text size="small" className="text-ui-fg-subtle">
-        {t("register.hint", { name: config.name ?? "Mercur" })}
-      </Text>
-    </div>
-  )
-}
-
-const RegisterForm = () => {
-  const { t } = useTranslation()
+export const RegisterPage = () => {
   const navigate = useNavigate()
   const [serverError, setServerError] = useState<string | null>(null)
-
-  const form = useForm<z.infer<typeof RegisterSchema>>({
-    resolver: zodResolver(RegisterSchema),
-    mode: "onSubmit",
-    reValidateMode: "onSubmit",
-    defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-    },
-  })
-
-  const { mutateAsync: signUp, isPending } = useSignUpWithEmailPass()
-
-  const handleSubmit = form.handleSubmit(async ({ first_name, last_name, email, password }) => {
-    setServerError(null)
-    try {
-      await signUp({ email, password })
-      // Persist identity details for onboarding step that creates the seller member.
-      // Backend emailpass register does not accept these fields directly today,
-      // so they ride through sessionStorage and land on the member via onboarding.
-      sessionStorage.setItem(
-        REGISTER_DRAFT_KEY,
-        JSON.stringify({ first_name, last_name, email }),
-      )
-      navigate("/onboarding", { state: { email, first_name, last_name } })
-    } catch (error: any) {
-      setServerError(error?.message || t("register.error"))
-    }
-  })
-
-  return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit} className="flex w-full flex-col gap-y-6">
-        <div className="flex flex-col gap-y-4">
-          <Form.Field
-            control={form.control}
-            name="first_name"
-            render={({ field }) => (
-              <Form.Item>
-                <Form.Label>{t("register.firstName")}</Form.Label>
-                <Form.Control>
-                  <Input autoComplete="given-name" {...field} />
-                </Form.Control>
-                <Form.ErrorMessage />
-              </Form.Item>
-            )}
-          />
-          <Form.Field
-            control={form.control}
-            name="last_name"
-            render={({ field }) => (
-              <Form.Item>
-                <Form.Label>{t("register.lastName")}</Form.Label>
-                <Form.Control>
-                  <Input autoComplete="family-name" {...field} />
-                </Form.Control>
-                <Form.ErrorMessage />
-              </Form.Item>
-            )}
-          />
-          <Form.Field
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <Form.Item>
-                <Form.Label>{t("fields.email")}</Form.Label>
-                <Form.Control>
-                  <Input autoComplete="email" {...field} />
-                </Form.Control>
-                <Form.ErrorMessage />
-              </Form.Item>
-            )}
-          />
-          <Form.Field
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <Form.Item>
-                <Form.Label>{t("fields.password")}</Form.Label>
-                <Form.Control>
-                  <Input
-                    type="password"
-                    autoComplete="new-password"
-                    {...field}
-                  />
-                </Form.Control>
-                <Form.Hint>{t("register.passwordHint")}</Form.Hint>
-                <Form.ErrorMessage />
-              </Form.Item>
-            )}
-          />
-          {serverError && (
-            <Hint className="inline-flex" variant="error">
-              {serverError}
-            </Hint>
-          )}
-        </div>
-        <Button className="w-full" type="submit" isLoading={isPending}>
-          {t("actions.continue")}
-        </Button>
-      </form>
-    </Form>
-  )
-}
-
-const RegisterFooter = () => {
-  return (
-    <div className="mt-auto">
-      <span className="text-ui-fg-muted txt-small">
-        <Trans
-          i18nKey="register.alreadySeller"
-          components={[
-            <Link
-              key="login-link"
-              to="/login"
-              className="text-ui-fg-interactive transition-fg hover:text-ui-fg-interactive-hover focus-visible:text-ui-fg-interactive-hover font-medium outline-none"
-            />,
-          ]}
-        />
-      </span>
-    </div>
-  )
-}
-
-const Root = ({ children }: { children?: ReactNode }) => {
   const { feature_flags, isLoading } = useFeatureFlags()
+  const { mutateAsync: signUp, isPending } = useSignUpWithEmailPass()
 
   if (isLoading) {
     return (
@@ -181,27 +49,45 @@ const Root = ({ children }: { children?: ReactNode }) => {
     return <Navigate to="/login" replace />
   }
 
+  const handleSignUp = async ({
+    first_name,
+    last_name,
+    email,
+    password,
+  }: {
+    first_name: string
+    last_name: string
+    email: string
+    password: string
+  }) => {
+    setServerError(null)
+    try {
+      await signUp({ email, password })
+      sessionStorage.setItem(
+        REGISTER_DRAFT_KEY,
+        JSON.stringify({ first_name, last_name, email })
+      )
+      navigate("/onboarding", { state: { email, first_name, last_name } })
+    } catch (error: any) {
+      setServerError(error?.message || "Failed to create account")
+    }
+  }
+
   return (
-    <AuthLayout>
-      {Children.count(children) > 0 ? (
-        children
-      ) : (
-        <>
-          <RegisterLogo />
-          <div className="mt-6">
-            <RegisterHeader />
-            <RegisterForm />
-          </div>
-          <RegisterFooter />
-        </>
-      )}
-    </AuthLayout>
+    <SignUpPage
+      title={
+        <span className="font-light tracking-tighter">
+          Join our marketplace
+        </span>
+      }
+      description="Create your seller account and start reaching customers who care about fresh, local produce."
+      heroImageSrc={HERO_IMAGE}
+      testimonials={FARM_TESTIMONIALS}
+      onSignUp={handleSignUp}
+      onSignIn={() => navigate("/login")}
+      isLoading={isPending}
+      serverError={serverError}
+      storefrontUrl={(import.meta as any).env?.VITE_MERCUR_STOREFRONT_URL || "http://localhost:3000"}
+    />
   )
 }
-
-export const RegisterPage = Object.assign(Root, {
-  Logo: RegisterLogo,
-  Header: RegisterHeader,
-  Form: RegisterForm,
-  Footer: RegisterFooter,
-})

@@ -13,9 +13,9 @@ export const deleteSellerProfessionalDetailsStep = createStep<
     const service =
       container.resolve<SellerModuleService>(MercurModules.SELLER)
 
-    const existing = await service.listProfessionalDetails({
+    const existing = (await service.listProfessionalDetails({
       seller_id,
-    })
+    })) as ProfessionalDetailsDTO[]
 
     if (existing.length > 0) {
       await service.deleteProfessionalDetails([existing[0].id])
@@ -37,6 +37,6 @@ export const deleteSellerProfessionalDetailsStep = createStep<
       registration_number: previous.registration_number,
       tax_id: previous.tax_id,
       seller_id: (previous as any).seller_id,
-    })
+    } as any)
   }
 )

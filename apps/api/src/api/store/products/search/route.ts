@@ -35,6 +35,22 @@ function buildTypesenseFilter(filters?: StoreSearchType['filters']): string {
   return parts.join(' && ')
 }
 
+function mapSortToTypesense(sort?: StoreSearchType['sort']): string {
+  switch (sort) {
+    case 'title_asc':
+      return 'title:asc'
+    case 'title_desc':
+      return 'title:desc'
+    case 'price_asc':
+      return 'variants.prices.amount:asc'
+    case 'price_desc':
+      return 'variants.prices.amount:desc'
+    case 'relevance':
+    default:
+      return ''
+  }
+}
+
 export const POST = async (
   req: MedusaRequest<StoreSearchType>,
   res: MedusaResponse
@@ -54,6 +70,7 @@ export const POST = async (
     customer_group_id,
     facets,
     maxValuesPerFacet,
+    sort,
   } = req.validatedBody
 
   let currency_code = reqCurrencyCode
@@ -65,6 +82,7 @@ export const POST = async (
 
   const filter_by = buildTypesenseFilter(filters)
   const facet_by = facets?.join(',') || ''
+  const sort_by = mapSortToTypesense(sort)
 
   const searchResult = await typesenseService.search(searchQuery, {
     filter_by,
@@ -72,6 +90,7 @@ export const POST = async (
     hitsPerPage,
     facet_by,
     max_facet_values: maxValuesPerFacet || 50,
+    sort_by,
   })
 
   const productIds = searchResult.hits.map((hit) => hit.id)
