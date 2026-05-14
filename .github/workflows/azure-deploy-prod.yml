@@ -123,16 +123,6 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Ensure Meilisearch Key Exists
-        run: |
-          KV_NAME=$(az keyvault list --resource-group openstorex-${{ env.ENVIRONMENT }}-rg --query "[0].name" -o tsv)
-          if [ -z "$KV_NAME" ]; then
-            echo "No Key Vault found in resource group. Skipping meilisearch key check — Bicep will create it."
-            exit 0
-          fi
-          az keyvault secret show --name meili-master-key --vault-name $KV_NAME 2>/dev/null || \
-            az keyvault secret set --name meili-master-key --vault-name $KV_NAME --value "$(openssl rand -hex 32)"
-
       - name: Check Role Assignment Permissions
         run: |
           SP_OBJECT_ID=$(az ad sp show --id ${{ secrets.AZURE_CLIENT_ID }} --query id -o tsv)
