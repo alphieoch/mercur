@@ -46,6 +46,9 @@ RUN bun run build
 WORKDIR /app/packages/dashboard-shared
 RUN bun run build
 
+WORKDIR /app/packages/vendor
+RUN bun run build
+
 WORKDIR /app/apps/vendor
 RUN bunx vite build
 
