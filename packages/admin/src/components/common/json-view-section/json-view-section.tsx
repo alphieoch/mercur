@@ -4,7 +4,7 @@ import {
   SquareTwoStack,
   TriangleDownMini,
   XMarkMini,
-} from "@medusajs/icons"
+} from "@medusajs/icons";
 import {
   Badge,
   Container,
@@ -12,10 +12,10 @@ import {
   Heading,
   IconButton,
   Kbd,
-} from "@medusajs/ui"
-import Primitive from "@uiw/react-json-view"
-import { CSSProperties, MouseEvent, Suspense, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import Primitive from "@uiw/react-json-view";
+import { CSSProperties, MouseEvent, Suspense, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 
 type JsonViewSectionProps = {
   data: object
@@ -23,8 +23,8 @@ type JsonViewSectionProps = {
 }
 
 export const JsonViewSection = ({ data }: JsonViewSectionProps) => {
-  const { t } = useTranslation()
-  const numberOfKeys = Object.keys(data).length
+  const { t } = useTranslation();
+  const numberOfKeys = Object.keys(data).length;
 
   return (
     <Container className="flex items-center justify-between px-6 py-4">
@@ -135,7 +135,7 @@ export const JsonViewSection = ({ data }: JsonViewSectionProps) => {
                             count: Object.keys(value as object).length,
                           })}
                         </span>
-                      )
+                      );
                     }}
                   />
                   <Primitive.Arrow>
@@ -146,7 +146,7 @@ export const JsonViewSection = ({ data }: JsonViewSectionProps) => {
                   </Primitive.Colon>
                   <Primitive.Copied
                     render={({ style }, { value }) => {
-                      return <Copied style={style} value={value} />
+                      return <Copied style={style} value={value} />;
                     }}
                   />
                 </Primitive>
@@ -156,8 +156,8 @@ export const JsonViewSection = ({ data }: JsonViewSectionProps) => {
         </Drawer.Content>
       </Drawer>
     </Container>
-  )
-}
+  );
+};
 
 type CopiedProps = {
   style?: CSSProperties
@@ -165,37 +165,37 @@ type CopiedProps = {
 }
 
 const Copied = ({ style, value }: CopiedProps) => {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
 
   const handler = (e: MouseEvent<HTMLSpanElement>) => {
-    e.stopPropagation()
-    setCopied(true)
+    e.stopPropagation();
+    setCopied(true);
 
     if (typeof value === "string") {
-      navigator.clipboard.writeText(value)
+      navigator.clipboard.writeText(value);
     } else {
-      const json = JSON.stringify(value, null, 2)
-      navigator.clipboard.writeText(json)
+      const json = JSON.stringify(value, null, 2);
+      navigator.clipboard.writeText(json);
     }
 
     setTimeout(() => {
-      setCopied(false)
-    }, 2000)
-  }
+      setCopied(false);
+    }, 2000);
+  };
 
-  const styl = { whiteSpace: "nowrap", width: "20px" }
+  const styl = { whiteSpace: "nowrap", width: "20px" };
 
   if (copied) {
     return (
       <span style={{ ...style, ...styl }}>
         <Check className="text-ui-contrast-fg-primary" />
       </span>
-    )
+    );
   }
 
   return (
     <span style={{ ...style, ...styl }} onClick={handler}>
       <SquareTwoStack className="text-ui-contrast-fg-secondary" />
     </span>
-  )
-}
+  );
+};

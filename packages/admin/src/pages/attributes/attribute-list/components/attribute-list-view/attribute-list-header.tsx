@@ -1,23 +1,23 @@
-import { Children, ReactNode } from "react"
-import { Button, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { Children, ReactNode } from "react";
+import { Button, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const AttributeListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Heading data-testid="attribute-list-table-heading">
       {t("attributes.list.title")}
     </Heading>
-  )
-}
+  );
+};
 
 export const AttributeListActions = ({
   children,
 }: {
   children?: ReactNode
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-center gap-x-2">
       {Children.count(children) > 0 ? (
@@ -33,8 +33,8 @@ export const AttributeListActions = ({
         </Button>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const AttributeListHeader = ({
   children,
@@ -55,5 +55,5 @@ export const AttributeListHeader = ({
         </>
       )}
     </div>
-  )
-}
+  );
+};

@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { StoreListHeader } from "./store-list-header"
-import { StoreListDataTable } from "./store-list-data-table"
+import { StoreListHeader } from "./store-list-header";
+import { StoreListDataTable } from "./store-list-data-table";
 
-export { StoreListDataTable } from "./store-list-data-table"
+export { StoreListDataTable } from "./store-list-data-table";
 export {
   StoreListHeader,
   StoreListTitle,
   StoreListActions,
-} from "./store-list-header"
+} from "./store-list-header";
 
 export const StoreListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -23,5 +23,5 @@ export const StoreListTable = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </Container>
-  )
-}
+  );
+};

@@ -1,8 +1,8 @@
-import { ProgressStatus } from "@medusajs/ui"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { FieldPath, FieldValues, UseFormReturn } from "react-hook-form"
+import { ProgressStatus } from "@medusajs/ui";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 
-import { TabDefinition } from "./types"
+import { TabDefinition } from "./types";
 
 type TabState = Record<string, ProgressStatus>
 
@@ -15,10 +15,10 @@ const validateTab = async <T extends FieldValues>(
   tab: TabDefinition<T>
 ): Promise<boolean> => {
   if (tab.validationFields?.length) {
-    return form.trigger(tab.validationFields as FieldPath<T>[])
+    return form.trigger(tab.validationFields as FieldPath<T>[]);
   }
-  return form.trigger()
-}
+  return form.trigger();
+};
 
 /**
  * Validates all tabs from `fromIndex` to `toIndex` (inclusive) sequentially.
@@ -33,11 +33,11 @@ const validateTabRange = async <T extends FieldValues>(
 
   for (let i = fromIndex; i <= toIndex; i++) {
     if (!(await validateTab(form, tabs[i]))) {
-      return false
+      return false;
     }
   }
-  return true
-}
+  return true;
+};
 
 export const useTabManagement = <T extends FieldValues>({
   tabs,
@@ -49,80 +49,80 @@ export const useTabManagement = <T extends FieldValues>({
   const visibleTabs = useMemo(
     () => tabs.filter((t) => !t.isVisible || t.isVisible(form)),
     [tabs, form]
-  )
+  );
 
   const [activeTabId, setActiveTabId] = useState<string>(
     visibleTabs[0]?.id ?? ""
-  )
+  );
 
   const [tabState, setTabState] = useState<TabState>(() => {
-    const state: TabState = {}
+    const state: TabState = {};
     visibleTabs.forEach((t, i) => {
-      state[t.id] = i === 0 ? "in-progress" : "not-started"
-    })
-    return state
-  })
+      state[t.id] = i === 0 ? "in-progress" : "not-started";
+    });
+    return state;
+  });
 
   useEffect(() => {
-    let resolvedActiveId = activeTabId
-    const activeExists = visibleTabs.some((t) => t.id === activeTabId)
+    let resolvedActiveId = activeTabId;
+    const activeExists = visibleTabs.some((t) => t.id === activeTabId);
 
     if (!activeExists && visibleTabs.length > 0) {
-      resolvedActiveId = visibleTabs[0].id
-      setActiveTabId(resolvedActiveId)
+      resolvedActiveId = visibleTabs[0].id;
+      setActiveTabId(resolvedActiveId);
     }
 
-    const newState: TabState = {}
+    const newState: TabState = {};
     const resolvedIndex = visibleTabs.findIndex(
       (t) => t.id === resolvedActiveId
-    )
+    );
 
     visibleTabs.forEach((t, i) => {
       if (i < resolvedIndex) {
-        newState[t.id] = "completed"
+        newState[t.id] = "completed";
       } else if (i === resolvedIndex) {
-        newState[t.id] = "in-progress"
+        newState[t.id] = "in-progress";
       } else {
-        newState[t.id] = tabState[t.id] ?? "not-started"
+        newState[t.id] = tabState[t.id] ?? "not-started";
       }
-    })
+    });
 
-    setTabState(newState)
+    setTabState(newState);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- we only want this effect to run when the active tab or visible tabs change
-  }, [activeTabId, visibleTabs])
+  }, [activeTabId, visibleTabs]);
 
-  const activeIndex = visibleTabs.findIndex((t) => t.id === activeTabId)
-  const isLastTab = activeIndex === visibleTabs.length - 1
+  const activeIndex = visibleTabs.findIndex((t) => t.id === activeTabId);
+  const isLastTab = activeIndex === visibleTabs.length - 1;
 
   const onNext = useCallback(async () => {
-    const currentTab = visibleTabs[activeIndex]
-    if (!currentTab) return
+    const currentTab = visibleTabs[activeIndex];
+    if (!currentTab) return;
 
-    const valid = await validateTab(form, currentTab)
-    if (!valid) return
+    const valid = await validateTab(form, currentTab);
+    if (!valid) return;
 
     if (activeIndex < visibleTabs.length - 1) {
-      setActiveTabId(visibleTabs[activeIndex + 1].id)
+      setActiveTabId(visibleTabs[activeIndex + 1].id);
     }
-  }, [form, activeIndex, visibleTabs])
+  }, [form, activeIndex, visibleTabs]);
 
   const onTabChange = useCallback(
     async (tabId: string) => {
-      const targetIndex = visibleTabs.findIndex((t) => t.id === tabId)
-      if (targetIndex === -1) return
+      const targetIndex = visibleTabs.findIndex((t) => t.id === tabId);
+      if (targetIndex === -1) return;
 
       const currentIndex = visibleTabs.findIndex(
         (t) => t.id === activeTabId
-      )
+      );
 
       if (currentIndex === -1) {
-        setActiveTabId(tabId)
-        return
+        setActiveTabId(tabId);
+        return;
       }
 
       if (targetIndex <= currentIndex) {
-        setActiveTabId(tabId)
-        return
+        setActiveTabId(tabId);
+        return;
       }
 
       const valid = await validateTabRange(
@@ -130,13 +130,13 @@ export const useTabManagement = <T extends FieldValues>({
         visibleTabs,
         currentIndex,
         targetIndex - 1
-      )
-      if (!valid) return
+      );
+      if (!valid) return;
 
-      setActiveTabId(tabId)
+      setActiveTabId(tabId);
     },
     [form, visibleTabs, activeTabId]
-  )
+  );
 
   return {
     activeTabId,
@@ -146,5 +146,5 @@ export const useTabManagement = <T extends FieldValues>({
     isLastTab,
     onNext,
     onTabChange,
-  }
-}
+  };
+};

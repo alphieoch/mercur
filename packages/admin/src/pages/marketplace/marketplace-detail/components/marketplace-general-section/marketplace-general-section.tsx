@@ -1,29 +1,29 @@
-import { PencilSquare } from "@medusajs/icons"
-import { AdminStore } from "@medusajs/types"
-import { Badge, Container, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { PencilSquare } from "@medusajs/icons";
+import { AdminStore } from "@medusajs/types";
+import { Badge, Container, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { Link } from "react-router-dom"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useSalesChannel, useStockLocation } from "../../../../../hooks/api"
-import { useRegion } from "../../../../../hooks/api/regions"
+import { Link } from "react-router-dom";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useSalesChannel, useStockLocation } from "../../../../../hooks/api";
+import { useRegion } from "../../../../../hooks/api/regions";
 
 type MarketplaceGeneralSectionProps = {
   store: AdminStore
 }
 
 export const MarketplaceGeneralSection = ({ store }: MarketplaceGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { region } = useRegion(store.default_region_id!, undefined, {
     enabled: !!store.default_region_id,
-  })
+  });
 
-  const defaultCurrency = store.supported_currencies?.find((c) => c.is_default)
+  const defaultCurrency = store.supported_currencies?.find((c) => c.is_default);
 
   const { sales_channel } = useSalesChannel(store.default_sales_channel_id!, {
     enabled: !!store.default_sales_channel_id,
-  })
+  });
 
   const { stock_location } = useStockLocation(
     store.default_location_id!,
@@ -33,7 +33,7 @@ export const MarketplaceGeneralSection = ({ store }: MarketplaceGeneralSectionPr
     {
       enabled: !!store.default_location_id,
     }
-  )
+  );
 
   return (
     <Container className="divide-y p-0" data-testid="store-general-section-container">
@@ -139,5 +139,5 @@ export const MarketplaceGeneralSection = ({ store }: MarketplaceGeneralSectionPr
         </div>
       </div>
     </Container>
-  )
-}
+  );
+};

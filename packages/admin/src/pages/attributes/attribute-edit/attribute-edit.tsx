@@ -1,20 +1,20 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Input, Select, Switch, Text, Textarea, toast } from "@medusajs/ui"
-import { HandleInput } from "../../../components/inputs/handle-input"
-import { Heading } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input, Select, Switch, Text, Textarea, toast } from "@medusajs/ui";
+import { HandleInput } from "../../../components/inputs/handle-input";
+import { Heading } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-import { Form } from "../../../components/common/form"
-import { Combobox } from "../../../components/inputs/combobox"
-import { RouteDrawer, useRouteModal } from "../../../components/modals"
-import { KeyboundForm } from "../../../components/utilities/keybound-form"
-import { useAttribute, useUpdateAttribute } from "../../../hooks/api/attributes"
-import { useProductCategories } from "../../../hooks/api"
-import { ATTRIBUTE_DETAIL_FIELDS } from "../attribute-detail/constants"
-import { AttributeUIComponent, UpdateAttributeSchema } from "./schema"
-import type { UpdateAttributeFormValues } from "./types"
+import { Form } from "../../../components/common/form";
+import { Combobox } from "../../../components/inputs/combobox";
+import { RouteDrawer, useRouteModal } from "../../../components/modals";
+import { KeyboundForm } from "../../../components/utilities/keybound-form";
+import { useAttribute, useUpdateAttribute } from "../../../hooks/api/attributes";
+import { useProductCategories } from "../../../hooks/api";
+import { ATTRIBUTE_DETAIL_FIELDS } from "../attribute-detail/constants";
+import { AttributeUIComponent, UpdateAttributeSchema } from "./schema";
+import type { UpdateAttributeFormValues } from "./types";
 
 const UI_COMPONENT_LABELS: Record<string, string> = {
   select: "Single Select",
@@ -22,24 +22,24 @@ const UI_COMPONENT_LABELS: Record<string, string> = {
   unit: "Unit",
   toggle: "Toggle",
   text_area: "Text",
-}
+};
 
 type AttributeEditFormProps = {
   attribute: Record<string, any>
 }
 
 const AttributeEditForm = ({ attribute }: AttributeEditFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const { product_categories: allCategories } = useProductCategories({
     limit: 999,
-  })
+  });
 
   const categoryOptions = (allCategories ?? []).map((cat: any) => ({
     label: cat.name,
     value: cat.id,
-  }))
+  }));
 
   const form = useForm<UpdateAttributeFormValues>({
     resolver: zodResolver(UpdateAttributeSchema),
@@ -54,23 +54,23 @@ const AttributeEditForm = ({ attribute }: AttributeEditFormProps) => {
         (cat: any) => cat.id
       ),
     },
-  })
+  });
 
-  const { mutateAsync, isPending: isMutating } = useUpdateAttribute(attribute.id)
+  const { mutateAsync, isPending: isMutating } = useUpdateAttribute(attribute.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(data, {
       onSuccess: () => {
         toast.success(
           t("attributes.edit.successToast", { name: data.name || attribute.name })
-        )
-        handleSuccess()
+        );
+        handleSuccess();
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="attribute-edit-form">
@@ -243,22 +243,22 @@ const AttributeEditForm = ({ attribute }: AttributeEditFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};
 
 export const AttributeEdit = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
   const { attribute, isPending, isError, error } = useAttribute(id!, {
     fields: ATTRIBUTE_DETAIL_FIELDS,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   if (isPending || !attribute) {
-    return null
+    return null;
   }
 
   return (
@@ -273,5 +273,5 @@ export const AttributeEdit = () => {
       </RouteDrawer.Header>
       <AttributeEditForm attribute={attribute} />
     </RouteDrawer>
-  )
-}
+  );
+};

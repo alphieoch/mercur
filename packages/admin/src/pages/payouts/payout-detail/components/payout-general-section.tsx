@@ -1,29 +1,29 @@
-import { Container, Heading, StatusBadge, Text } from "@medusajs/ui"
-import { PayoutDTO } from "@mercurjs/types"
-import { useTranslation } from "react-i18next"
-import { getStylizedAmount } from "../../../../lib/money-amount-helpers"
+import { Container, Heading, StatusBadge, Text } from "@medusajs/ui";
+import { PayoutDTO } from "@mercurjs/types";
+import { useTranslation } from "react-i18next";
+import { getStylizedAmount } from "../../../../lib/money-amount-helpers";
 
 const payoutStatusColor = (status: string) => {
   switch (status) {
-    case "paid":
-      return "green"
-    case "processing":
-      return "orange"
-    case "pending":
-      return "grey"
-    case "failed":
-    case "canceled":
-      return "red"
-    default:
-      return "grey"
+  case "paid":
+    return "green";
+  case "processing":
+    return "orange";
+  case "pending":
+    return "grey";
+  case "failed":
+  case "canceled":
+    return "red";
+  default:
+    return "grey";
   }
-}
+};
 
 export const PayoutGeneralSection = ({ payout }: { payout: PayoutDTO }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const statusText =
-    payout.status.charAt(0).toUpperCase() + payout.status.slice(1)
+    payout.status.charAt(0).toUpperCase() + payout.status.slice(1);
 
   return (
     <Container className="divide-y p-0">
@@ -72,5 +72,5 @@ export const PayoutGeneralSection = ({ payout }: { payout: PayoutDTO }) => {
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

@@ -1,29 +1,29 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { _DataTable } from "@components/table/data-table"
-import { useProducts } from "@hooks/api"
-import { useProductTableColumns } from "@hooks/table/columns"
-import { useProductTableFilters } from "@hooks/table/filters"
-import { useProductTableQuery } from "@hooks/table/query"
-import { useDataTable } from "@hooks/use-data-table"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { _DataTable } from "@components/table/data-table";
+import { useProducts } from "@hooks/api";
+import { useProductTableColumns } from "@hooks/table/columns";
+import { useProductTableFilters } from "@hooks/table/filters";
+import { useProductTableQuery } from "@hooks/table/query";
+import { useDataTable } from "@hooks/use-data-table";
 
 type ProductTagProductSectionProps = {
   productTag: HttpTypes.AdminProductTag
 }
 
-const PAGE_SIZE = 10
-const PREFIX = "pt"
+const PAGE_SIZE = 10;
+const PREFIX = "pt";
 
 export const ProductTagProductSection = ({
   productTag,
 }: ProductTagProductSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { searchParams, raw } = useProductTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
 
   const { products, count, isPending, isError, error } = useProducts(
     {
@@ -31,10 +31,10 @@ export const ProductTagProductSection = ({
       fields: "*tags",
       tag_id: productTag.id!,
     }
-  )
+  );
 
-  const filters = useProductTableFilters(["product_tags"])
-  const columns = useProductTableColumns()
+  const filters = useProductTableFilters(["product_tags"]);
+  const columns = useProductTableColumns();
 
   const { table } = useDataTable({
     data: products,
@@ -43,10 +43,10 @@ export const ProductTagProductSection = ({
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -73,5 +73,5 @@ export const ProductTagProductSection = ({
         ]}
       />
     </Container>
-  )
-}
+  );
+};

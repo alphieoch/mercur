@@ -2,8 +2,8 @@ import { PencilSquare, Trash } from '@medusajs/icons';
 import { HttpTypes } from '@medusajs/types';
 import { useTranslation } from 'react-i18next';
 
-import { ActionMenu } from "@components/common/action-menu"
-import { useDeleteProductTypeAction } from "../_common/hooks/use-delete-product-type-action"
+import { ActionMenu } from "@components/common/action-menu";
+import { useDeleteProductTypeAction } from "../_common/hooks/use-delete-product-type-action";
 
 type ProductTypeRowActionsProps = {
   productType: HttpTypes.AdminProductType;

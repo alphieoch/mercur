@@ -1,29 +1,29 @@
-import { ArrowsPointingOut, CircleSliders } from "@medusajs/icons"
-import { clx } from "@medusajs/ui"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { ArrowsPointingOut, CircleSliders } from "@medusajs/icons";
+import { clx } from "@medusajs/ui";
+import { useCallback, useEffect, useRef, useState } from "react";
 import CurrencyInput, {
   CurrencyInputProps,
   formatValue,
-} from "react-currency-input-field"
+} from "react-currency-input-field";
 import {
   Control,
   Controller,
   ControllerRenderProps,
   useWatch,
-} from "react-hook-form"
-import { DataGridCellContainer } from "../../../../../components/data-grid/components/data-grid-cell-container"
+} from "react-hook-form";
+import { DataGridCellContainer } from "../../../../../components/data-grid/components/data-grid-cell-container";
 import {
   useDataGridCell,
   useDataGridCellError,
-} from "../../../../../components/data-grid/hooks"
+} from "../../../../../components/data-grid/hooks";
 import {
   DataGridCellProps,
   InputProps,
-} from "../../../../../components/data-grid/types"
-import { useCombinedRefs } from "../../../../../hooks/use-combined-refs"
-import { currencies, CurrencyInfo } from "../../../../../lib/data/currencies"
-import { getCustomShippingOptionPriceFieldName } from "../../utils/get-custom-shipping-option-price-field-info"
-import { useShippingOptionPrice } from "../shipping-option-price-provider"
+} from "../../../../../components/data-grid/types";
+import { useCombinedRefs } from "../../../../../hooks/use-combined-refs";
+import { currencies, CurrencyInfo } from "../../../../../lib/data/currencies";
+import { getCustomShippingOptionPriceFieldName } from "../../utils/get-custom-shipping-option-price-field-info";
+import { useShippingOptionPrice } from "../shipping-option-price-provider";
 
 interface ShippingOptionPriceCellProps<TData, TValue = any>
   extends DataGridCellProps<TData, TValue> {
@@ -38,25 +38,25 @@ export const ShippingOptionPriceCell = <TData, TValue = any>({
   header,
   type,
 }: ShippingOptionPriceCellProps<TData, TValue>) => {
-  const [symbolWidth, setSymbolWidth] = useState(0)
+  const [symbolWidth, setSymbolWidth] = useState(0);
 
   const measuredRef = useCallback((node: HTMLSpanElement) => {
     if (node) {
-      const width = node.offsetWidth
-      setSymbolWidth(width)
+      const width = node.offsetWidth;
+      setSymbolWidth(width);
     }
-  }, [])
+  }, []);
 
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
+  });
 
-  const errorProps = useDataGridCellError({ context })
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
-  const { isAnchor } = container
+  const { container, input } = renderProps;
+  const { isAnchor } = container;
 
-  const currency = currencies[code.toUpperCase()]
+  const currency = currencies[code.toUpperCase()];
 
   return (
     <Controller
@@ -86,11 +86,11 @@ export const ShippingOptionPriceCell = <TData, TValue = any>({
               onMeasureSymbol={measuredRef}
             />
           </DataGridCellContainer>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const OuterComponent = ({
   isAnchor,
@@ -109,24 +109,24 @@ const OuterComponent = ({
   type: "currency" | "region"
   currency: CurrencyInfo
 }) => {
-  const { onOpenConditionalPricesModal } = useShippingOptionPrice()
+  const { onOpenConditionalPricesModal } = useShippingOptionPrice();
 
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const name = getCustomShippingOptionPriceFieldName(field, type)
-  const price = useWatch({ control, name })
+  const name = getCustomShippingOptionPriceFieldName(field, type);
+  const price = useWatch({ control, name });
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isAnchor && (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "b") {
-        e.preventDefault()
-        buttonRef.current?.click()
+        e.preventDefault();
+        buttonRef.current?.click();
       }
-    }
+    };
 
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [isAnchor])
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isAnchor]);
 
   return (
     <div
@@ -159,8 +159,8 @@ const OuterComponent = ({
         <ArrowsPointingOut />
       </button>
     </div>
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -173,31 +173,31 @@ const Inner = ({
   inputProps: InputProps
   currencyInfo: CurrencyInfo
 }) => {
-  const { value, onChange: _, onBlur, ref, ...rest } = field
+  const { value, onChange: _, onBlur, ref, ...rest } = field;
   const {
     ref: inputRef,
     onBlur: onInputBlur,
     onFocus,
     onChange,
     ...attributes
-  } = inputProps
+  } = inputProps;
 
   const formatter = useCallback(
     (value?: string | number) => {
       const ensuredValue =
-        typeof value === "number" ? value.toString() : value || ""
+        typeof value === "number" ? value.toString() : value || "";
 
       return formatValue({
         value: ensuredValue,
         decimalScale: currencyInfo.decimal_digits,
         disableGroupSeparators: true,
         decimalSeparator: ".",
-      })
+      });
     },
     [currencyInfo]
-  )
+  );
 
-  const [localValue, setLocalValue] = useState<string | number>(value || "")
+  const [localValue, setLocalValue] = useState<string | number>(value || "");
 
   const handleValueChange: CurrencyInputProps["onValueChange"] = (
     value,
@@ -205,27 +205,27 @@ const Inner = ({
     _values
   ) => {
     if (!value) {
-      setLocalValue("")
-      return
+      setLocalValue("");
+      return;
     }
 
-    setLocalValue(value)
-  }
+    setLocalValue(value);
+  };
 
   useEffect(() => {
-    let update = value
+    let update = value;
 
     // The component we use is a bit fidly when the value is updated externally
     // so we need to ensure a format that will result in the cell being formatted correctly
     // according to the users locale on the next render.
     if (!isNaN(Number(value))) {
-      update = formatter(update)
+      update = formatter(update);
     }
 
-    setLocalValue(update)
-  }, [value, formatter])
+    setLocalValue(update);
+  }, [value, formatter]);
 
-  const combinedRed = useCombinedRefs(inputRef, ref)
+  const combinedRed = useCombinedRefs(inputRef, ref);
 
   return (
     <div className="relative flex size-full items-center">
@@ -245,10 +245,10 @@ const Inner = ({
         onValueChange={handleValueChange}
         formatValueOnBlur
         onBlur={() => {
-          onBlur()
-          onInputBlur()
+          onBlur();
+          onInputBlur();
 
-          onChange(localValue, value)
+          onChange(localValue, value);
         }}
         onFocus={onFocus}
         decimalScale={currencyInfo.decimal_digits}
@@ -257,5 +257,5 @@ const Inner = ({
         tabIndex={-1}
       />
     </div>
-  )
-}
+  );
+};

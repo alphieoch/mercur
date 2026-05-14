@@ -1,1 +1,1 @@
-export { CommissionRateCreate as Component } from "./commission-rate-create"
+export { CommissionRateCreate as Component } from "./commission-rate-create";

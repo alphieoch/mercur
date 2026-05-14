@@ -2,20 +2,20 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
-import { sdk, fetchQuery } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+} from "@tanstack/react-query";
+import { sdk, fetchQuery } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const INVITES_QUERY_KEY = "invites" as const
-const invitesQueryKeys = queryKeysFactory(INVITES_QUERY_KEY)
+const INVITES_QUERY_KEY = "invites" as const;
+const invitesQueryKeys = queryKeysFactory(INVITES_QUERY_KEY);
 
 export const useInvite = (
   id: string,
@@ -33,10 +33,10 @@ export const useInvite = (
     queryKey: invitesQueryKeys.detail(id),
     queryFn: () => sdk.admin.invites.$id.query({ $id: id }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useInvites = (
   query?: InferClientInput<typeof sdk.admin.invites.query>,
@@ -54,10 +54,10 @@ export const useInvites = (
     queryFn: () => sdk.admin.invites.query({ ...query }),
     queryKey: invitesQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateInvite = (
   options?: UseMutationOptions<
@@ -69,12 +69,12 @@ export const useCreateInvite = (
   return useMutation({
     mutationFn: (payload) => sdk.admin.invites.mutate(payload),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.lists() })
-      options?.onSuccess?.(data, variables, context)
+      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.lists() });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useResendInvite = (
   id: string,
@@ -87,13 +87,13 @@ export const useResendInvite = (
   return useMutation({
     mutationFn: () => sdk.admin.invites.$id.resend.mutate({ $id: id }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.detail(id) })
-      options?.onSuccess?.(data, variables, context)
+      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.detail(id) });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteInvite = (
   id: string,
@@ -106,13 +106,13 @@ export const useDeleteInvite = (
   return useMutation({
     mutationFn: () => sdk.admin.invites.$id.delete({ $id: id }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.detail(id) })
-      options?.onSuccess?.(data, variables, context)
+      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: invitesQueryKeys.detail(id) });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 type AcceptInvitePayload = {
   email?: string | null
@@ -134,8 +134,8 @@ export const useAcceptInvite = (
         headers: { Authorization: `Bearer ${auth_token}` },
       }),
     onSuccess: (data, variables, context) => {
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

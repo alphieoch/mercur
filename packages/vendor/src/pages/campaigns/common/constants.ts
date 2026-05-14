@@ -1,4 +1,4 @@
-import { CampaignBudgetTypeValues } from "@medusajs/types"
+import { CampaignBudgetTypeValues } from "@medusajs/types";
 
 export const DEFAULT_CAMPAIGN_VALUES = {
   name: "",
@@ -11,4 +11,4 @@ export const DEFAULT_CAMPAIGN_VALUES = {
     currency_code: null,
     limit: null,
   },
-}
+};

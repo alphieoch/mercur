@@ -1,12 +1,12 @@
-import { useState } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
-import { Spinner } from "@medusajs/icons"
+import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Spinner } from "@medusajs/icons";
 
-import { SignUpPage } from "@components/ui/sign-up"
-import { useFeatureFlags, useSignUpWithEmailPass } from "@hooks/api"
-import { MercurFeatureFlags } from "@mercurjs/types"
+import { SignUpPage } from "@components/ui/sign-up";
+import { useFeatureFlags, useSignUpWithEmailPass } from "@hooks/api";
+import { MercurFeatureFlags } from "@mercurjs/types";
 
-const REGISTER_DRAFT_KEY = "mercur_register_draft"
+const REGISTER_DRAFT_KEY = "mercur_register_draft";
 
 const FARM_TESTIMONIALS = [
   {
@@ -27,26 +27,26 @@ const FARM_TESTIMONIALS = [
     handle: "Santos Family Vineyard",
     text: "Finally a marketplace that understands local producers. Our wine sales grew 5x in 6 months.",
   },
-]
+];
 
-const HERO_IMAGE = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&auto=format&fit=crop&q=80"
+const HERO_IMAGE = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&auto=format&fit=crop&q=80";
 
 export const RegisterPage = () => {
-  const navigate = useNavigate()
-  const [serverError, setServerError] = useState<string | null>(null)
-  const { feature_flags, isLoading } = useFeatureFlags()
-  const { mutateAsync: signUp, isPending } = useSignUpWithEmailPass()
+  const navigate = useNavigate();
+  const [serverError, setServerError] = useState<string | null>(null);
+  const { feature_flags, isLoading } = useFeatureFlags();
+  const { mutateAsync: signUp, isPending } = useSignUpWithEmailPass();
 
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <Spinner className="text-ui-fg-interactive animate-spin" />
       </div>
-    )
+    );
   }
 
   if (!feature_flags?.[MercurFeatureFlags.SELLER_REGISTRATION]) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/login" replace />;
   }
 
   const handleSignUp = async ({
@@ -60,18 +60,18 @@ export const RegisterPage = () => {
     email: string
     password: string
   }) => {
-    setServerError(null)
+    setServerError(null);
     try {
-      await signUp({ email, password })
+      await signUp({ email, password });
       sessionStorage.setItem(
         REGISTER_DRAFT_KEY,
         JSON.stringify({ first_name, last_name, email })
-      )
-      navigate("/onboarding", { state: { email, first_name, last_name } })
+      );
+      navigate("/onboarding", { state: { email, first_name, last_name } });
     } catch (error: any) {
-      setServerError(error?.message || "Failed to create account")
+      setServerError(error?.message || "Failed to create account");
     }
-  }
+  };
 
   return (
     <SignUpPage
@@ -89,5 +89,5 @@ export const RegisterPage = () => {
       serverError={serverError}
       storefrontUrl={(import.meta as any).env?.VITE_MERCUR_STOREFRONT_URL || "http://localhost:3000"}
     />
-  )
-}
+  );
+};

@@ -2,17 +2,17 @@ import {
   BellAlert,
   BellAlertDone,
   InformationCircleSolid,
-} from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { clx, Drawer, Heading, IconButton, Text } from "@medusajs/ui"
-import { formatDistance } from "date-fns"
-import { TFunction } from "i18next"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { notificationQueryKeys, useNotifications } from "../../../hooks/api"
-import { fetchQuery } from "../../../lib/client"
-import { FilePreview } from "../../common/file-preview"
-import { InfiniteList } from "../../common/infinite-list"
+} from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { clx, Drawer, Heading, IconButton, Text } from "@medusajs/ui";
+import { formatDistance } from "date-fns";
+import { TFunction } from "i18next";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { notificationQueryKeys, useNotifications } from "../../../hooks/api";
+import { fetchQuery } from "../../../lib/client";
+import { FilePreview } from "../../common/file-preview";
+import { InfiniteList } from "../../common/infinite-list";
 
 interface NotificationData {
   title: string
@@ -24,42 +24,42 @@ interface NotificationData {
   }
 }
 
-const LAST_READ_NOTIFICATION_KEY = "notificationsLastReadAt"
+const LAST_READ_NOTIFICATION_KEY = "notificationsLastReadAt";
 
 export const Notifications = () => {
-  const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
-  const [hasUnread, setHasUnread] = useUnreadNotifications()
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const [hasUnread, setHasUnread] = useUnreadNotifications();
   // This is used to show the unread icon on the notification when the drawer is open,
   // so it should lag behind the local storage data and should only be reset on close
   const [lastReadAt, setLastReadAt] = useState(
     localStorage.getItem(LAST_READ_NOTIFICATION_KEY)
-  )
+  );
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "n" && (e.metaKey || e.ctrlKey)) {
-        setOpen((prev) => !prev)
+        setOpen((prev) => !prev);
       }
-    }
+    };
 
-    document.addEventListener("keydown", onKeyDown)
+    document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", onKeyDown)
-    }
-  }, [])
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
 
   const handleOnOpen = (shouldOpen: boolean) => {
     if (shouldOpen) {
-      setHasUnread(false)
-      setOpen(true)
-      localStorage.setItem(LAST_READ_NOTIFICATION_KEY, new Date().toISOString())
+      setHasUnread(false);
+      setOpen(true);
+      localStorage.setItem(LAST_READ_NOTIFICATION_KEY, new Date().toISOString());
     } else {
-      setOpen(false)
-      setLastReadAt(localStorage.getItem(LAST_READ_NOTIFICATION_KEY))
+      setOpen(false);
+      setLastReadAt(localStorage.getItem(LAST_READ_NOTIFICATION_KEY));
     }
-  }
+  };
 
   return (
     <Drawer open={open} onOpenChange={handleOnOpen}>
@@ -107,14 +107,14 @@ export const Notifications = () => {
                     (lastReadAt ? Date.parse(lastReadAt) : 0)
                   }
                 />
-              )
+              );
             }}
           />
         </Drawer.Body>
       </Drawer.Content>
     </Drawer>
-  )
-}
+  );
+};
 
 const Notification = ({
   notification,
@@ -123,11 +123,11 @@ const Notification = ({
   notification: HttpTypes.AdminNotification
   unread?: boolean
 }) => {
-  const data = notification.data as unknown as NotificationData | undefined
+  const data = notification.data as unknown as NotificationData | undefined;
 
   // We need at least the title to render a notification in the feed
   if (!data?.title) {
-    return null
+    return null;
   }
 
   return (
@@ -183,8 +183,8 @@ const Notification = ({
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 const NotificationsEmptyState = ({ t }: { t: TFunction }) => {
   return (
@@ -200,33 +200,33 @@ const NotificationsEmptyState = ({ t }: { t: TFunction }) => {
         {t("notifications.emptyState.description")}
       </Text>
     </div>
-  )
-}
+  );
+};
 
 const useUnreadNotifications = () => {
-  const [hasUnread, setHasUnread] = useState(false)
+  const [hasUnread, setHasUnread] = useState(false);
   const { notifications } = useNotifications(
     { limit: 1, offset: 0, fields: "created_at" },
     { refetchInterval: 60_000 }
-  )
-  const lastNotification = notifications?.[0]
+  );
+  const lastNotification = notifications?.[0];
 
   useEffect(() => {
     if (!lastNotification) {
-      return
+      return;
     }
 
-    const lastNotificationAsTimestamp = Date.parse(lastNotification.created_at)
+    const lastNotificationAsTimestamp = Date.parse(lastNotification.created_at);
 
-    const lastReadDatetime = localStorage.getItem(LAST_READ_NOTIFICATION_KEY)
+    const lastReadDatetime = localStorage.getItem(LAST_READ_NOTIFICATION_KEY);
     const lastReadAsTimestamp = lastReadDatetime
       ? Date.parse(lastReadDatetime)
-      : 0
+      : 0;
 
     if (lastNotificationAsTimestamp > lastReadAsTimestamp) {
-      setHasUnread(true)
+      setHasUnread(true);
     }
-  }, [lastNotification])
+  }, [lastNotification]);
 
-  return [hasUnread, setHasUnread] as const
-}
+  return [hasUnread, setHasUnread] as const;
+};

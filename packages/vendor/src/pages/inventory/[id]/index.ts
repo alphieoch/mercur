@@ -1,2 +1,2 @@
-export * from './loader'
-export * from './inventory-detail-page'
+export * from './loader';
+export * from './inventory-detail-page';

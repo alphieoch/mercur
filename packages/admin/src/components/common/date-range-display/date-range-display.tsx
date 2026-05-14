@@ -1,6 +1,6 @@
-import { Text, clx } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useDate } from "../../../hooks/use-date"
+import { Text, clx } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useDate } from "../../../hooks/use-date";
 
 type DateRangeDisplayProps = {
   startsAt?: Date | string | null
@@ -13,11 +13,11 @@ export const DateRangeDisplay = ({
   endsAt,
   showTime = false,
 }: DateRangeDisplayProps) => {
-  const startDate = startsAt ? new Date(startsAt) : null
-  const endDate = endsAt ? new Date(endsAt) : null
+  const startDate = startsAt ? new Date(startsAt) : null;
+  const endDate = endsAt ? new Date(endsAt) : null;
 
-  const { t } = useTranslation()
-  const { getFullDate } = useDate()
+  const { t } = useTranslation();
+  const { getFullDate } = useDate();
 
   return (
     <div className="grid gap-3 md:grid-cols-2">
@@ -30,9 +30,9 @@ export const DateRangeDisplay = ({
           <Text size="small" className="tabular-nums">
             {startDate
               ? getFullDate({
-                  date: startDate,
-                  includeTime: showTime,
-                })
+                date: startDate,
+                includeTime: showTime,
+              })
               : "-"}
           </Text>
         </div>
@@ -47,21 +47,21 @@ export const DateRangeDisplay = ({
           <Text size="small" className="tabular-nums">
             {endDate
               ? getFullDate({
-                  date: endDate,
-                  includeTime: showTime,
-                })
+                date: endDate,
+                includeTime: showTime,
+              })
               : "-"}
           </Text>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Bar = ({ date }: { date: Date | null }) => {
-  const now = new Date()
+  const now = new Date();
 
-  const isDateInFuture = date && date > now
+  const isDateInFuture = date && date > now;
 
   return (
     <div
@@ -69,5 +69,5 @@ const Bar = ({ date }: { date: Date | null }) => {
         "bg-ui-tag-orange-icon": isDateInFuture,
       })}
     />
-  )
-}
+  );
+};

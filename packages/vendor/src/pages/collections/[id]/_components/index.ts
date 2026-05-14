@@ -1,2 +1,2 @@
-export * from "./collection-general-section"
-export * from "./collection-product-section"
+export * from "./collection-general-section";
+export * from "./collection-product-section";

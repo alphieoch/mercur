@@ -1,22 +1,22 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
+import { PencilSquare, Trash } from "@medusajs/icons";
 
-import { InventoryTypes } from "@medusajs/types"
-import { usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "@components/common/action-menu"
-import { useDeleteInventoryItemLevel } from "@hooks/api/inventory"
+import { InventoryTypes } from "@medusajs/types";
+import { usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "@components/common/action-menu";
+import { useDeleteInventoryItemLevel } from "@hooks/api/inventory";
 
 export const LocationActions = ({
   level,
 }: {
   level: InventoryTypes.InventoryLevelDTO
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
   const { mutateAsync } = useDeleteInventoryItemLevel(
     level.inventory_item_id,
     level.location_id
-  )
+  );
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -24,14 +24,14 @@ export const LocationActions = ({
       description: t("inventory.deleteWarning"),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
-    await mutateAsync()
-  }
+    await mutateAsync();
+  };
 
   return (
     <ActionMenu
@@ -58,5 +58,5 @@ export const LocationActions = ({
         },
       ]}
     />
-  )
-}
+  );
+};

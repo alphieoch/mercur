@@ -7,18 +7,18 @@ import {
   Select,
   Text,
   Textarea,
-} from "@medusajs/ui"
-import { useEffect } from "react"
-import { Path, PathValue, UseFormReturn, useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { useEffect } from "react";
+import { Path, PathValue, UseFormReturn, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "@components/common/form"
-import { useStore } from "@hooks/api/store"
+import { Form } from "@components/common/form";
+import { useStore } from "@hooks/api/store";
 import {
   currencies,
   getCurrencySymbol,
-} from "@lib/data/currencies"
-import { CampaignFormFields, WithNestedCampaign } from "@custom-types/campaign"
+} from "@lib/data/currencies";
+import { CampaignFormFields, WithNestedCampaign } from "@custom-types/campaign";
 
 
 type CreateCampaignFormFieldsProps<T extends CampaignFormFields | WithNestedCampaign> = {
@@ -31,54 +31,54 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
   fieldScope = ""
 }: CreateCampaignFormFieldsProps<T>) => {
   
-  const { t } = useTranslation()
-  const { store } = useStore()
+  const { t } = useTranslation();
+  const { store } = useStore();
 
   const watchValueType = useWatch({
     control: form.control,
     name: `${fieldScope}budget.type` as Path<T>,
-  })
+  });
 
-  const isTypeSpend = watchValueType === "spend"
+  const isTypeSpend = watchValueType === "spend";
 
   const currencyValue = useWatch({
     control: form.control,
     name: `${fieldScope}budget.currency_code` as Path<T>,
-  })
+  });
 
   const promotionCurrencyValue = useWatch({
     control: form.control,
     name: `application_method.currency_code` as Path<T>,
-  })
+  });
 
-  const currency = currencyValue || promotionCurrencyValue
+  const currency = currencyValue || promotionCurrencyValue;
 
   useEffect(() => {
-    form.resetField(`${fieldScope}budget.limit` as Path<T>)
+    form.resetField(`${fieldScope}budget.limit` as Path<T>);
 
     if (fieldScope) {
-      const currencyPath = `campaign.budget.currency_code` as Path<T>
+      const currencyPath = `campaign.budget.currency_code` as Path<T>;
       
       if (isTypeSpend && promotionCurrencyValue) {
-        const currencyValue = promotionCurrencyValue as PathValue<T, typeof currencyPath>
-        form.setValue(currencyPath, currencyValue)
+        const currencyValue = promotionCurrencyValue as PathValue<T, typeof currencyPath>;
+        form.setValue(currencyPath, currencyValue);
       } else if (watchValueType === "usage") {
-        const nullValue = null as PathValue<T, typeof currencyPath>
-        form.setValue(currencyPath, nullValue)
+        const nullValue = null as PathValue<T, typeof currencyPath>;
+        form.setValue(currencyPath, nullValue);
       }
     }
-  }, [watchValueType, fieldScope, form, isTypeSpend, promotionCurrencyValue])
+  }, [watchValueType, fieldScope, form, isTypeSpend, promotionCurrencyValue]);
 
   if (promotionCurrencyValue && fieldScope) {
-    const formValues = form.getValues()
-    const budget = (formValues as WithNestedCampaign)?.campaign?.budget
+    const formValues = form.getValues();
+    const budget = (formValues as WithNestedCampaign)?.campaign?.budget;
 
     if (
       budget?.type === "spend" &&
       budget?.currency_code !== promotionCurrencyValue
     ) {
-      const currencyPath = "campaign.budget.currency_code" as Path<T>
-      form.setValue(currencyPath, promotionCurrencyValue)
+      const currencyPath = "campaign.budget.currency_code" as Path<T>;
+      form.setValue(currencyPath, promotionCurrencyValue);
     }
   }
 
@@ -108,7 +108,7 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
 
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
 
@@ -126,7 +126,7 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
 
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
@@ -145,7 +145,7 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
 
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -172,7 +172,7 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
 
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
 
@@ -197,7 +197,7 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
 
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -248,7 +248,7 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
               </Form.Control>
               <Form.ErrorMessage />
             </Form.Item>
-          )
+          );
         }}
       />
 
@@ -303,7 +303,7 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
         )}
@@ -351,17 +351,17 @@ export const CreateCampaignFormFields = <T extends CampaignFormFields | WithNest
                           e.target.value === ""
                             ? null
                             : parseInt(e.target.value)
-                        )
+                        );
                       }}
                     />
                   )}
                 </Form.Control>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
     </div>
-  )
-}
+  );
+};

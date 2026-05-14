@@ -1,14 +1,14 @@
-import { HttpTypes } from "@medusajs/types"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { CreatedAtCell } from "@components/table/table-cells/common/created-at-cell"
-import { PlaceholderCell } from "@components/table/table-cells/common/placeholder-cell"
+import { HttpTypes } from "@medusajs/types";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { CreatedAtCell } from "@components/table/table-cells/common/created-at-cell";
+import { PlaceholderCell } from "@components/table/table-cells/common/placeholder-cell";
 import {
   TextCell,
   TextHeader,
-} from "@components/table/table-cells/common/text-cell"
-import { ReservationActions } from "./reservation-actions"
+} from "@components/table/table-cells/common/text-cell";
+import { ReservationActions } from "./reservation-actions";
 
 /**
  * Adds missing properties to the InventoryItemDTO type.
@@ -18,10 +18,10 @@ export interface ExtendedReservationItem extends HttpTypes.AdminReservation {
   location?: HttpTypes.AdminStockLocation
 }
 
-const columnHelper = createColumnHelper<ExtendedReservationItem>()
+const columnHelper = createColumnHelper<ExtendedReservationItem>();
 
 export const useReservationTableColumn = ({ sku }: { sku: string }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -29,7 +29,7 @@ export const useReservationTableColumn = ({ sku }: { sku: string }) => {
         id: "sku",
         header: () => <TextHeader text={t("fields.sku")} />,
         cell: () => {
-          return <TextCell text={sku} />
+          return <TextCell text={sku} />;
         },
       }),
       // columnHelper.accessor("line_item.order_id", {
@@ -47,13 +47,13 @@ export const useReservationTableColumn = ({ sku }: { sku: string }) => {
       columnHelper.accessor("location.name", {
         header: () => <TextHeader text={t("inventory.reservation.location")} />,
         cell: ({ getValue }) => {
-          const location = getValue()
+          const location = getValue();
 
           if (!location) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
-          return <TextCell text={location} />
+          return <TextCell text={location} />;
         },
       }),
       columnHelper.accessor("created_at", {
@@ -63,7 +63,7 @@ export const useReservationTableColumn = ({ sku }: { sku: string }) => {
       columnHelper.accessor("quantity", {
         header: () => <TextHeader text={t("fields.quantity")} align="right" />,
         cell: ({ getValue }) => {
-          return <TextCell text={getValue()} align="right" />
+          return <TextCell text={getValue()} align="right" />;
         },
       }),
       columnHelper.display({
@@ -72,5 +72,5 @@ export const useReservationTableColumn = ({ sku }: { sku: string }) => {
       }),
     ],
     [t]
-  )
-}
+  );
+};

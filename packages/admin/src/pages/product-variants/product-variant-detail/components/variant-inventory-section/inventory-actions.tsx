@@ -1,12 +1,12 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
 
-import { Buildings } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import { Buildings } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
+import { ActionMenu } from "../../../../../components/common/action-menu";
 
 export const InventoryActions = ({ item }: { item: HttpTypes.AdminInventoryItem }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <ActionMenu
@@ -22,5 +22,5 @@ export const InventoryActions = ({ item }: { item: HttpTypes.AdminInventoryItem 
         },
       ]}
     />
-  )
-}
+  );
+};

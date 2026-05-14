@@ -1,19 +1,19 @@
 // Route: /products/:id/options/create
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
-import { RouteDrawer } from "@components/modals"
-import { useProduct } from "@hooks/api/products"
-import { CreateProductOptionForm } from "./create-product-option-form"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { RouteDrawer } from "@components/modals";
+import { useProduct } from "@hooks/api/products";
+import { CreateProductOptionForm } from "./create-product-option-form";
 
 export const Component = () => {
-  const { id } = useParams()
-  const { t } = useTranslation()
+  const { id } = useParams();
+  const { t } = useTranslation();
 
-  const { product, isLoading, isError, error } = useProduct(id!)
+  const { product, isLoading, isError, error } = useProduct(id!);
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -23,5 +23,5 @@ export const Component = () => {
       </RouteDrawer.Header>
       {!isLoading && product && <CreateProductOptionForm product={product} />}
     </RouteDrawer>
-  )
-}
+  );
+};

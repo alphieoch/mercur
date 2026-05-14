@@ -121,20 +121,20 @@ export const PriceListPricesAddForm = ({
 
   const isTabDirty = (tab: Tab) => {
     switch (tab) {
-      case Tab.PRODUCT: {
-        const fields = PriceListPricesAddProductsIdsFields;
+    case Tab.PRODUCT: {
+      const fields = PriceListPricesAddProductsIdsFields;
 
-        return fields.some((field) => {
-          return form.getFieldState(field).isDirty;
-        });
-      }
-      case Tab.PRICE: {
-        const fields = PriceListPricesAddProductsFields;
+      return fields.some((field) => {
+        return form.getFieldState(field).isDirty;
+      });
+    }
+    case Tab.PRICE: {
+      const fields = PriceListPricesAddProductsFields;
 
-        return fields.some((field) => {
-          return form.getFieldState(field).isDirty;
-        });
-      }
+      return fields.some((field) => {
+        return form.getFieldState(field).isDirty;
+      });
+    }
     }
   };
 

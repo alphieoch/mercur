@@ -1,17 +1,17 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
-import { ClientError } from "@mercurjs/client"
-import { MetadataForm } from "@components/forms/metadata-form"
-import { useCustomer, useUpdateCustomer } from "@hooks/api"
+import { ClientError } from "@mercurjs/client";
+import { MetadataForm } from "@components/forms/metadata-form";
+import { useCustomer, useUpdateCustomer } from "@hooks/api";
 
 export const CustomerMetadata = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
-  const { customer, isPending, isError, error } = useCustomer(id!)
-  const { mutateAsync, isPending: isMutating } = useUpdateCustomer(id!)
+  const { customer, isPending, isError, error } = useCustomer(id!);
+  const { mutateAsync, isPending: isMutating } = useUpdateCustomer(id!);
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   const handleSubmit = async (
@@ -21,16 +21,16 @@ export const CustomerMetadata = () => {
     try {
       const result = await mutateAsync({
         metadata: params.metadata === undefined ? undefined : params.metadata,
-      })
-      callbacks.onSuccess?.()
+      });
+      callbacks.onSuccess?.();
 
-      return result
+      return result;
     } catch (error) {
-      const message = error instanceof ClientError ? error.message : 'An error occurred'
-      callbacks.onError?.(message)
-      throw error
+      const message = error instanceof ClientError ? error.message : 'An error occurred';
+      callbacks.onError?.(message);
+      throw error;
     }
-  }
+  };
 
   return (
     <div data-testid="customer-metadata">
@@ -41,5 +41,5 @@ export const CustomerMetadata = () => {
         isMutating={isMutating}
       />
     </div>
-  )
-}
+  );
+};

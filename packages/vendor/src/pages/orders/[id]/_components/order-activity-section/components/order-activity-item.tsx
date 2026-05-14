@@ -1,8 +1,8 @@
-import { Text, Tooltip, clx } from "@medusajs/ui"
-import { PropsWithChildren } from "react"
-import { AdminClaim, AdminExchange, AdminReturn, AdminOrderLineItem } from "@medusajs/types"
-import { useDate } from "@hooks/use-date"
-import ActivityItems from "../activity-items"
+import { Text, Tooltip, clx } from "@medusajs/ui";
+import { PropsWithChildren } from "react";
+import { AdminClaim, AdminExchange, AdminReturn, AdminOrderLineItem } from "@medusajs/types";
+import { useDate } from "@hooks/use-date";
+import ActivityItems from "../activity-items";
 
 type OrderActivityItemProps = PropsWithChildren<{
   title: string | React.ReactNode
@@ -24,7 +24,7 @@ export const OrderActivityItem = ({
   itemsToReturn,
   itemsMap,
 }: OrderActivityItemProps) => {
-  const { getFullDate, getRelativeDate } = useDate()
+  const { getFullDate, getRelativeDate } = useDate();
 
   return (
     <div className="grid grid-cols-[20px_1fr] items-start gap-2">
@@ -36,7 +36,7 @@ export const OrderActivityItem = ({
         </div>
         {!isFirst && <div className="bg-ui-border-base w-px flex-1" />}
       </div>
-    <div
+      <div
         className={clx({
           "pb-4": !isFirst,
         })}
@@ -53,7 +53,7 @@ export const OrderActivityItem = ({
             <Text size="small" leading="compact" weight="plus">
               {title}
             </Text>
-           )} 
+          )} 
           {timestamp && (
             <Tooltip
               content={getFullDate({
@@ -74,6 +74,6 @@ export const OrderActivityItem = ({
         <div>{children}</div>
       </div>
     </div>
-  )
-}
+  );
+};
 

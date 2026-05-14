@@ -1,4 +1,4 @@
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 
 interface ProgressBarProps {
   /**
@@ -29,5 +29,5 @@ export const ProgressBar = ({ duration = 2 }: ProgressBarProps) => {
         transition: { duration: 0.2, ease: "linear" },
       }}
     />
-  )
-}
+  );
+};

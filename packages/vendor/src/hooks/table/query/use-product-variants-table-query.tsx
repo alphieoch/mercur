@@ -1,4 +1,4 @@
-import { useQueryParams } from "../../use-query-params"
+import { useQueryParams } from "../../use-query-params";
 
 type UseProductVariantsTableQueryProps = {
   prefix?: string
@@ -6,7 +6,7 @@ type UseProductVariantsTableQueryProps = {
 }
 
 const DEFAULT_FIELDS =
-  "*options,*inventory_items,*inventory_items.inventory,*inventory_items.inventory.location_levels"
+  "*options,*inventory_items,*inventory_items.inventory,*inventory_items.inventory.location_levels";
 
 export const useProductVariantsTableQuery = ({
   prefix,
@@ -26,7 +26,7 @@ export const useProductVariantsTableQuery = ({
       "updated_at",
     ],
     prefix
-  )
+  );
 
   const {
     offset,
@@ -39,7 +39,7 @@ export const useProductVariantsTableQuery = ({
     allow_backorder,
     created_at,
     updated_at,
-  } = queryObject
+  } = queryObject;
 
   const searchParams: {
     limit: number
@@ -67,10 +67,10 @@ export const useProductVariantsTableQuery = ({
     allow_backorder: allow_backorder ? allow_backorder === "true" : undefined,
     created_at: created_at ? JSON.parse(created_at) : undefined,
     updated_at: updated_at ? JSON.parse(updated_at) : undefined,
-  }
+  };
 
   return {
     searchParams,
     raw: queryObject,
-  }
-}
+  };
+};

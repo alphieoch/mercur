@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { PriceListCreateProductsSchema } from "../../../../common/schemas"
+import { PriceListCreateProductsSchema } from "../../../../common/schemas";
 
 const PriceListPricesAddBaseSchema = z.object({
   product_ids: z.array(z.object({ id: z.string() })).min(1),

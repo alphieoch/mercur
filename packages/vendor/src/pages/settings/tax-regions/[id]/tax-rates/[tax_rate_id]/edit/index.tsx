@@ -1,20 +1,20 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
-import { RouteDrawer } from "@components/modals"
-import { useTaxRate } from "@hooks/api/tax-rates"
-import { TaxRegionTaxRateEditForm } from "./_components/tax-region-tax-rate-edit-form"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { RouteDrawer } from "@components/modals";
+import { useTaxRate } from "@hooks/api/tax-rates";
+import { TaxRegionTaxRateEditForm } from "./_components/tax-region-tax-rate-edit-form";
 
 const TaxRegionTaxRateEdit = () => {
-  const { t } = useTranslation()
-  const { province_id, tax_rate_id } = useParams()
+  const { t } = useTranslation();
+  const { province_id, tax_rate_id } = useParams();
 
-  const { tax_rate, isPending, isError, error } = useTaxRate(tax_rate_id!)
+  const { tax_rate, isPending, isError, error } = useTaxRate(tax_rate_id!);
 
-  const ready = !isPending && !!tax_rate
+  const ready = !isPending && !!tax_rate;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -34,7 +34,7 @@ const TaxRegionTaxRateEdit = () => {
         />
       )}
     </RouteDrawer>
-  )
-}
+  );
+};
 
-export const Component = TaxRegionTaxRateEdit
+export const Component = TaxRegionTaxRateEdit;

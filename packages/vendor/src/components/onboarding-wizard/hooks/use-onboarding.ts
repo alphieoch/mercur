@@ -145,34 +145,34 @@ export const useOnboarding = (memberEmail: string) => {
           description: storeData.description || undefined,
           address: addressData
             ? {
-                name: addressData.name || undefined,
-                address_1: addressData.address_1 || undefined,
-                address_2: addressData.address_2 || undefined,
-                postal_code: addressData.postal_code || undefined,
-                city: addressData.city || undefined,
-                country_code: addressData.country_code,
-                province: addressData.province || undefined,
-              }
+              name: addressData.name || undefined,
+              address_1: addressData.address_1 || undefined,
+              address_2: addressData.address_2 || undefined,
+              postal_code: addressData.postal_code || undefined,
+              city: addressData.city || undefined,
+              country_code: addressData.country_code,
+              province: addressData.province || undefined,
+            }
             : undefined,
           professional_details: hasCompanyData
             ? {
-                corporate_name: companyData!.corporate_name || undefined,
-                registration_number:
+              corporate_name: companyData!.corporate_name || undefined,
+              registration_number:
                   companyData!.registration_number || undefined,
-                tax_id: companyData!.tax_id || undefined,
-              }
+              tax_id: companyData!.tax_id || undefined,
+            }
             : undefined,
           payment_details: paymentData
             ? {
-                country_code: paymentData.country_code,
-                holder_name: paymentData.holder_name,
-                iban: isUS ? null : paymentData.iban || null,
-                bic: isUS ? null : paymentData.bic || null,
-                routing_number: isUS
-                  ? paymentData.routing_number || null
-                  : null,
-                account_number: paymentData.account_number || null,
-              }
+              country_code: paymentData.country_code,
+              holder_name: paymentData.holder_name,
+              iban: isUS ? null : paymentData.iban || null,
+              bic: isUS ? null : paymentData.bic || null,
+              routing_number: isUS
+                ? paymentData.routing_number || null
+                : null,
+              account_number: paymentData.account_number || null,
+            }
             : undefined,
         });
 

@@ -1,6 +1,6 @@
-import { Children, ReactNode } from "react"
+import { Children, ReactNode } from "react";
 
-import { SingleColumnPage } from "@components/layout/pages"
+import { SingleColumnPage } from "@components/layout/pages";
 
 import {
   TeamListTable,
@@ -8,15 +8,15 @@ import {
   TeamListHeader,
   TeamListActions,
   TeamListTitle,
-} from "./_components"
+} from "./_components";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage hasOutlet>
       {Children.count(children) > 0 ? children : <TeamListTable />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const TeamListPage = Object.assign(Root, {
   Table: TeamListTable,
@@ -24,4 +24,4 @@ export const TeamListPage = Object.assign(Root, {
   HeaderTitle: TeamListTitle,
   HeaderActions: TeamListActions,
   DataTable: TeamListDataTable,
-})
+});

@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode } from "react"
+import { createContext, useContext, ReactNode } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ProductDetailData = Record<string, any>
@@ -9,17 +9,17 @@ export interface ProductDetailContextValue {
 
 const ProductDetailContext = createContext<ProductDetailContextValue | null>(
   null
-)
+);
 
 export const useProductDetailContext = () => {
-  const context = useContext(ProductDetailContext)
+  const context = useContext(ProductDetailContext);
   if (!context) {
     throw new Error(
       "useProductDetailContext must be used within a ProductDetailPage"
-    )
+    );
   }
-  return context
-}
+  return context;
+};
 
 export const ProductDetailProvider = ({
   product,
@@ -32,5 +32,5 @@ export const ProductDetailProvider = ({
     <ProductDetailContext.Provider value={{ product }}>
       {children}
     </ProductDetailContext.Provider>
-  )
-}
+  );
+};

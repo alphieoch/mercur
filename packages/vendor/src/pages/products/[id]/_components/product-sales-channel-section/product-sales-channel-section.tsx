@@ -1,23 +1,23 @@
-import { Channels, PencilSquare } from "@medusajs/icons"
-import { Container, Heading, Text, Tooltip } from "@medusajs/ui"
-import { Trans, useTranslation } from "react-i18next"
-import { ActionMenu } from "@components/common/action-menu"
-import { useSalesChannels } from "@hooks/api/sales-channels"
-import { useProductDetailContext } from "../../context"
+import { Channels, PencilSquare } from "@medusajs/icons";
+import { Container, Heading, Text, Tooltip } from "@medusajs/ui";
+import { Trans, useTranslation } from "react-i18next";
+import { ActionMenu } from "@components/common/action-menu";
+import { useSalesChannels } from "@hooks/api/sales-channels";
+import { useProductDetailContext } from "../../context";
 
 export const ProductSalesChannelSection = () => {
-  const { product } = useProductDetailContext()
-  const { count } = useSalesChannels()
-  const { t } = useTranslation()
+  const { product } = useProductDetailContext();
+  const { count } = useSalesChannels();
+  const { t } = useTranslation();
 
   const availableInSalesChannels =
     product.sales_channels?.map((sc) => ({
       id: sc.id,
       name: sc.name,
-    })) ?? []
+    })) ?? [];
 
-  const firstChannels = availableInSalesChannels.slice(0, 3)
-  const restChannels = availableInSalesChannels.slice(3)
+  const firstChannels = availableInSalesChannels.slice(0, 3);
+  const restChannels = availableInSalesChannels.slice(3);
 
   return (
     <Container className="flex flex-col gap-y-4 px-6 py-4">
@@ -96,5 +96,5 @@ export const ProductSalesChannelSection = () => {
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

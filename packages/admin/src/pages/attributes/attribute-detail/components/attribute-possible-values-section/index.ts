@@ -1,1 +1,1 @@
-export * from "./attribute-possible-values-section"
+export * from "./attribute-possible-values-section";

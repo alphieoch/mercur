@@ -14,30 +14,30 @@ type StoreProps = {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case SellerStatus.OPEN:
-      return "green";
-    case SellerStatus.PENDING_APPROVAL:
-      return "orange";
-    case SellerStatus.SUSPENDED:
-    case SellerStatus.TERMINATED:
-      return "red";
-    default:
-      return "grey";
+  case SellerStatus.OPEN:
+    return "green";
+  case SellerStatus.PENDING_APPROVAL:
+    return "orange";
+  case SellerStatus.SUSPENDED:
+  case SellerStatus.TERMINATED:
+    return "red";
+  default:
+    return "grey";
   }
 };
 
 const getStatusLabel = (status: string, t: TFunction) => {
   switch (status) {
-    case SellerStatus.OPEN:
-      return t("store.status.active");
-    case SellerStatus.PENDING_APPROVAL:
-      return t("store.status.pendingApproval");
-    case SellerStatus.SUSPENDED:
-      return t("store.status.suspended");
-    case SellerStatus.TERMINATED:
-      return t("store.status.terminated");
-    default:
-      return status;
+  case SellerStatus.OPEN:
+    return t("store.status.active");
+  case SellerStatus.PENDING_APPROVAL:
+    return t("store.status.pendingApproval");
+  case SellerStatus.SUSPENDED:
+    return t("store.status.suspended");
+  case SellerStatus.TERMINATED:
+    return t("store.status.terminated");
+  default:
+    return status;
   }
 };
 

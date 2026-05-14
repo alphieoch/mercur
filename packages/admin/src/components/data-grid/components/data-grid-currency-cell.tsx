@@ -1,15 +1,15 @@
 import CurrencyInput, {
   CurrencyInputProps,
   formatValue,
-} from "react-currency-input-field"
-import { Controller, ControllerRenderProps } from "react-hook-form"
+} from "react-currency-input-field";
+import { Controller, ControllerRenderProps } from "react-hook-form";
 
-import { useCallback, useEffect, useState } from "react"
-import { useCombinedRefs } from "../../../hooks/use-combined-refs"
-import { CurrencyInfo, currencies } from "../../../lib/data/currencies"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { DataGridCellProps, InputProps } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { useCallback, useEffect, useState } from "react";
+import { useCombinedRefs } from "../../../hooks/use-combined-refs";
+import { CurrencyInfo, currencies } from "../../../lib/data/currencies";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { DataGridCellProps, InputProps } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 export interface DataGridCurrencyCellProps<TData, TValue = any>
   extends DataGridCellProps<TData, TValue> {
@@ -22,12 +22,12 @@ export const DataGridCurrencyCell = <TData, TValue = any>({
 }: DataGridCurrencyCellProps<TData, TValue>) => {
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
-  const errorProps = useDataGridCellError({ context })
+  });
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
+  const { container, input } = renderProps;
 
-  const currency = currencies[code.toUpperCase()]
+  const currency = currencies[code.toUpperCase()];
 
   return (
     <Controller
@@ -38,11 +38,11 @@ export const DataGridCurrencyCell = <TData, TValue = any>({
           <DataGridCellContainer {...container} {...errorProps}>
             <Inner field={field} inputProps={input} currencyInfo={currency} />
           </DataGridCellContainer>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -53,31 +53,31 @@ const Inner = ({
   inputProps: InputProps
   currencyInfo: CurrencyInfo
 }) => {
-  const { value, onChange: _, onBlur, ref, ...rest } = field
+  const { value, onChange: _, onBlur, ref, ...rest } = field;
   const {
     ref: inputRef,
     onBlur: onInputBlur,
     onFocus,
     onChange,
     ...attributes
-  } = inputProps
+  } = inputProps;
 
   const formatter = useCallback(
     (value?: string | number) => {
       const ensuredValue =
-        typeof value === "number" ? value.toString() : value || ""
+        typeof value === "number" ? value.toString() : value || "";
 
       return formatValue({
         value: ensuredValue,
         decimalScale: currencyInfo.decimal_digits,
         disableGroupSeparators: true,
         decimalSeparator: ".",
-      })
+      });
     },
     [currencyInfo]
-  )
+  );
 
-  const [localValue, setLocalValue] = useState<string | number>(value || "")
+  const [localValue, setLocalValue] = useState<string | number>(value || "");
 
   const handleValueChange: CurrencyInputProps["onValueChange"] = (
     value,
@@ -85,27 +85,27 @@ const Inner = ({
     _values
   ) => {
     if (!value) {
-      setLocalValue("")
-      return
+      setLocalValue("");
+      return;
     }
 
-    setLocalValue(value)
-  }
+    setLocalValue(value);
+  };
 
   useEffect(() => {
-    let update = value
+    let update = value;
 
     // The component we use is a bit fidly when the value is updated externally
     // so we need to ensure a format that will result in the cell being formatted correctly
     // according to the users locale on the next render.
     if (!isNaN(Number(value))) {
-      update = formatter(update)
+      update = formatter(update);
     }
 
-    setLocalValue(update)
-  }, [value, formatter])
+    setLocalValue(update);
+  }, [value, formatter]);
 
-  const combinedRed = useCombinedRefs(inputRef, ref)
+  const combinedRed = useCombinedRefs(inputRef, ref);
 
   return (
     <div className="relative flex size-full items-center">
@@ -124,10 +124,10 @@ const Inner = ({
         onValueChange={handleValueChange}
         formatValueOnBlur
         onBlur={() => {
-          onBlur()
-          onInputBlur()
+          onBlur();
+          onInputBlur();
 
-          onChange(localValue, value)
+          onChange(localValue, value);
         }}
         onFocus={onFocus}
         decimalScale={currencyInfo.decimal_digits}
@@ -136,5 +136,5 @@ const Inner = ({
         tabIndex={-1}
       />
     </div>
-  )
-}
+  );
+};

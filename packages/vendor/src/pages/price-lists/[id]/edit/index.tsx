@@ -1,21 +1,21 @@
 // Route: /price-lists/:id/edit
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
-import { RouteDrawer } from "@components/modals"
-import { usePriceList } from "@hooks/api/price-lists"
-import { PriceListEditForm } from "./price-list-edit-form"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { RouteDrawer } from "@components/modals";
+import { usePriceList } from "@hooks/api/price-lists";
+import { PriceListEditForm } from "./price-list-edit-form";
 
 export const Component = () => {
-  const { t } = useTranslation()
-  const { id } = useParams()
+  const { t } = useTranslation();
+  const { id } = useParams();
 
-  const { price_list, isLoading, isError, error } = usePriceList(id!)
+  const { price_list, isLoading, isError, error } = usePriceList(id!);
 
-  const ready = !isLoading && price_list
+  const ready = !isLoading && price_list;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -25,5 +25,5 @@ export const Component = () => {
       </RouteDrawer.Header>
       {ready && <PriceListEditForm priceList={price_list} />}
     </RouteDrawer>
-  )
-}
+  );
+};

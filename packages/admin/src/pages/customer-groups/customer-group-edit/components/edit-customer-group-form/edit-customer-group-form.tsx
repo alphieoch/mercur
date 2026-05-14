@@ -1,13 +1,13 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as z from "zod"
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateCustomerGroup } from "../../../../../hooks/api/customer-groups"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as z from "zod";
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateCustomerGroup } from "../../../../../hooks/api/customer-groups";
 
 type EditCustomerGroupFormProps = {
   group: HttpTypes.AdminCustomerGroup
@@ -15,22 +15,22 @@ type EditCustomerGroupFormProps = {
 
 export const EditCustomerGroupSchema = z.object({
   name: z.string().min(1),
-})
+});
 
 export const EditCustomerGroupForm = ({
   group,
 }: EditCustomerGroupFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof EditCustomerGroupSchema>>({
     defaultValues: {
       name: group.name || "",
     },
     resolver: zodResolver(EditCustomerGroupSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateCustomerGroup(group.id)
+  const { mutateAsync, isPending } = useUpdateCustomerGroup(group.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(data, {
@@ -39,15 +39,15 @@ export const EditCustomerGroupForm = ({
           t("customerGroups.edit.successToast", {
             name: customer_group.name,
           })
-        )
+        );
 
-        handleSuccess()
+        handleSuccess();
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="edit-customer-group-form">
@@ -69,7 +69,7 @@ export const EditCustomerGroupForm = ({
                   </Form.Control>
                   <Form.ErrorMessage data-testid="edit-customer-group-form-name-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </RouteDrawer.Body>
@@ -87,5 +87,5 @@ export const EditCustomerGroupForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

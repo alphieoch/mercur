@@ -2,9 +2,9 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
-import { UseMutationOptions, useMutation } from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
+} from "@mercurjs/client";
+import { UseMutationOptions, useMutation } from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
 
 export const useSignInWithEmailPass = (
   options?: UseMutationOptions<
@@ -22,7 +22,7 @@ export const useSignInWithEmailPass = (
         $actorType: "user",
         $authProvider: "emailpass",
         ...payload,
-      })) as { token: string }
+      })) as { token: string };
 
       await sdk.auth.session.mutate({
         fetchOptions: {
@@ -30,16 +30,16 @@ export const useSignInWithEmailPass = (
             Authorization: `Bearer ${data.token}`,
           },
         },
-      })
+      });
 
-      return data
+      return data;
     },
     onSuccess: async (data, variables, context) => {
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useSignUpWithEmailPass = (
   options?: UseMutationOptions<
@@ -61,11 +61,11 @@ export const useSignUpWithEmailPass = (
         ...payload,
       }) as Promise<{ token: string }>,
     onSuccess: async (data, variables, context) => {
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useResetPasswordForEmailPass = (
   options?: UseMutationOptions<
@@ -85,11 +85,11 @@ export const useResetPasswordForEmailPass = (
         metadata: {},
       }),
     onSuccess: async (data, variables, context) => {
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useLogout = (
   options?: UseMutationOptions<
@@ -100,8 +100,8 @@ export const useLogout = (
   return useMutation({
     mutationFn: () => sdk.auth.session.delete({}),
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateProviderForEmailPass = (
   token: string,
@@ -127,8 +127,8 @@ export const useUpdateProviderForEmailPass = (
         },
       }),
     onSuccess: async (data, variables, context) => {
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

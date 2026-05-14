@@ -28,16 +28,16 @@ import { useForm, useWatch } from 'react-hook-form';
 import { Trans, useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { Form } from "@components/common/form"
-import { DeprecatedPercentageInput } from "@components/inputs/percentage-input"
-import { RouteFocusModal, useRouteModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCampaigns } from "@hooks/api/campaigns"
-import { useCreatePromotion } from "@hooks/api/promotions"
-import { getCurrencySymbol } from "@lib/data/currencies"
-import { DEFAULT_CAMPAIGN_VALUES } from "@pages/campaigns/common/constants"
-import { RulesFormField } from "../../common/edit-rules/components/rules-form-field"
-import { AddCampaignPromotionFields } from "@pages/promotions/[id]/add-to-campaign/add-campaign-promotion-form"
+import { Form } from "@components/common/form";
+import { DeprecatedPercentageInput } from "@components/inputs/percentage-input";
+import { RouteFocusModal, useRouteModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCampaigns } from "@hooks/api/campaigns";
+import { useCreatePromotion } from "@hooks/api/promotions";
+import { getCurrencySymbol } from "@lib/data/currencies";
+import { DEFAULT_CAMPAIGN_VALUES } from "@pages/campaigns/common/constants";
+import { RulesFormField } from "../../common/edit-rules/components/rules-form-field";
+import { AddCampaignPromotionFields } from "@pages/promotions/[id]/add-to-campaign/add-campaign-promotion-form";
 import { Tab } from './constants';
 import { CreatePromotionSchema } from './form-schema';
 import { templates } from './templates';
@@ -45,7 +45,7 @@ import { templates } from './templates';
 const defaultValues = {
   campaign_id: undefined,
   template_id: templates[0].id!,
-  campaign_choice: 'none' as 'none',
+  campaign_choice: 'none' as const,
   is_automatic: 'false',
   code: '',
   type: 'standard' as PromotionTypeValues,
@@ -176,73 +176,73 @@ export const CreatePromotionForm = () => {
 
   const handleTabChange = async (tab: Tab) => {
     switch (tab) {
-      case Tab.TYPE:
-        setTabState(prev => ({
-          ...prev,
-          [Tab.TYPE]: 'in-progress'
-        }));
-        setTab(tab);
-        break;
-      case Tab.PROMOTION:
-        setTabState(prev => ({
-          ...prev,
+    case Tab.TYPE:
+      setTabState(prev => ({
+        ...prev,
+        [Tab.TYPE]: 'in-progress'
+      }));
+      setTab(tab);
+      break;
+    case Tab.PROMOTION:
+      setTabState(prev => ({
+        ...prev,
+        [Tab.TYPE]: 'completed',
+        [Tab.PROMOTION]: 'in-progress'
+      }));
+      setTab(tab);
+      break;
+    case Tab.CAMPAIGN: {
+      const valid = await form.trigger(['code', 'application_method.value']);
+
+      if (!valid) {
+        setTabState({
           [Tab.TYPE]: 'completed',
-          [Tab.PROMOTION]: 'in-progress'
-        }));
-        setTab(tab);
-        break;
-      case Tab.CAMPAIGN: {
-        const valid = await form.trigger(['code', 'application_method.value']);
-
-        if (!valid) {
-          setTabState({
-            [Tab.TYPE]: 'completed',
-            [Tab.PROMOTION]: 'in-progress',
-            [Tab.CAMPAIGN]: 'not-started'
-          });
-          setTab(Tab.PROMOTION);
-          break;
-        }
-
-        setTabState(prev => ({
-          ...prev,
-          [Tab.PROMOTION]: 'completed',
-          [Tab.CAMPAIGN]: 'in-progress'
-        }));
-        setTab(tab);
+          [Tab.PROMOTION]: 'in-progress',
+          [Tab.CAMPAIGN]: 'not-started'
+        });
+        setTab(Tab.PROMOTION);
         break;
       }
+
+      setTabState(prev => ({
+        ...prev,
+        [Tab.PROMOTION]: 'completed',
+        [Tab.CAMPAIGN]: 'in-progress'
+      }));
+      setTab(tab);
+      break;
+    }
     }
   };
 
   const handleContinue = async () => {
     switch (tab) {
-      case Tab.TYPE:
-        handleTabChange(Tab.PROMOTION);
-        break;
-      case Tab.PROMOTION: {
-        const valid = !!form.getValues('code') && !!form.getValues('application_method.value');
+    case Tab.TYPE:
+      handleTabChange(Tab.PROMOTION);
+      break;
+    case Tab.PROMOTION: {
+      const valid = !!form.getValues('code') && !!form.getValues('application_method.value');
 
-        if (valid) {
-          handleTabChange(Tab.CAMPAIGN);
-        }
-
-        if (!form.getValues('code')) {
-          form.setError('code', {
-            message: t('promotions.errors.requiredField')
-          });
-        }
-
-        if (!form.getValues('application_method.value')) {
-          form.setError('application_method.value', {
-            message: t('promotions.errors.requiredField')
-          });
-        }
-
-        break;
+      if (valid) {
+        handleTabChange(Tab.CAMPAIGN);
       }
-      case Tab.CAMPAIGN:
-        break;
+
+      if (!form.getValues('code')) {
+        form.setError('code', {
+          message: t('promotions.errors.requiredField')
+        });
+      }
+
+      if (!form.getValues('application_method.value')) {
+        form.setError('application_method.value', {
+          message: t('promotions.errors.requiredField')
+        });
+      }
+
+      break;
+    }
+    case Tab.CAMPAIGN:
+      break;
     }
   };
 
@@ -786,41 +786,41 @@ export const CreatePromotionForm = () => {
 
                   {isTypeStandard &&
                     !currentTemplate?.hiddenFields?.includes('application_method.allocation') && (
-                      <Form.Field
-                        control={form.control}
-                        name="application_method.allocation"
-                        render={({ field }) => {
-                          return (
-                            <Form.Item>
-                              <Form.Label>{t('promotions.fields.allocation')}</Form.Label>
+                    <Form.Field
+                      control={form.control}
+                      name="application_method.allocation"
+                      render={({ field }) => {
+                        return (
+                          <Form.Item>
+                            <Form.Label>{t('promotions.fields.allocation')}</Form.Label>
 
-                              <Form.Control>
-                                <RadioGroup
-                                  className="flex gap-y-3"
-                                  {...field}
-                                  onValueChange={field.onChange}
-                                >
-                                  <RadioGroup.ChoiceBox
-                                    value={'each'}
-                                    label={t('promotions.form.allocation.each.title')}
-                                    description={t('promotions.form.allocation.each.description')}
-                                    className={clx('basis-1/2')}
-                                  />
+                            <Form.Control>
+                              <RadioGroup
+                                className="flex gap-y-3"
+                                {...field}
+                                onValueChange={field.onChange}
+                              >
+                                <RadioGroup.ChoiceBox
+                                  value={'each'}
+                                  label={t('promotions.form.allocation.each.title')}
+                                  description={t('promotions.form.allocation.each.description')}
+                                  className={clx('basis-1/2')}
+                                />
 
-                                  <RadioGroup.ChoiceBox
-                                    value={'across'}
-                                    label={t('promotions.form.allocation.across.title')}
-                                    description={t('promotions.form.allocation.across.description')}
-                                    className={clx('basis-1/2')}
-                                  />
-                                </RadioGroup>
-                              </Form.Control>
-                              <Form.ErrorMessage />
-                            </Form.Item>
-                          );
-                        }}
-                      />
-                    )}
+                                <RadioGroup.ChoiceBox
+                                  value={'across'}
+                                  label={t('promotions.form.allocation.across.title')}
+                                  description={t('promotions.form.allocation.across.description')}
+                                  className={clx('basis-1/2')}
+                                />
+                              </RadioGroup>
+                            </Form.Control>
+                            <Form.ErrorMessage />
+                          </Form.Item>
+                        );
+                      }}
+                    />
+                  )}
 
                   {!isTypeStandard && (
                     <>

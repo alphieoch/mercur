@@ -1,12 +1,12 @@
-import { AdminReservationResponse, HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
+import { AdminReservationResponse, HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { PencilSquare } from "@medusajs/icons"
-import { SectionRow } from "@components/common/section"
-import { useInventoryItem } from "@hooks/api/inventory"
-import { useStockLocation } from "@hooks/api/stock-locations"
-import { useTranslation } from "react-i18next"
+import { ActionMenu } from "@components/common/action-menu";
+import { PencilSquare } from "@medusajs/icons";
+import { SectionRow } from "@components/common/section";
+import { useInventoryItem } from "@hooks/api/inventory";
+import { useStockLocation } from "@hooks/api/stock-locations";
+import { useTranslation } from "react-i18next";
 
 type ReservationGeneralSectionProps = {
   reservation: AdminReservationResponse["reservation"]
@@ -15,21 +15,21 @@ type ReservationGeneralSectionProps = {
 export const ReservationGeneralSection = ({
   reservation,
 }: ReservationGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { inventory_item: inventoryItem } = useInventoryItem(
     reservation.inventory_item_id,
     {
       fields: "*location_levels",
     }
-  )
+  );
 
-  const { stock_location: location } = useStockLocation(reservation.location_id)
+  const { stock_location: location } = useStockLocation(reservation.location_id);
 
   const locationLevel = inventoryItem?.location_levels?.find(
     (l: HttpTypes.AdminInventoryLevel) =>
       l.location_id === reservation.location_id
-  )
+  );
 
   return (
     <Container className="divide-y p-0">
@@ -78,5 +78,5 @@ export const ReservationGeneralSection = ({
         value={locationLevel?.reserved_quantity}
       />
     </Container>
-  )
-}
+  );
+};

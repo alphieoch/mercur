@@ -1,5 +1,5 @@
-import { Tooltip } from "@medusajs/ui"
-import { ComponentPropsWithoutRef, PropsWithChildren } from "react"
+import { Tooltip } from "@medusajs/ui";
+import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
 type ConditionalTooltipProps = PropsWithChildren<
   ComponentPropsWithoutRef<typeof Tooltip> & {
@@ -13,8 +13,8 @@ export const ConditionalTooltip = ({
   ...props
 }: ConditionalTooltipProps) => {
   if (showTooltip) {
-    return <Tooltip {...props}>{children}</Tooltip>
+    return <Tooltip {...props}>{children}</Tooltip>;
   }
 
-  return children
-}
+  return children;
+};

@@ -7,5 +7,5 @@ export const ItemPlaceholder = () => {
       }}
       className="bg-ui-bg-field mt-4 block h-[56px] w-full rounded-lg border border-dashed"
     />
-  )
-}
+  );
+};

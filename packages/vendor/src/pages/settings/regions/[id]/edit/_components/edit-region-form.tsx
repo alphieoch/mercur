@@ -1,19 +1,19 @@
-import { HttpTypes, PaymentProviderDTO } from "@medusajs/types"
-import { Button, Input, Select, Switch, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { HttpTypes, PaymentProviderDTO } from "@medusajs/types";
+import { Button, Input, Select, Switch, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Form } from "@components/common/form/index.ts"
-import { Combobox } from "@components/inputs/combobox/index.ts"
+import { Form } from "@components/common/form/index.ts";
+import { Combobox } from "@components/inputs/combobox/index.ts";
 import {
   RouteDrawer,
   useRouteModal,
-} from "@components/modals/index.ts"
-import { KeyboundForm } from "@components/utilities/keybound-form/keybound-form.tsx"
-import { useUpdateRegion } from "@hooks/api/regions.tsx"
-import { CurrencyInfo } from "@lib/data/currencies.ts"
-import { formatProvider } from "@lib/format-provider.ts"
+} from "@components/modals/index.ts";
+import { KeyboundForm } from "@components/utilities/keybound-form/keybound-form.tsx";
+import { useUpdateRegion } from "@hooks/api/regions.tsx";
+import { CurrencyInfo } from "@lib/data/currencies.ts";
+import { formatProvider } from "@lib/format-provider.ts";
 
 type EditRegionFormProps = {
   region: HttpTypes.AdminRegion
@@ -28,7 +28,7 @@ const EditRegionSchema = zod.object({
   payment_providers: zod.array(zod.string()),
   automatic_taxes: zod.boolean(),
   is_tax_inclusive: zod.boolean(),
-})
+});
 
 export const EditRegionForm = ({
   region,
@@ -36,12 +36,12 @@ export const EditRegionForm = ({
   paymentProviders,
   pricePreferences,
 }: EditRegionFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
   const pricePreferenceForRegion = pricePreferences?.find(
     (preference) =>
       preference.attribute === "region_id" && preference.value === region.id
-  )
+  );
 
   const form = useForm<zod.infer<typeof EditRegionSchema>>({
     defaultValues: {
@@ -51,10 +51,10 @@ export const EditRegionForm = ({
       automatic_taxes: region.automatic_taxes,
       is_tax_inclusive: pricePreferenceForRegion?.is_tax_inclusive || false,
     },
-  })
+  });
 
   const { mutateAsync: updateRegion, isPending: isPendingRegion } =
-    useUpdateRegion(region.id)
+    useUpdateRegion(region.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await updateRegion(
@@ -67,15 +67,15 @@ export const EditRegionForm = ({
       },
       {
         onSuccess: () => {
-          toast.success(t("regions.toast.edit"))
-          handleSuccess()
+          toast.success(t("regions.toast.edit"));
+          handleSuccess();
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -95,7 +95,7 @@ export const EditRegionForm = ({
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -121,7 +121,7 @@ export const EditRegionForm = ({
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -147,7 +147,7 @@ export const EditRegionForm = ({
                         <Form.ErrorMessage />
                       </div>
                     </Form.Item>
-                  )
+                  );
                 }}
               />
 
@@ -174,7 +174,7 @@ export const EditRegionForm = ({
                         <Form.ErrorMessage />
                       </div>
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -205,7 +205,7 @@ export const EditRegionForm = ({
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -225,5 +225,5 @@ export const EditRegionForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

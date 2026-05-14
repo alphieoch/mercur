@@ -1,18 +1,18 @@
-import { PencilSquare } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { languages } from "../../../../../i18n/languages"
+import { PencilSquare } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { languages } from "../../../../../i18n/languages";
 
 type ProfileGeneralSectionProps = {
   user: HttpTypes.AdminUser
 }
 
 export const ProfileGeneralSection = ({ user }: ProfileGeneralSectionProps) => {
-  const { i18n, t } = useTranslation()
+  const { i18n, t } = useTranslation();
 
-  const name = [user.first_name, user.last_name].filter(Boolean).join(" ")
+  const name = [user.first_name, user.last_name].filter(Boolean).join(" ");
 
   return (
     <Container className="divide-y p-0" data-testid="profile-general-section">
@@ -73,5 +73,5 @@ export const ProfileGeneralSection = ({ user }: ProfileGeneralSectionProps) => {
         </StatusBadge>
       </div> */}
     </Container>
-  )
-}
+  );
+};

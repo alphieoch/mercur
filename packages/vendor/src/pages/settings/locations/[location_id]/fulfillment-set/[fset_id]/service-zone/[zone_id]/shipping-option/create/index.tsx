@@ -1,24 +1,24 @@
-import { json, useParams, useSearchParams } from "react-router-dom"
+import { json, useParams, useSearchParams } from "react-router-dom";
 
-import { RouteFocusModal } from "@components/modals"
-import { useStockLocation } from "@hooks/api/stock-locations"
-import { CreateShippingOptionsForm } from "./_components/create-shipping-options-form"
-import { LOC_CREATE_SHIPPING_OPTION_FIELDS } from "./constants"
-import { FulfillmentSetType } from "@pages/settings/locations/_common/constants"
+import { RouteFocusModal } from "@components/modals";
+import { useStockLocation } from "@hooks/api/stock-locations";
+import { CreateShippingOptionsForm } from "./_components/create-shipping-options-form";
+import { LOC_CREATE_SHIPPING_OPTION_FIELDS } from "./constants";
+import { FulfillmentSetType } from "@pages/settings/locations/_common/constants";
 
 function LocationServiceZoneShippingOptionCreate() {
-  const { location_id, fset_id, zone_id } = useParams()
-  const [searchParams] = useSearchParams()
-  const isReturn = searchParams.has("is_return")
+  const { location_id, fset_id, zone_id } = useParams();
+  const [searchParams] = useSearchParams();
+  const isReturn = searchParams.has("is_return");
 
   const { stock_location, isPending, isFetching, isError, error } =
     useStockLocation(location_id!, {
       fields: LOC_CREATE_SHIPPING_OPTION_FIELDS,
-    })
+    });
 
   const fulfillmentSet = stock_location?.fulfillment_sets?.find(
     (f) => f.id === fset_id
-  )
+  );
 
   if (!isPending && !isFetching && !fulfillmentSet) {
     throw json(
@@ -26,10 +26,10 @@ function LocationServiceZoneShippingOptionCreate() {
         message: `Fulfillment set with ID ${fset_id} was not found`,
       },
       404
-    )
+    );
   }
 
-  const zone = fulfillmentSet?.service_zones?.find((z) => z.id === zone_id)
+  const zone = fulfillmentSet?.service_zones?.find((z) => z.id === zone_id);
 
   if (!isPending && !isFetching && !zone) {
     throw json(
@@ -37,11 +37,11 @@ function LocationServiceZoneShippingOptionCreate() {
         message: `Service zone with ID ${zone_id} was not found`,
       },
       404
-    )
+    );
   }
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -55,7 +55,7 @@ function LocationServiceZoneShippingOptionCreate() {
         />
       )}
     </RouteFocusModal>
-  )
+  );
 }
 
-export const Component = LocationServiceZoneShippingOptionCreate
+export const Component = LocationServiceZoneShippingOptionCreate;

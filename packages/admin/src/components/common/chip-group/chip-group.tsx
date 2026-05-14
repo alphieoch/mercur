@@ -1,7 +1,7 @@
-import { XMarkMini } from "@medusajs/icons"
-import { Button, clx } from "@medusajs/ui"
-import { Children, PropsWithChildren, createContext, useContext } from "react"
-import { useTranslation } from "react-i18next"
+import { XMarkMini } from "@medusajs/icons";
+import { Button, clx } from "@medusajs/ui";
+import { Children, PropsWithChildren, createContext, useContext } from "react";
+import { useTranslation } from "react-i18next";
 
 type ChipGroupVariant = "base" | "component"
 
@@ -17,17 +17,17 @@ type GroupContextValue = {
   variant: ChipGroupVariant
 }
 
-const GroupContext = createContext<GroupContextValue | null>(null)
+const GroupContext = createContext<GroupContextValue | null>(null);
 
 const useGroupContext = () => {
-  const context = useContext(GroupContext)
+  const context = useContext(GroupContext);
 
   if (!context) {
-    throw new Error("useGroupContext must be used within a ChipGroup component")
+    throw new Error("useGroupContext must be used within a ChipGroup component");
   }
 
-  return context
-}
+  return context;
+};
 
 const Group = ({
   onClearAll,
@@ -36,9 +36,9 @@ const Group = ({
   className,
   children,
 }: ChipGroupProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const showClearAll = !!onClearAll && Children.count(children) > 0
+  const showClearAll = !!onClearAll && Children.count(children) > 0;
 
   return (
     <GroupContext.Provider value={{ onRemove, variant }}>
@@ -62,8 +62,8 @@ const Group = ({
         )}
       </ul>
     </GroupContext.Provider>
-  )
-}
+  );
+};
 
 type ChipProps = PropsWithChildren<{
   index: number
@@ -71,7 +71,7 @@ type ChipProps = PropsWithChildren<{
 }>
 
 const Chip = ({ index, className, children }: ChipProps) => {
-  const { onRemove, variant } = useGroupContext()
+  const { onRemove, variant } = useGroupContext();
 
   return (
     <li
@@ -105,7 +105,7 @@ const Chip = ({ index, className, children }: ChipProps) => {
         </button>
       )}
     </li>
-  )
-}
+  );
+};
 
-export const ChipGroup = Object.assign(Group, { Chip })
+export const ChipGroup = Object.assign(Group, { Chip });

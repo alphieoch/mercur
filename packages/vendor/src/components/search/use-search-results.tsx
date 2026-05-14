@@ -1,8 +1,8 @@
-import { HttpTypes } from "@medusajs/types"
-import { keepPreviousData } from "@tanstack/react-query"
-import { TFunction } from "i18next"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { keepPreviousData } from "@tanstack/react-query";
+import { TFunction } from "i18next";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useCampaigns,
   useCollections,
@@ -16,10 +16,10 @@ import {
   useProductTypes,
   usePromotions,
   useStockLocations,
-} from "../../hooks/api"
-import { Shortcut, ShortcutType } from "../../providers/keybind-provider"
-import { useGlobalShortcuts } from "../../providers/keybind-provider/hooks"
-import { DynamicSearchResult, SearchArea } from "./types"
+} from "../../hooks/api";
+import { Shortcut, ShortcutType } from "../../providers/keybind-provider";
+import { useGlobalShortcuts } from "../../providers/keybind-provider/hooks";
+import { DynamicSearchResult, SearchArea } from "./types";
 
 type UseSearchProps = {
   q?: string
@@ -32,65 +32,65 @@ export const useSearchResults = ({
   limit,
   area = "all",
 }: UseSearchProps) => {
-  const staticResults = useStaticSearchResults(area)
-  const { dynamicResults, isFetching } = useDynamicSearchResults(area, limit, q)
+  const staticResults = useStaticSearchResults(area);
+  const { dynamicResults, isFetching } = useDynamicSearchResults(area, limit, q);
 
   return {
     staticResults,
     dynamicResults,
     isFetching,
-  }
-}
+  };
+};
 
 const useStaticSearchResults = (currentArea: SearchArea) => {
-  const globalCommands = useGlobalShortcuts()
+  const globalCommands = useGlobalShortcuts();
 
   const results = useMemo(() => {
-    const groups = new Map<ShortcutType, Shortcut[]>()
+    const groups = new Map<ShortcutType, Shortcut[]>();
 
     globalCommands.forEach((command) => {
-      const group = groups.get(command.type) || []
-      group.push(command)
-      groups.set(command.type, group)
-    })
+      const group = groups.get(command.type) || [];
+      group.push(command);
+      groups.set(command.type, group);
+    });
 
-    let filteredGroups: [ShortcutType, Shortcut[]][]
+    let filteredGroups: [ShortcutType, Shortcut[]][];
 
     switch (currentArea) {
-      case "all":
-        filteredGroups = Array.from(groups)
-        break
-      case "navigation":
-        filteredGroups = Array.from(groups).filter(
-          ([type]) => type === "pageShortcut" || type === "settingShortcut"
-        )
-        break
-      case "command":
-        filteredGroups = Array.from(groups).filter(
-          ([type]) => type === "commandShortcut"
-        )
-        break
-      default:
-        filteredGroups = []
+    case "all":
+      filteredGroups = Array.from(groups);
+      break;
+    case "navigation":
+      filteredGroups = Array.from(groups).filter(
+        ([type]) => type === "pageShortcut" || type === "settingShortcut"
+      );
+      break;
+    case "command":
+      filteredGroups = Array.from(groups).filter(
+        ([type]) => type === "commandShortcut"
+      );
+      break;
+    default:
+      filteredGroups = [];
     }
 
     return filteredGroups.map(([title, items]) => ({
       title,
       items,
-    }))
-  }, [globalCommands, currentArea])
+    }));
+  }, [globalCommands, currentArea]);
 
-  return results
-}
+  return results;
+};
 
 const useDynamicSearchResults = (
   currentArea: SearchArea,
   limit: number,
   q?: string
 ) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const debouncedSearch = useDebouncedSearch(q, 300)
+  const debouncedSearch = useDebouncedSearch(q, 300);
 
   const orderResponse = useOrders(
     {
@@ -102,7 +102,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "order"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const productResponse = useProducts(
     {
@@ -116,7 +116,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "product"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const categoryResponse = useProductCategories(
     {
@@ -129,7 +129,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "category"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const collectionResponse = useCollections(
     {
@@ -141,7 +141,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "collection"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const customerResponse = useCustomers(
     {
@@ -153,7 +153,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "customer"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const inventoryResponse = useInventoryItems(
     {
@@ -165,7 +165,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "inventory"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const promotionResponse = usePromotions(
     {
@@ -177,7 +177,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "promotion"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const campaignResponse = useCampaigns(
     {
@@ -189,7 +189,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "campaign"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const priceListResponse = usePriceLists(
     {
@@ -201,7 +201,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "priceList"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const productTypeResponse = useProductTypes(
     {
@@ -213,7 +213,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "productType"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const productTagResponse = useProductTags(
     {
@@ -225,7 +225,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "productTag"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const locationResponse = useStockLocations(
     {
@@ -237,7 +237,7 @@ const useDynamicSearchResults = (
       enabled: isAreaEnabled(currentArea, "location"),
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const responseMap = useMemo(
     () => ({
@@ -268,78 +268,78 @@ const useDynamicSearchResults = (
       productTagResponse,
       locationResponse,
     ]
-  )
+  );
 
   const results = useMemo(() => {
     const groups = Object.entries(responseMap)
       .map(([key, response]) => {
-        const area = key as SearchArea
+        const area = key as SearchArea;
         if (isAreaEnabled(currentArea, area) || currentArea === "all") {
-          return transformDynamicSearchResults(area, limit, t, response)
+          return transformDynamicSearchResults(area, limit, t, response);
         }
-        return null
+        return null;
       })
-      .filter(Boolean) // Remove null values
+      .filter(Boolean); // Remove null values
 
-    return groups
-  }, [responseMap, currentArea, limit, t])
+    return groups;
+  }, [responseMap, currentArea, limit, t]);
 
   const isAreaFetching = useCallback(
     (area: SearchArea): boolean => {
       if (area === "all") {
         return Object.values(responseMap).some(
           (response) => response.isFetching
-        )
+        );
       }
 
       return (
         isAreaEnabled(currentArea, area) &&
         responseMap[area as keyof typeof responseMap]?.isFetching
-      )
+      );
     },
     [currentArea, responseMap]
-  )
+  );
 
   const isFetching = useMemo(() => {
-    return isAreaFetching(currentArea)
-  }, [currentArea, isAreaFetching])
+    return isAreaFetching(currentArea);
+  }, [currentArea, isAreaFetching]);
 
   const dynamicResults = q
     ? (results.filter(
-        (group) => !!group && group.items.length > 0
-      ) as DynamicSearchResult[])
-    : []
+      (group) => !!group && group.items.length > 0
+    ) as DynamicSearchResult[])
+    : [];
 
   return {
     dynamicResults,
     isFetching,
-  }
-}
+  };
+};
 
 const useDebouncedSearch = (value: string | undefined, delay: number) => {
-  const [debouncedValue, setDebouncedValue] = useState(value)
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
+      setDebouncedValue(value);
+    }, delay);
 
     return () => {
-      clearTimeout(handler)
-    }
-  }, [value, delay])
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
 
-  return debouncedValue
-}
+  return debouncedValue;
+};
 
 function isAreaEnabled(area: SearchArea, currentArea: SearchArea) {
   if (area === "all") {
-    return true
+    return true;
   }
   if (area === currentArea) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
 type TransformMap = {
@@ -401,14 +401,14 @@ const transformMap: TransformMap = {
     transform: (customer: HttpTypes.AdminCustomer) => {
       const name = [customer.first_name, customer.last_name]
         .filter(Boolean)
-        .join(" ")
+        .join(" ");
       return {
         id: customer.id,
         title: name || customer.email,
         subtitle: name ? customer.email : undefined,
         to: `/customers/${customer.id}`,
         value: `customer:${customer.id}`,
-      }
+      };
     },
   },
   collection: {
@@ -474,7 +474,7 @@ const transformMap: TransformMap = {
       value: `location:${location.id}`,
     }),
   },
-}
+};
 
 function transformDynamicSearchResults<T extends { count: number }>(
   type: SearchArea,
@@ -483,14 +483,14 @@ function transformDynamicSearchResults<T extends { count: number }>(
   response?: T
 ): DynamicSearchResult | undefined {
   if (!response || !transformMap[type]) {
-    return undefined
+    return undefined;
   }
 
-  const { dataKey, transform } = transformMap[type]!
-  const data = response[dataKey as keyof T]
+  const { dataKey, transform } = transformMap[type]!;
+  const data = response[dataKey as keyof T];
 
   if (!data || !Array.isArray(data)) {
-    return undefined
+    return undefined;
   }
 
   return {
@@ -499,5 +499,5 @@ function transformDynamicSearchResults<T extends { count: number }>(
     hasMore: response.count > limit,
     count: response.count,
     items: data.map(transform),
-  }
+  };
 }

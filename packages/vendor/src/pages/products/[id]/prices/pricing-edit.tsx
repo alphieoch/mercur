@@ -1,18 +1,18 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@medusajs/ui"
-import { HttpTypes } from "@medusajs/types"
-import { useMemo } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@medusajs/ui";
+import { HttpTypes } from "@medusajs/types";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { RouteFocusModal, useRouteModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdateProductVariant } from "@hooks/api/products"
-import { useRegions } from "@hooks/api/regions"
-import { castNumber } from "@lib/cast-number"
-import { VariantPricingForm } from "../../common/variant-pricing-form"
-import { ExtendedAdminProduct } from "@custom-types/products"
+import { RouteFocusModal, useRouteModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdateProductVariant } from "@hooks/api/products";
+import { useRegions } from "@hooks/api/regions";
+import { castNumber } from "@lib/cast-number";
+import { VariantPricingForm } from "../../common/variant-pricing-form";
+import { ExtendedAdminProduct } from "@custom-types/products";
 
 export const UpdateVariantPricesSchema = zod.object({
   variants: zod.array(
@@ -22,7 +22,7 @@ export const UpdateVariantPricesSchema = zod.object({
         .optional(),
     })
   ),
-})
+});
 
 export type UpdateVariantPricesSchemaType = zod.infer<
   typeof UpdateVariantPricesSchema
@@ -35,32 +35,32 @@ export const PricingEdit = ({
   product: ExtendedAdminProduct
   variantId?: string
 }) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
   // const { mutateAsync, isPending } = useUpdateProductVariantsBatch(product.id)
   const { mutateAsync, isPending } = useUpdateProductVariant(
     product.id,
     variantId!
-  )
+  );
 
-  const { regions } = useRegions({ limit: 9999 })
+  const { regions } = useRegions({ limit: 9999 });
   const regionsCurrencyMap = useMemo(() => {
     if (!regions?.length) {
-      return {}
+      return {};
     }
 
     return regions.reduce(
       (acc, reg) => {
-        acc[reg.id] = reg.currency_code
-        return acc
+        acc[reg.id] = reg.currency_code;
+        return acc;
       },
       {} as Record<string, string>
-    )
-  }, [regions])
+    );
+  }, [regions]);
 
   const variants = variantId
     ? product.variants?.filter((v) => v.id === variantId)
-    : product.variants
+    : product.variants;
 
   const form = useForm<UpdateVariantPricesSchemaType>({
     defaultValues: {
@@ -71,13 +71,13 @@ export const PricingEdit = ({
             (acc, price) => {
               const priceWithRules = price as HttpTypes.AdminPrice & {
                 rules?: { region_id?: string; [key: string]: unknown }
-              }
+              };
               if (priceWithRules.rules?.region_id) {
-                acc[priceWithRules.rules.region_id] = price.amount
+                acc[priceWithRules.rules.region_id] = price.amount;
               } else {
-                acc[price.currency_code] = price.amount
+                acc[price.currency_code] = price.amount;
               }
-              return acc
+              return acc;
             },
             {} as Record<string, number>
           ) || {},
@@ -85,13 +85,13 @@ export const PricingEdit = ({
     },
 
     resolver: zodResolver(UpdateVariantPricesSchema, {}),
-  })
+  });
 
   const handleSubmit = form.handleSubmit(async (values) => {
     const reqData = values.variants.map((variant, ind) => {
-      const currentVariant = variants?.[ind]
+      const currentVariant = variants?.[ind];
       if (!currentVariant) {
-        return null
+        return null;
       }
 
       return {
@@ -103,62 +103,62 @@ export const PricingEdit = ({
           .map(([currencyCodeOrRegionId, value]) => {
             const regionId = currencyCodeOrRegionId.startsWith("reg_")
               ? currencyCodeOrRegionId
-              : undefined
+              : undefined;
             const currencyCode = currencyCodeOrRegionId.startsWith("reg_")
               ? regionsCurrencyMap[regionId as string]
-              : currencyCodeOrRegionId
+              : currencyCodeOrRegionId;
 
-            let existingId: string | undefined
+            let existingId: string | undefined;
 
             if (regionId && currentVariant.prices) {
               existingId = currentVariant.prices.find((p) => {
                 const priceWithRules = p as HttpTypes.AdminPrice & {
                   rules?: { region_id?: string; [key: string]: unknown }
-                }
-                return priceWithRules.rules?.region_id === regionId
-              })?.id
+                };
+                return priceWithRules.rules?.region_id === regionId;
+              })?.id;
             } else if (currentVariant.prices) {
               existingId = currentVariant.prices.find((p) => {
                 const priceWithRules = p as HttpTypes.AdminPrice & {
                   rules?: { region_id?: string; [key: string]: unknown }
-                }
+                };
                 return (
                   p.currency_code === currencyCode &&
                   Object.keys(priceWithRules.rules ?? {}).length === 0
-                )
-              })?.id
+                );
+              })?.id;
             }
 
-            const amount = castNumber(value!)
+            const amount = castNumber(value!);
 
             return {
               id: existingId,
               currency_code: currencyCode || "",
               amount,
               ...(regionId ? { rules: { region_id: regionId } } : {}),
-            }
+            };
           }),
-      }
-    })
+      };
+    });
 
-    const data = reqData[0]
+    const data = reqData[0];
 
     if (!data) {
-      return
+      return;
     }
 
     const cleanData: HttpTypes.AdminUpdateProductVariant = {
       title: data.title || undefined,
       sku: data.sku || undefined,
       prices: data.prices,
-    }
+    };
 
     await mutateAsync(cleanData, {
       onSuccess: () => {
-        handleSuccess("..")
+        handleSuccess("..");
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -186,5 +186,5 @@ export const PricingEdit = ({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

@@ -1,9 +1,9 @@
-import { PropsWithChildren } from "react"
+import { PropsWithChildren } from "react";
 
-import { clx } from "@medusajs/ui"
-import { useDataGridCellError } from "../hooks"
-import { DataGridCellProps } from "../types"
-import { DataGridRowErrorIndicator } from "./data-grid-row-error-indicator"
+import { clx } from "@medusajs/ui";
+import { useDataGridCellError } from "../hooks";
+import { DataGridCellProps } from "../types";
+import { DataGridRowErrorIndicator } from "./data-grid-row-error-indicator";
 
 type DataGridReadonlyCellProps<TData, TValue = any> = PropsWithChildren<
   DataGridCellProps<TData, TValue>
@@ -18,7 +18,7 @@ export const DataGridReadonlyCell = <TData, TValue = any>({
   children,
   isMultiLine = false,
 }: DataGridReadonlyCellProps<TData, TValue>) => {
-  const { rowErrors } = useDataGridCellError({ context })
+  const { rowErrors } = useDataGridCellError({ context });
 
   return (
     <div
@@ -39,5 +39,5 @@ export const DataGridReadonlyCell = <TData, TValue = any>({
       </div>
       <DataGridRowErrorIndicator rowErrors={rowErrors} />
     </div>
-  )
-}
+  );
+};

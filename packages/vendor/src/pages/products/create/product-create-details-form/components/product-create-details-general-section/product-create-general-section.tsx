@@ -1,14 +1,14 @@
-import { Input, Textarea } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Input, Textarea } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "@components/common/form"
-import { HandleInput } from "@components/inputs/handle-input"
-import { useTabbedForm } from "@components/tabbed-form"
-import { ProductCreateSchemaType } from "../../../types"
+import { Form } from "@components/common/form";
+import { HandleInput } from "@components/inputs/handle-input";
+import { useTabbedForm } from "@components/tabbed-form";
+import { ProductCreateSchemaType } from "../../../types";
 
 export const ProductCreateGeneralSection = () => {
-  const { t } = useTranslation()
-  const form = useTabbedForm<ProductCreateSchemaType>()
+  const { t } = useTranslation();
+  const form = useTabbedForm<ProductCreateSchemaType>();
 
   return (
     <div id="general" className="flex flex-col gap-y-6">
@@ -26,7 +26,7 @@ export const ProductCreateGeneralSection = () => {
                   </Form.Control>
                   <Form.ErrorMessage>{form.formState.errors.title?.message}</Form.ErrorMessage>
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -42,7 +42,7 @@ export const ProductCreateGeneralSection = () => {
                     <Input {...field} placeholder="Warm and cosy" />
                   </Form.Control>
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -62,7 +62,7 @@ export const ProductCreateGeneralSection = () => {
                   </Form.Control>
                   <Form.ErrorMessage>{form.formState.errors.handle?.message}</Form.ErrorMessage>
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
@@ -80,9 +80,9 @@ export const ProductCreateGeneralSection = () => {
                 <Textarea {...field} placeholder="A warm and cozy jacket" />
               </Form.Control>
             </Form.Item>
-          )
+          );
         }}
       />
     </div>
-  )
-}
+  );
+};

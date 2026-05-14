@@ -1,16 +1,16 @@
-import { Button, Heading, Text, toast } from "@medusajs/ui"
-import { RouteDrawer, useRouteModal } from "../../../components/modals"
-import { useTranslation } from "react-i18next"
-import { useMemo, useState } from "react"
-import { useConfirmImportProducts, useImportProducts } from "../../../hooks/api"
-import { UploadImport } from "./components/upload-import"
-import { ImportSummary } from "./components/import-summary"
-import { Trash } from "@medusajs/icons"
-import { FilePreview } from "../../../components/common/file-preview"
-import { getProductImportCsvTemplate } from "./helpers/import-template"
+import { Button, Heading, Text, toast } from "@medusajs/ui";
+import { RouteDrawer, useRouteModal } from "../../../components/modals";
+import { useTranslation } from "react-i18next";
+import { useMemo, useState } from "react";
+import { useConfirmImportProducts, useImportProducts } from "../../../hooks/api";
+import { UploadImport } from "./components/upload-import";
+import { ImportSummary } from "./components/import-summary";
+import { Trash } from "@medusajs/icons";
+import { FilePreview } from "../../../components/common/file-preview";
+import { getProductImportCsvTemplate } from "./helpers/import-template";
 
 export const ProductImport = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <RouteDrawer>
@@ -24,51 +24,51 @@ export const ProductImport = () => {
       </RouteDrawer.Header>
       <ProductImportContent />
     </RouteDrawer>
-  )
-}
+  );
+};
 
 const ProductImportContent = () => {
-  const { t } = useTranslation()
-  const [filename, setFilename] = useState<string>()
+  const { t } = useTranslation();
+  const [filename, setFilename] = useState<string>();
 
-  const { mutateAsync: importProducts, isPending, data } = useImportProducts()
-  const { mutateAsync: confirm } = useConfirmImportProducts()
-  const { handleSuccess } = useRouteModal()
+  const { mutateAsync: importProducts, isPending, data } = useImportProducts();
+  const { mutateAsync: confirm } = useConfirmImportProducts();
+  const { handleSuccess } = useRouteModal();
 
   const productImportTemplateContent = useMemo(() => {
-    return getProductImportCsvTemplate()
-  }, [])
+    return getProductImportCsvTemplate();
+  }, []);
 
   const handleUploaded = async (file: File) => {
-    setFilename(file.name)
+    setFilename(file.name);
     await importProducts(
       { file },
       {
         onError: (err) => {
-          toast.error(err.message)
-          setFilename(undefined)
+          toast.error(err.message);
+          setFilename(undefined);
         },
       }
-    )
-  }
+    );
+  };
 
   const handleConfirm = async () => {
     if (!data?.transaction_id) {
-      return
+      return;
     }
 
     await confirm(data.transaction_id, {
       onSuccess: () => {
         toast.info(t("products.import.success.title"), {
           description: t("products.import.success.description"),
-        })
-        handleSuccess()
+        });
+        handleSuccess();
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  }
+    });
+  };
 
   const uploadedFileActions = [
     {
@@ -80,7 +80,7 @@ const ProductImportContent = () => {
         },
       ],
     },
-  ]
+  ];
 
   return (
     <>
@@ -139,5 +139,5 @@ const ProductImportContent = () => {
         </div>
       </RouteDrawer.Footer>
     </>
-  )
-}
+  );
+};

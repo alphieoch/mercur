@@ -1,87 +1,87 @@
-import { Checkbox } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
+import { Checkbox } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
 import {
   OnChangeFn,
   RowSelectionState,
   createColumnHelper,
-} from "@tanstack/react-table"
-import { useMemo, useState } from "react"
-import { UseFormReturn, useWatch } from "react-hook-form"
+} from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import { UseFormReturn, useWatch } from "react-hook-form";
 
-import { useTranslation } from "react-i18next"
-import { _DataTable } from "@components/table/data-table"
-import { useProducts } from "@hooks/api/products"
-import { useProductTableColumns } from "@hooks/table/columns/use-product-table-columns"
-import { useProductTableFilters } from "@hooks/table/filters/use-product-table-filters"
-import { useProductTableQuery } from "@hooks/table/query/use-product-table-query"
-import { useDataTable } from "@hooks/use-data-table"
-import { PriceListCreateProductsSchema } from "../../../common/schemas"
-import { PricingCreateSchemaType } from "./schema"
-import { ExtendedAdminProduct } from "@custom-types/products"
+import { useTranslation } from "react-i18next";
+import { _DataTable } from "@components/table/data-table";
+import { useProducts } from "@hooks/api/products";
+import { useProductTableColumns } from "@hooks/table/columns/use-product-table-columns";
+import { useProductTableFilters } from "@hooks/table/filters/use-product-table-filters";
+import { useProductTableQuery } from "@hooks/table/query/use-product-table-query";
+import { useDataTable } from "@hooks/use-data-table";
+import { PriceListCreateProductsSchema } from "../../../common/schemas";
+import { PricingCreateSchemaType } from "./schema";
+import { ExtendedAdminProduct } from "@custom-types/products";
 
 type PriceListProductsFormProps = {
   form: UseFormReturn<PricingCreateSchemaType>
 }
 
-const PAGE_SIZE = 50
-const PREFIX = "p"
+const PAGE_SIZE = 50;
+const PREFIX = "p";
 
 function getInitialSelection(products: { id: string }[]) {
   return products.reduce((acc, curr) => {
-    acc[curr.id] = true
-    return acc
-  }, {} as RowSelectionState)
+    acc[curr.id] = true;
+    return acc;
+  }, {} as RowSelectionState);
 }
 
 export const PriceListProductsForm = ({ form }: PriceListProductsFormProps) => {
-  const { t } = useTranslation()
-  const { control, setValue } = form
+  const { t } = useTranslation();
+  const { control, setValue } = form;
 
   const selectedIds = useWatch({
     control,
     name: "product_ids",
-  })
+  });
 
   const productRecords = useWatch({
     control,
     name: "products",
-  })
+  });
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>(
     getInitialSelection(selectedIds)
-  )
+  );
 
   const { searchParams, raw } = useProductTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
   const { products, count, isLoading, isError, error } = useProducts(
     { ...searchParams, fields: "+thumbnail" },
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const updater: OnChangeFn<RowSelectionState> = (fn) => {
-    const state = typeof fn === "function" ? fn(rowSelection) : fn
+    const state = typeof fn === "function" ? fn(rowSelection) : fn;
 
-    const ids = Object.keys(state)
-    const productRecordKeys = Object.keys(productRecords)
+    const ids = Object.keys(state);
+    const productRecordKeys = Object.keys(productRecords);
 
     const updatedRecords = productRecordKeys.reduce((acc, key) => {
       if (ids.includes(key)) {
-        acc[key] = productRecords[key]
+        acc[key] = productRecords[key];
       }
 
-      return acc
-    }, {} as PriceListCreateProductsSchema)
+      return acc;
+    }, {} as PriceListCreateProductsSchema);
 
-    const update = ids.map((id) => ({ id }))
+    const update = ids.map((id) => ({ id }));
 
     setValue("product_ids", update, {
       shouldDirty: true,
       shouldTouch: true,
-    })
+    });
 
     /**
      * Update the product records to ensure that all unselected products
@@ -90,13 +90,13 @@ export const PriceListProductsForm = ({ form }: PriceListProductsFormProps) => {
     setValue("products", updatedRecords, {
       shouldDirty: true,
       shouldTouch: true,
-    })
+    });
 
-    setRowSelection(state)
-  }
+    setRowSelection(state);
+  };
 
-  const columns = useColumns()
-  const filters = useProductTableFilters()
+  const columns = useColumns();
+  const filters = useProductTableFilters();
 
   const { table } = useDataTable({
     data: products || [],
@@ -104,7 +104,7 @@ export const PriceListProductsForm = ({ form }: PriceListProductsFormProps) => {
     count,
     enablePagination: true,
     enableRowSelection: (row) => {
-      return !!row.original.variants?.length
+      return !!row.original.variants?.length;
     },
     getRowId: (row) => row.id,
     rowSelection: {
@@ -112,10 +112,10 @@ export const PriceListProductsForm = ({ form }: PriceListProductsFormProps) => {
       updater,
     },
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -149,13 +149,13 @@ export const PriceListProductsForm = ({ form }: PriceListProductsFormProps) => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<ExtendedAdminProduct>()
+const columnHelper = createColumnHelper<ExtendedAdminProduct>();
 
 const useColumns = () => {
-  const base = useProductTableColumns()
+  const base = useProductTableColumns();
 
   return useMemo(
     () => [
@@ -173,7 +173,7 @@ const useColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -182,14 +182,14 @@ const useColumns = () => {
               disabled={!row.getCanSelect()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       ...base,
     ],
     [base]
-  )
-}
+  );
+};

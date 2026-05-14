@@ -1,5 +1,5 @@
-import { HttpTypes } from "@medusajs/types"
-import { useQueryParams } from "../../use-query-params"
+import { HttpTypes } from "@medusajs/types";
+import { useQueryParams } from "../../use-query-params";
 
 type UseCustomerTableQueryProps = {
   prefix?: string
@@ -21,10 +21,10 @@ export const useCustomerTableQuery = ({
       "updated_at",
     ],
     prefix
-  )
+  );
 
   const { offset, groups, created_at, updated_at, has_account, q, order } =
-    queryObject
+    queryObject;
 
   const searchParams: HttpTypes.AdminCustomerFilters = {
     limit: pageSize,
@@ -35,10 +35,10 @@ export const useCustomerTableQuery = ({
     created_at: created_at ? JSON.parse(created_at) : undefined,
     updated_at: updated_at ? JSON.parse(updated_at) : undefined,
     q,
-  }
+  };
 
   return {
     searchParams,
     raw: queryObject,
-  }
-}
+  };
+};

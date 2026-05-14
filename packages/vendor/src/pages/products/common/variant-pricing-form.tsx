@@ -1,20 +1,20 @@
-import { useMemo } from "react"
-import { UseFormReturn, useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { HttpTypes } from "@medusajs/types"
-import { Text } from "@medusajs/ui"
+import { useMemo } from "react";
+import { UseFormReturn, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { HttpTypes } from "@medusajs/types";
+import { Text } from "@medusajs/ui";
 
 import {
   DataGrid,
   createDataGridHelper,
   createDataGridPriceColumns,
-} from "@components/data-grid"
-import { useRouteModal } from "@components/modals/index"
-import { usePricePreferences } from "@hooks/api/price-preferences"
-import { useRegions } from "@hooks/api/regions.tsx"
-import { useStore } from "@hooks/api/store"
-import { ProductCreateSchemaType } from "../create/types"
-import { ExtendedAdminProduct } from "@custom-types/products.ts"
+} from "@components/data-grid";
+import { useRouteModal } from "@components/modals/index";
+import { usePricePreferences } from "@hooks/api/price-preferences";
+import { useRegions } from "@hooks/api/regions.tsx";
+import { useStore } from "@hooks/api/store";
+import { ProductCreateSchemaType } from "../create/types";
+import { ExtendedAdminProduct } from "@custom-types/products.ts";
 
 type VariantPricingFormProps = {
   form: UseFormReturn<ProductCreateSchemaType>
@@ -25,35 +25,35 @@ export const VariantPricingForm = ({
   form,
   product,
 }: VariantPricingFormProps) => {
-  const { store } = useStore()
-  const { regions } = useRegions({ limit: 9999 })
-  const { price_preferences: pricePreferences } = usePricePreferences({})
+  const { store } = useStore();
+  const { regions } = useRegions({ limit: 9999 });
+  const { price_preferences: pricePreferences } = usePricePreferences({});
 
-  const { setCloseOnEscape } = useRouteModal()
+  const { setCloseOnEscape } = useRouteModal();
 
   const columns = useVariantPriceGridColumns({
     currencies: store?.supported_currencies,
     regions,
     pricePreferences,
-  })
+  });
 
   const variants = useWatch({
     control: form.control,
     name: "variants",
-  }) as any
+  }) as any;
 
   const dataWithProductInfo = useMemo(() => {
-    if (!variants?.length) return []
+    if (!variants?.length) return [];
 
     const productInfoRow = {
       id: `product-info-${product.id}`,
       title: product.title,
       isProductInfo: true,
       prices: {},
-    }
+    };
 
-    return [productInfoRow, ...variants]
-  }, [variants, product.title, product.id])
+    return [productInfoRow, ...variants];
+  }, [variants, product.title, product.id]);
 
   return (
     <DataGrid
@@ -62,13 +62,13 @@ export const VariantPricingForm = ({
       state={form}
       onEditingChange={(editing) => setCloseOnEscape(!editing)}
     />
-  )
-}
+  );
+};
 
 const columnHelper = createDataGridHelper<
   HttpTypes.AdminProductVariant,
   ProductCreateSchemaType
->()
+>();
 
 const useVariantPriceGridColumns = ({
   currencies = [],
@@ -79,7 +79,7 @@ const useVariantPriceGridColumns = ({
   regions?: HttpTypes.AdminRegion[]
   pricePreferences?: HttpTypes.AdminPricePreference[]
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(() => {
     return [
@@ -87,8 +87,8 @@ const useVariantPriceGridColumns = ({
         id: t("fields.title"),
         header: t("fields.title"),
         cell: (context) => {
-          const entity = context.row.original
-          const isProductInfo = (entity as any).isProductInfo
+          const entity = context.row.original;
+          const isProductInfo = (entity as any).isProductInfo;
 
           return (
             <DataGrid.ReadonlyCell context={context}>
@@ -104,7 +104,7 @@ const useVariantPriceGridColumns = ({
                 </Text>
               </div>
             </DataGrid.ReadonlyCell>
-          )
+          );
         },
         disableHiding: true,
       }),
@@ -116,12 +116,12 @@ const useVariantPriceGridColumns = ({
         pricePreferences,
         isReadyOnly: (context) => (context.row.original as any).isProductInfo,
         getFieldName: (context, value) => {
-          const entity = context.row.original as any
-          if (entity.isProductInfo) return null
-          return `variants.${context.row.index - 1}.prices.${value}`
+          const entity = context.row.original as any;
+          if (entity.isProductInfo) return null;
+          return `variants.${context.row.index - 1}.prices.${value}`;
         },
         t,
       }),
-    ]
-  }, [t, currencies, regions, pricePreferences])
-}
+    ];
+  }, [t, currencies, regions, pricePreferences]);
+};

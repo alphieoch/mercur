@@ -1,10 +1,10 @@
-import { ReactNode, Children } from "react"
-import { Button, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { ReactNode, Children } from "react";
+import { Button, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const PriceListListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div>
       <Heading>{t("priceLists.domain")}</Heading>
@@ -12,15 +12,15 @@ export const PriceListListTitle = () => {
         {t("priceLists.subtitle")}
       </Text>
     </div>
-  )
-}
+  );
+};
 
 export const PriceListListActions = ({
   children,
 }: {
   children?: ReactNode
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-center gap-x-2">
       {Children.count(children) > 0 ? (
@@ -31,8 +31,8 @@ export const PriceListListActions = ({
         </Button>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const PriceListListHeader = ({
   children,
@@ -50,5 +50,5 @@ export const PriceListListHeader = ({
         </>
       )}
     </div>
-  )
-}
+  );
+};

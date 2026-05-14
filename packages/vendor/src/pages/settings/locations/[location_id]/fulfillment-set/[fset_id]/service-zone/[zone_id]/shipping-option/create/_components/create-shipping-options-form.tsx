@@ -1,28 +1,28 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { VendorExtendedAdminServiceZone } from "@custom-types/stock-location"
-import { Button, ProgressStatus, ProgressTabs, toast } from "@medusajs/ui"
-import { useForm, useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { VendorExtendedAdminServiceZone } from "@custom-types/stock-location";
+import { Button, ProgressStatus, ProgressTabs, toast } from "@medusajs/ui";
+import { useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCreateShippingOptions } from "@hooks/api/shipping-options"
-import { castNumber } from "@lib/cast-number"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCreateShippingOptions } from "@hooks/api/shipping-options";
+import { castNumber } from "@lib/cast-number";
 import {
   FulfillmentSetType,
   ShippingOptionPriceType,
-} from "@pages/settings/locations/_common/constants"
-import { CreateShippingOptionDetailsForm } from "./create-shipping-option-details-form"
-import { CreateShippingOptionsPricesForm } from "./create-shipping-options-prices-form"
+} from "@pages/settings/locations/_common/constants";
+import { CreateShippingOptionDetailsForm } from "./create-shipping-option-details-form";
+import { CreateShippingOptionsPricesForm } from "./create-shipping-options-prices-form";
 import {
   CreateShippingOptionDetailsSchema,
   CreateShippingOptionSchema,
-} from "./schema"
-import { useFulfillmentProviderOptions } from "@hooks/api"
+} from "./schema";
+import { useFulfillmentProviderOptions } from "@hooks/api";
 
 enum Tab {
   DETAILS = "details",
@@ -42,11 +42,11 @@ export function CreateShippingOptionsForm({
   locationId,
   type,
 }: CreateShippingOptionFormProps) {
-  const [activeTab, setActiveTab] = useState<Tab>(Tab.DETAILS)
-  const [validDetails, setValidDetails] = useState(false)
+  const [activeTab, setActiveTab] = useState<Tab>(Tab.DETAILS);
+  const [validDetails, setValidDetails] = useState(false);
 
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<CreateShippingOptionSchema>({
     defaultValues: {
@@ -62,53 +62,53 @@ export function CreateShippingOptionsForm({
       conditional_currency_prices: {},
     },
     resolver: zodResolver(CreateShippingOptionSchema),
-  })
+  });
 
   const selectedProviderId = useWatch({
     control: form.control,
     name: "provider_id",
-  })
+  });
 
   const { fulfillment_options: fulfillmentProviderOptions } =
     useFulfillmentProviderOptions(selectedProviderId, {
       enabled: !!selectedProviderId,
-    })
+    });
 
   const isCalculatedPriceType =
-    form.watch("price_type") === ShippingOptionPriceType.Calculated
+    form.watch("price_type") === ShippingOptionPriceType.Calculated;
 
-  const { mutateAsync, isPending: isLoading } = useCreateShippingOptions()
+  const { mutateAsync, isPending: isLoading } = useCreateShippingOptions();
 
   const handleSubmit = form.handleSubmit(async (data) => {
     const currencyPrices = Object.entries(data.currency_prices)
       .map(([code, value]) => {
         if (!value) {
-          return undefined
+          return undefined;
         }
 
         return {
           currency_code: code,
           amount: castNumber(value),
-        }
+        };
       })
-      .filter((p): p is { currency_code: string; amount: number } => !!p)
+      .filter((p): p is { currency_code: string; amount: number } => !!p);
 
     const regionPrices = Object.entries(data.region_prices)
       .map(([region, value]) => {
         if (!value) {
-          return undefined
+          return undefined;
         }
 
         return {
           region_id: region,
           amount: castNumber(value),
-        }
+        };
       })
-      .filter((p): p is { region_id: string; amount: number } => !!p)
+      .filter((p): p is { region_id: string; amount: number } => !!p);
 
     const fulfillmentOptionData = fulfillmentProviderOptions?.find(
       (fo) => fo.id === data.fulfillment_option_id
-    )!
+    )!;
 
     await mutateAsync(
       {
@@ -147,34 +147,34 @@ export function CreateShippingOptionsForm({
               }.successToast`,
               { name: shipping_option?.name }
             )
-          )
-          handleSuccess(`/settings/locations/${locationId}`)
+          );
+          handleSuccess(`/settings/locations/${locationId}`);
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   const onTabChange = (tab: Tab) => {
     if (tab === Tab.PRICING) {
-      form.clearErrors()
+      form.clearErrors();
 
       const result = CreateShippingOptionDetailsSchema.safeParse({
         ...form.getValues(),
-      })
+      });
 
       if (!result.success) {
-        const [firstError, ...rest] = result.error.errors
+        const [firstError, ...rest] = result.error.errors;
 
         for (const error of rest) {
-          const _path = error.path.join(".") as keyof CreateShippingOptionSchema
+          const _path = error.path.join(".") as keyof CreateShippingOptionSchema;
 
           form.setError(_path, {
             message: error.message,
             type: error.code,
-          })
+          });
         }
 
         // Focus the first error
@@ -187,28 +187,28 @@ export function CreateShippingOptionsForm({
           {
             shouldFocus: true,
           }
-        )
+        );
 
-        setValidDetails(false)
-        return
+        setValidDetails(false);
+        return;
       }
 
-      setValidDetails(true)
+      setValidDetails(true);
     }
 
-    setActiveTab(tab)
-  }
+    setActiveTab(tab);
+  };
 
   const pricesStatus: ProgressStatus =
     form.getFieldState("currency_prices")?.isDirty ||
     form.getFieldState("region_prices")?.isDirty ||
     activeTab === Tab.PRICING
       ? "in-progress"
-      : "not-started"
+      : "not-started";
 
   const detailsStatus: ProgressStatus = validDetails
     ? "completed"
-    : "in-progress"
+    : "in-progress";
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -216,27 +216,27 @@ export function CreateShippingOptionsForm({
         className="flex h-full flex-col"
         onSubmit={handleSubmit}
         onKeyDown={(e) => {
-          const isEnterKey = e.key === "Enter"
-          const isModifierPressed = e.metaKey || e.ctrlKey
+          const isEnterKey = e.key === "Enter";
+          const isModifierPressed = e.metaKey || e.ctrlKey;
           const shouldContinueToPricing =
-            activeTab !== Tab.PRICING && !isCalculatedPriceType
+            activeTab !== Tab.PRICING && !isCalculatedPriceType;
 
           if (!isEnterKey) {
-            return
+            return;
           }
-          e.preventDefault()
+          e.preventDefault();
 
           if (!isModifierPressed) {
-            return
+            return;
           }
 
           if (shouldContinueToPricing) {
-            e.stopPropagation()
-            onTabChange(Tab.PRICING)
-            return
+            e.stopPropagation();
+            onTabChange(Tab.PRICING);
+            return;
           }
 
-          handleSubmit()
+          handleSubmit();
         }}
       >
         <ProgressTabs
@@ -319,5 +319,5 @@ export function CreateShippingOptionsForm({
         </ProgressTabs>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }

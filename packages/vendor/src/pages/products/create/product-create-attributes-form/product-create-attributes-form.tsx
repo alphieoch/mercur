@@ -1,20 +1,20 @@
-import { forwardRef, useEffect, useImperativeHandle } from "react"
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 
-import { CircleInfoSolid } from "@medusajs/icons"
-import { Button, Divider, Heading, Text, Tooltip } from "@medusajs/ui"
-import { Path, useFieldArray, UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { CircleInfoSolid } from "@medusajs/icons";
+import { Button, Divider, Heading, Text, Tooltip } from "@medusajs/ui";
+import { Path, useFieldArray, UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { useAttributes } from "../../../../hooks/api/attributes"
-import { ProductAttribute } from "../../types"
-import { ProductCreateSchemaType } from "../types"
-import { createAttributeValidationRules } from "../utils/attribute-validation"
+import { useAttributes } from "../../../../hooks/api/attributes";
+import { ProductAttribute } from "../../types";
+import { ProductCreateSchemaType } from "../types";
+import { createAttributeValidationRules } from "../utils/attribute-validation";
 import {
   processAttributes,
   type FormField,
-} from "../utils/process-attributes"
-import { RequiredAttributesList } from "./required-attributes-list"
-import { UserCreatedOptionsList } from "./user-created-options-list"
+} from "../utils/process-attributes";
+import { RequiredAttributesList } from "./required-attributes-list";
+import { UserCreatedOptionsList } from "./user-created-options-list";
 
 export interface ProductCreateAttributesFormRef {
   validateAttributes: () => Promise<boolean>
@@ -29,106 +29,106 @@ export const ProductCreateAttributesForm = forwardRef<
   ProductCreateAttributesFormRef,
   ProductCreateAttributesFormProps
 >(({ form }, ref) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const primaryCategoryId = form.watch("categories")?.[0]
+  const primaryCategoryId = form.watch("categories")?.[0];
 
   const options = useFieldArray({
     control: form.control,
     name: "options",
-  })
+  });
 
   const { attributes: allAttributes, isLoading: allAttributesLoading } =
     useAttributes({
       fields:
         "id,name,handle,description,ui_component,is_required,product_categories.*,possible_values.*",
-    })
+    });
 
   const processedAttributes = processAttributes(
     allAttributes,
     primaryCategoryId
-  )
-  const requiredFormFields = processedAttributes.required.all
+  );
+  const requiredFormFields = processedAttributes.required.all;
 
   const validationRules = createAttributeValidationRules(
     requiredFormFields,
     t as any
-  )
+  );
 
   const validateAttributes = async () => {
-    const errors: Record<string, string> = {}
+    const errors: Record<string, string> = {};
 
     requiredFormFields.forEach((field) => {
       if (field.is_required) {
         const value = form.getValues(
           field.handle as Path<ProductCreateSchemaType>
-        )
+        );
 
         switch (field.ui_component) {
-          case "select":
-          case "toggle":
-            if (!value || value === "") {
-              errors[field.handle] = t(
-                "products.fields.attributes.validation.requiredSelect"
-              )
-            }
-            break
-          case "text":
-          case "text_area":
-            if (!value || value === "") {
-              errors[field.handle] = t(
-                "products.fields.attributes.validation.requiredEnter"
-              )
-            }
-            break
-          case "multivalue":
-            if (
-              !value ||
+        case "select":
+        case "toggle":
+          if (!value || value === "") {
+            errors[field.handle] = t(
+              "products.fields.attributes.validation.requiredSelect"
+            );
+          }
+          break;
+        case "text":
+        case "text_area":
+          if (!value || value === "") {
+            errors[field.handle] = t(
+              "products.fields.attributes.validation.requiredEnter"
+            );
+          }
+          break;
+        case "multivalue":
+          if (
+            !value ||
               !Array.isArray(value) ||
               value.length === 0
-            ) {
-              errors[field.handle] = t(
-                "products.fields.attributes.validation.requiredSelectMultiple"
-              )
-            }
-            break
-          case "unit":
-            if (
-              value === undefined ||
+          ) {
+            errors[field.handle] = t(
+              "products.fields.attributes.validation.requiredSelectMultiple"
+            );
+          }
+          break;
+        case "unit":
+          if (
+            value === undefined ||
               value === null ||
               value === ""
-            ) {
-              errors[field.handle] = t(
-                "products.fields.attributes.validation.requiredEnter"
-              )
-            }
-            break
+          ) {
+            errors[field.handle] = t(
+              "products.fields.attributes.validation.requiredEnter"
+            );
+          }
+          break;
         }
       }
-    })
+    });
 
     requiredFormFields.forEach((field) => {
       if (field.is_required) {
         form.clearErrors(
           field.handle as Path<ProductCreateSchemaType>
-        )
+        );
       }
-    })
+    });
 
     Object.keys(errors).forEach((fieldName) => {
       form.setError(fieldName as Path<ProductCreateSchemaType>, {
         type: "required",
         message: errors[fieldName],
-      })
-    })
+      });
+    });
 
-    const currentOptions = form.getValues("options") || []
+    const currentOptions = form.getValues("options") || [];
     const optionsValid = currentOptions.length > 0
       ? await form.trigger("options")
-      : true
+      : true;
 
-    return Object.keys(errors).length === 0 && optionsValid
-  }
+    return Object.keys(errors).length === 0 && optionsValid;
+  };
 
   useImperativeHandle(
     ref,
@@ -137,7 +137,7 @@ export const ProductCreateAttributesForm = forwardRef<
       requiredFormFields,
     }),
     [validateAttributes, requiredFormFields, form, t]
-  )
+  );
 
   useEffect(() => {
     const subscription = form.watch((values, { name }) => {
@@ -147,56 +147,56 @@ export const ProductCreateAttributesForm = forwardRef<
       ) {
         const field = requiredFormFields.find(
           (f) => f.handle === name
-        )
+        );
         if (field && field.is_required) {
-          const value = values[name as keyof typeof values]
-          let isValid = false
+          const value = values[name as keyof typeof values];
+          let isValid = false;
 
           switch (field.ui_component) {
-            case "select":
-            case "toggle":
-              isValid = typeof value === "string" && value !== ""
-              break
-            case "text":
-            case "text_area":
-              isValid = typeof value === "string" && value !== ""
-              break
-            case "multivalue":
-              isValid =
-                Array.isArray(value) && value.length > 0
-              break
-            case "unit":
-              isValid =
+          case "select":
+          case "toggle":
+            isValid = typeof value === "string" && value !== "";
+            break;
+          case "text":
+          case "text_area":
+            isValid = typeof value === "string" && value !== "";
+            break;
+          case "multivalue":
+            isValid =
+                Array.isArray(value) && value.length > 0;
+            break;
+          case "unit":
+            isValid =
                 value !== undefined &&
                 value !== null &&
-                value !== ""
-              break
-            default:
-              isValid = false
-              break
+                value !== "";
+            break;
+          default:
+            isValid = false;
+            break;
           }
 
           if (isValid) {
             form.clearErrors(
               name as Path<ProductCreateSchemaType>
-            )
+            );
           }
         }
       }
-    })
+    });
 
-    return () => subscription.unsubscribe()
-  }, [form, requiredFormFields])
+    return () => subscription.unsubscribe();
+  }, [form, requiredFormFields]);
 
   const nonRequiredAttributes = allAttributes?.filter(
     (attribute: any) => !attribute.is_required
-  )
+  );
   const availableAttributes = nonRequiredAttributes?.filter(
     (attribute: any) =>
       !options.fields?.some(
         (option: any) => option.attributeId === attribute.id
       )
-  )
+  );
 
   return (
     <div className="flex flex-col items-center p-16">
@@ -250,11 +250,11 @@ export const ProductCreateAttributesForm = forwardRef<
         </div>
       </div>
     </div>
-  )
-})
+  );
+});
 
 ProductCreateAttributesForm.displayName =
-  "ProductCreateAttributesForm"
+  "ProductCreateAttributesForm";
 
 type HeaderProps = {
   options: {
@@ -271,7 +271,7 @@ type HeaderProps = {
 }
 
 const Header = ({ options }: HeaderProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -320,7 +320,7 @@ const Header = ({ options }: HeaderProps) => {
               {
                 shouldFocus: false,
               }
-            )
+            );
           }}
         >
           {t("actions.add")}{" "}
@@ -328,5 +328,5 @@ const Header = ({ options }: HeaderProps) => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};

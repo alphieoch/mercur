@@ -1,29 +1,29 @@
-import * as zod from "zod"
+import * as zod from "zod";
 
-import { Button, Heading, Input, Text, Textarea, toast } from "@medusajs/ui"
+import { Button, Heading, Input, Text, Textarea, toast } from "@medusajs/ui";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
+} from "@components/modals";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import React from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { Form } from "@components/common/form"
-import { Combobox } from "@components/inputs/combobox"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useInventoryItems } from "@hooks/api/inventory"
-import { useCreateReservationItem } from "@hooks/api/reservations"
-import { useStockLocations } from "@hooks/api/stock-locations"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { Form } from "@components/common/form";
+import { Combobox } from "@components/inputs/combobox";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useInventoryItems } from "@hooks/api/inventory";
+import { useCreateReservationItem } from "@hooks/api/reservations";
+import { useStockLocations } from "@hooks/api/stock-locations";
 
 export const CreateReservationSchema = zod.object({
   inventory_item_id: zod.string().min(1),
   location_id: zod.string().min(1),
   quantity: zod.number().min(1),
   description: zod.string().optional(),
-})
+});
 
 const AttributeGridRow = ({
   title,
@@ -41,15 +41,15 @@ const AttributeGridRow = ({
         {value}
       </Text>
     </div>
-  )
-}
+  );
+};
 
 export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
   const [inventorySearch, setInventorySearch] = React.useState<string | null>(
     null
-  )
+  );
 
   const form = useForm<zod.infer<typeof CreateReservationSchema>>({
     defaultValues: {
@@ -59,24 +59,24 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
       description: "",
     },
     resolver: zodResolver(CreateReservationSchema),
-  })
+  });
 
   const { inventory_items } = useInventoryItems({
     fields: "*location_levels",
     q: inventorySearch ?? undefined,
-  })
+  });
 
-  const inventoryItemId = form.watch("inventory_item_id")
+  const inventoryItemId = form.watch("inventory_item_id");
   const selectedInventoryItem = inventory_items?.find(
     (it) => it.id === inventoryItemId
-  ) as HttpTypes.AdminInventoryItemResponse["inventory_item"] | undefined
+  ) as HttpTypes.AdminInventoryItemResponse["inventory_item"] | undefined;
 
-  const locationId = form.watch("location_id")
+  const locationId = form.watch("location_id");
   const selectedLocationLevel = selectedInventoryItem?.location_levels?.find(
     (it) => it.location_id === locationId
-  )
+  );
 
-  const quantity = form.watch("quantity")
+  const quantity = form.watch("quantity");
 
   const { stock_locations } = useStockLocations(
     {
@@ -88,23 +88,23 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
     {
       enabled: !!selectedInventoryItem,
     }
-  )
+  );
 
-  const { mutateAsync, isPending } = useCreateReservationItem()
+  const { mutateAsync, isPending } = useCreateReservationItem();
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    const min = 1
+    const min = 1;
     const max = selectedLocationLevel?.available_quantity
       ? selectedLocationLevel.available_quantity
-      : 0
+      : 0;
 
     if (!selectedLocationLevel?.available_quantity) {
       form.setError("quantity", {
         type: "manual",
         message: t("inventory.reservation.errors.noAvaliableQuantity"),
-      })
+      });
 
-      return
+      return;
     }
 
     if (data.quantity < min || data.quantity > max) {
@@ -113,25 +113,25 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
         message: t("inventory.reservation.errors.quantityOutOfRange", {
           max: max,
         }),
-      })
+      });
 
-      return
+      return;
     }
 
     await mutateAsync(data, {
       onSuccess: ({ reservation }) => {
-        toast.success(t("inventory.reservation.successToast"))
+        toast.success(t("inventory.reservation.successToast"));
         handleSuccess(
           props.inventoryItemId
             ? `/inventory/${props.inventoryItemId}`
             : `/reservations/${reservation.id}`
-        )
+        );
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -161,7 +161,7 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
                           }
                           value={value}
                           onChange={(v) => {
-                            onChange(v)
+                            onChange(v);
                           }}
                           {...field}
                           disabled={!!props.inventoryItemId}
@@ -174,7 +174,7 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
                         />
                       </Form.Control>
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -189,7 +189,7 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
                         <Combobox
                           value={value}
                           onChange={(v) => {
-                            onChange(v)
+                            onChange(v);
                           }}
                           {...field}
                           disabled={!inventoryItemId}
@@ -202,7 +202,7 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
                         />
                       </Form.Control>
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -248,12 +248,12 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
                           )}
                           value={value || ""}
                           onChange={(e) => {
-                            const value = e.target.value
+                            const value = e.target.value;
 
                             if (value === "") {
-                              onChange(null)
+                              onChange(null);
                             } else {
-                              onChange(parseFloat(value))
+                              onChange(parseFloat(value));
                             }
                           }}
                           {...field}
@@ -262,7 +262,7 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -284,7 +284,7 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -308,5 +308,5 @@ export const ReservationCreateForm = (props: { inventoryItemId?: string }) => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

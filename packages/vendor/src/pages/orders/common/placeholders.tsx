@@ -1,8 +1,8 @@
-import { Trans, useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { Trans, useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const ReturnShippingPlaceholder = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex h-[120px] flex-col items-center justify-center gap-2 p-2 text-center">
@@ -21,11 +21,11 @@ export const ReturnShippingPlaceholder = () => {
         />
       </span>
     </div>
-  )
-}
+  );
+};
 
 export const OutboundShippingPlaceholder = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex h-[120px] flex-col items-center justify-center gap-2 p-2 text-center">
@@ -44,5 +44,5 @@ export const OutboundShippingPlaceholder = () => {
         />
       </span>
     </div>
-  )
-}
+  );
+};

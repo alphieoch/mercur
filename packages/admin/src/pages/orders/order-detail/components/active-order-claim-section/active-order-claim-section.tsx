@@ -1,10 +1,10 @@
-import { ExclamationCircle } from "@medusajs/icons"
-import { Button, Container, Heading, Text, toast } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { ExclamationCircle } from "@medusajs/icons";
+import { Button, Container, Heading, Text, toast } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { HttpTypes } from "@medusajs/types"
-import { useNavigate } from "react-router-dom"
-import { useCancelClaimRequest } from "../../../../../hooks/api/claims"
+import { HttpTypes } from "@medusajs/types";
+import { useNavigate } from "react-router-dom";
+import { useCancelClaimRequest } from "../../../../../hooks/api/claims";
 
 type ActiveOrderClaimSectionProps = {
   orderPreview: HttpTypes.AdminOrderPreview
@@ -13,33 +13,33 @@ type ActiveOrderClaimSectionProps = {
 export const ActiveOrderClaimSection = ({
   orderPreview,
 }: ActiveOrderClaimSectionProps) => {
-  const { t } = useTranslation()
-  const claimId = orderPreview?.order_change?.claim_id
+  const { t } = useTranslation();
+  const claimId = orderPreview?.order_change?.claim_id;
 
   const { mutateAsync: cancelClaim } = useCancelClaimRequest(
     claimId,
     orderPreview.id
-  )
+  );
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onContinueClaim = async () => {
-    navigate(`/orders/${orderPreview.id}/claims`)
-  }
+    navigate(`/orders/${orderPreview.id}/claims`);
+  };
 
   const onCancelClaim = async () => {
     await cancelClaim(undefined, {
       onSuccess: () => {
-        toast.success(t("orders.claims.toast.canceledSuccessfully"))
+        toast.success(t("orders.claims.toast.canceledSuccessfully"));
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  }
+    });
+  };
 
   if (!claimId) {
-    return
+    return;
   }
 
   return (
@@ -76,5 +76,5 @@ export const ActiveOrderClaimSection = ({
         </div>
       </Container>
     </div>
-  )
-}
+  );
+};

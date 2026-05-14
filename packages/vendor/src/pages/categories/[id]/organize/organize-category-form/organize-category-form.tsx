@@ -1,27 +1,27 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query";
 
-import { UniqueIdentifier } from "@dnd-kit/core"
-import { Spinner } from "@medusajs/icons"
+import { UniqueIdentifier } from "@dnd-kit/core";
+import { Spinner } from "@medusajs/icons";
 type FetchError = Error & { status?: number }
-import { HttpTypes } from "@medusajs/types"
-import { toast } from "@medusajs/ui"
-import { useState } from "react"
-import { RouteFocusModal } from "@components/modals"
+import { HttpTypes } from "@medusajs/types";
+import { toast } from "@medusajs/ui";
+import { useState } from "react";
+import { RouteFocusModal } from "@components/modals";
 import {
   categoriesQueryKeys,
   useProductCategories,
-} from "@hooks/api/categories"
-import { fetchQuery } from "@lib/client"
-import { queryClient } from "@lib/query-client"
-import { CategoryTree } from "../../../common/components/category-tree"
-import { CategoryTreeItem } from "../../../common/types"
+} from "@hooks/api/categories";
+import { fetchQuery } from "@lib/client";
+import { queryClient } from "@lib/query-client";
+import { CategoryTree } from "../../../common/components/category-tree";
+import { CategoryTreeItem } from "../../../common/types";
 
 const QUERY = {
   fields: "id,name,parent_category_id,rank,*category_children",
   parent_category_id: "null",
   include_descendants_tree: true,
   limit: 9999,
-}
+};
 
 export const OrganizeCategoryForm = () => {
   const {
@@ -29,9 +29,9 @@ export const OrganizeCategoryForm = () => {
     isPending,
     isError,
     error: fetchError,
-  } = useProductCategories(QUERY)
+  } = useProductCategories(QUERY);
 
-  const [snapshot, setSnapshot] = useState<CategoryTreeItem[]>([])
+  const [snapshot, setSnapshot] = useState<CategoryTreeItem[]>([]);
 
   const { mutateAsync, isPending: isMutating } = useMutation({
     mutationFn: async ({
@@ -50,46 +50,46 @@ export const OrganizeCategoryForm = () => {
           rank: value.rank ?? 0,
           parent_category_id: value.parent_category_id,
         },
-      })
+      });
     },
     onMutate: async (update) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
         queryKey: categoriesQueryKeys.list(QUERY),
-      })
+      });
 
       // Snapshot the previous value
       const previousValue:
         | HttpTypes.AdminProductCategoryListResponse
-        | undefined = queryClient.getQueryData(categoriesQueryKeys.list(QUERY))
+        | undefined = queryClient.getQueryData(categoriesQueryKeys.list(QUERY));
 
       const nextValue = {
         ...previousValue,
         product_categories: update.arr,
-      }
+      };
 
       // Optimistically update to the new value
-      queryClient.setQueryData(categoriesQueryKeys.list(QUERY), nextValue)
+      queryClient.setQueryData(categoriesQueryKeys.list(QUERY), nextValue);
 
       return {
         previousValue,
-      }
+      };
     },
     onError: (error: FetchError, _newValue, context) => {
       // Roll back to the previous value
       queryClient.setQueryData(
         categoriesQueryKeys.list(QUERY),
         context?.previousValue
-      )
+      );
 
-      toast.error(error.message)
+      toast.error(error.message);
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
         queryKey: categoriesQueryKeys.all,
-      })
+      });
     },
-  })
+  });
 
   const handleRankChange = async (
     value: {
@@ -103,16 +103,16 @@ export const OrganizeCategoryForm = () => {
       id: value.id as string,
       parent_category_id: value.parentId as string | null,
       rank: value.index,
-    }
+    };
 
-    setSnapshot(arr)
-    await mutateAsync({ value: val, arr })
-  }
+    setSnapshot(arr);
+    await mutateAsync({ value: val, arr });
+  };
 
-  const loading = isPending || isMutating
+  const loading = isPending || isMutating;
 
   if (isError) {
-    throw fetchError
+    throw fetchError;
   }
 
   return (
@@ -130,5 +130,5 @@ export const OrganizeCategoryForm = () => {
         />
       </RouteFocusModal.Body>
     </div>
-  )
-}
+  );
+};

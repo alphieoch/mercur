@@ -1,16 +1,16 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Input, Select, Textarea, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input, Select, Textarea, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { HttpTypes } from "@medusajs/types"
-import { Form } from "../../../../../components/common/form"
-import { HandleInput } from "../../../../../components/inputs/handle-input"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateProductCategory } from "../../../../../hooks/api/categories"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
+import { HttpTypes } from "@medusajs/types";
+import { Form } from "../../../../../components/common/form";
+import { HandleInput } from "../../../../../components/inputs/handle-input";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateProductCategory } from "../../../../../hooks/api/categories";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
 
 const EditCategorySchema = z.object({
   name: z.string().min(1),
@@ -18,16 +18,16 @@ const EditCategorySchema = z.object({
   description: z.string().optional(),
   status: z.enum(["active", "inactive"]),
   visibility: z.enum(["public", "internal"]),
-})
+});
 
 type EditCategoryFormProps = {
   category: HttpTypes.AdminProductCategory
 }
 
 export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const direction = useDocumentDirection()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const direction = useDocumentDirection();
   const form = useForm<z.infer<typeof EditCategorySchema>>({
     defaultValues: {
       name: category.name,
@@ -37,9 +37,9 @@ export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
       visibility: category.is_internal ? "internal" : "public",
     },
     resolver: zodResolver(EditCategorySchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateProductCategory(category.id)
+  const { mutateAsync, isPending } = useUpdateProductCategory(category.id);
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
       {
@@ -51,15 +51,15 @@ export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
       },
       {
         onSuccess: () => {
-          toast.success(t("categories.edit.successToast"))
-          handleSuccess()
+          toast.success(t("categories.edit.successToast"));
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -78,7 +78,7 @@ export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -98,7 +98,7 @@ export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -113,7 +113,7 @@ export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -147,7 +147,7 @@ export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -180,7 +180,7 @@ export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -200,5 +200,5 @@ export const EditCategoryForm = ({ category }: EditCategoryFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

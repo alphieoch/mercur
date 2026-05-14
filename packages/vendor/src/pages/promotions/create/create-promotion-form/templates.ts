@@ -2,7 +2,7 @@ const commonHiddenFields = [
   "type",
   "application_method.type",
   "application_method.allocation",
-]
+];
 
 export const templates = [
   // {
@@ -86,4 +86,4 @@ export const templates = [
   //     },
   //   },
   // },
-]
+];

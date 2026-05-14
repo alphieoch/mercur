@@ -12,16 +12,16 @@ import {
   useSensors,
   type DropAnimation,
   type UniqueIdentifier,
-} from "@dnd-kit/core"
+} from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
   sortableKeyboardCoordinates,
   useSortable,
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
-import { DotsSix } from "@medusajs/icons"
-import { IconButton, clx } from "@medusajs/ui"
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { DotsSix } from "@medusajs/icons";
+import { IconButton, clx } from "@medusajs/ui";
 import {
   CSSProperties,
   Fragment,
@@ -31,7 +31,7 @@ import {
   useContext,
   useMemo,
   useState,
-} from "react"
+} from "react";
 
 type SortableBaseItem = {
   id: UniqueIdentifier
@@ -48,43 +48,43 @@ const List = <TItem extends SortableBaseItem>({
   onChange,
   renderItem,
 }: SortableListProps<TItem>) => {
-  const [active, setActive] = useState<Active | null>(null)
+  const [active, setActive] = useState<Active | null>(null);
 
   const [activeItem, activeIndex] = useMemo(() => {
     if (active === null) {
-      return [null, null]
+      return [null, null];
     }
 
-    const index = items.findIndex(({ id }) => id === active.id)
+    const index = items.findIndex(({ id }) => id === active.id);
 
-    return [items[index], index]
-  }, [active, items])
+    return [items[index], index];
+  }, [active, items]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
-  )
+  );
 
   const handleDragStart = ({ active }: DragStartEvent) => {
-    setActive(active)
-  }
+    setActive(active);
+  };
 
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
     if (over && active.id !== over.id) {
-      const activeIndex = items.findIndex(({ id }) => id === active.id)
-      const overIndex = items.findIndex(({ id }) => id === over.id)
+      const activeIndex = items.findIndex(({ id }) => id === active.id);
+      const overIndex = items.findIndex(({ id }) => id === over.id);
 
-      onChange(arrayMove(items, activeIndex, overIndex))
+      onChange(arrayMove(items, activeIndex, overIndex));
     }
 
-    setActive(null)
-  }
+    setActive(null);
+  };
 
   const handleDragCancel = () => {
-    setActive(null)
-  }
+    setActive(null);
+  };
 
   return (
     <DndContext
@@ -109,8 +109,8 @@ const List = <TItem extends SortableBaseItem>({
         </ul>
       </SortableContext>
     </DndContext>
-  )
-}
+  );
+};
 
 const dropAnimationConfig: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
@@ -120,7 +120,7 @@ const dropAnimationConfig: DropAnimation = {
       },
     },
   }),
-}
+};
 
 type SortableOverlayProps = PropsWithChildren
 
@@ -132,8 +132,8 @@ const Overlay = ({ children }: SortableOverlayProps) => {
     >
       {children}
     </DragOverlay>
-  )
-}
+  );
+};
 
 type SortableItemProps<TItem extends SortableBaseItem> = PropsWithChildren<{
   id: TItem["id"]
@@ -147,19 +147,19 @@ type SortableItemContextValue = {
   isDragging: boolean
 }
 
-const SortableItemContext = createContext<SortableItemContextValue | null>(null)
+const SortableItemContext = createContext<SortableItemContextValue | null>(null);
 
 const useSortableItemContext = () => {
-  const context = useContext(SortableItemContext)
+  const context = useContext(SortableItemContext);
 
   if (!context) {
     throw new Error(
       "useSortableItemContext must be used within a SortableItemContext"
-    )
+    );
   }
 
-  return context
-}
+  return context;
+};
 
 const Item = <TItem extends SortableBaseItem>({
   id,
@@ -174,7 +174,7 @@ const Item = <TItem extends SortableBaseItem>({
     setActivatorNodeRef,
     transform,
     transition,
-  } = useSortable({ id })
+  } = useSortable({ id });
 
   const context = useMemo(
     () => ({
@@ -184,13 +184,13 @@ const Item = <TItem extends SortableBaseItem>({
       isDragging,
     }),
     [attributes, listeners, setActivatorNodeRef, isDragging]
-  )
+  );
 
   const style: CSSProperties = {
     opacity: isDragging ? 0.4 : undefined,
     transform: CSS.Translate.toString(transform),
     transition,
-  }
+  };
 
   return (
     <SortableItemContext.Provider value={context}>
@@ -202,11 +202,11 @@ const Item = <TItem extends SortableBaseItem>({
         {children}
       </li>
     </SortableItemContext.Provider>
-  )
-}
+  );
+};
 
 const DragHandle = () => {
-  const { attributes, listeners, ref } = useSortableItemContext()
+  const { attributes, listeners, ref } = useSortableItemContext();
 
   return (
     <IconButton
@@ -219,10 +219,10 @@ const DragHandle = () => {
     >
       <DotsSix className="text-ui-fg-muted" />
     </IconButton>
-  )
-}
+  );
+};
 
 export const SortableList = Object.assign(List, {
   Item,
   DragHandle,
-})
+});

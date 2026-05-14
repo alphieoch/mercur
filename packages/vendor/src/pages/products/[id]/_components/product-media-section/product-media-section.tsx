@@ -15,12 +15,12 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { ActionMenu } from "@components/common/action-menu"
-import { useUpdateProduct } from "@hooks/api/products"
-import { useProductDetailContext } from "../../context"
+import { ActionMenu } from "@components/common/action-menu";
+import { useUpdateProduct } from "@hooks/api/products";
+import { useProductDetailContext } from "../../context";
 
 export const ProductMediaSection = () => {
-  const { product } = useProductDetailContext()
+  const { product } = useProductDetailContext();
   const { t } = useTranslation();
   const prompt = usePrompt();
   const [selection, setSelection] = useState<Record<string, boolean>>({});
@@ -32,9 +32,9 @@ export const ProductMediaSection = () => {
       if (prev[id]) {
         const { [id]: _, ...rest } = prev;
         return rest;
-      } else {
-        return { ...prev, [id]: true };
-      }
+      } 
+      return { ...prev, [id]: true };
+      
     });
   };
 
@@ -48,11 +48,11 @@ export const ProductMediaSection = () => {
       title: t('general.areYouSure'),
       description: includingThumbnail
         ? t('products.media.deleteWarningWithThumbnail', {
-            count: ids.length
-          })
+          count: ids.length
+        })
         : t('products.media.deleteWarning', {
-            count: ids.length
-          }),
+          count: ids.length
+        }),
       confirmText: t('actions.delete'),
       cancelText: t('actions.cancel')
     });

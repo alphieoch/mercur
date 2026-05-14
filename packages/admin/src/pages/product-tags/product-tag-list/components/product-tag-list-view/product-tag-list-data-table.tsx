@@ -1,32 +1,32 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { useLoaderData } from "react-router-dom"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { useLoaderData } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useProductTags } from "../../../../../hooks/api"
-import { useProductTagTableColumns } from "../../../../../hooks/table/columns"
-import { useProductTagTableFilters } from "../../../../../hooks/table/filters"
-import { useProductTagTableQuery } from "../../../../../hooks/table/query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useDeleteProductTagAction } from "../../../common/hooks/use-delete-product-tag-action"
-import { productTagListLoader } from "../../loader"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useProductTags } from "../../../../../hooks/api";
+import { useProductTagTableColumns } from "../../../../../hooks/table/columns";
+import { useProductTagTableFilters } from "../../../../../hooks/table/filters";
+import { useProductTagTableQuery } from "../../../../../hooks/table/query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useDeleteProductTagAction } from "../../../common/hooks/use-delete-product-tag-action";
+import { productTagListLoader } from "../../loader";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const ProductTagListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { searchParams, raw } = useProductTagTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
 
   const initialData = useLoaderData() as Awaited<
     ReturnType<typeof productTagListLoader>
-  >
+  >;
 
   const { product_tags, count, isPending, isError, error } = useProductTags(
     searchParams as Parameters<typeof useProductTags>[0],
@@ -34,10 +34,10 @@ export const ProductTagListDataTable = () => {
       initialData,
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const columns = useColumns()
-  const filters = useProductTagTableFilters()
+  const columns = useColumns();
+  const filters = useProductTagTableFilters();
 
   const { table } = useDataTable({
     data: product_tags,
@@ -45,10 +45,10 @@ export const ProductTagListDataTable = () => {
     columns,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -70,16 +70,16 @@ export const ProductTagListDataTable = () => {
       ]}
       data-testid="product-tag-list-table"
     />
-  )
-}
+  );
+};
 
 const ProductTagRowActions = ({
   productTag,
 }: {
   productTag: HttpTypes.AdminProductTag
 }) => {
-  const { t } = useTranslation()
-  const handleDelete = useDeleteProductTagAction({ productTag })
+  const { t } = useTranslation();
+  const handleDelete = useDeleteProductTagAction({ productTag });
 
   return (
     <ActionMenu
@@ -105,13 +105,13 @@ const ProductTagRowActions = ({
       ]}
       data-testid={`product-tag-list-table-action-menu-${productTag.id}`}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminProductTag>()
+const columnHelper = createColumnHelper<HttpTypes.AdminProductTag>();
 
 const useColumns = () => {
-  const base = useProductTagTableColumns()
+  const base = useProductTagTableColumns();
 
   return useMemo(
     () => [
@@ -122,5 +122,5 @@ const useColumns = () => {
       }),
     ],
     [base]
-  )
-}
+  );
+};

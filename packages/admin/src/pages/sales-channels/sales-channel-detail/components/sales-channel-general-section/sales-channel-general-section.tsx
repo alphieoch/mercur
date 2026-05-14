@@ -1,4 +1,4 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
+import { PencilSquare, Trash } from "@medusajs/icons";
 import {
   Container,
   Heading,
@@ -6,13 +6,13 @@ import {
   Text,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { SalesChannelDTO } from "@medusajs/types"
-import { useNavigate } from "react-router-dom"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useDeleteSalesChannel } from "../../../../../hooks/api/sales-channels"
+import { SalesChannelDTO } from "@medusajs/types";
+import { useNavigate } from "react-router-dom";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useDeleteSalesChannel } from "../../../../../hooks/api/sales-channels";
 
 type SalesChannelGeneralSectionProps = {
   salesChannel: SalesChannelDTO
@@ -21,11 +21,11 @@ type SalesChannelGeneralSectionProps = {
 export const SalesChannelGeneralSection = ({
   salesChannel,
 }: SalesChannelGeneralSectionProps) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
 
-  const { mutateAsync } = useDeleteSalesChannel(salesChannel.id)
+  const { mutateAsync } = useDeleteSalesChannel(salesChannel.id);
 
   const handleDelete = async () => {
     const confirm = await prompt({
@@ -37,22 +37,22 @@ export const SalesChannelGeneralSection = ({
       verificationText: salesChannel.name,
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!confirm) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
       onSuccess: () => {
-        toast.success(t("salesChannels.toast.delete"))
-        navigate("/settings/sales-channels", { replace: true })
+        toast.success(t("salesChannels.toast.delete"));
+        navigate("/settings/sales-channels", { replace: true });
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <Container className="divide-y p-0" data-testid="sales-channel-general-section-container">
@@ -96,5 +96,5 @@ export const SalesChannelGeneralSection = ({
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

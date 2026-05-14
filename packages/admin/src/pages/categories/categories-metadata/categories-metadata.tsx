@@ -1,21 +1,21 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
 import {
   useProductCategory,
   useUpdateProductCategory,
-} from "@hooks/api"
-import { MetadataForm } from "@components/forms/metadata-form"
-import { RouteDrawer } from "@components/modals"
-import { ClientError } from "@mercurjs/client"
+} from "@hooks/api";
+import { MetadataForm } from "@components/forms/metadata-form";
+import { RouteDrawer } from "@components/modals";
+import { ClientError } from "@mercurjs/client";
 
 export const CategoriesMetadata = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
-  const { product_category, isPending, isError, error } = useProductCategory(id!)
-  const { mutateAsync, isPending: isMutating } = useUpdateProductCategory(id!)
+  const { product_category, isPending, isError, error } = useProductCategory(id!);
+  const { mutateAsync, isPending: isMutating } = useUpdateProductCategory(id!);
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   const handleSubmit = async (
@@ -25,16 +25,16 @@ export const CategoriesMetadata = () => {
     try {
       const result = await mutateAsync({
         metadata: params.metadata === undefined ? undefined : params.metadata,
-      })
-      callbacks.onSuccess?.()
+      });
+      callbacks.onSuccess?.();
 
-      return result
+      return result;
     } catch (error) {
-      const message = error instanceof ClientError ? error.message : 'An error occured'
-      callbacks.onError?.(message)
-      throw error
+      const message = error instanceof ClientError ? error.message : 'An error occured';
+      callbacks.onError?.(message);
+      throw error;
     }
-  }
+  };
 
   return (
     <RouteDrawer>
@@ -45,5 +45,5 @@ export const CategoriesMetadata = () => {
         metadata={product_category?.metadata}
       />
     </RouteDrawer>
-  )
-}
+  );
+};

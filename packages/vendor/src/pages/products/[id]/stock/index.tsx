@@ -1,24 +1,24 @@
 // Route: /products/:id/stock
-import { AnimatePresence } from "motion/react"
-import { Suspense, useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Await, useParams } from "react-router-dom"
+import { AnimatePresence } from "motion/react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Await, useParams } from "react-router-dom";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { ProgressBar } from "@components/common/progress-bar"
-import { Skeleton } from "@components/common/skeleton"
-import { DataGridSkeleton } from "@components/data-grid/components"
-import { RouteFocusModal } from "@components/modals"
-import { ProductStockForm } from "./product-stock-form"
-import { useProduct, useStockLocations } from "@hooks/api"
+import { ColumnDef } from "@tanstack/react-table";
+import { ProgressBar } from "@components/common/progress-bar";
+import { Skeleton } from "@components/common/skeleton";
+import { DataGridSkeleton } from "@components/data-grid/components";
+import { RouteFocusModal } from "@components/modals";
+import { ProductStockForm } from "./product-stock-form";
+import { useProduct, useStockLocations } from "@hooks/api";
 
 export const Component = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { id } = useParams()
+  const { id } = useParams();
 
-  const { product, isLoading: isProductLoading } = useProduct(id!)
-  const { stock_locations, isLoading: isStockLoading } = useStockLocations()
+  const { product, isLoading: isProductLoading } = useProduct(id!);
+  const { stock_locations, isLoading: isStockLoading } = useStockLocations();
 
   const allVariants = product?.variants?.map((variant) => ({
     ...variant,
@@ -26,29 +26,29 @@ export const Component = () => {
       ...item,
       inventory: item.inventory,
     })),
-  }))
+  }));
 
-  const [isLoading, setIsLoading] = useState(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const [isLoading, setIsLoading] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     timeoutRef.current = setTimeout(() => {
-      setIsLoading(true)
-    }, 200)
+      setIsLoading(true);
+    }, 200);
 
     return () => {
       if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
+        clearTimeout(timeoutRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   const onLoaded = () => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
+      clearTimeout(timeoutRef.current);
     }
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   return (
     <div>
@@ -75,14 +75,14 @@ export const Component = () => {
                   locations={stock_locations || []}
                   onLoaded={onLoaded}
                 />
-              )
+              );
             }}
           </Await>
         </Suspense>
       </RouteFocusModal>
     </div>
-  )
-}
+  );
+};
 
 const ProductStockFallback = () => {
   return (
@@ -102,5 +102,5 @@ const ProductStockFallback = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -25,15 +25,15 @@ export const useComboboxData = <
   TResponse extends ComboboxExternalData,
   TParams extends ComboboxQueryParams,
 >({
-  queryKey,
-  queryFn,
-  getOptions,
-  defaultValue,
-  defaultValueKey,
-  selectedValue,
-  pageSize = 10,
-  enabled = true,
-}: {
+    queryKey,
+    queryFn,
+    getOptions,
+    defaultValue,
+    defaultValueKey,
+    selectedValue,
+    pageSize = 10,
+    enabled = true,
+  }: {
   queryKey: QueryKey;
   queryFn: (params: TParams) => Promise<TResponse>;
   getOptions: (data: TResponse) => { label: string; value: string }[];

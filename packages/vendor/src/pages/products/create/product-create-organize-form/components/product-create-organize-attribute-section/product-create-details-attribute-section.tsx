@@ -1,14 +1,14 @@
-import { Heading, Input } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Heading, Input } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "@components/common/form"
-import { CountrySelect } from "@components/inputs/country-select"
-import { useTabbedForm } from "@components/tabbed-form"
-import { ProductCreateSchemaType } from "../../../types"
+import { Form } from "@components/common/form";
+import { CountrySelect } from "@components/inputs/country-select";
+import { useTabbedForm } from "@components/tabbed-form";
+import { ProductCreateSchemaType } from "../../../types";
 
 export const ProductCreateAttributeSection = () => {
-  const { t } = useTranslation()
-  const form = useTabbedForm<ProductCreateSchemaType>()
+  const { t } = useTranslation();
+  const form = useTabbedForm<ProductCreateSchemaType>();
 
   return (
     <div id="attributes" className="flex flex-col gap-y-8">
@@ -27,7 +27,7 @@ export const ProductCreateAttributeSection = () => {
                   <CountrySelect {...field} />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
         <Form.Field
@@ -43,7 +43,7 @@ export const ProductCreateAttributeSection = () => {
                   <Input {...field} />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -61,7 +61,7 @@ export const ProductCreateAttributeSection = () => {
                   <Input {...field} type="number" min={0} />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
         <Form.Field
@@ -77,7 +77,7 @@ export const ProductCreateAttributeSection = () => {
                   <Input {...field} type="number" min={0} />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
         <Form.Field
@@ -93,7 +93,7 @@ export const ProductCreateAttributeSection = () => {
                   <Input {...field} type="number" min={0} />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
         <Form.Field
@@ -109,7 +109,7 @@ export const ProductCreateAttributeSection = () => {
                   <Input {...field} type="number" min={0} />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
         <Form.Field
@@ -125,7 +125,7 @@ export const ProductCreateAttributeSection = () => {
                   <Input {...field} />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
         <Form.Field
@@ -141,10 +141,10 @@ export const ProductCreateAttributeSection = () => {
                   <Input {...field} />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
     </div>
-  )
-}
+  );
+};

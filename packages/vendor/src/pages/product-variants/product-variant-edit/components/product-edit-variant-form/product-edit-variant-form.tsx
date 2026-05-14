@@ -1,21 +1,21 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Divider, Heading, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Divider, Heading, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { Form } from "@components/common/form"
-import { Combobox } from "@components/inputs/combobox"
-import { CountrySelect } from "@components/inputs/country-select"
-import { RouteDrawer, useRouteModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdateProductVariant } from "@hooks/api/products"
+import { Form } from "@components/common/form";
+import { Combobox } from "@components/inputs/combobox";
+import { CountrySelect } from "@components/inputs/country-select";
+import { RouteDrawer, useRouteModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdateProductVariant } from "@hooks/api/products";
 import {
   transformNullableFormData,
   transformNullableFormNumber,
-} from "@lib/form-helpers"
-import { optionalInt } from "@lib/validation"
-import { ExtendedAdminProduct, ExtendedAdminProductVariant } from "@custom-types/products"
+} from "@lib/form-helpers";
+import { optionalInt } from "@lib/validation";
+import { ExtendedAdminProduct, ExtendedAdminProductVariant } from "@custom-types/products";
 
 type ProductEditVariantFormProps = {
   product: ExtendedAdminProduct
@@ -39,20 +39,20 @@ const ProductEditVariantSchema = z.object({
   hs_code: z.string().optional(),
   origin_country: z.string().optional(),
   options: z.record(z.string()),
-})
+});
 
 // TODO: Either pass option ID or make the backend handle options constraints differently to handle the lack of IDs
 export const ProductEditVariantForm = ({
   variant,
   product,
 }: ProductEditVariantFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
   const defaultOptions = product.options?.reduce((acc: any, option: any) => {
-    const varOpt = variant?.options?.find((o: any) => o.option_id === option.id)
-    acc[option.title] = varOpt?.value
-    return acc
-  }, {})
+    const varOpt = variant?.options?.find((o: any) => o.option_id === option.id);
+    acc[option.title] = varOpt?.value;
+    return acc;
+  }, {});
 
   const form = useForm<z.infer<typeof ProductEditVariantSchema>>({
     defaultValues: {
@@ -74,12 +74,12 @@ export const ProductEditVariantForm = ({
       options: defaultOptions,
     },
     resolver: zodResolver(ProductEditVariantSchema),
-  })
+  });
 
   const { mutateAsync, isPending } = useUpdateProductVariant(
     variant?.product_id!,
     variant?.id!
-  )
+  );
 
   const handleSubmit = form.handleSubmit(async (data) => {
     const {
@@ -92,9 +92,9 @@ export const ProductEditVariantForm = ({
       manage_inventory,
       options,
       ...optional
-    } = data
+    } = data;
 
-    const nullableData = transformNullableFormData(optional)
+    const nullableData = transformNullableFormData(optional);
 
     await mutateAsync(
       {
@@ -110,15 +110,15 @@ export const ProductEditVariantForm = ({
       },
       {
         onSuccess: () => {
-          handleSuccess("../")
-          toast.success(t("products.variant.edit.success"))
+          handleSuccess("../");
+          toast.success(t("products.variant.edit.success"));
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -140,7 +140,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -155,7 +155,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             {product.options?.map((option: any) => {
@@ -172,7 +172,7 @@ export const ProductEditVariantForm = ({
                           <Combobox
                             value={value}
                             onChange={(v) => {
-                              onChange(v)
+                              onChange(v);
                             }}
                             {...field}
                             options={option.values.map((v: any) => ({
@@ -182,10 +182,10 @@ export const ProductEditVariantForm = ({
                           />
                         </Form.Control>
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
-              )
+              );
             })}
           </div>
           <Divider />
@@ -206,7 +206,7 @@ export const ProductEditVariantForm = ({
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -221,7 +221,7 @@ export const ProductEditVariantForm = ({
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -236,7 +236,7 @@ export const ProductEditVariantForm = ({
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -251,7 +251,7 @@ export const ProductEditVariantForm = ({
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -271,7 +271,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -286,7 +286,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -301,7 +301,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -316,7 +316,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -331,7 +331,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -346,7 +346,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -363,7 +363,7 @@ export const ProductEditVariantForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -382,5 +382,5 @@ export const ProductEditVariantForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

@@ -1,18 +1,18 @@
-import { HttpTypes } from "@medusajs/types"
-import { Button } from "@medusajs/ui"
-import { Table } from "@tanstack/react-table"
-import { ReactNode, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { HttpTypes } from "@medusajs/types";
+import { Button } from "@medusajs/ui";
+import { Table } from "@tanstack/react-table";
+import { ReactNode, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import {
   NoRecords,
   NoResults,
-} from "@components/common/empty-table-content"
-import { TableFooterSkeleton } from "@components/common/skeleton"
-import { LocalizedTablePagination } from "@components/localization/localized-table-pagination"
-import { DataTableOrderBy } from "@components/table/data-table/data-table-order-by"
-import { DataTableSearch } from "@components/table/data-table/data-table-search"
-import { TaxOverrideCard } from "@pages/settings/tax-regions/_common/components/tax-override-card"
+} from "@components/common/empty-table-content";
+import { TableFooterSkeleton } from "@components/common/skeleton";
+import { LocalizedTablePagination } from "@components/localization/localized-table-pagination";
+import { DataTableOrderBy } from "@components/table/data-table/data-table-order-by";
+import { DataTableSearch } from "@components/table/data-table/data-table-search";
+import { TaxOverrideCard } from "@pages/settings/tax-regions/_common/components/tax-override-card";
 
 type TaxOverrideTableProps = {
   isPending: boolean
@@ -33,7 +33,7 @@ export const TaxOverrideTable = ({
   prefix,
   children,
 }: TaxOverrideTableProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const orderByKeys = useMemo(
     () => [
@@ -44,7 +44,7 @@ export const TaxOverrideTable = ({
       { key: "created_at", label: t("fields.createdAt") },
     ],
     [t]
-  )
+  );
 
   if (isPending) {
     return (
@@ -55,19 +55,19 @@ export const TaxOverrideTable = ({
               key={index}
               className="bg-ui-bg-field-component h-[52px] w-full animate-pulse"
             />
-          )
+          );
         })}
         <TableFooterSkeleton layout="fit" />
       </div>
-    )
+    );
   }
 
   const noQuery =
-    Object.values(queryObject).filter((v) => Boolean(v)).length === 0
-  const noResults = !isPending && count === 0 && !noQuery
-  const noRecords = !isPending && count === 0 && noQuery
+    Object.values(queryObject).filter((v) => Boolean(v)).length === 0;
+  const noResults = !isPending && count === 0 && !noQuery;
+  const noRecords = !isPending && count === 0 && noQuery;
 
-  const { pageIndex, pageSize } = table.getState().pagination
+  const { pageIndex, pageSize } = table.getState().pagination;
 
   return (
     <div className="flex flex-col divide-y">
@@ -97,23 +97,23 @@ export const TaxOverrideTable = ({
       {!noRecords && !noResults
         ? !isPending
           ? table.getRowModel().rows.map((row) => {
-              return (
-                <TaxOverrideCard
-                  key={row.id}
-                  taxRate={row.original}
-                  role="row"
-                  aria-rowindex={row.index}
-                />
-              )
-            })
+            return (
+              <TaxOverrideCard
+                key={row.id}
+                taxRate={row.original}
+                role="row"
+                aria-rowindex={row.index}
+              />
+            );
+          })
           : Array.from({ length: 3 }).map((_, index) => {
-              return (
-                <div
-                  key={index}
-                  className="bg-ui-bg-field-component h-[60px] w-full animate-pulse"
-                />
-              )
-            })
+            return (
+              <div
+                key={index}
+                className="bg-ui-bg-field-component h-[60px] w-full animate-pulse"
+              />
+            );
+          })
         : null}
       {!noRecords && (
         <LocalizedTablePagination
@@ -129,5 +129,5 @@ export const TaxOverrideTable = ({
         />
       )}
     </div>
-  )
-}
+  );
+};

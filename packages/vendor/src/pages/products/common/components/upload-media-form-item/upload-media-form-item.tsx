@@ -4,11 +4,11 @@ import { UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { FileType, FileUpload } from "@components/common/file-upload"
-import { Form } from "@components/common/form"
+import { FileType, FileUpload } from "@components/common/file-upload";
+import { Form } from "@components/common/form";
 import { EditStoreSchema } from '../../../../store/store-edit/components/edit-store-form/edit-store-form';
-import { MediaSchema } from '../../../create/constants'
-import { EditProductMediaSchemaType, ProductCreateSchemaType } from '../../../create/types'
+import { MediaSchema } from '../../../create/constants';
+import { EditProductMediaSchemaType, ProductCreateSchemaType } from '../../../create/types';
 
 type Media = z.infer<typeof MediaSchema>;
 

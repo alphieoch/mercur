@@ -1,1 +1,1 @@
-export { OrganizeCategoryForm, OrganizeCategoryForm as Component } from "./organize-category-form"
+export { OrganizeCategoryForm, OrganizeCategoryForm as Component } from "./organize-category-form";

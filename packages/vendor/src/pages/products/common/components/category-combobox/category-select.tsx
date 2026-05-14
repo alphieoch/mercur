@@ -1,7 +1,7 @@
-import { Check, TrianglesMini } from "@medusajs/icons"
-import { AdminProductCategoryResponse } from "@medusajs/types"
-import { Text, clx } from "@medusajs/ui"
-import { Select } from "radix-ui"
+import { Check, TrianglesMini } from "@medusajs/icons";
+import { AdminProductCategoryResponse } from "@medusajs/types";
+import { Text, clx } from "@medusajs/ui";
+import { Select } from "radix-ui";
 import {
   CSSProperties,
   ComponentPropsWithoutRef,
@@ -12,10 +12,10 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react"
+} from "react";
 
-import { useProductCategories } from "@hooks/api/categories"
-import { useDebouncedSearch } from "@hooks/use-debounced-search"
+import { useProductCategories } from "@hooks/api/categories";
+import { useDebouncedSearch } from "@hooks/use-debounced-search";
 
 interface CategoryComboboxProps
   extends Omit<
@@ -31,30 +31,30 @@ type Level = {
   label: string
 }
 
-const TABLUAR_NUM_WIDTH = 8
-const TAG_BASE_WIDTH = 28
+const TABLUAR_NUM_WIDTH = 8;
+const TAG_BASE_WIDTH = 28;
 
 export const CategorySelect = forwardRef<
   HTMLInputElement,
   CategoryComboboxProps
 >(({ value, onChange, className }, ref) => {
-  const innerRef = useRef<HTMLInputElement>(null)
+  const innerRef = useRef<HTMLInputElement>(null);
 
   useImperativeHandle<HTMLInputElement | null, HTMLInputElement | null>(
     ref,
     () => innerRef.current,
     []
-  )
+  );
 
-  const [open] = useState(false)
+  const [open] = useState(false);
 
-  const [level, setLevel] = useState<Level[]>([])
-  const { searchValue } = useDebouncedSearch()
+  const [level, setLevel] = useState<Level[]>([]);
+  const { searchValue } = useDebouncedSearch();
 
   const { product_categories, isPending, isError, error } =
-    useProductCategories()
+    useProductCategories();
 
-  const [showLoading, setShowLoading] = useState(false)
+  const [showLoading, setShowLoading] = useState(false);
 
   /**
    * We add a small artificial delay to the end of the loading state,
@@ -62,113 +62,113 @@ export const CategorySelect = forwardRef<
    * navigating between levels or searching.
    */
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout> | undefined
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
     if (isPending) {
-      setShowLoading(true)
+      setShowLoading(true);
     } else {
       timeoutId = setTimeout(() => {
-        setShowLoading(false)
-      }, 150)
+        setShowLoading(false);
+      }, 150);
     }
 
     return () => {
-      clearTimeout(timeoutId)
-    }
-  }, [isPending])
+      clearTimeout(timeoutId);
+    };
+  }, [isPending]);
 
   useEffect(() => {
     if (searchValue) {
-      setLevel([])
+      setLevel([]);
     }
-  }, [searchValue])
+  }, [searchValue]);
 
   const handleSelect = (option: string) => {
     if (value.includes(option)) {
-      onChange([])
+      onChange([]);
     } else {
-      onChange([option])
+      onChange([option]);
     }
 
-    innerRef.current?.focus()
-  }
+    innerRef.current?.focus();
+  };
 
-  const options = getOptions(product_categories || [])
+  const options = getOptions(product_categories || []);
 
   const tagWidth = useMemo(() => {
-    const count = value.length
-    const digits = count.toString().length
+    const count = value.length;
+    const digits = count.toString().length;
 
-    return TAG_BASE_WIDTH + digits * TABLUAR_NUM_WIDTH
-  }, [value])
+    return TAG_BASE_WIDTH + digits * TABLUAR_NUM_WIDTH;
+  }, [value]);
 
-  const showLevelUp = !searchValue && level.length > 0
+  const showLevelUp = !searchValue && level.length > 0;
 
-  const [focusedIndex, setFocusedIndex] = useState<number>(-1)
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!open) {
-        return
+        return;
       }
 
-      const optionsLength = showLevelUp ? options.length + 1 : options.length
+      const optionsLength = showLevelUp ? options.length + 1 : options.length;
 
       if (e.key === "ArrowDown") {
-        e.preventDefault()
+        e.preventDefault();
         setFocusedIndex((prev) => {
-          const nextIndex = prev < optionsLength - 1 ? prev + 1 : prev
-          return nextIndex
-        })
+          const nextIndex = prev < optionsLength - 1 ? prev + 1 : prev;
+          return nextIndex;
+        });
       } else if (e.key === "ArrowUp") {
-        e.preventDefault()
+        e.preventDefault();
         setFocusedIndex((prev) => {
-          return prev > 0 ? prev - 1 : prev
-        })
+          return prev > 0 ? prev - 1 : prev;
+        });
       } else if (e.key === "ArrowRight") {
-        const index = showLevelUp ? focusedIndex - 1 : focusedIndex
-        const hasChildren = options[index]?.has_children
+        const index = showLevelUp ? focusedIndex - 1 : focusedIndex;
+        const hasChildren = options[index]?.has_children;
 
         if (!hasChildren || !!searchValue) {
-          return
+          return;
         }
 
-        e.preventDefault()
+        e.preventDefault();
         setLevel([
           ...level,
           {
             id: options[index].value,
             label: options[index].label,
           },
-        ])
-        setFocusedIndex(0)
+        ]);
+        setFocusedIndex(0);
       } else if (e.key === "Enter" && focusedIndex !== -1) {
-        e.preventDefault()
+        e.preventDefault();
 
         if (showLevelUp && focusedIndex === 0) {
-          setLevel(level.slice(0, level.length - 1))
-          setFocusedIndex(0)
-          return
+          setLevel(level.slice(0, level.length - 1));
+          setFocusedIndex(0);
+          return;
         }
 
-        const index = showLevelUp ? focusedIndex - 1 : focusedIndex
+        const index = showLevelUp ? focusedIndex - 1 : focusedIndex;
 
-        handleSelect(options[index].value)
+        handleSelect(options[index].value);
       }
     },
     [open, focusedIndex, options, level, handleSelect, searchValue, showLevelUp]
-  )
+  );
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-    }
-  }, [handleKeyDown])
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -237,10 +237,10 @@ export const CategorySelect = forwardRef<
         </Select.Content>
       </Select.Portal>
     </Select.Root>
-  )
-})
+  );
+});
 
-CategorySelect.displayName = "CategorySelect"
+CategorySelect.displayName = "CategorySelect";
 
 type ProductCategoryOption = {
   value: string
@@ -267,8 +267,8 @@ const SelectItem = ({
         <Check />
       </Select.ItemIndicator>
     </Select.Item>
-  )
-}
+  );
+};
 
 function getOptions(
   categories: AdminProductCategoryResponse["product_category"][]
@@ -278,6 +278,6 @@ function getOptions(
       value: cat.id,
       label: cat.name,
       has_children: cat.category_children?.length > 0,
-    }
-  })
+    };
+  });
 }

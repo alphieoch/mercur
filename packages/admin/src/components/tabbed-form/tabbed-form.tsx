@@ -1,4 +1,4 @@
-import { Button, ProgressTabs } from "@medusajs/ui"
+import { Button, ProgressTabs } from "@medusajs/ui";
 import {
   Children,
   createContext,
@@ -6,51 +6,51 @@ import {
   ReactNode,
   useContext,
   useMemo,
-} from "react"
-import { FieldValues, UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+} from "react";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { RouteFocusModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
+import { RouteFocusModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
 
-import { TabDefinition } from "./types"
-import { useTabManagement } from "./use-tab-management"
+import { TabDefinition } from "./types";
+import { useTabManagement } from "./use-tab-management";
 
-const TabbedFormContext = createContext<UseFormReturn<any> | null>(null)
+const TabbedFormContext = createContext<UseFormReturn<any> | null>(null);
 
 export const useTabbedForm = <T extends FieldValues = FieldValues>() => {
-  const form = useContext(TabbedFormContext)
+  const form = useContext(TabbedFormContext);
   if (!form) {
-    throw new Error("useTabbedForm must be used within a TabbedForm")
+    throw new Error("useTabbedForm must be used within a TabbedForm");
   }
-  return form as UseFormReturn<T>
-}
+  return form as UseFormReturn<T>;
+};
 
 function resolveTabMeta<T extends FieldValues>(
   child: ReactElement
 ): TabDefinition<T> | null {
-  const type = child.type as any
-  const meta: TabDefinition<T> | undefined = type?._tabMeta
+  const type = child.type as any;
+  const meta: TabDefinition<T> | undefined = type?._tabMeta;
 
   if (!meta && !child.props?.id) {
-    return null
+    return null;
   }
 
-  const id = child.props?.id ?? meta?.id ?? ""
-  const labelKey = meta?.labelKey ?? ""
-  const label = child.props?.label
+  const id = child.props?.id ?? meta?.id ?? "";
+  const labelKey = meta?.labelKey ?? "";
+  const label = child.props?.label;
 
   if (process.env.NODE_ENV !== "production") {
     if (!id) {
       console.warn(
         "[TabbedForm] A child component is missing a tab id. " +
           "Either set _tabMeta.id or pass an id prop."
-      )
+      );
     }
     if (!labelKey && !label) {
       console.warn(
         `[TabbedForm] Tab "${id}" has no label or labelKey — header will be empty.`
-      )
+      );
     }
   }
 
@@ -60,29 +60,29 @@ function resolveTabMeta<T extends FieldValues>(
     label,
     validationFields: child.props?.validationFields ?? meta?.validationFields,
     isVisible: child.props?.isVisible ?? meta?.isVisible,
-  }
+  };
 }
 
 function collectTabs<T extends FieldValues>(children: ReactNode): {
   tabs: TabDefinition<T>[]
   elements: ReactElement[]
 } {
-  const tabs: TabDefinition<T>[] = []
-  const elements: ReactElement[] = []
+  const tabs: TabDefinition<T>[] = [];
+  const elements: ReactElement[] = [];
 
   Children.forEach(children, (child) => {
     if (!child || typeof child !== "object" || !("type" in child)) {
-      return
+      return;
     }
 
-    const meta = resolveTabMeta<T>(child as ReactElement)
+    const meta = resolveTabMeta<T>(child as ReactElement);
     if (meta) {
-      tabs.push(meta)
-      elements.push(child as ReactElement)
+      tabs.push(meta);
+      elements.push(child as ReactElement);
     }
-  })
+  });
 
-  return { tabs, elements }
+  return { tabs, elements };
 }
 
 type FooterRenderProps = {
@@ -108,17 +108,17 @@ function Root<T extends FieldValues>({
   footer,
   transformTabs,
 }: TabbedFormProps<T>) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { tabs: rawTabs, elements } = useMemo(
     () => collectTabs<T>(children),
     [children]
-  )
+  );
 
   const tabs = useMemo(
     () => (transformTabs ? transformTabs(rawTabs) : rawTabs),
     [transformTabs, rawTabs]
-  )
+  );
 
   const {
     activeTabId,
@@ -130,12 +130,12 @@ function Root<T extends FieldValues>({
   } = useTabManagement<T>({
     tabs,
     form,
-  })
+  });
 
   const visibleElements = elements.filter((el) => {
-    const meta = resolveTabMeta<T>(el)
-    return meta && visibleTabs.some((vt) => vt.id === meta.id)
-  })
+    const meta = resolveTabMeta<T>(el);
+    return meta && visibleTabs.some((vt) => vt.id === meta.id);
+  });
 
   return (
     <TabbedFormContext.Provider value={form}>
@@ -147,25 +147,25 @@ function Root<T extends FieldValues>({
                 e.target instanceof HTMLTextAreaElement &&
                 !(e.metaKey || e.ctrlKey)
               ) {
-                return
+                return;
               }
 
-              e.preventDefault()
+              e.preventDefault();
 
               if (e.metaKey || e.ctrlKey) {
                 if (isLoading) {
-                  return
+                  return;
                 }
 
                 if (!isLastTab) {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  onNext()
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onNext();
 
-                  return
+                  return;
                 }
 
-                onSubmit()
+                onSubmit();
               }
             }
           }}
@@ -195,7 +195,7 @@ function Root<T extends FieldValues>({
             </RouteFocusModal.Header>
             <RouteFocusModal.Body className="size-full overflow-hidden">
               {visibleElements.map((element) => {
-                const meta = resolveTabMeta<T>(element)!
+                const meta = resolveTabMeta<T>(element)!;
                 return (
                   <ProgressTabs.Content
                     key={meta.id}
@@ -204,7 +204,7 @@ function Root<T extends FieldValues>({
                   >
                     {element}
                   </ProgressTabs.Content>
-                )
+                );
               })}
             </RouteFocusModal.Body>
           </ProgressTabs>
@@ -222,7 +222,7 @@ function Root<T extends FieldValues>({
         </KeyboundForm>
       </RouteFocusModal.Form>
     </TabbedFormContext.Provider>
-  )
+  );
 }
 
 const DefaultFooter = ({
@@ -230,7 +230,7 @@ const DefaultFooter = ({
   onNext,
   isLoading,
 }: FooterRenderProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex items-center justify-end gap-x-2">
@@ -261,8 +261,8 @@ const DefaultFooter = ({
         </Button>
       )}
     </div>
-  )
-}
+  );
+};
 
 const Tab = ({
   children,
@@ -277,7 +277,7 @@ const Tab = ({
         {children}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export const TabbedForm = Object.assign(Root, { Tab, useForm: useTabbedForm })
+export const TabbedForm = Object.assign(Root, { Tab, useForm: useTabbedForm });

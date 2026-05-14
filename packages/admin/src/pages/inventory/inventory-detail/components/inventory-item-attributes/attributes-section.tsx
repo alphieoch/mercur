@@ -1,10 +1,10 @@
-import { Container, Heading } from "@medusajs/ui"
-import { PencilSquare } from "@medusajs/icons"
-import { useTranslation } from "react-i18next"
-import type { ExtendedAdminInventoryItem } from "@custom-types/inventory"
-import { ActionMenu } from "@components/common/action-menu"
-import { SectionRow } from "@components/common/section"
-import { getFormattedCountry } from "@lib/addresses"
+import { Container, Heading } from "@medusajs/ui";
+import { PencilSquare } from "@medusajs/icons";
+import { useTranslation } from "react-i18next";
+import type { ExtendedAdminInventoryItem } from "@custom-types/inventory";
+import { ActionMenu } from "@components/common/action-menu";
+import { SectionRow } from "@components/common/section";
+import { getFormattedCountry } from "@lib/addresses";
 
 type InventoryItemAttributeSectionProps = {
   inventoryItem: ExtendedAdminInventoryItem
@@ -13,7 +13,7 @@ type InventoryItemAttributeSectionProps = {
 export const InventoryItemAttributeSection = ({
   inventoryItem,
 }: InventoryItemAttributeSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="divide-y p-0" data-testid="inventory-item-attribute-section">
@@ -47,5 +47,5 @@ export const InventoryItemAttributeSection = ({
         data-testid="inventory-item-country-of-origin-row"
       />
     </Container>
-  )
-}
+  );
+};

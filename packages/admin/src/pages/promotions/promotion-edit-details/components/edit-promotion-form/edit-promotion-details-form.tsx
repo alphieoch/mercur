@@ -1,25 +1,25 @@
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import type {
   AdminPromotion,
   ApplicationMethodAllocationValues,
-} from "@medusajs/types"
-import { Button, CurrencyInput, Input, RadioGroup, Text } from "@medusajs/ui"
-import { useForm, useWatch } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { useEffect } from "react"
-import * as zod from "zod"
+} from "@medusajs/types";
+import { Button, CurrencyInput, Input, RadioGroup, Text } from "@medusajs/ui";
+import { useForm, useWatch } from "react-hook-form";
+import { Trans, useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import * as zod from "zod";
 
-import { Form } from "../../../../../components/common/form"
-import { DeprecatedPercentageInput } from "../../../../../components/inputs/percentage-input"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdatePromotion } from "../../../../../hooks/api/promotions"
+import { Form } from "../../../../../components/common/form";
+import { DeprecatedPercentageInput } from "../../../../../components/inputs/percentage-input";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdatePromotion } from "../../../../../hooks/api/promotions";
 import {
   currencies,
   getCurrencySymbol,
-} from "../../../../../lib/data/currencies"
-import { SwitchBox } from "../../../../../components/common/switch-box"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
+} from "../../../../../lib/data/currencies";
+import { SwitchBox } from "../../../../../components/common/switch-box";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
 
 type EditPromotionFormProps = {
   promotion: AdminPromotion
@@ -41,31 +41,31 @@ const EditPromotionSchema = zod.object({
   .refine(
     (data) => {
       if (data.allocation === "across") {
-        return true
+        return true;
       }
 
-      return typeof data.max_quantity === "number"
+      return typeof data.max_quantity === "number";
     },
     {
       path: ["max_quantity"],
       message: `required field`,
     }
-  )
+  );
 
 export const EditPromotionDetailsForm = ({
   promotion,
 }: EditPromotionFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
   const allocationRaw = promotion.application_method?.allocation as
     | string
-    | undefined
+    | undefined;
   const allocationDefault: AllocationMode =
     allocationRaw === "once"
       ? "once"
       : allocationRaw === "across"
         ? "across"
-        : "each"
+        : "each";
 
   const form = useForm<zod.infer<typeof EditPromotionSchema>>({
     defaultValues: {
@@ -80,30 +80,30 @@ export const EditPromotionDetailsForm = ({
       target_type: promotion.application_method!.target_type,
     },
     resolver: zodResolver(EditPromotionSchema),
-  })
+  });
 
   const watchValueType = useWatch({
     control: form.control,
     name: "value_type",
-  })
+  });
 
   const watchAllocation = useWatch({
     control: form.control,
     name: "allocation",
-  })
+  });
 
-  const isFixedValueType = watchValueType === "fixed"
+  const isFixedValueType = watchValueType === "fixed";
 
-  const { mutateAsync, isPending } = useUpdatePromotion(promotion.id)
+  const { mutateAsync, isPending } = useUpdatePromotion(promotion.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     const value =
-      typeof data.value === "number" ? data.value : parseFloat(data.value)
+      typeof data.value === "number" ? data.value : parseFloat(data.value);
 
     if (isNaN(value) || value < 0) {
-      form.setError("value", { message: t("promotions.form.value.invalid") })
+      form.setError("value", { message: t("promotions.form.value.invalid") });
 
-return
+      return;
     }
 
     await mutateAsync(
@@ -121,31 +121,31 @@ return
       },
       {
         onSuccess: () => {
-          handleSuccess()
+          handleSuccess();
         },
       }
-    )
-  })
+    );
+  });
 
   const allocationWatchValue = useWatch({
     control: form.control,
     name: "value_type",
-  })
+  });
 
   useEffect(() => {
     if (!(allocationWatchValue === "fixed" && promotion.type === "standard")) {
-      form.setValue("is_tax_inclusive", false)
+      form.setValue("is_tax_inclusive", false);
     }
-  }, [allocationWatchValue, form, promotion])
+  }, [allocationWatchValue, form, promotion]);
 
   useEffect(() => {
     if (watchAllocation === "once" && !form.getValues("max_quantity")) {
-      form.setValue("max_quantity", 1)
+      form.setValue("max_quantity", 1);
     }
-  }, [watchAllocation, form])
-  const direction = useDocumentDirection()
+  }, [watchAllocation, form]);
+  const direction = useDocumentDirection();
 
-return (
+  return (
     <RouteDrawer.Form form={form} data-testid="promotion-edit-details-form">
       <KeyboundForm
         onSubmit={handleSubmit}
@@ -199,7 +199,7 @@ return (
                     </Form.Control>
                     <Form.ErrorMessage data-testid="promotion-edit-details-form-status-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
 
@@ -239,19 +239,19 @@ return (
                     </Form.Control>
                     <Form.ErrorMessage data-testid="promotion-edit-details-form-method-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
 
             {allocationWatchValue === "fixed" &&
               promotion.type === "standard" && (
-                <SwitchBox
-                  control={form.control}
-                  name="is_tax_inclusive"
-                  label={t("promotions.form.taxInclusive.title")}
-                  description={t("promotions.form.taxInclusive.description")}
-                />
-              )}
+              <SwitchBox
+                control={form.control}
+                name="is_tax_inclusive"
+                label={t("promotions.form.taxInclusive.title")}
+                description={t("promotions.form.taxInclusive.description")}
+              />
+            )}
 
             <div className="flex flex-col gap-y-4">
               <Form.Field
@@ -266,7 +266,7 @@ return (
                       </Form.Control>
                       <Form.ErrorMessage data-testid="promotion-edit-details-form-code-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
 
@@ -328,7 +328,7 @@ return (
                         </Form.Control>
                         <Form.ErrorMessage data-testid="promotion-edit-details-form-value-type-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -336,10 +336,10 @@ return (
                   name="value"
                   render={({ field: { onChange, ...field } }) => {
                     const currencyCode =
-                      promotion.application_method?.currency_code ?? "USD"
+                      promotion.application_method?.currency_code ?? "USD";
 
                     const currencyInfo =
-                      currencies[currencyCode?.toUpperCase() || "USD"]
+                      currencies[currencyCode?.toUpperCase() || "USD"];
 
                     return (
                       <Form.Item data-testid="promotion-edit-details-form-value-item">
@@ -375,7 +375,7 @@ return (
                                   e.target.value === ""
                                     ? null
                                     : parseFloat(e.target.value)
-                                )
+                                );
                               }}
                               data-testid="promotion-edit-details-form-value-percentage-input"
                             />
@@ -383,7 +383,7 @@ return (
                         </Form.Control>
                         <Form.ErrorMessage data-testid="promotion-edit-details-form-value-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -412,64 +412,64 @@ return (
                               data-testid="promotion-edit-details-form-allocation-option-each"
                             />
 
-                        <RadioGroup.ChoiceBox
-                          value="once"
-                          label={t("promotions.form.allocation.once.title", {
-                            defaultValue: "Once",
-                          })}
-                          description={t(
-                            "promotions.form.allocation.once.description",
-                            { defaultValue: "Limit discount to max quantity" }
-                          )}
-                          data-testid="promotion-edit-details-form-allocation-option-once"
-                        />
+                            <RadioGroup.ChoiceBox
+                              value="once"
+                              label={t("promotions.form.allocation.once.title", {
+                                defaultValue: "Once",
+                              })}
+                              description={t(
+                                "promotions.form.allocation.once.description",
+                                { defaultValue: "Limit discount to max quantity" }
+                              )}
+                              data-testid="promotion-edit-details-form-allocation-option-once"
+                            />
                           </RadioGroup>
                         </Form.Control>
                         <Form.ErrorMessage data-testid="promotion-edit-details-form-allocation-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
 
-            {(watchAllocation === "each" || watchAllocation === "once") && (
-              <Form.Field
-                control={form.control}
-                name="max_quantity"
-                render={() => {
-                  return (
-                    <Form.Item data-testid="promotion-edit-details-form-max-quantity-item">
-                      <Form.Label data-testid="promotion-edit-details-form-max-quantity-label">
-                        {t("promotions.form.max_quantity.title")}
-                      </Form.Label>
-                      <Form.Control data-testid="promotion-edit-details-form-max-quantity-control">
-                        <Input
-                          {...form.register("max_quantity", {
-                            valueAsNumber: true,
-                          })}
-                          type="number"
-                          min={1}
-                          placeholder="3"
-                          data-testid="promotion-edit-details-form-max-quantity-input"
-                        />
-                      </Form.Control>
-                      <Text
-                        size="small"
-                        leading="compact"
-                        className="text-ui-fg-subtle"
-                        data-testid="promotion-edit-details-form-max-quantity-description"
-                      >
-                        <Trans
-                          t={t}
-                          i18nKey="promotions.form.max_quantity.description"
-                          components={[<br key="break" />]}
-                        />
-                      </Text>
-                      <Form.ErrorMessage data-testid="promotion-edit-details-form-max-quantity-error" />
-                    </Form.Item>
-                  )
-                }}
-              />
-            )}
+                {(watchAllocation === "each" || watchAllocation === "once") && (
+                  <Form.Field
+                    control={form.control}
+                    name="max_quantity"
+                    render={() => {
+                      return (
+                        <Form.Item data-testid="promotion-edit-details-form-max-quantity-item">
+                          <Form.Label data-testid="promotion-edit-details-form-max-quantity-label">
+                            {t("promotions.form.max_quantity.title")}
+                          </Form.Label>
+                          <Form.Control data-testid="promotion-edit-details-form-max-quantity-control">
+                            <Input
+                              {...form.register("max_quantity", {
+                                valueAsNumber: true,
+                              })}
+                              type="number"
+                              min={1}
+                              placeholder="3"
+                              data-testid="promotion-edit-details-form-max-quantity-input"
+                            />
+                          </Form.Control>
+                          <Text
+                            size="small"
+                            leading="compact"
+                            className="text-ui-fg-subtle"
+                            data-testid="promotion-edit-details-form-max-quantity-description"
+                          >
+                            <Trans
+                              t={t}
+                              i18nKey="promotions.form.max_quantity.description"
+                              components={[<br key="break" />]}
+                            />
+                          </Text>
+                          <Form.ErrorMessage data-testid="promotion-edit-details-form-max-quantity-error" />
+                        </Form.Item>
+                      );
+                    }}
+                  />
+                )}
               </>
             )}
           </div>
@@ -490,5 +490,5 @@ return (
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

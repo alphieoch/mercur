@@ -1,4 +1,4 @@
-import { Badge } from "@medusajs/ui"
+import { Badge } from "@medusajs/ui";
 
 type CellProps = {
   is_combinable: boolean
@@ -21,13 +21,13 @@ export const TypeCell = ({ is_combinable }: CellProps) => {
         )}
       </span>
     </div>
-  )
-}
+  );
+};
 
 export const TypeHeader = ({ text }: HeaderProps) => {
   return (
     <div className=" flex h-full w-full items-center">
       <span>{text}</span>
     </div>
-  )
-}
+  );
+};

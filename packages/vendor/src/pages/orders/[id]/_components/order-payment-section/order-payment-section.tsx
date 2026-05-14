@@ -1,11 +1,11 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, StatusBadge, Text } from "@medusajs/ui"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, StatusBadge, Text } from "@medusajs/ui";
 
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
 
-import { getStylizedAmount } from "@lib/money-amount-helpers"
-import { getOrderPaymentStatus } from "@lib/order-helpers"
-import { getTotalCaptured, getTotalPending } from "@lib/payment"
+import { getStylizedAmount } from "@lib/money-amount-helpers";
+import { getOrderPaymentStatus } from "@lib/order-helpers";
+import { getTotalCaptured, getTotalPending } from "@lib/payment";
 
 type OrderPaymentSectionProps = {
   order: HttpTypes.AdminOrder
@@ -15,8 +15,8 @@ export const getPaymentsFromOrder = (order: HttpTypes.AdminOrder) => {
   return order.payment_collections
     ?.map((collection: HttpTypes.AdminPaymentCollection) => collection.payments)
     .flat(1)
-    .filter(Boolean) as HttpTypes.AdminPayment[]
-}
+    .filter(Boolean) as HttpTypes.AdminPayment[];
+};
 
 export const OrderPaymentSection = ({ order }: OrderPaymentSectionProps) => {
   return (
@@ -24,11 +24,11 @@ export const OrderPaymentSection = ({ order }: OrderPaymentSectionProps) => {
       <Header order={order} />
       <Total order={order} />
     </Container>
-  )
-}
+  );
+};
 
 const Header = ({ order }: { order: HttpTypes.AdminOrder }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex items-center justify-between px-6 py-4">
@@ -43,23 +43,23 @@ const Header = ({ order }: { order: HttpTypes.AdminOrder }) => {
         </StatusBadge>
       )}
     </div>
-  )
-}
+  );
+};
 
 const Total = ({ order }: { order: HttpTypes.AdminOrder }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (!order.payment_collections?.length) {
-    return null
+    return null;
   }
 
-  const paymentCollections = order.payment_collections
-  const totalCaptured = getTotalCaptured(paymentCollections)
-  const totalPending = getTotalPending(paymentCollections)
+  const paymentCollections = order.payment_collections;
+  const totalCaptured = getTotalCaptured(paymentCollections);
+  const totalPending = getTotalPending(paymentCollections);
   const totalRefunded = paymentCollections.reduce(
     (acc, pc) => acc + ((pc.refunded_amount as number) || 0),
     0
-  )
+  );
 
   return (
     <div>
@@ -97,5 +97,5 @@ const Total = ({ order }: { order: HttpTypes.AdminOrder }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};

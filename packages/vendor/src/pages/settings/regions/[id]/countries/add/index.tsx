@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom"
-import { RouteFocusModal } from "@components/modals"
-import { useRegion } from "@hooks/api/regions"
-import { AddCountriesForm } from "./_components/add-countries-form"
+import { useParams } from "react-router-dom";
+import { RouteFocusModal } from "@components/modals";
+import { useRegion } from "@hooks/api/regions";
+import { AddCountriesForm } from "./_components/add-countries-form";
 
 const RegionAddCountries = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
   const {
     region,
@@ -13,17 +13,17 @@ const RegionAddCountries = () => {
     error,
   } = useRegion(id!, {
     fields: "*payment_providers",
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
     <RouteFocusModal>
       {!isLoading && region && <AddCountriesForm region={region} />}
     </RouteFocusModal>
-  )
-}
+  );
+};
 
-export const Component = RegionAddCountries
+export const Component = RegionAddCountries;

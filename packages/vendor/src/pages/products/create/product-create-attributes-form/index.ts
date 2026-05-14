@@ -1,4 +1,4 @@
 export {
   ProductCreateAttributesForm,
   type ProductCreateAttributesFormRef,
-} from "./product-create-attributes-form"
+} from "./product-create-attributes-form";

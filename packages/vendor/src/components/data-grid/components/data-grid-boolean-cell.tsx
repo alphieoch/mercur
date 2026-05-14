@@ -1,10 +1,10 @@
-import { Checkbox } from "@medusajs/ui"
-import { Controller, ControllerRenderProps } from "react-hook-form"
+import { Checkbox } from "@medusajs/ui";
+import { Controller, ControllerRenderProps } from "react-hook-form";
 
-import { useCombinedRefs } from "../../../hooks/use-combined-refs"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { DataGridCellProps, InputProps } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { useCombinedRefs } from "../../../hooks/use-combined-refs";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { DataGridCellProps, InputProps } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 export const DataGridBooleanCell = <TData, TValue = any>({
   context,
@@ -12,10 +12,10 @@ export const DataGridBooleanCell = <TData, TValue = any>({
 }: DataGridCellProps<TData, TValue> & { disabled?: boolean }) => {
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
-  const errorProps = useDataGridCellError({ context })
+  });
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
+  const { container, input } = renderProps;
 
   return (
     <Controller
@@ -26,11 +26,11 @@ export const DataGridBooleanCell = <TData, TValue = any>({
           <DataGridCellContainer {...container} {...errorProps}>
             <Inner field={field} inputProps={input} disabled={disabled} />
           </DataGridCellContainer>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -41,16 +41,16 @@ const Inner = ({
   inputProps: InputProps
   disabled?: boolean
 }) => {
-  const { ref, value, onBlur, name, disabled: fieldDisabled } = field
+  const { ref, value, onBlur, name, disabled: fieldDisabled } = field;
   const {
     ref: inputRef,
     onBlur: onInputBlur,
     onChange,
     onFocus,
     ...attributes
-  } = inputProps
+  } = inputProps;
 
-  const combinedRefs = useCombinedRefs(ref, inputRef)
+  const combinedRefs = useCombinedRefs(ref, inputRef);
 
   return (
     <Checkbox
@@ -60,12 +60,12 @@ const Inner = ({
       onCheckedChange={(newValue) => onChange(newValue === true, value)}
       onFocus={onFocus}
       onBlur={() => {
-        onBlur()
-        onInputBlur()
+        onBlur();
+        onInputBlur();
       }}
       ref={combinedRefs}
       tabIndex={-1}
       {...attributes}
     />
-  )
-}
+  );
+};

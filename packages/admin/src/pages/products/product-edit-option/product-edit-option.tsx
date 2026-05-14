@@ -1,25 +1,25 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
-import { RouteDrawer } from "../../../components/modals"
-import { useProduct } from "../../../hooks/api/products"
-import { PRODUCT_DETAIL_QUERY } from "../constants"
-import { CreateProductOptionForm } from "./components/edit-product-option-form"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { RouteDrawer } from "../../../components/modals";
+import { useProduct } from "../../../hooks/api/products";
+import { PRODUCT_DETAIL_QUERY } from "../constants";
+import { CreateProductOptionForm } from "./components/edit-product-option-form";
 
 export const ProductEditOption = () => {
-  const { id, option_id } = useParams()
-  const { t } = useTranslation()
+  const { id, option_id } = useParams();
+  const { t } = useTranslation();
 
-  const { product, isPending, isFetching, isError, error } = useProduct(id!, PRODUCT_DETAIL_QUERY)
+  const { product, isPending, isFetching, isError, error } = useProduct(id!, PRODUCT_DETAIL_QUERY);
 
-  const option = product?.options?.find((o) => o.id === option_id)
+  const option = product?.options?.find((o) => o.id === option_id);
 
   if (!isPending && !isFetching && !option) {
-    throw new Response(JSON.stringify({ message: `An option with ID ${option_id} was not found` }), { status: 404, headers: { "Content-Type": "application/json" } })
+    throw new Response(JSON.stringify({ message: `An option with ID ${option_id} was not found` }), { status: 404, headers: { "Content-Type": "application/json" } });
   }
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -31,5 +31,5 @@ export const ProductEditOption = () => {
       </RouteDrawer.Header>
       {option && <CreateProductOptionForm option={option} />}
     </RouteDrawer>
-  )
-}
+  );
+};

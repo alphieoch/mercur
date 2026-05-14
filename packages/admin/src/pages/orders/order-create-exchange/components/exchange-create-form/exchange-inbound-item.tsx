@@ -1,15 +1,15 @@
-import { ChatBubble, DocumentText, XCircle, XMark } from "@medusajs/icons"
-import { AdminOrderLineItem, HttpTypes } from "@medusajs/types"
-import { IconButton, Input, Text } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { ChatBubble, DocumentText, XCircle, XMark } from "@medusajs/icons";
+import { AdminOrderLineItem, HttpTypes } from "@medusajs/types";
+import { IconButton, Input, Text } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { Form } from "../../../../../components/common/form"
-import { Thumbnail } from "../../../../../components/common/thumbnail"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { MoneyAmountCell } from "../../../../../components/table/table-cells/common/money-amount-cell"
-import { useReturnReasons } from "../../../../../hooks/api/return-reasons"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { Form } from "../../../../../components/common/form";
+import { Thumbnail } from "../../../../../components/common/thumbnail";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { MoneyAmountCell } from "../../../../../components/table/table-cells/common/money-amount-cell";
+import { useReturnReasons } from "../../../../../hooks/api/return-reasons";
 
 type ExchangeInboundItemProps = {
   item: AdminOrderLineItem
@@ -32,12 +32,12 @@ function ExchangeInboundItem({
   onUpdate,
   index,
 }: ExchangeInboundItemProps) {
-  const { t } = useTranslation()
-  const { return_reasons = [] } = useReturnReasons({ fields: "+label" })
+  const { t } = useTranslation();
+  const { return_reasons = [] } = useReturnReasons({ fields: "+label" });
 
-  const formItem = form.watch(`inbound_items.${index}`)
-  const showReturnReason = typeof formItem.reason_id === "string"
-  const showNote = typeof formItem.note === "string"
+  const formItem = form.watch(`inbound_items.${index}`);
+  const showReturnReason = typeof formItem.reason_id === "string";
+  const showNote = typeof formItem.note === "string";
 
   return (
     <div className="bg-ui-bg-subtle shadow-elevation-card-rest my-2 rounded-xl ">
@@ -75,20 +75,20 @@ function ExchangeInboundItem({
                         max={item.quantity}
                         type="number"
                         onBlur={(e) => {
-                          const val = e.target.value
-                          const payload = val === "" ? null : Number(val)
+                          const val = e.target.value;
+                          const payload = val === "" ? null : Number(val);
 
-                          field.onChange(payload)
+                          field.onChange(payload);
 
                           if (payload) {
-                            onUpdate({ quantity: payload })
+                            onUpdate({ quantity: payload });
                           }
                         }}
                       />
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Text className="txt-small text-ui-fg-subtle">
@@ -154,8 +154,8 @@ function ExchangeInboundItem({
                             className="bg-ui-bg-field-component hover:bg-ui-bg-field-component-hover"
                             value={value}
                             onChange={(v) => {
-                              onUpdate({ reason_id: v })
-                              onChange(v)
+                              onUpdate({ reason_id: v });
+                              onChange(v);
                             }}
                             {...field}
                             options={return_reasons.map((reason) => ({
@@ -166,7 +166,7 @@ function ExchangeInboundItem({
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -175,9 +175,9 @@ function ExchangeInboundItem({
                 className="flex-shrink"
                 variant="transparent"
                 onClick={() => {
-                  form.setValue(`inbound_items.${index}.reason_id`, null)
+                  form.setValue(`inbound_items.${index}.reason_id`, null);
 
-                  onUpdate({ reason_id: null })
+                  onUpdate({ reason_id: null });
                 }}
               >
                 <XMark className="text-ui-fg-muted" />
@@ -208,15 +208,15 @@ function ExchangeInboundItem({
                           <Input
                             {...field}
                             onBlur={() => {
-                              field.onChange(field.value)
-                              onUpdate({ internal_note: field.value })
+                              field.onChange(field.value);
+                              onUpdate({ internal_note: field.value });
                             }}
                             className="bg-ui-bg-field-component hover:bg-ui-bg-field-component-hover"
                           />
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -226,9 +226,9 @@ function ExchangeInboundItem({
                 className="flex-shrink"
                 variant="transparent"
                 onClick={() => {
-                  form.setValue(`inbound_items.${index}.note`, null)
+                  form.setValue(`inbound_items.${index}.note`, null);
 
-                  onUpdate({ internal_note: null })
+                  onUpdate({ internal_note: null });
                 }}
               >
                 <XMark className="text-ui-fg-muted" />
@@ -238,7 +238,7 @@ function ExchangeInboundItem({
         )}
       </>
     </div>
-  )
+  );
 }
 
-export { ExchangeInboundItem }
+export { ExchangeInboundItem };

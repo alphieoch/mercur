@@ -2,14 +2,14 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
-import { QueryKey, UseQueryOptions, useQuery } from "@tanstack/react-query"
+} from "@mercurjs/client";
+import { QueryKey, UseQueryOptions, useQuery } from "@tanstack/react-query";
 
-import { sdk } from "../../lib/client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+import { sdk } from "../../lib/client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const NOTIFICATION_QUERY_KEY = "notification" as const
-export const notificationQueryKeys = queryKeysFactory(NOTIFICATION_QUERY_KEY)
+const NOTIFICATION_QUERY_KEY = "notification" as const;
+export const notificationQueryKeys = queryKeysFactory(NOTIFICATION_QUERY_KEY);
 
 export const useNotification = (
   id: string,
@@ -31,10 +31,10 @@ export const useNotification = (
     queryKey: notificationQueryKeys.detail(id),
     queryFn: () => sdk.admin.notifications.$id.query({ $id: id, ...query }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useNotifications = (
   query?: InferClientInput<typeof sdk.admin.notifications.query>,
@@ -52,7 +52,7 @@ export const useNotifications = (
     queryFn: () => sdk.admin.notifications.query({ ...query }),
     queryKey: notificationQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};

@@ -1,58 +1,58 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
 import {
   Button,
   Container,
   Heading,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { Children, ReactNode, useCallback, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+} from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { Children, ReactNode, useCallback, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
 import {
   useCustomerGroups,
   useDeleteCustomerGroupLazy,
-} from "../../../../../hooks/api"
-import { useCustomerGroupTableFilters } from "../../../../../hooks/table/filters/use-customer-group-table-filters"
-import { useCustomerGroupTableQuery } from "../../../../../hooks/table/query/use-customer-group-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useDate } from "../../../../../hooks/use-date"
+} from "../../../../../hooks/api";
+import { useCustomerGroupTableFilters } from "../../../../../hooks/table/filters/use-customer-group-table-filters";
+import { useCustomerGroupTableQuery } from "../../../../../hooks/table/query/use-customer-group-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useDate } from "../../../../../hooks/use-date";
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const CustomerGroupListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Heading data-testid="customer-group-list-heading">
       {t("customerGroups.domain")}
     </Heading>
-  )
-}
+  );
+};
 
 export const CustomerGroupListCreateButton = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Link to="/customer-groups/create">
       <Button size="small" variant="secondary">
         {t("actions.create")}
       </Button>
     </Link>
-  )
-}
+  );
+};
 
 export const CustomerGroupListActions = ({ children }: { children?: ReactNode }) => {
   return (
     <div className="flex items-center gap-x-2">
       {Children.count(children) > 0 ? children : <CustomerGroupListCreateButton />}
     </div>
-  )
-}
+  );
+};
 
 export const CustomerGroupListHeader = ({ children }: { children?: ReactNode }) => {
   return (
@@ -69,13 +69,13 @@ export const CustomerGroupListHeader = ({ children }: { children?: ReactNode }) 
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const CustomerGroupListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { searchParams, raw } = useCustomerGroupTableQuery({ pageSize: PAGE_SIZE })
+  const { searchParams, raw } = useCustomerGroupTableQuery({ pageSize: PAGE_SIZE });
 
   const { customer_groups, count, isPending, isError, error } =
     useCustomerGroups(
@@ -86,10 +86,10 @@ export const CustomerGroupListDataTable = () => {
       {
         placeholderData: keepPreviousData,
       },
-    )
+    );
 
-  const filters = useCustomerGroupTableFilters()
-  const columns = useColumns()
+  const filters = useCustomerGroupTableFilters();
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: customer_groups ?? [],
@@ -98,10 +98,10 @@ export const CustomerGroupListDataTable = () => {
     enablePagination: true,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -124,8 +124,8 @@ export const CustomerGroupListDataTable = () => {
         message: t("customerGroups.list.empty.heading"),
       }}
     />
-  )
-}
+  );
+};
 
 export const CustomerGroupListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -142,17 +142,17 @@ export const CustomerGroupListTable = ({ children }: { children?: ReactNode }) =
         </>
       )}
     </Container>
-  )
-}
+  );
+};
 
 const CustomerGroupActions = ({
   group,
 }: {
   group: HttpTypes.AdminCustomerGroup
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync: deleteCustomerGroup } = useDeleteCustomerGroupLazy()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync: deleteCustomerGroup } = useDeleteCustomerGroupLazy();
 
   const handleDelete = useCallback(async () => {
     const res = await prompt({
@@ -164,10 +164,10 @@ const CustomerGroupActions = ({
       verificationInstruction: t("general.typeToConfirm"),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await deleteCustomerGroup(
@@ -176,14 +176,14 @@ const CustomerGroupActions = ({
         onSuccess: () => {
           toast.success(
             t("customerGroups.delete.successToast", { name: group.name })
-          )
+          );
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       },
-    )
-  }, [t, prompt, deleteCustomerGroup, group])
+    );
+  }, [t, prompt, deleteCustomerGroup, group]);
 
   return (
     <ActionMenu
@@ -208,14 +208,14 @@ const CustomerGroupActions = ({
         },
       ]}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminCustomerGroup>()
+const columnHelper = createColumnHelper<HttpTypes.AdminCustomerGroup>();
 
 const useColumns = () => {
-  const { t } = useTranslation()
-  const { getFullDate } = useDate()
+  const { t } = useTranslation();
+  const { getFullDate } = useDate();
 
   return useMemo(
     () => [
@@ -226,7 +226,7 @@ const useColumns = () => {
         id: "customers",
         header: t("customers.domain"),
         cell: ({ row }) => {
-          return <span>{row.original.customers?.length ?? 0}</span>
+          return <span>{row.original.customers?.length ?? 0}</span>;
         },
       }),
       columnHelper.accessor("created_at", {
@@ -239,7 +239,7 @@ const useColumns = () => {
                 includeTime: true,
               })}
             </span>
-          )
+          );
         },
       }),
       columnHelper.accessor("updated_at", {
@@ -252,7 +252,7 @@ const useColumns = () => {
                 includeTime: true,
               })}
             </span>
-          )
+          );
         },
       }),
       columnHelper.display({
@@ -261,5 +261,5 @@ const useColumns = () => {
       }),
     ],
     [t, getFullDate]
-  )
-}
+  );
+};

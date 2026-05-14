@@ -1,8 +1,8 @@
-import { ExclamationCircle, MagnifyingGlass, PlusMini } from "@medusajs/icons"
-import { Button, Text, clx } from "@medusajs/ui"
-import React from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { ExclamationCircle, MagnifyingGlass, PlusMini } from "@medusajs/icons";
+import { Button, Text, clx } from "@medusajs/ui";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export type NoResultsProps = {
   title?: string
@@ -11,7 +11,7 @@ export type NoResultsProps = {
 }
 
 export const NoResults = ({ title, message, className }: NoResultsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div
@@ -30,8 +30,8 @@ export const NoResults = ({ title, message, className }: NoResultsProps) => {
         </Text>
       </div>
     </div>
-  )
-}
+  );
+};
 
 type ActionProps = {
   action?: {
@@ -55,7 +55,7 @@ const DefaultButton = ({ action }: ActionProps) =>
         {action.label}
       </Button>
     </Link>
-  )
+  );
 
 const TransparentIconLeftButton = ({ action }: ActionProps) =>
   action && (
@@ -64,7 +64,7 @@ const TransparentIconLeftButton = ({ action }: ActionProps) =>
         <PlusMini /> {action.label}
       </Button>
     </Link>
-  )
+  );
 
 export const NoRecords = ({
   title,
@@ -74,7 +74,7 @@ export const NoRecords = ({
   buttonVariant = "default",
   icon = <ExclamationCircle className="text-ui-fg-subtle" />,
 }: NoRecordsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div
@@ -102,5 +102,5 @@ export const NoRecords = ({
         <TransparentIconLeftButton action={action} />
       )}
     </div>
-  )
-}
+  );
+};

@@ -1,11 +1,11 @@
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   InformationCircleSolid,
   Plus,
   TriangleDownMini,
   XMark,
   XMarkMini,
-} from "@medusajs/icons"
+} from "@medusajs/icons";
 import {
   Badge,
   Button,
@@ -17,9 +17,9 @@ import {
   Label,
   Text,
   Tooltip,
-} from "@medusajs/ui"
-import { Accordion as RadixAccordion } from "radix-ui"
-import React, { Fragment, ReactNode, useRef, useState } from "react"
+} from "@medusajs/ui";
+import { Accordion as RadixAccordion } from "radix-ui";
+import React, { Fragment, ReactNode, useRef, useState } from "react";
 import {
   Control,
   ControllerRenderProps,
@@ -27,31 +27,31 @@ import {
   useForm,
   useFormContext,
   useWatch,
-} from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
+} from "react-hook-form";
+import { Trans, useTranslation } from "react-i18next";
 
-import { formatValue } from "react-currency-input-field"
-import { Form } from "@components/common/form"
-import { StackedFocusModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCombinedRefs } from "@hooks/use-combined-refs"
-import { castNumber } from "@lib/cast-number"
-import { CurrencyInfo } from "@lib/data/currencies"
-import { getLocaleAmount } from "@lib/money-amount-helpers"
-import { CreateShippingOptionSchemaType } from "../../../location-service-zone-shipping-option-create/components/create-shipping-options-form/schema"
+import { formatValue } from "react-currency-input-field";
+import { Form } from "@components/common/form";
+import { StackedFocusModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCombinedRefs } from "@hooks/use-combined-refs";
+import { castNumber } from "@lib/cast-number";
+import { CurrencyInfo } from "@lib/data/currencies";
+import { getLocaleAmount } from "@lib/money-amount-helpers";
+import { CreateShippingOptionSchemaType } from "../../../location-service-zone-shipping-option-create/components/create-shipping-options-form/schema";
 import {
   CondtionalPriceRuleSchema,
   CondtionalPriceRuleSchemaType,
   UpdateConditionalPriceRuleSchema,
   UpdateConditionalPriceRuleSchemaType,
-} from "../../schema"
-import { ConditionalPriceInfo } from "../../types"
-import { getCustomShippingOptionPriceFieldName } from "../../utils/get-custom-shipping-option-price-field-info"
-import { useShippingOptionPrice } from "../shipping-option-price-provider"
+} from "../../schema";
+import { ConditionalPriceInfo } from "../../types";
+import { getCustomShippingOptionPriceFieldName } from "../../utils/get-custom-shipping-option-price-field-info";
+import { useShippingOptionPrice } from "../shipping-option-price-provider";
 
-const RULE_ITEM_PREFIX = "rule-item"
+const RULE_ITEM_PREFIX = "rule-item";
 
-const getRuleValue = (index: number) => `${RULE_ITEM_PREFIX}-${index}`
+const getRuleValue = (index: number) => `${RULE_ITEM_PREFIX}-${index}`;
 
 interface ConditionalPriceFormProps {
   info: ConditionalPriceInfo
@@ -62,16 +62,16 @@ export const ConditionalPriceForm = ({
   info,
   variant,
 }: ConditionalPriceFormProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { getValues, setValue: setFormValue } =
-    useFormContext<CreateShippingOptionSchemaType>()
-  const { onCloseConditionalPricesModal } = useShippingOptionPrice()
+    useFormContext<CreateShippingOptionSchemaType>();
+  const { onCloseConditionalPricesModal } = useShippingOptionPrice();
 
-  const [value, setValue] = useState<string[]>([getRuleValue(0)])
+  const [value, setValue] = useState<string[]>([getRuleValue(0)]);
 
-  const { field, type, currency, name: header } = info
+  const { field, type, currency, name: header } = info;
 
-  const name = getCustomShippingOptionPriceFieldName(field, type)
+  const name = getCustomShippingOptionPriceFieldName(field, type);
 
   const conditionalPriceForm = useForm<
     CondtionalPriceRuleSchemaType | UpdateConditionalPriceRuleSchemaType
@@ -90,26 +90,26 @@ export const ConditionalPriceForm = ({
         ? CondtionalPriceRuleSchema
         : UpdateConditionalPriceRuleSchema
     ),
-  })
+  });
 
   const { fields, append, remove } = useFieldArray({
     control: conditionalPriceForm.control,
     name: "prices",
-  })
+  });
 
   const handleAdd = () => {
     append({
       amount: "",
       gte: "",
       lte: null,
-    })
+    });
 
-    setValue([...value, getRuleValue(fields.length)])
-  }
+    setValue([...value, getRuleValue(fields.length)]);
+  };
 
   const handleRemove = (index: number) => {
-    remove(index)
-  }
+    remove(index);
+  };
 
   const handleOnSubmit = conditionalPriceForm.handleSubmit(
     (values) => {
@@ -117,33 +117,33 @@ export const ConditionalPriceForm = ({
         shouldDirty: true,
         shouldValidate: true,
         shouldTouch: true,
-      })
-      onCloseConditionalPricesModal()
+      });
+      onCloseConditionalPricesModal();
     },
     (e) => {
-      const indexesWithErrors = Object.keys(e.prices || {})
+      const indexesWithErrors = Object.keys(e.prices || {});
       setValue((prev) => {
-        const values = new Set(prev)
+        const values = new Set(prev);
 
         indexesWithErrors.forEach((index) => {
-          values.add(getRuleValue(Number(index)))
-        })
+          values.add(getRuleValue(Number(index)));
+        });
 
-        return Array.from(values)
-      })
+        return Array.from(values);
+      });
     }
-  )
+  );
 
   // Intercept the Cmd + Enter key to only save the inner form.
   const handleOnKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
     if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
 
-      event.preventDefault()
-      event.stopPropagation()
+      event.preventDefault();
+      event.stopPropagation();
 
-      handleOnSubmit()
+      handleOnSubmit();
     }
-  }
+  };
 
   return (
     <Form {...conditionalPriceForm}>
@@ -219,8 +219,8 @@ export const ConditionalPriceForm = ({
         </StackedFocusModal.Content>
       </KeyboundForm>
     </Form>
-  )
-}
+  );
+};
 
 interface ConditionalPriceListProps {
   children?: ReactNode
@@ -243,8 +243,8 @@ const ConditionalPriceList = ({
     >
       {children}
     </RadixAccordion.Root>
-  )
-}
+  );
+};
 
 interface ConditionalPriceItemProps {
   index: number
@@ -259,12 +259,12 @@ const ConditionalPriceItem = ({
   onRemove,
   control,
 }: ConditionalPriceItemProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    onRemove(index)
-  }
+    e.stopPropagation();
+    onRemove(index);
+  };
 
   return (
     <RadixAccordion.Item
@@ -348,7 +348,7 @@ const ConditionalPriceItem = ({
                   </div>
                 </div>
               </Form.Item>
-            )
+            );
           }}
         />
         <Divider variant="dashed" />
@@ -365,7 +365,7 @@ const ConditionalPriceItem = ({
                 currency={currency}
                 placeholder="1000"
               />
-            )
+            );
           }}
         />
         <Divider variant="dashed" />
@@ -382,7 +382,7 @@ const ConditionalPriceItem = ({
                 currency={currency}
                 placeholder="1000"
               />
-            )
+            );
           }}
         />
         <ReadOnlyConditions
@@ -392,8 +392,8 @@ const ConditionalPriceItem = ({
         />
       </RadixAccordion.Content>
     </RadixAccordion.Item>
-  )
-}
+  );
+};
 
 interface OperatorInputProps<
   TName extends `prices.${number}.lte` | `prices.${number}.gte`
@@ -407,32 +407,32 @@ interface OperatorInputProps<
 const OperatorInput = <
   TName extends `prices.${number}.lte` | `prices.${number}.gte`
 >({
-  field,
-  label,
-  currency,
-  placeholder,
-}: OperatorInputProps<TName>) => {
-  const innerRef = useRef<HTMLInputElement>(null)
+    field,
+    label,
+    currency,
+    placeholder,
+  }: OperatorInputProps<TName>) => {
+  const innerRef = useRef<HTMLInputElement>(null);
 
-  const { value, onChange, ref, ...props } = field
+  const { value, onChange, ref, ...props } = field;
 
-  const refs = useCombinedRefs(innerRef, ref)
+  const refs = useCombinedRefs(innerRef, ref);
 
   const action = () => {
     if (value === null) {
-      onChange("")
+      onChange("");
 
       requestAnimationFrame(() => {
-        innerRef.current?.focus()
-      })
+        innerRef.current?.focus();
+      });
 
-      return
+      return;
     }
 
-    onChange(null)
-  }
+    onChange(null);
+  };
 
-  const isNull = value === null
+  const isNull = value === null;
 
   return (
     <Form.Item>
@@ -468,8 +468,8 @@ const OperatorInput = <
         )}
       </div>
     </Form.Item>
-  )
-}
+  );
+};
 
 const ReadOnlyConditions = ({
   index,
@@ -480,15 +480,15 @@ const ReadOnlyConditions = ({
   control: Control<CondtionalPriceRuleSchemaType>
   currency: CurrencyInfo
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const item = useWatch({
     control,
     name: `prices.${index}`,
-  })
+  });
 
   if (item.eq == null && item.gt == null && item.lt == null) {
-    return null
+    return null;
   }
 
   return (
@@ -571,8 +571,8 @@ const ReadOnlyConditions = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const AmountDisplay = ({
   index,
@@ -586,30 +586,30 @@ const AmountDisplay = ({
   const amount = useWatch({
     control,
     name: `prices.${index}.amount`,
-  })
+  });
 
   if (amount === "" || amount === undefined) {
     return (
       <Text size="small" weight="plus">
         -
       </Text>
-    )
+    );
   }
 
-  const castAmount = castNumber(amount)
+  const castAmount = castNumber(amount);
 
   return (
     <Text size="small" weight="plus">
       {getLocaleAmount(castAmount, currency.code)}
     </Text>
-  )
-}
+  );
+};
 
 const ConditionContainer = ({ children }: { children: ReactNode }) => (
   <div className="text-ui-fg-subtle txt-small flex flex-wrap items-center gap-1.5">
     {children}
   </div>
-)
+);
 
 const ConditionDisplay = ({
   index,
@@ -620,24 +620,24 @@ const ConditionDisplay = ({
   currency: CurrencyInfo
   control: Control<CondtionalPriceRuleSchemaType>
 }) => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
 
   const gte = useWatch({
     control,
     name: `prices.${index}.gte`,
-  })
+  });
 
   const lte = useWatch({
     control,
     name: `prices.${index}.lte`,
-  })
+  });
 
   const renderCondition = () => {
-    const castGte = gte ? castNumber(gte) : undefined
-    const castLte = lte ? castNumber(lte) : undefined
+    const castGte = gte ? castNumber(gte) : undefined;
+    const castLte = lte ? castNumber(lte) : undefined;
 
     if (!castGte && !castLte) {
-      return null
+      return null;
     }
 
     if (castGte && !castLte) {
@@ -658,7 +658,7 @@ const ConditionDisplay = ({
             }}
           />
         </ConditionContainer>
-      )
+      );
     }
 
     if (!castGte && castLte) {
@@ -679,7 +679,7 @@ const ConditionDisplay = ({
             }}
           />
         </ConditionContainer>
-      )
+      );
     }
 
     if (castGte && castLte) {
@@ -702,11 +702,11 @@ const ConditionDisplay = ({
             }}
           />
         </ConditionContainer>
-      )
+      );
     }
 
-    return null
-  }
+    return null;
+  };
 
-  return renderCondition()
-}
+  return renderCondition();
+};

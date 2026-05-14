@@ -1,8 +1,8 @@
-import { LoaderFunctionArgs } from "react-router-dom"
+import { LoaderFunctionArgs } from "react-router-dom";
 
-import { attributesQueryKeys } from "../../../hooks/api"
-import { sdk } from "../../../lib/client"
-import { queryClient } from "../../../lib/query-client"
+import { attributesQueryKeys } from "../../../hooks/api";
+import { sdk } from "../../../lib/client";
+import { queryClient } from "../../../lib/query-client";
 
 const attributeListQuery = () => ({
   queryKey: attributesQueryKeys.lists(),
@@ -12,13 +12,13 @@ const attributeListQuery = () => ({
       offset: 0,
       fields: "*possible_values,*product_categories",
     }),
-})
+});
 
 export const attributeListLoader = async (_args: LoaderFunctionArgs) => {
-  const query = attributeListQuery()
+  const query = attributeListQuery();
 
   return (
     queryClient.getQueryData<any>(query.queryKey) ??
     (await queryClient.fetchQuery(query))
-  )
-}
+  );
+};

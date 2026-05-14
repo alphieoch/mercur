@@ -15,15 +15,15 @@ export const DEFAULT_PROPERTIES = [
   "orders.fulfillment_status",
   "orders.total",
   "orders.currency_code",
-]
+];
 
 export const DEFAULT_RELATIONS = [
   "*orders.payment_collections",
   "*orders.customer",
   "*orders.sales_channel",
   "*orders.seller",
-]
+];
 
 export const DEFAULT_FIELDS = `${DEFAULT_PROPERTIES.join(
   ","
-)},${DEFAULT_RELATIONS.join(",")}`
+)},${DEFAULT_RELATIONS.join(",")}`;

@@ -1,6 +1,6 @@
-import { Children, ReactNode, useEffect, useMemo } from "react"
+import { Children, ReactNode, useEffect, useMemo } from "react";
 
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import type {
   ApplicationMethodAllocationValues,
   ApplicationMethodTargetTypeValues,
@@ -8,21 +8,21 @@ import type {
   PromotionRuleOperatorValues,
   PromotionStatusValues,
   PromotionTypeValues,
-} from "@medusajs/types"
-import { toast } from "@medusajs/ui"
-import { DeepPartial, useForm, useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+} from "@medusajs/types";
+import { toast } from "@medusajs/ui";
+import { DeepPartial, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { useRouteModal } from "../../../../../components/modals"
-import { TabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { useCreatePromotion } from "../../../../../hooks/api/promotions"
-import { DEFAULT_CAMPAIGN_VALUES } from "../../../../campaigns/common/constants"
-import { CreatePromotionSchema, CreatePromotionSchemaType } from "./form-schema"
-import { PromotionCampaignTab } from "./promotion-campaign-tab"
-import { PromotionDetailsTab } from "./promotion-details-tab"
-import { PromotionTemplateTab } from "./promotion-template-tab"
-import { templates } from "./templates"
+import { useRouteModal } from "../../../../../components/modals";
+import { TabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { useCreatePromotion } from "../../../../../hooks/api/promotions";
+import { DEFAULT_CAMPAIGN_VALUES } from "../../../../campaigns/common/constants";
+import { CreatePromotionSchema, CreatePromotionSchemaType } from "./form-schema";
+import { PromotionCampaignTab } from "./promotion-campaign-tab";
+import { PromotionDetailsTab } from "./promotion-details-tab";
+import { PromotionTemplateTab } from "./promotion-template-tab";
+import { templates } from "./templates";
 
 const PROMOTION_CREATE_DEFAULTS = {
   campaign_id: undefined,
@@ -43,7 +43,7 @@ const PROMOTION_CREATE_DEFAULTS = {
     buy_rules: [],
   },
   campaign: undefined,
-}
+};
 
 type CreatePromotionFormProps = {
   children?: ReactNode
@@ -56,8 +56,8 @@ export function CreatePromotionForm({
   schema,
   defaultValues: extraDefaults,
 }: CreatePromotionFormProps) {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<CreatePromotionSchemaType>({
     defaultValues: {
@@ -65,19 +65,19 @@ export function CreatePromotionForm({
       ...extraDefaults,
     },
     resolver: zodResolver(schema ?? CreatePromotionSchema),
-  })
-  const { setValue, reset, getValues } = form
+  });
+  const { setValue, reset, getValues } = form;
 
   const { mutateAsync: createPromotion, isPending: isLoading } =
-    useCreatePromotion()
+    useCreatePromotion();
 
   const handleSubmit = form.handleSubmit(
     async (data) => {
       if (data.campaign_choice === "existing" && !data.campaign_id) {
         form.setError("campaign_id", {
           message: t("promotions.errors.requiredField"),
-        })
-        return
+        });
+        return;
       }
       const {
         campaign_choice: _campaignChoice,
@@ -87,31 +87,31 @@ export function CreatePromotionForm({
         application_method,
         rules,
         ...promotionData
-      } = data
+      } = data;
       const {
         target_rules: targetRulesData = [],
         buy_rules: buyRulesData = [],
         ...applicationMethodData
-      } = application_method
+      } = application_method;
       const allocationTyped =
-        applicationMethodData.allocation as ApplicationMethodAllocationValues
+        applicationMethodData.allocation as ApplicationMethodAllocationValues;
 
       const disguisedRules = [
         ...targetRulesData.filter((r) => !!r.disguised),
         ...buyRulesData.filter((r) => !!r.disguised),
         ...rules.filter((r) => !!r.disguised),
-      ]
+      ];
 
       const applicationMethodRuleData: Record<
         string,
         string | number | string[]
-      > = {}
+      > = {};
 
       for (const rule of disguisedRules) {
         applicationMethodRuleData[rule.attribute] =
           rule.field_type === "number"
             ? parseInt(rule.values as string)
-            : rule.values
+            : rule.values;
       }
 
       const buildRulesData = (
@@ -128,15 +128,15 @@ export function CreatePromotionForm({
             operator: rule.operator as PromotionRuleOperatorValues,
             attribute: rule.attribute,
             values: rule.values as string | string[],
-          }))
-      }
+          }));
+      };
 
       if (data.campaign) {
         data.campaign.budget.attribute =
-          data.campaign.budget.attribute || null
+          data.campaign.budget.attribute || null;
         data.campaign.budget.type = data.campaign.budget.attribute
           ? "use_by_attribute"
-          : data.campaign.budget.type
+          : data.campaign.budget.type;
       }
 
       await createPromotion(
@@ -164,46 +164,46 @@ export function CreatePromotionForm({
               t("promotions.toasts.promotionCreateSuccess", {
                 code: promotion.code,
               })
-            )
+            );
 
-            handleSuccess(`/promotions/${promotion.id}`)
+            handleSuccess(`/promotions/${promotion.id}`);
           },
           onError: (e) => {
-            toast.error(e.message)
+            toast.error(e.message);
           },
         }
-      )
+      );
     },
     async (error) => {
-      const { campaign: _campaign, ...rest } = error || {}
-      const errorInPromotionTab = !!Object.keys(rest || {}).length
+      const { campaign: _campaign, ...rest } = error || {};
+      const errorInPromotionTab = !!Object.keys(rest || {}).length;
 
       if (errorInPromotionTab) {
-        toast.error(t("promotions.errors.promotionTabError"))
+        toast.error(t("promotions.errors.promotionTabError"));
       }
     }
-  )
+  );
 
   // Template selection: reset form and apply template defaults
   const watchTemplateId = useWatch({
     control: form.control,
     name: "template_id",
-  })
+  });
 
   const currentTemplate = useMemo(() => {
     const currentTemplate = templates.find(
       (template) => template.id === watchTemplateId
-    )
+    );
 
     if (!currentTemplate) {
-      return
+      return;
     }
 
     reset({
       ...PROMOTION_CREATE_DEFAULTS,
       ...extraDefaults,
       template_id: watchTemplateId,
-    })
+    });
 
     for (const [key, value] of Object.entries(currentTemplate.defaults)) {
       if (typeof value === "object") {
@@ -211,34 +211,34 @@ export function CreatePromotionForm({
           value as Record<string, unknown>
         )) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          setValue(`application_method.${subKey}` as any, subValue as any)
+          setValue(`application_method.${subKey}` as any, subValue as any);
         }
       } else {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setValue(key as any, value as any)
+        setValue(key as any, value as any);
       }
     }
 
-    return currentTemplate
+    return currentTemplate;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watchTemplateId, setValue, reset])
+  }, [watchTemplateId, setValue, reset]);
 
   // Campaign choice effects
   const watchCampaignChoice = useWatch({
     control: form.control,
     name: "campaign_choice",
-  })
+  });
 
   useEffect(() => {
-    const formData = getValues()
+    const formData = getValues();
 
     if (watchCampaignChoice !== "existing") {
-      setValue("campaign_id", undefined)
-      form.clearErrors("campaign_id")
+      setValue("campaign_id", undefined);
+      form.clearErrors("campaign_id");
     }
 
     if (watchCampaignChoice !== "new") {
-      setValue("campaign", undefined)
+      setValue("campaign", undefined);
     }
 
     if (watchCampaignChoice === "new") {
@@ -250,28 +250,28 @@ export function CreatePromotionForm({
             type: DEFAULT_CAMPAIGN_VALUES.budget.type as "spend" | "usage" | "use_by_attribute",
             currency_code: formData.application_method.currency_code,
           },
-        })
+        });
       }
     }
-  }, [watchCampaignChoice, getValues, setValue, form])
+  }, [watchCampaignChoice, getValues, setValue, form]);
 
   // Currency rule syncing
   const watchRules = useWatch({
     control: form.control,
     name: "rules",
-  })
+  });
 
   const watchCurrencyRule = watchRules.find(
     (rule) => rule.attribute === "currency_code"
-  )
+  );
 
   if (watchCurrencyRule) {
-    const formData = form.getValues()
-    const currencyCode = formData.application_method.currency_code
-    const ruleValue = watchCurrencyRule.values
+    const formData = form.getValues();
+    const currencyCode = formData.application_method.currency_code;
+    const ruleValue = watchCurrencyRule.values;
 
     if (!Array.isArray(ruleValue) && currencyCode !== ruleValue) {
-      form.setValue("application_method.currency_code", ruleValue as string)
+      form.setValue("application_method.currency_code", ruleValue as string);
     }
   }
 
@@ -282,9 +282,9 @@ export function CreatePromotionForm({
       <PromotionCampaignTab key="campaign" />,
     ],
     [currentTemplate]
-  )
+  );
 
-  const hasCustomChildren = Children.count(children) > 0
+  const hasCustomChildren = Children.count(children) > 0;
 
   return (
     <TabbedForm
@@ -294,7 +294,7 @@ export function CreatePromotionForm({
     >
       {hasCustomChildren ? children : defaultTabs}
     </TabbedForm>
-  )
+  );
 }
 
-export type { CreatePromotionSchemaType }
+export type { CreatePromotionSchemaType };

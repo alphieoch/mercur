@@ -1,21 +1,21 @@
-import { clx, Select } from "@medusajs/ui"
-import { Controller, ControllerRenderProps } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { clx, Select } from "@medusajs/ui";
+import { Controller, ControllerRenderProps } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { useCombinedRefs } from "../../../hooks/use-combined-refs"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { DataGridCellProps, InputProps } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { useCombinedRefs } from "../../../hooks/use-combined-refs";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { DataGridCellProps, InputProps } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 export const DataGridStatusCell = <TData, TValue = any>({
   context,
 }: DataGridCellProps<TData, TValue>) => {
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
-  const errorProps = useDataGridCellError({ context })
+  });
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
+  const { container, input } = renderProps;
 
   return (
     <Controller
@@ -30,11 +30,11 @@ export const DataGridStatusCell = <TData, TValue = any>({
               isAnchor={container.isAnchor}
             />
           </DataGridCellContainer>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -45,17 +45,17 @@ const Inner = ({
   inputProps: InputProps
   isAnchor: boolean
 }) => {
-  const { t } = useTranslation()
-  const { ref, value, onChange, onBlur } = field
+  const { t } = useTranslation();
+  const { ref, value, onChange, onBlur } = field;
   const {
     ref: inputRef,
     onBlur: onInputBlur,
     onFocus,
     onChange: _onChange,
     ...attributes
-  } = inputProps
+  } = inputProps;
 
-  const combinedRefs = useCombinedRefs(ref, inputRef)
+  const combinedRefs = useCombinedRefs(ref, inputRef);
 
   const options = [
     {
@@ -66,13 +66,13 @@ const Inner = ({
       label: t("products.productStatus.published"),
       value: "published",
     },
-  ]
+  ];
 
   return (
     <Select
       value={value}
       onValueChange={(newValue) => {
-        onChange(newValue)
+        onChange(newValue);
       }}
     >
       <Select.Trigger
@@ -86,8 +86,8 @@ const Inner = ({
         }
         onFocus={onFocus}
         onBlur={() => {
-          onBlur()
-          onInputBlur()
+          onBlur();
+          onInputBlur();
         }}
         {...attributes}
       >
@@ -101,5 +101,5 @@ const Inner = ({
         ))}
       </Select.Content>
     </Select>
-  )
-}
+  );
+};

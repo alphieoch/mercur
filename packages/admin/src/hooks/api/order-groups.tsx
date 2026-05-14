@@ -2,13 +2,13 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
-import { QueryKey, UseQueryOptions, useQuery } from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+} from "@mercurjs/client";
+import { QueryKey, UseQueryOptions, useQuery } from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const ORDER_GROUPS_QUERY_KEY = "order_groups" as const
-export const orderGroupsQueryKeys = queryKeysFactory(ORDER_GROUPS_QUERY_KEY)
+const ORDER_GROUPS_QUERY_KEY = "order_groups" as const;
+export const orderGroupsQueryKeys = queryKeysFactory(ORDER_GROUPS_QUERY_KEY);
 
 export const useOrderGroup = (
   id: string,
@@ -30,10 +30,10 @@ export const useOrderGroup = (
     queryFn: () => sdk.admin.orderGroups.$id.query({ $id: id, ...query }),
     queryKey: orderGroupsQueryKeys.detail(id),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useOrderGroupByOrderId = (
   orderId: string,
@@ -53,10 +53,10 @@ export const useOrderGroupByOrderId = (
       sdk.admin.orders.$id.orderGroup.query({ $id: orderId, ...query }),
     queryKey: orderGroupsQueryKeys.detail(`order-${orderId}`),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useOrderGroups = (
   query?: InferClientInput<typeof sdk.admin.orderGroups.query>,
@@ -74,7 +74,7 @@ export const useOrderGroups = (
     queryFn: () => sdk.admin.orderGroups.query({ ...query }),
     queryKey: orderGroupsQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};

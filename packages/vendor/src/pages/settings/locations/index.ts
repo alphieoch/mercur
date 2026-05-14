@@ -1,2 +1,2 @@
-export { shippingListLoader as loader } from './loader'
-export * from './location-list-page'
+export { shippingListLoader as loader } from './loader';
+export * from './location-list-page';

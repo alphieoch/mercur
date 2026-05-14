@@ -116,9 +116,9 @@ export const EditRulesWrapper = ({
         const message =
           error instanceof ClientError
             ? error.message.replace(
-                /(\w+_\w+)/g,
-                (match) => `"${match.replace(/_/g, " ")}"`,
-              )
+              /(\w+_\w+)/g,
+              (match) => `"${match.replace(/_/g, " ")}"`,
+            )
             : "An error occurred";
         toast.error(message);
       }

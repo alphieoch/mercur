@@ -1,13 +1,13 @@
-import { Channels, PencilSquare } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Channels, PencilSquare } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { NoRecords } from "../../../../../components/common/empty-table-content"
-import { IconAvatar } from "../../../../../components/common/icon-avatar"
-import { ListSummary } from "../../../../../components/common/list-summary"
-import { useSalesChannels } from "../../../../../hooks/api/sales-channels"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { NoRecords } from "../../../../../components/common/empty-table-content";
+import { IconAvatar } from "../../../../../components/common/icon-avatar";
+import { ListSummary } from "../../../../../components/common/list-summary";
+import { useSalesChannels } from "../../../../../hooks/api/sales-channels";
 
 type LocationsSalesChannelsSectionProps = {
   location: HttpTypes.AdminStockLocation
@@ -16,10 +16,10 @@ type LocationsSalesChannelsSectionProps = {
 function LocationsSalesChannelsSection({
   location,
 }: LocationsSalesChannelsSectionProps) {
-  const { t } = useTranslation()
-  const { count } = useSalesChannels({ limit: 1, fields: "id" })
+  const { t } = useTranslation();
+  const { count } = useSalesChannels({ limit: 1, fields: "id" });
 
-  const hasConnectedChannels = !!location.sales_channels?.length
+  const hasConnectedChannels = !!location.sales_channels?.length;
 
   return (
     <Container className="flex flex-col px-6 py-4" data-testid="location-sales-channels-section-container">
@@ -73,7 +73,7 @@ function LocationsSalesChannelsSection({
         />
       )}
     </Container>
-  )
+  );
 }
 
-export default LocationsSalesChannelsSection
+export default LocationsSalesChannelsSection;

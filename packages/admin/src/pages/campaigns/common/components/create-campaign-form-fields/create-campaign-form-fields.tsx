@@ -7,62 +7,62 @@ import {
   Select,
   Text,
   Textarea,
-} from "@medusajs/ui"
-import { useEffect } from "react"
-import { useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { useEffect } from "react";
+import { useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "../../../../../components/common/form"
-import { useStore } from "../../../../../hooks/api/store"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
+import { Form } from "../../../../../components/common/form";
+import { useStore } from "../../../../../hooks/api/store";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
 import {
   currencies,
   getCurrencySymbol,
-} from "../../../../../lib/data/currencies"
-import { Combobox } from "../../../../../components/inputs/combobox"
+} from "../../../../../lib/data/currencies";
+import { Combobox } from "../../../../../components/inputs/combobox";
 
 export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
-  const { t } = useTranslation()
-  const { store } = useStore()
-  const direction = useDocumentDirection()
+  const { t } = useTranslation();
+  const { store } = useStore();
+  const direction = useDocumentDirection();
   const watchValueType = useWatch({
     control: form.control,
     name: `${fieldScope}budget.type`,
-  })
+  });
 
-  const isTypeSpend = watchValueType === "spend"
+  const isTypeSpend = watchValueType === "spend";
 
   const currencyValue = useWatch({
     control: form.control,
     name: `${fieldScope}budget.currency_code`,
-  })
+  });
 
   const promotionCurrencyValue = useWatch({
     control: form.control,
     name: `application_method.currency_code`,
-  })
+  });
 
-  const currency = currencyValue || promotionCurrencyValue
+  const currency = currencyValue || promotionCurrencyValue;
 
   useEffect(() => {
-    form.setValue(`${fieldScope}budget.limit`, null)
+    form.setValue(`${fieldScope}budget.limit`, null);
 
     if (isTypeSpend) {
-      form.setValue(`campaign.budget.currency_code`, promotionCurrencyValue)
+      form.setValue(`campaign.budget.currency_code`, promotionCurrencyValue);
     } else {
-      form.setValue(`campaign.budget.currency_code`, null)
+      form.setValue(`campaign.budget.currency_code`, null);
     }
-  }, [promotionCurrencyValue, isTypeSpend])
+  }, [promotionCurrencyValue, isTypeSpend]);
 
   if (promotionCurrencyValue) {
-    const formCampaignBudget = form.getValues().campaign?.budget
-    const formCampaignCurrency = formCampaignBudget?.currency_code
+    const formCampaignBudget = form.getValues().campaign?.budget;
+    const formCampaignCurrency = formCampaignBudget?.currency_code;
 
     if (
       formCampaignBudget?.type === "spend" &&
       formCampaignCurrency !== promotionCurrencyValue
     ) {
-      form.setValue("campaign.budget.currency_code", promotionCurrencyValue)
+      form.setValue("campaign.budget.currency_code", promotionCurrencyValue);
     }
   }
 
@@ -92,7 +92,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
 
                   <Form.ErrorMessage data-testid="campaign-create-form-fields-name-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
 
@@ -110,7 +110,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
 
                   <Form.ErrorMessage data-testid="campaign-create-form-fields-identifier-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
@@ -129,7 +129,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
 
                 <Form.ErrorMessage data-testid="campaign-create-form-fields-description-error" />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -156,7 +156,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
 
                 <Form.ErrorMessage data-testid="campaign-create-form-fields-starts-at-error" />
               </Form.Item>
-            )
+            );
           }}
         />
 
@@ -181,7 +181,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
 
                 <Form.ErrorMessage data-testid="campaign-create-form-fields-ends-at-error" />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -238,7 +238,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
               </Form.Control>
               <Form.ErrorMessage data-testid="campaign-create-form-fields-budget-type-error" />
             </Form.Item>
-          )
+          );
         }}
       />
 
@@ -296,7 +296,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="campaign-create-form-fields-budget-currency-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         )}
@@ -346,7 +346,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
                           e.target.value === ""
                             ? null
                             : parseInt(e.target.value)
-                        )
+                        );
                       }}
                       data-testid="campaign-create-form-fields-budget-limit-number-input"
                     />
@@ -354,7 +354,7 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
                 </Form.Control>
                 <Form.ErrorMessage data-testid="campaign-create-form-fields-budget-limit-error" />
               </Form.Item>
-            )
+            );
           }}
         />
 
@@ -380,9 +380,9 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
                       {...field}
                       onChange={(e) => {
                         if (typeof e === "undefined") {
-                          field.onChange(null)
+                          field.onChange(null);
                         } else {
-                          field.onChange(e)
+                          field.onChange(e);
                         }
                       }}
                       allowClear
@@ -405,11 +405,11 @@ export const CreateCampaignFormFields = ({ form, fieldScope = "" }) => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="campaign-create-form-fields-budget-attribute-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         )}
       </div>
     </div>
-  )
-}
+  );
+};

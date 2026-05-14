@@ -1,8 +1,8 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from "react"
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 
-import { ThumbnailBadge } from "@medusajs/icons"
-import { Checkbox, clx, CommandBar, Tooltip } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { ThumbnailBadge } from "@medusajs/icons";
+import { Checkbox, clx, CommandBar, Tooltip } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 type MediaItem = {
   file?: File
@@ -29,22 +29,22 @@ export const EditVariantMediaForm = ({
   initialMedia = [],
   productMedia = [],
 }: EditVariantMediaFormProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [selectedUrls, setSelectedUrls] = useState<Set<string>>(
     () => new Set(initialMedia.filter((m) => m.url).map((m) => m.url!))
-  )
+  );
 
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(
     () => {
-      const thumb = initialMedia.find((m) => m.isThumbnail)
-      return thumb?.url ?? null
+      const thumb = initialMedia.find((m) => m.isThumbnail);
+      return thumb?.url ?? null;
     }
-  )
+  );
 
   const [checkedUrls, setCheckedUrls] = useState<
     Record<string, true>
-  >({})
+  >({});
 
   const availableMedia = useMemo(
     () =>
@@ -52,96 +52,96 @@ export const EditVariantMediaForm = ({
         (m): m is MediaItem & { url: string } => !!m.url
       ),
     [productMedia]
-  )
+  );
 
   const selectedImages = useMemo(
     () => availableMedia.filter((m) => selectedUrls.has(m.url)),
     [availableMedia, selectedUrls]
-  )
+  );
 
   const unselectedImages = useMemo(
     () => availableMedia.filter((m) => !selectedUrls.has(m.url)),
     [availableMedia, selectedUrls]
-  )
+  );
 
   const handleSelectImage = useCallback((url: string) => {
     setSelectedUrls((prev) => {
-      const next = new Set(prev)
-      next.add(url)
-      return next
-    })
-  }, [])
+      const next = new Set(prev);
+      next.add(url);
+      return next;
+    });
+  }, []);
 
   const handleDeselectImage = useCallback(
     (url: string) => {
       setSelectedUrls((prev) => {
-        const next = new Set(prev)
-        next.delete(url)
-        return next
-      })
+        const next = new Set(prev);
+        next.delete(url);
+        return next;
+      });
 
       if (thumbnailUrl === url) {
-        setThumbnailUrl(null)
+        setThumbnailUrl(null);
       }
 
-      const { [url]: _, ...restChecked } = checkedUrls
-      setCheckedUrls(restChecked)
+      const { [url]: _, ...restChecked } = checkedUrls;
+      setCheckedUrls(restChecked);
     },
     [thumbnailUrl, checkedUrls]
-  )
+  );
 
   const handleCheckedChange = useCallback(
     (url: string, value: boolean) => {
       if (!value) {
-        const { [url]: _, ...rest } = checkedUrls
-        setCheckedUrls(rest)
-        return
+        const { [url]: _, ...rest } = checkedUrls;
+        setCheckedUrls(rest);
+        return;
       }
-      setCheckedUrls((prev) => ({ ...prev, [url]: true }))
+      setCheckedUrls((prev) => ({ ...prev, [url]: true }));
     },
     [checkedUrls]
-  )
+  );
 
   const handlePromoteToThumbnail = useCallback(() => {
-    const urls = Object.keys(checkedUrls)
+    const urls = Object.keys(checkedUrls);
     if (urls.length !== 1) {
-      return
+      return;
     }
-    setThumbnailUrl(urls[0])
-    setCheckedUrls({})
-  }, [checkedUrls])
+    setThumbnailUrl(urls[0]);
+    setCheckedUrls({});
+  }, [checkedUrls]);
 
   const getEffectiveThumbnailUrl = useCallback(() => {
     if (selectedUrls.size === 0) {
-      return null
+      return null;
     }
     if (thumbnailUrl && selectedUrls.has(thumbnailUrl)) {
-      return thumbnailUrl
+      return thumbnailUrl;
     }
-    return [...selectedUrls][0]
-  }, [selectedUrls, thumbnailUrl])
+    return [...selectedUrls][0];
+  }, [selectedUrls, thumbnailUrl]);
 
   const handleSave = useCallback(() => {
-    const effectiveThumb = getEffectiveThumbnailUrl()
+    const effectiveThumb = getEffectiveThumbnailUrl();
     const media: MediaItem[] = [...selectedUrls].map((url) => ({
       url,
       isThumbnail: url === effectiveThumb,
-    }))
-    onSaveMedia?.(variantIndex, media)
-    onClose?.()
+    }));
+    onSaveMedia?.(variantIndex, media);
+    onClose?.();
   }, [
     getEffectiveThumbnailUrl,
     selectedUrls,
     onSaveMedia,
     variantIndex,
     onClose,
-  ])
+  ]);
 
   useEffect(() => {
-    saveRef.current = handleSave
-  }, [handleSave, saveRef])
+    saveRef.current = handleSave;
+  }, [handleSave, saveRef]);
 
-  const checkedCount = Object.keys(checkedUrls).length
+  const checkedCount = Object.keys(checkedUrls).length;
 
   return (
     <div className="flex size-full flex-col overflow-hidden">
@@ -149,8 +149,8 @@ export const EditVariantMediaForm = ({
         <div className="flex-1 overflow-auto bg-ui-bg-subtle p-6">
           <div className="flex flex-wrap content-start gap-6">
             {selectedImages.map((img) => {
-              const effectiveThumb = getEffectiveThumbnailUrl()
-              const isThumb = img.url === effectiveThumb
+              const effectiveThumb = getEffectiveThumbnailUrl();
+              const isThumb = img.url === effectiveThumb;
 
               return (
                 <SelectedImageCard
@@ -162,7 +162,7 @@ export const EditVariantMediaForm = ({
                     handleCheckedChange(img.url, val)
                   }
                 />
-              )
+              );
             })}
           </div>
         </div>
@@ -212,8 +212,8 @@ export const EditVariantMediaForm = ({
             action={() => {
               Object.keys(checkedUrls).forEach((url) =>
                 handleDeselectImage(url)
-              )
-              setCheckedUrls({})
+              );
+              setCheckedUrls({});
             }}
             label={t("actions.remove")}
             shortcut="r"
@@ -221,8 +221,8 @@ export const EditVariantMediaForm = ({
         </CommandBar.Bar>
       </CommandBar>
     </div>
-  )
-}
+  );
+};
 
 type SelectedImageCardProps = {
   image: MediaItem & { url: string }
@@ -237,7 +237,7 @@ const SelectedImageCard = ({
   checked,
   onCheckedChange,
 }: SelectedImageCardProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div
@@ -274,8 +274,8 @@ const SelectedImageCard = ({
         className="size-full object-cover object-center"
       />
     </div>
-  )
-}
+  );
+};
 
 type UnselectedImageCardProps = {
   image: MediaItem & { url: string }
@@ -286,7 +286,7 @@ const UnselectedImageCard = ({
   image,
   onSelect,
 }: UnselectedImageCardProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <button
@@ -306,5 +306,5 @@ const UnselectedImageCard = ({
         className="size-full object-cover object-center"
       />
     </button>
-  )
-}
+  );
+};

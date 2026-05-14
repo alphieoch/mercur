@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { TaxRegionListDataTable } from "./tax-region-list-data-table"
-import { TaxRegionListHeader } from "./tax-region-list-header"
+import { TaxRegionListDataTable } from "./tax-region-list-data-table";
+import { TaxRegionListHeader } from "./tax-region-list-header";
 
-export { TaxRegionListDataTable } from "./tax-region-list-data-table"
+export { TaxRegionListDataTable } from "./tax-region-list-data-table";
 export {
   TaxRegionListHeader,
   TaxRegionListTitle,
   TaxRegionListActions,
-} from "./tax-region-list-header"
+} from "./tax-region-list-header";
 
 export const TaxRegionListView = ({
   children,
@@ -27,5 +27,5 @@ export const TaxRegionListView = ({
         </>
       )}
     </Container>
-  )
-}
+  );
+};

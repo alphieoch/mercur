@@ -1,4 +1,4 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
+import { PencilSquare, Trash } from "@medusajs/icons";
 import {
   Button,
   Container,
@@ -8,18 +8,18 @@ import {
   Text,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+} from "@medusajs/ui";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { NoRecords } from "../../../../../components/common/empty-table-content"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { TextCell } from "../../../../../components/table/table-cells/common/text-cell"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useUpdateAttribute } from "../../../../../hooks/api/attributes"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { NoRecords } from "../../../../../components/common/empty-table-content";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { TextCell } from "../../../../../components/table/table-cells/common/text-cell";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useUpdateAttribute } from "../../../../../hooks/api/attributes";
 
 type AttributePossibleValuesSectionProps = {
   attribute: Record<string, any>
@@ -32,10 +32,10 @@ const PossibleValueActions = ({
   value: Record<string, any>
   attribute: Record<string, any>
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync } = useUpdateAttribute(attribute.id)
-  const [inUseOpen, setInUseOpen] = useState(false)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync } = useUpdateAttribute(attribute.id);
+  const [inUseOpen, setInUseOpen] = useState(false);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -45,31 +45,31 @@ const PossibleValueActions = ({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
-    if (!res) return
+    if (!res) return;
 
     const remainingValues = (attribute.possible_values ?? [])
       .filter((pv: any) => pv.id !== value.id)
-      .map((pv: any) => ({ id: pv.id, value: pv.value, rank: pv.rank }))
+      .map((pv: any) => ({ id: pv.id, value: pv.value, rank: pv.rank }));
 
     try {
-      await mutateAsync({ possible_values: remainingValues })
+      await mutateAsync({ possible_values: remainingValues });
       toast.success(
         t("attributes.deletePossibleValue.successToast", {
           value: value.value,
         })
-      )
+      );
     } catch (err: any) {
-      const isInUse = err.message?.includes("can't be deleted")
+      const isInUse = err.message?.includes("can't be deleted");
 
       if (isInUse) {
-        setInUseOpen(true)
+        setInUseOpen(true);
       } else {
-        toast.error(err.message)
+        toast.error(err.message);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -115,26 +115,26 @@ const PossibleValueActions = ({
         </Prompt.Content>
       </Prompt>
     </>
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<any>()
+const columnHelper = createColumnHelper<any>();
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const AttributePossibleValuesSection = ({
   attribute,
 }: AttributePossibleValuesSectionProps) => {
-  const { t } = useTranslation()
-  const [search, setSearch] = useState("")
+  const { t } = useTranslation();
+  const [search, setSearch] = useState("");
 
-  const allValues = attribute.possible_values ?? []
+  const allValues = attribute.possible_values ?? [];
 
   const filtered = useMemo(() => {
-    if (!search) return allValues
-    const q = search.toLowerCase()
-    return allValues.filter((v: any) => v.value?.toLowerCase().includes(q))
-  }, [allValues, search])
+    if (!search) return allValues;
+    const q = search.toLowerCase();
+    return allValues.filter((v: any) => v.value?.toLowerCase().includes(q));
+  }, [allValues, search]);
 
   const columns = useMemo(
     () => [
@@ -154,7 +154,7 @@ export const AttributePossibleValuesSection = ({
       }),
     ],
     [t, attribute]
-  )
+  );
 
   const { table } = useDataTable({
     data: filtered,
@@ -162,7 +162,7 @@ export const AttributePossibleValuesSection = ({
     columns,
     getRowId: (row: any) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   return (
     <Container className="divide-y p-0">
@@ -209,5 +209,5 @@ export const AttributePossibleValuesSection = ({
         />
       )}
     </Container>
-  )
-}
+  );
+};

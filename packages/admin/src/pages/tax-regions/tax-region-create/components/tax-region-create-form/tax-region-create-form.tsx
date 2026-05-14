@@ -1,24 +1,24 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { InformationCircleSolid } from "@medusajs/icons"
-import { Button, Heading, Input, Text, toast, Tooltip } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Form } from "../../../../../components/common/form"
-import { CountrySelect } from "../../../../../components/inputs/country-select"
-import { PercentageInput } from "../../../../../components/inputs/percentage-input"
+import { InformationCircleSolid } from "@medusajs/icons";
+import { Button, Heading, Input, Text, toast, Tooltip } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Form } from "../../../../../components/common/form";
+import { CountrySelect } from "../../../../../components/inputs/country-select";
+import { PercentageInput } from "../../../../../components/inputs/percentage-input";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateTaxRegion } from "../../../../../hooks/api"
-import { useComboboxData } from "../../../../../hooks/use-combobox-data"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { formatProvider } from "../../../../../lib/format-provider"
-import { sdk } from "../../../../../lib/client"
-import { i18n } from "../../../../../components/utilities/i18n"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateTaxRegion } from "../../../../../hooks/api";
+import { useComboboxData } from "../../../../../hooks/use-combobox-data";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { formatProvider } from "../../../../../lib/format-provider";
+import { sdk } from "../../../../../lib/client";
+import { i18n } from "../../../../../components/utilities/i18n";
 
 type TaxRegionCreateFormProps = {
   parentId?: string
@@ -41,7 +41,7 @@ const TaxRegionCreateSchema = z
         code: z.ZodIssueCode.custom,
         message: i18n.t("taxRegions.create.errors.missingProvider"),
         path: ["provider_id"],
-      })
+      });
     }
 
     if (!country_code) {
@@ -49,13 +49,13 @@ const TaxRegionCreateSchema = z
         code: z.ZodIssueCode.custom,
         message: i18n.t("taxRegions.create.errors.missingCountry"),
         path: ["country_code"],
-      })
+      });
     }
-  })
+  });
 
 export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const taxProviders = useComboboxData({
     queryKey: ["tax_providers"],
@@ -65,7 +65,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
         label: formatProvider(provider.id),
         value: provider.id,
       })),
-  })
+  });
 
   const form = useForm<z.infer<typeof TaxRegionCreateSchema>>({
     defaultValues: {
@@ -78,23 +78,23 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
       provider_id: "",
     },
     resolver: zodResolver(TaxRegionCreateSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateTaxRegion()
+  const { mutateAsync, isPending } = useCreateTaxRegion();
 
   const handleSubmit = form.handleSubmit(async (values) => {
     const defaultRate = values.name
       ? {
-          name: values.name,
-          rate:
+        name: values.name,
+        rate:
             values.rate?.value === ""
               ? undefined
               : parseFloat(values.rate.value!),
-              // TODO: Check if optional region's tax code is correct - was it intentionally set as optional? It's same for vendor panel.
-              // Leaving it like this, previously it was sent as empty string too if not provided
-          code: values.code ?? "",
-        }
-      : undefined
+        // TODO: Check if optional region's tax code is correct - was it intentionally set as optional? It's same for vendor panel.
+        // Leaving it like this, previously it was sent as empty string too if not provided
+        code: values.code ?? "",
+      }
+      : undefined;
 
     await mutateAsync(
       {
@@ -105,15 +105,15 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
       },
       {
         onSuccess: ({ tax_region }) => {
-          toast.success(t("taxRegions.create.successToast"))
-          handleSuccess(`../${tax_region.id}`)
+          toast.success(t("taxRegions.create.successToast"));
+          handleSuccess(`../${tax_region.id}`);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="tax-region-create-form">
@@ -147,7 +147,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
                           </Form.Control>
                           <Form.ErrorMessage data-testid="tax-region-create-form-country-error" />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
                   <Form.Field
@@ -209,7 +209,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
                             </Form.Control>
                             <Form.ErrorMessage data-testid="tax-region-create-form-name-error" />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
                     <Form.Field
@@ -237,7 +237,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
                             </Form.Control>
                             <Form.ErrorMessage data-testid="tax-region-create-form-rate-error" />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
                     <Form.Field
@@ -254,7 +254,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
                             </Form.Control>
                             <Form.ErrorMessage data-testid="tax-region-create-form-code-error" />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
                   </div>
@@ -277,5 +277,5 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

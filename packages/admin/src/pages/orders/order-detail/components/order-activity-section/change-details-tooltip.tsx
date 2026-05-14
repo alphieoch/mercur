@@ -1,6 +1,6 @@
-import { Popover, Text } from "@medusajs/ui"
-import { ReactNode, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Popover, Text } from "@medusajs/ui";
+import { ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type ChangeDetailsTooltipProps = {
   previous: ReactNode
@@ -9,22 +9,22 @@ type ChangeDetailsTooltipProps = {
 }
 
 function ChangeDetailsTooltip(props: ChangeDetailsTooltipProps) {
-  const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
-  const previous = props.previous
-  const next = props.next
-  const title = props.title
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const previous = props.previous;
+  const next = props.next;
+  const title = props.title;
 
   const handleMouseEnter = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handleMouseLeave = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   if (!previous && !next) {
-    return null
+    return null;
   }
 
   return (
@@ -68,7 +68,7 @@ function ChangeDetailsTooltip(props: ChangeDetailsTooltipProps) {
         </div>
       </Popover.Content>
     </Popover>
-  )
+  );
 }
 
-export default ChangeDetailsTooltip
+export default ChangeDetailsTooltip;

@@ -1,19 +1,19 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { InformationCircleSolid } from "@medusajs/icons"
-import { Button, Heading, Input, Text, Tooltip, toast } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Form } from "@components/common/form"
-import { CountrySelect } from "@components/inputs/country-select"
-import { PercentageInput } from "@components/inputs/percentage-input"
+import { InformationCircleSolid } from "@medusajs/icons";
+import { Button, Heading, Input, Text, Tooltip, toast } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Form } from "@components/common/form";
+import { CountrySelect } from "@components/inputs/country-select";
+import { PercentageInput } from "@components/inputs/percentage-input";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCreateTaxRegion } from "@hooks/api"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCreateTaxRegion } from "@hooks/api";
 
 type TaxRegionCreateFormProps = {
   parentId?: string
@@ -27,11 +27,11 @@ const TaxRegionCreateSchema = z.object({
     value: z.string().optional(),
   }),
   country_code: z.string().min(1),
-})
+});
 
 export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof TaxRegionCreateSchema>>({
     defaultValues: {
@@ -43,21 +43,21 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
       country_code: "",
     },
     resolver: zodResolver(TaxRegionCreateSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateTaxRegion()
+  const { mutateAsync, isPending } = useCreateTaxRegion();
 
   const handleSubmit = form.handleSubmit(async (values) => {
     const defaultRate = values.name
       ? {
-          name: values.name,
-          rate:
+        name: values.name,
+        rate:
             values.rate?.value === ""
               ? undefined
               : parseFloat(values.rate.value!),
-          code: values.code || "",
-        }
-      : undefined
+        code: values.code || "",
+      }
+      : undefined;
 
     await mutateAsync(
       {
@@ -67,15 +67,15 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
       },
       {
         onSuccess: ({ tax_region }) => {
-          toast.success(t("taxRegions.create.successToast"))
-          handleSuccess(`../${tax_region.id}`)
+          toast.success(t("taxRegions.create.successToast"));
+          handleSuccess(`../${tax_region.id}`);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -109,7 +109,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
                           </Form.Control>
                           <Form.ErrorMessage />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
                 </div>
@@ -146,7 +146,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
                             </Form.Control>
                             <Form.ErrorMessage />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
                     <Form.Field
@@ -172,7 +172,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
                             </Form.Control>
                             <Form.ErrorMessage />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
                     <Form.Field
@@ -189,7 +189,7 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
                             </Form.Control>
                             <Form.ErrorMessage />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
                   </div>
@@ -212,5 +212,5 @@ export const TaxRegionCreateForm = ({ parentId }: TaxRegionCreateFormProps) => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -7,28 +7,28 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
-} from "@dnd-kit/core"
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
-import { DotsSix, Tag } from "@medusajs/icons"
-import { Button, Text, toast } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { DotsSix, Tag } from "@medusajs/icons";
+import { Button, Text, toast } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../components/modals"
-import { useAttribute, attributesQueryKeys } from "../../../hooks/api/attributes"
-import { sdk } from "../../../lib/client"
-import { queryClient } from "../../../lib/query-client"
-import { ATTRIBUTE_DETAIL_FIELDS } from "../attribute-detail/constants"
+} from "../../../components/modals";
+import { useAttribute, attributesQueryKeys } from "../../../hooks/api/attributes";
+import { sdk } from "../../../lib/client";
+import { queryClient } from "../../../lib/query-client";
+import { ATTRIBUTE_DETAIL_FIELDS } from "../attribute-detail/constants";
 
 type RankingItem = {
   id: string
@@ -38,12 +38,12 @@ type RankingItem = {
 
 const SortableRankingItem = ({ item }: { item: RankingItem }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: item.id })
+    useSortable({ id: item.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-  }
+  };
 
   return (
     <div
@@ -62,17 +62,17 @@ const SortableRankingItem = ({ item }: { item: RankingItem }) => {
       <Tag className="text-ui-fg-interactive" />
       <Text size="small">{item.value}</Text>
     </div>
-  )
-}
+  );
+};
 
 const EditRankingInner = () => {
-  const { id } = useParams()
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { id } = useParams();
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const { attribute, isPending: isLoading } = useAttribute(id!, {
     fields: ATTRIBUTE_DETAIL_FIELDS,
-  })
+  });
 
   const existingValues: RankingItem[] = (attribute?.possible_values ?? [])
     .sort((a: any, b: any) => (a.rank ?? 0) - (b.rank ?? 0))
@@ -80,14 +80,14 @@ const EditRankingInner = () => {
       id: v.id,
       value: v.value,
       rank: v.rank,
-    }))
+    }));
 
-  const [items, setItems] = useState<RankingItem[]>([])
-  const [initialized, setInitialized] = useState(false)
+  const [items, setItems] = useState<RankingItem[]>([]);
+  const [initialized, setInitialized] = useState(false);
 
   if (!initialized && existingValues.length > 0) {
-    setItems(existingValues)
-    setInitialized(true)
+    setItems(existingValues);
+    setInitialized(true);
   }
 
   const sensors = useSensors(
@@ -95,23 +95,23 @@ const EditRankingInner = () => {
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
-  )
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event
-    if (!over || active.id === over.id) return
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
 
     setItems((prev) => {
-      const oldIndex = prev.findIndex((item) => item.id === active.id)
-      const newIndex = prev.findIndex((item) => item.id === over.id)
-      return arrayMove(prev, oldIndex, newIndex)
-    })
-  }
+      const oldIndex = prev.findIndex((item) => item.id === active.id);
+      const newIndex = prev.findIndex((item) => item.id === over.id);
+      return arrayMove(prev, oldIndex, newIndex);
+    });
+  };
 
-  const [isSaving, setIsSaving] = useState(false)
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleSave = async () => {
-    setIsSaving(true)
+    setIsSaving(true);
     try {
       const updates = items
         .map((item, index) => ({
@@ -119,31 +119,31 @@ const EditRankingInner = () => {
           newRank: index + 1,
           oldRank: existingValues.find((v) => v.id === item.id)?.rank,
         }))
-        .filter((u) => u.newRank !== u.oldRank)
+        .filter((u) => u.newRank !== u.oldRank);
 
       for (const update of updates) {
         await sdk.admin.attributes.$id.values.$valueId.mutate({
           $id: id!,
           $valueId: update.id,
           rank: update.newRank,
-        })
+        });
       }
 
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.detail(id!),
-      })
+      });
 
-      toast.success(t("attributes.editRanking.successToast", "Ranking updated successfully."))
-      handleSuccess()
+      toast.success(t("attributes.editRanking.successToast", "Ranking updated successfully."));
+      handleSuccess();
     } catch (err: any) {
-      toast.error(err.message)
+      toast.error(err.message);
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   if (isLoading || !attribute) {
-    return null
+    return null;
   }
 
   return (
@@ -182,13 +182,13 @@ const EditRankingInner = () => {
         </div>
       </RouteFocusModal.Footer>
     </>
-  )
-}
+  );
+};
 
 export const AttributeEditRanking = () => {
   return (
     <RouteFocusModal>
       <EditRankingInner />
     </RouteFocusModal>
-  )
-}
+  );
+};

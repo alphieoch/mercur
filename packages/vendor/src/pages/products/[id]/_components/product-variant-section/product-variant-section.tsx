@@ -269,13 +269,13 @@ const useColumns = (product: HttpTypes.AdminProduct) => {
 
       const text = hasInventoryKit
         ? t("products.variant.tableItemAvailable", {
-            availableCount: quantity,
-          })
+          availableCount: quantity,
+        })
         : t("products.variant.tableItem", {
-            availableCount: quantity,
-            locationCount,
-            count: locationCount,
-          });
+          availableCount: quantity,
+          locationCount,
+          count: locationCount,
+        });
 
       return { text, hasInventoryKit, quantity, notManaged: false };
     },

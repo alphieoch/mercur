@@ -14,19 +14,19 @@ const getSellerStatusBadge = (
   t: (key: string) => string,
 ): { color: "green" | "orange" | "red" | "grey"; label: string } | null => {
   switch (status) {
-    case SellerStatus.OPEN:
-      return { color: "green", label: t("storeSelect.status.open") };
-    case SellerStatus.PENDING_APPROVAL:
-      return {
-        color: "orange",
-        label: t("storeSelect.status.pendingApproval"),
-      };
-    case SellerStatus.SUSPENDED:
-      return { color: "red", label: t("storeSelect.status.suspended") };
-    case SellerStatus.TERMINATED:
-      return null;
-    default:
-      return { color: "grey", label: status };
+  case SellerStatus.OPEN:
+    return { color: "green", label: t("storeSelect.status.open") };
+  case SellerStatus.PENDING_APPROVAL:
+    return {
+      color: "orange",
+      label: t("storeSelect.status.pendingApproval"),
+    };
+  case SellerStatus.SUSPENDED:
+    return { color: "red", label: t("storeSelect.status.suspended") };
+  case SellerStatus.TERMINATED:
+    return null;
+  default:
+    return { color: "grey", label: status };
   }
 };
 

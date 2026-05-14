@@ -2,18 +2,18 @@ import {
   AdminInventoryItem,
   AdminStockLocation,
   HttpTypes,
-} from "@medusajs/types"
-import { Button, Text, toast } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { RouteDrawer, useRouteModal } from "../../../../../../components/modals"
-import { useBatchInventoryItemLocationLevels } from "../../../../../../hooks/api/inventory"
-import { sdk } from "../../../../../../lib/client"
+} from "@medusajs/types";
+import { Button, Text, toast } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { RouteDrawer, useRouteModal } from "../../../../../../components/modals";
+import { useBatchInventoryItemLocationLevels } from "../../../../../../hooks/api/inventory";
+import { sdk } from "../../../../../../lib/client";
 
-import { useMemo, useState } from "react"
-import { LocationItem } from "./location-item"
-import { LocationSearchInput } from "./location-search-input"
-import { InfiniteList } from "../../../../../../components/common/infinite-list/infinite-list"
-import { useStockLocations } from "../../../../../../hooks/api/stock-locations"
+import { useMemo, useState } from "react";
+import { LocationItem } from "./location-item";
+import { LocationSearchInput } from "./location-search-input";
+import { InfiniteList } from "../../../../../../components/common/infinite-list/infinite-list";
+import { useStockLocations } from "../../../../../../hooks/api/stock-locations";
 
 type EditInventoryItemAttributeFormProps = {
   item: AdminInventoryItem
@@ -26,43 +26,43 @@ export const ManageLocationsForm = ({
   const existingLocationLevels = useMemo(
     () => new Set(item.location_levels?.map((l) => l.location_id) ?? []),
     [item.location_levels]
-  )
+  );
 
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const [searchQuery, setSearchQuery] = useState("")
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocationIds, setSelectedLocationIds] = useState<Set<string>>(
     existingLocationLevels
-  )
+  );
 
-  const { count } = useStockLocations({ limit: 1, fields: "id" })
+  const { count } = useStockLocations({ limit: 1, fields: "id" });
 
   const handleLocationSelect = (locationId: string, selected: boolean) => {
     setSelectedLocationIds((prev) => {
-      const newSet = new Set(prev)
+      const newSet = new Set(prev);
       if (selected) {
-        newSet.add(locationId)
+        newSet.add(locationId);
       } else {
-        newSet.delete(locationId)
+        newSet.delete(locationId);
       }
-      return newSet
-    })
-  }
+      return newSet;
+    });
+  };
 
-  const { mutateAsync } = useBatchInventoryItemLocationLevels(item.id)
+  const { mutateAsync } = useBatchInventoryItemLocationLevels(item.id);
 
   const handleSubmit = async () => {
     const toCreate = Array.from(selectedLocationIds).filter(
       (id) => !existingLocationLevels.has(id)
-    )
+    );
 
     const toDeleteLocations = Array.from(existingLocationLevels).filter(
       (id) => !selectedLocationIds.has(id)
-    )
+    );
 
     const toDelete = toDeleteLocations
       .map((id) => item.location_levels?.find((l) => l.location_id === id)?.id)
-      .filter(Boolean) as unknown as string[]
+      .filter(Boolean) as unknown as string[];
 
     await mutateAsync(
       {
@@ -73,15 +73,15 @@ export const ManageLocationsForm = ({
       },
       {
         onSuccess: () => {
-          toast.success(t("inventory.toast.updateLocations"))
-          handleSuccess()
+          toast.success(t("inventory.toast.updateLocations"));
+          handleSuccess();
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  }
+    );
+  };
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden" data-testid="inventory-manage-locations-form">
@@ -142,8 +142,8 @@ export const ManageLocationsForm = ({
                 limit: params.limit,
                 offset: params.offset,
                 ...(searchQuery && { q: searchQuery }),
-              })
-              return response
+              });
+              return response;
             }}
             responseKey="stock_locations"
             renderItem={(location) => (
@@ -181,5 +181,5 @@ export const ManageLocationsForm = ({
         </div>
       </RouteDrawer.Footer>
     </div>
-  )
-}
+  );
+};

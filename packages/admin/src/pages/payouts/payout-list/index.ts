@@ -1,1 +1,1 @@
-export { PayoutListPage as Component } from "./payout-list"
+export { PayoutListPage as Component } from "./payout-list";

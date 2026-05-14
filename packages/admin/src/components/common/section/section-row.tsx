@@ -1,5 +1,5 @@
-import { Text, clx } from "@medusajs/ui"
-import { ReactNode } from "react"
+import { Text, clx } from "@medusajs/ui";
+import { ReactNode } from "react";
 
 export type SectionRowProps = {
   title: string
@@ -8,7 +8,7 @@ export type SectionRowProps = {
 }
 
 export const SectionRow = ({ title, value, actions }: SectionRowProps) => {
-  const isValueString = typeof value === "string" || !value
+  const isValueString = typeof value === "string" || !value;
 
   return (
     <div
@@ -37,5 +37,5 @@ export const SectionRow = ({ title, value, actions }: SectionRowProps) => {
 
       {actions && <div>{actions}</div>}
     </div>
-  )
-}
+  );
+};

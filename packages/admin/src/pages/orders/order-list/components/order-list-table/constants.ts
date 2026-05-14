@@ -1,6 +1,6 @@
-export const PAGE_SIZE = 20
-export const DEFAULT_COLUMN_ORDER = 500
-export const QUERY_PREFIX = "o"
+export const PAGE_SIZE = 20;
+export const DEFAULT_COLUMN_ORDER = 500;
+export const QUERY_PREFIX = "o";
 
 export enum ColumnAlignment {
   LEFT = "left",

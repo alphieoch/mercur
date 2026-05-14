@@ -1,14 +1,14 @@
-import { Button, clx } from "@medusajs/ui"
-import { Popover as RadixPopover } from "radix-ui"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useSearchParams } from "react-router-dom"
+import { Button, clx } from "@medusajs/ui";
+import { Popover as RadixPopover } from "radix-ui";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-import { useTranslation } from "react-i18next"
-import { DataTableFilterContext, useDataTableFilterContext } from "./context"
-import { DateFilter } from "./date-filter"
-import { NumberFilter } from "./number-filter"
-import { SelectFilter } from "./select-filter"
-import { StringFilter } from "./string-filter"
+import { useTranslation } from "react-i18next";
+import { DataTableFilterContext, useDataTableFilterContext } from "./context";
+import { DateFilter } from "./date-filter";
+import { NumberFilter } from "./number-filter";
+import { SelectFilter } from "./select-filter";
+import { StringFilter } from "./string-filter";
 
 type Option = {
   label: string
@@ -50,32 +50,32 @@ export const DataTableFilter = ({
   readonly,
   prefix,
 }: DataTableFilterProps) => {
-  const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const [open, setOpen] = useState(false)
+  const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const [open, setOpen] = useState(false);
 
   const [activeFilters, setActiveFilters] = useState(
     getInitialFilters({ searchParams, filters, prefix })
-  )
+  );
 
   const availableFilters = filters.filter(
     (f) => !activeFilters.find((af) => af.key === f.key)
-  )
+  );
 
   /**
    * If there are any filters in the URL that are not in the active filters,
    * add them to the active filters. This ensures that we display the filters
    * if a user navigates to a page with filters in the URL.
    */
-  const initialMount = useRef(true)
+  const initialMount = useRef(true);
 
   useEffect(() => {
     if (initialMount.current) {
-      const params = new URLSearchParams(searchParams)
+      const params = new URLSearchParams(searchParams);
 
       filters.forEach((filter) => {
-        const key = prefix ? `${prefix}_${filter.key}` : filter.key
-        const value = params.get(key)
+        const key = prefix ? `${prefix}_${filter.key}` : filter.key;
+        const value = params.get(key);
         if (value && !activeFilters.find((af) => af.key === filter.key)) {
           if (filter.type === "select") {
             setActiveFilters((prev) => [
@@ -86,32 +86,32 @@ export const DataTableFilter = ({
                 options: filter.options,
                 openOnMount: false,
               },
-            ])
+            ]);
           } else {
             setActiveFilters((prev) => [
               ...prev,
               { ...filter, openOnMount: false },
-            ])
+            ]);
           }
         }
-      })
+      });
     }
 
-    initialMount.current = false
-  }, [activeFilters, filters, prefix, searchParams])
+    initialMount.current = false;
+  }, [activeFilters, filters, prefix, searchParams]);
 
   const addFilter = (filter: Filter) => {
-    setOpen(false)
-    setActiveFilters((prev) => [...prev, { ...filter, openOnMount: true }])
-  }
+    setOpen(false);
+    setActiveFilters((prev) => [...prev, { ...filter, openOnMount: true }]);
+  };
 
   const removeFilter = useCallback((key: string) => {
-    setActiveFilters((prev) => prev.filter((f) => f.key !== key))
-  }, [])
+    setActiveFilters((prev) => prev.filter((f) => f.key !== key));
+  }, []);
 
   const removeAllFilters = useCallback(() => {
-    setActiveFilters([])
-  }, [])
+    setActiveFilters([]);
+  }, []);
 
   return (
     <DataTableFilterContext.Provider
@@ -126,51 +126,51 @@ export const DataTableFilter = ({
       <div className="max-w-2/3 flex flex-wrap items-center gap-2">
         {activeFilters.map((filter) => {
           switch (filter.type) {
-            case "select":
-              return (
-                <SelectFilter
-                  key={filter.key}
-                  filter={filter}
-                  prefix={prefix}
-                  readonly={readonly}
-                  options={filter.options}
-                  multiple={filter.multiple}
-                  searchable={filter.searchable}
-                  openOnMount={filter.openOnMount}
-                />
-              )
-            case "date":
-              return (
-                <DateFilter
-                  key={filter.key}
-                  filter={filter}
-                  prefix={prefix}
-                  readonly={readonly}
-                  openOnMount={filter.openOnMount}
-                />
-              )
-            case "string":
-              return (
-                <StringFilter
-                  key={filter.key}
-                  filter={filter}
-                  prefix={prefix}
-                  readonly={readonly}
-                  openOnMount={filter.openOnMount}
-                />
-              )
-            case "number":
-              return (
-                <NumberFilter
-                  key={filter.key}
-                  filter={filter}
-                  prefix={prefix}
-                  readonly={readonly}
-                  openOnMount={filter.openOnMount}
-                />
-              )
-            default:
-              break
+          case "select":
+            return (
+              <SelectFilter
+                key={filter.key}
+                filter={filter}
+                prefix={prefix}
+                readonly={readonly}
+                options={filter.options}
+                multiple={filter.multiple}
+                searchable={filter.searchable}
+                openOnMount={filter.openOnMount}
+              />
+            );
+          case "date":
+            return (
+              <DateFilter
+                key={filter.key}
+                filter={filter}
+                prefix={prefix}
+                readonly={readonly}
+                openOnMount={filter.openOnMount}
+              />
+            );
+          case "string":
+            return (
+              <StringFilter
+                key={filter.key}
+                filter={filter}
+                prefix={prefix}
+                readonly={readonly}
+                openOnMount={filter.openOnMount}
+              />
+            );
+          case "number":
+            return (
+              <NumberFilter
+                key={filter.key}
+                filter={filter}
+                prefix={prefix}
+                readonly={readonly}
+                openOnMount={filter.openOnMount}
+              />
+            );
+          default:
+            break;
           }
         })}
         {!readonly && availableFilters.length > 0 && (
@@ -192,10 +192,10 @@ export const DataTableFilter = ({
                 onCloseAutoFocus={(e) => {
                   const hasOpenFilter = activeFilters.find(
                     (filter) => filter.openOnMount
-                  )
+                  );
 
                   if (hasOpenFilter) {
-                    e.preventDefault()
+                    e.preventDefault();
                   }
                 }}
               >
@@ -206,12 +206,12 @@ export const DataTableFilter = ({
                       role="menuitem"
                       key={filter.key}
                       onClick={() => {
-                        addFilter(filter)
+                        addFilter(filter);
                       }}
                     >
                       {filter.label}
                     </div>
-                  )
+                  );
                 })}
               </RadixPopover.Content>
             </RadixPopover.Portal>
@@ -222,8 +222,8 @@ export const DataTableFilter = ({
         )}
       </div>
     </DataTableFilterContext.Provider>
-  )
-}
+  );
+};
 
 type ClearAllFiltersProps = {
   filters: Filter[]
@@ -231,22 +231,22 @@ type ClearAllFiltersProps = {
 }
 
 const ClearAllFilters = ({ filters, prefix }: ClearAllFiltersProps) => {
-  const { removeAllFilters } = useDataTableFilterContext()
-  const [_, setSearchParams] = useSearchParams()
+  const { removeAllFilters } = useDataTableFilterContext();
+  const [_, setSearchParams] = useSearchParams();
 
   const handleRemoveAll = () => {
     setSearchParams((prev) => {
-      const newValues = new URLSearchParams(prev)
+      const newValues = new URLSearchParams(prev);
 
       filters.forEach((filter) => {
-        newValues.delete(prefix ? `${prefix}_${filter.key}` : filter.key)
-      })
+        newValues.delete(prefix ? `${prefix}_${filter.key}` : filter.key);
+      });
 
-      return newValues
-    })
+      return newValues;
+    });
 
-    removeAllFilters()
-  }
+    removeAllFilters();
+  };
 
   return (
     <button
@@ -260,8 +260,8 @@ const ClearAllFilters = ({ filters, prefix }: ClearAllFiltersProps) => {
     >
       Clear all
     </button>
-  )
-}
+  );
+};
 
 const getInitialFilters = ({
   searchParams,
@@ -272,12 +272,12 @@ const getInitialFilters = ({
   filters: Filter[]
   prefix?: string
 }) => {
-  const params = new URLSearchParams(searchParams)
-  const activeFilters: (Filter & { openOnMount: boolean })[] = []
+  const params = new URLSearchParams(searchParams);
+  const activeFilters: (Filter & { openOnMount: boolean })[] = [];
 
   filters.forEach((filter) => {
-    const key = prefix ? `${prefix}_${filter.key}` : filter.key
-    const value = params.get(key)
+    const key = prefix ? `${prefix}_${filter.key}` : filter.key;
+    const value = params.get(key);
     if (value) {
       if (filter.type === "select") {
         activeFilters.push({
@@ -285,12 +285,12 @@ const getInitialFilters = ({
           multiple: filter.multiple,
           options: filter.options,
           openOnMount: false,
-        })
+        });
       } else {
-        activeFilters.push({ ...filter, openOnMount: false })
+        activeFilters.push({ ...filter, openOnMount: false });
       }
     }
-  })
+  });
 
-  return activeFilters
-}
+  return activeFilters;
+};

@@ -1,1 +1,1 @@
-export { ProductAdditionalAttributesSection } from "./ProductAdditionalAttributesSection"
+export { ProductAdditionalAttributesSection } from "./ProductAdditionalAttributesSection";

@@ -1,6 +1,6 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, StatusBadge, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, StatusBadge, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 type CustomerGeneralSectionProps = {
   customer: HttpTypes.AdminCustomer
@@ -9,16 +9,16 @@ type CustomerGeneralSectionProps = {
 export const CustomerGeneralSection = ({
   customer,
 }: CustomerGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const name = [customer.first_name, customer.last_name]
     .filter(Boolean)
-    .join(" ")
+    .join(" ");
 
-  const statusColor = customer.has_account ? "green" : "orange"
+  const statusColor = customer.has_account ? "green" : "orange";
   const statusText = customer.has_account
     ? t("customers.fields.registered")
-    : t("customers.fields.guest")
+    : t("customers.fields.guest");
 
   return (
     <Container className="divide-y p-0">
@@ -53,5 +53,5 @@ export const CustomerGeneralSection = ({
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

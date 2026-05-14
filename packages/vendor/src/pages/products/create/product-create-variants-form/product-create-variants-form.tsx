@@ -1,22 +1,22 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { HttpTypes } from "@medusajs/types"
-import { Checkbox, Tooltip } from "@medusajs/ui"
-import { ColumnDef } from "@tanstack/react-table"
-import { UseFormReturn, useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { Checkbox, Tooltip } from "@medusajs/ui";
+import { ColumnDef } from "@tanstack/react-table";
+import { UseFormReturn, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import {
   createDataGridHelper,
   createDataGridPriceColumns,
   DataGrid,
-} from "@components/data-grid"
-import { DataGridMediaCell } from "../../../../components/data-grid/components/data-grid-media-cell"
-import { useAttributes } from "../../../../hooks/api/attributes"
-import { useStockLocations } from "@hooks/api/stock-locations"
-import { ProductCreateVariantSchema } from "../constants"
-import { ProductCreateSchemaType } from "../types"
-import { decorateVariantsWithDefaultValues } from "../utils"
+} from "@components/data-grid";
+import { DataGridMediaCell } from "../../../../components/data-grid/components/data-grid-media-cell";
+import { useAttributes } from "../../../../hooks/api/attributes";
+import { useStockLocations } from "@hooks/api/stock-locations";
+import { ProductCreateVariantSchema } from "../constants";
+import { ProductCreateSchemaType } from "../types";
+import { decorateVariantsWithDefaultValues } from "../utils";
 
 type MediaItem = {
   file?: File
@@ -51,42 +51,42 @@ export const ProductCreateVariantsForm = ({
   onOpenMediaModal,
   productMedia = [],
 }: ProductCreateVariantsFormProps) => {
-  const { t } = useTranslation()
-  const [searchValue, setSearchValue] = useState("")
+  const { t } = useTranslation();
+  const [searchValue, setSearchValue] = useState("");
 
   const variants = useWatch({
     control: form.control,
     name: "variants",
     defaultValue: [],
-  })
+  });
 
-  const attributesResult = useAttributes()
-  const allAttributes = (attributesResult as any).attributes || []
+  const attributesResult = useAttributes();
+  const allAttributes = (attributesResult as any).attributes || [];
 
   const { stock_locations = [] } = useStockLocations({
     limit: 9999,
     fields: "id,name",
-  })
+  });
 
   const formValues = useWatch({
     control: form.control,
-  })
+  });
 
   const variantAttributes = useMemo(() => {
     const result: Array<{
       handle: string
       name: string
       selectedValues: Array<{ id: string; value: string }>
-    }> = []
+    }> = [];
 
     allAttributes.forEach((attr: any) => {
       if (attr.ui_component === "multivalue") {
         const useForVariants = (formValues as any)?.[
           `${attr.handle}UseForVariants`
-        ]
-        if (useForVariants === false) return
+        ];
+        if (useForVariants === false) return;
 
-        const selectedValueIds = (formValues as any)?.[attr.handle]
+        const selectedValueIds = (formValues as any)?.[attr.handle];
 
         if (
           selectedValueIds &&
@@ -97,28 +97,28 @@ export const ProductCreateVariantsForm = ({
             .map((valueId: string) => {
               const possibleValue = attr.possible_values?.find(
                 (pv: any) => pv.id === valueId
-              )
+              );
               return possibleValue
                 ? { id: valueId, value: possibleValue.value }
-                : null
+                : null;
             })
             .filter(
               (item: any): item is { id: string; value: string } =>
                 item !== null
-            )
+            );
 
           if (selectedValues.length > 0) {
             result.push({
               handle: attr.handle,
               name: attr.name,
               selectedValues,
-            })
+            });
           }
         }
       }
-    })
+    });
 
-    const options = (formValues as any)?.options || []
+    const options = (formValues as any)?.options || [];
     options.forEach((option: any) => {
       if (
         option?.useForVariants !== false &&
@@ -134,14 +134,14 @@ export const ProductCreateVariantsForm = ({
             id: value,
             value,
           })),
-        })
+        });
       }
-    })
+    });
 
-    return result
-  }, [allAttributes, formValues])
+    return result;
+  }, [allAttributes, formValues]);
 
-  const hasProductMedia = productMedia.length > 0
+  const hasProductMedia = productMedia.length > 0;
 
   const columns = useColumns({
     variantAttributes,
@@ -153,48 +153,48 @@ export const ProductCreateVariantsForm = ({
     form,
     productMedia,
     hasProductMedia,
-  })
+  });
 
   const variantData = useMemo(() => {
-    const ret: VariantWithIndex[] = []
+    const ret: VariantWithIndex[] = [];
 
     if (variantAttributes.length > 0) {
       const totalCombinations = variantAttributes.reduce(
         (acc, attr) => acc * attr.selectedValues.length,
         1
-      )
+      );
 
       for (let i = 0; i < totalCombinations; i++) {
-        const variantOptions: Record<string, string> = {}
+        const variantOptions: Record<string, string> = {};
         variantAttributes.forEach((attr) => {
-          let valueIndex = 0
-          let divisor = 1
+          let valueIndex = 0;
+          let divisor = 1;
 
           for (let j = variantAttributes.length - 1; j >= 0; j--) {
             if (variantAttributes[j].handle === attr.handle) {
               valueIndex =
                 Math.floor(i / divisor) %
-                attr.selectedValues.length
-              break
+                attr.selectedValues.length;
+              break;
             }
-            divisor *= variantAttributes[j].selectedValues.length
+            divisor *= variantAttributes[j].selectedValues.length;
           }
 
           variantOptions[attr.name] =
-            attr.selectedValues[valueIndex]?.value || ""
-        })
+            attr.selectedValues[valueIndex]?.value || "";
+        });
 
         const autoTitle = variantAttributes
           .map((attr) => variantOptions[attr.name])
           .filter(Boolean)
-          .join(" / ")
+          .join(" / ");
 
         const existingVariant = variants.find((v) => {
-          if (!v.options) return false
+          if (!v.options) return false;
           return variantAttributes.every(
             (attr) => v.options[attr.name] === variantOptions[attr.name]
-          )
-        })
+          );
+        });
 
         ret.push({
           title: autoTitle,
@@ -208,7 +208,7 @@ export const ProductCreateVariantsForm = ({
           originalIndex: existingVariant
             ? variants.indexOf(existingVariant)
             : i,
-        } as VariantWithIndex)
+        } as VariantWithIndex);
       }
     } else {
       variants.forEach((v, i) => {
@@ -216,21 +216,21 @@ export const ProductCreateVariantsForm = ({
           ret.push({
             ...v,
             originalIndex: i,
-          } as VariantWithIndex)
+          } as VariantWithIndex);
         }
-      })
+      });
     }
 
-    return ret
-  }, [variants, variantAttributes])
+    return ret;
+  }, [variants, variantAttributes]);
 
   const filteredVariantData = useMemo(() => {
-    if (!searchValue.trim()) return variantData
+    if (!searchValue.trim()) return variantData;
 
     return variantData.filter((variant) =>
       variant.title.toLowerCase().includes(searchValue.toLowerCase())
-    )
-  }, [variantData, searchValue])
+    );
+  }, [variantData, searchValue]);
 
   const variantStructureKey = useMemo(() => {
     return variantAttributes
@@ -238,49 +238,49 @@ export const ProductCreateVariantsForm = ({
         (attr) =>
           `${attr.handle}:${attr.selectedValues.map((v) => v.id).join(",")}`
       )
-      .join("|")
-  }, [variantAttributes])
+      .join("|");
+  }, [variantAttributes]);
 
   useEffect(() => {
     if (variantAttributes.length > 0) {
       const totalCombinations = variantAttributes.reduce(
         (acc, attr) => acc * attr.selectedValues.length,
         1
-      )
-      const currentVariants = form.getValues("variants") || []
-      const newVariants: any[] = []
+      );
+      const currentVariants = form.getValues("variants") || [];
+      const newVariants: any[] = [];
 
       for (let i = 0; i < totalCombinations; i++) {
-        const variantOptions: Record<string, string> = {}
+        const variantOptions: Record<string, string> = {};
         variantAttributes.forEach((attr) => {
-          let valueIndex = 0
-          let divisor = 1
+          let valueIndex = 0;
+          let divisor = 1;
 
           for (let j = variantAttributes.length - 1; j >= 0; j--) {
             if (variantAttributes[j].handle === attr.handle) {
               valueIndex =
                 Math.floor(i / divisor) %
-                attr.selectedValues.length
-              break
+                attr.selectedValues.length;
+              break;
             }
-            divisor *= variantAttributes[j].selectedValues.length
+            divisor *= variantAttributes[j].selectedValues.length;
           }
 
           variantOptions[attr.name] =
-            attr.selectedValues[valueIndex]?.value || ""
-        })
+            attr.selectedValues[valueIndex]?.value || "";
+        });
 
         const autoTitle = variantAttributes
           .map((attr) => variantOptions[attr.name])
           .filter(Boolean)
-          .join(" / ")
+          .join(" / ");
 
         const existingVariant = currentVariants.find((v) => {
-          if (!v.options) return false
+          if (!v.options) return false;
           return variantAttributes.every(
             (attr) => v.options[attr.name] === variantOptions[attr.name]
-          )
-        })
+          );
+        });
 
         newVariants.push({
           title: autoTitle,
@@ -291,12 +291,12 @@ export const ProductCreateVariantsForm = ({
           prices: existingVariant?.prices || {},
           is_default: i === 0,
           media: existingVariant?.media || [],
-        })
+        });
       }
 
-      form.setValue("variants", newVariants)
+      form.setValue("variants", newVariants);
     } else {
-      const currentVariants = form.getValues("variants") || []
+      const currentVariants = form.getValues("variants") || [];
 
       if (currentVariants.length === 0) {
         const defaultVariant = decorateVariantsWithDefaultValues([
@@ -310,12 +310,12 @@ export const ProductCreateVariantsForm = ({
             is_default: true,
             media: [],
           },
-        ])
+        ]);
 
-        form.setValue("variants", defaultVariant)
+        form.setValue("variants", defaultVariant);
       } else {
         const hasOnlyDefaultVariant =
-          currentVariants.length === 1 && currentVariants[0].is_default
+          currentVariants.length === 1 && currentVariants[0].is_default;
         if (!hasOnlyDefaultVariant) {
           const defaultVariant = decorateVariantsWithDefaultValues([
             {
@@ -328,13 +328,13 @@ export const ProductCreateVariantsForm = ({
               is_default: true,
               media: [],
             },
-          ])
+          ]);
 
-          form.setValue("variants", defaultVariant)
+          form.setValue("variants", defaultVariant);
         }
       }
     }
-  }, [variantStructureKey, form])
+  }, [variantStructureKey, form]);
 
   return (
     <div className="border-ui-border flex h-full flex-col justify-between divide-y">
@@ -349,13 +349,13 @@ export const ProductCreateVariantsForm = ({
         )}
       />
     </div>
-  )
-}
+  );
+};
 
 const columnHelper = createDataGridHelper<
   VariantWithIndex,
   ProductCreateSchemaType
->()
+>();
 
 const useColumns = ({
   variantAttributes = [],
@@ -387,33 +387,33 @@ const useColumns = ({
   productMedia?: MediaItem[]
   hasProductMedia?: boolean
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const variants = useWatch({
     control: form.control,
     name: "variants",
     defaultValue: [],
-  })
+  });
 
-  const variantsRef = useRef(variants)
-  variantsRef.current = variants
+  const variantsRef = useRef(variants);
+  variantsRef.current = variants;
 
   const allSelected =
-    variants.length > 0 && variants.every((v) => v.should_create)
+    variants.length > 0 && variants.every((v) => v.should_create);
   const someSelected =
-    variants.some((v) => v.should_create) && !allSelected
+    variants.some((v) => v.should_create) && !allSelected;
 
   const handleSelectAll = useCallback(
     (checked: boolean) => {
-      const currentVariants = form.getValues("variants") || []
+      const currentVariants = form.getValues("variants") || [];
       const updatedVariants = currentVariants.map((v) => ({
         ...v,
         should_create: checked,
-      }))
-      form.setValue("variants", updatedVariants)
+      }));
+      form.setValue("variants", updatedVariants);
     },
     [form]
-  )
+  );
 
   return useMemo(
     () =>
@@ -434,8 +434,8 @@ const useColumns = ({
           ),
           field: (context) => {
             const rowData = context.row
-              .original as VariantWithIndex
-            return `variants.${rowData.originalIndex}.should_create`
+              .original as VariantWithIndex;
+            return `variants.${rowData.originalIndex}.should_create`;
           },
           type: "boolean",
           cell: (context) => (
@@ -450,43 +450,43 @@ const useColumns = ({
           name:
             variantAttributes.length > 0
               ? variantAttributes
-                  .map((attr) => attr.name)
-                  .join(" / ")
+                .map((attr) => attr.name)
+                .join(" / ")
               : "Options",
           header: () => {
             const label =
               variantAttributes.length > 0
                 ? variantAttributes
-                    .map((attr) => attr.name)
-                    .join(" / ")
-                : "Options"
+                  .map((attr) => attr.name)
+                  .join(" / ")
+                : "Options";
 
             return (
               <Tooltip content={label}>
                 <span className="w-full truncate">{label}</span>
               </Tooltip>
-            )
+            );
           },
           cell: (context) => {
             if (variantAttributes.length === 0) {
               return (
                 <DataGrid.ReadonlyCell context={context} />
-              )
+              );
             }
             const rowData = context.row
-              .original as VariantWithIndex
+              .original as VariantWithIndex;
             const combinedValue = variantAttributes
               .map(
                 (attr) => rowData.options?.[attr.name] || ""
               )
               .filter(Boolean)
-              .join(" / ")
+              .join(" / ");
 
             return (
               <DataGrid.ReadonlyCell context={context}>
                 {combinedValue}
               </DataGrid.ReadonlyCell>
-            )
+            );
           },
           disableHiding: true,
           pin: "left",
@@ -497,8 +497,8 @@ const useColumns = ({
           header: t("fields.title"),
           field: (context) => {
             const rowData = context.row
-              .original as VariantWithIndex
-            return `variants.${rowData.originalIndex}.title`
+              .original as VariantWithIndex;
+            return `variants.${rowData.originalIndex}.title`;
           },
           type: "text",
           cell: (context) => (
@@ -517,13 +517,13 @@ const useColumns = ({
           ),
           field: (context) => {
             const rowData = context.row
-              .original as VariantWithIndex
-            return `variants.${rowData.originalIndex}.media`
+              .original as VariantWithIndex;
+            return `variants.${rowData.originalIndex}.media`;
           },
           type: "media" as any,
           cell: (context) => {
             const rowData = context.row
-              .original as VariantWithIndex
+              .original as VariantWithIndex;
 
             return (
               <DataGridMediaCell
@@ -532,21 +532,21 @@ const useColumns = ({
                 onOpenMediaModal={
                   hasProductMedia
                     ? () => {
-                        const currentMedia =
+                      const currentMedia =
                           variantsRef.current[
                             rowData.originalIndex
-                          ]?.media
-                        onOpenMediaModal?.(
-                          rowData.originalIndex,
-                          rowData.title,
-                          currentMedia,
-                          productMedia
-                        )
-                      }
+                          ]?.media;
+                      onOpenMediaModal?.(
+                        rowData.originalIndex,
+                        rowData.title,
+                        currentMedia,
+                        productMedia
+                      );
+                    }
                     : undefined
                 }
               />
-            )
+            );
           },
         }),
         columnHelper.column({
@@ -555,8 +555,8 @@ const useColumns = ({
           header: t("fields.sku"),
           field: (context) => {
             const rowData = context.row
-              .original as VariantWithIndex
-            return `variants.${rowData.originalIndex}.sku`
+              .original as VariantWithIndex;
+            return `variants.${rowData.originalIndex}.sku`;
           },
           type: "text",
           cell: (context) => (
@@ -574,8 +574,8 @@ const useColumns = ({
           pricePreferences,
           getFieldName: (context, value) => {
             const rowData = context.row
-              .original as VariantWithIndex
-            return `variants.${rowData.originalIndex}.prices.${value}`
+              .original as VariantWithIndex;
+            return `variants.${rowData.originalIndex}.prices.${value}`;
           },
           t,
         }),
@@ -594,5 +594,5 @@ const useColumns = ({
       hasProductMedia,
       productMedia,
     ]
-  )
-}
+  );
+};

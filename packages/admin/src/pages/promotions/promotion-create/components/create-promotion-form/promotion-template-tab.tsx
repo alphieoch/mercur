@@ -1,17 +1,17 @@
-import { RadioGroup } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { RadioGroup } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "../../../../../components/common/form"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
-import { CreatePromotionSchemaType } from "./form-schema"
-import { templates } from "./templates"
+import { Form } from "../../../../../components/common/form";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
+import { CreatePromotionSchemaType } from "./form-schema";
+import { templates } from "./templates";
 
 const Root = () => {
-  const { t } = useTranslation()
-  const direction = useDocumentDirection()
-  const form = useTabbedForm<CreatePromotionSchemaType>()
+  const { t } = useTranslation();
+  const direction = useDocumentDirection();
+  const form = useTabbedForm<CreatePromotionSchemaType>();
 
   return (
     <div className="flex size-full flex-col items-center">
@@ -44,24 +44,24 @@ const Root = () => {
                           description={template.description}
                           data-testid={`promotion-create-form-template-option-${template.id}`}
                         />
-                      )
+                      );
                     })}
                   </RadioGroup>
                 </Form.Control>
                 <Form.ErrorMessage data-testid="promotion-create-form-template-error" />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 Root._tabMeta = defineTabMeta<CreatePromotionSchemaType>({
   id: "type",
   labelKey: "promotions.tabs.template",
   validationFields: ["template_id"],
-})
+});
 
-export const PromotionTemplateTab = Root
+export const PromotionTemplateTab = Root;

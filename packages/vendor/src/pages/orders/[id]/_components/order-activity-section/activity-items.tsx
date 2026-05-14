@@ -3,11 +3,11 @@ import {
   AdminExchange,
   AdminOrderLineItem,
   AdminReturn,
-} from "@medusajs/types"
-import { Popover, Text } from "@medusajs/ui"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Thumbnail } from "@components/common/thumbnail"
+} from "@medusajs/types";
+import { Popover, Text } from "@medusajs/ui";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Thumbnail } from "@components/common/thumbnail";
 
 type ActivityItemsProps = {
   itemsToSend?:
@@ -19,23 +19,23 @@ type ActivityItemsProps = {
 }
 
 function ActivityItems(props: ActivityItemsProps) {
-  const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
-  const itemsToSend = props.itemsToSend
-  const itemsToReturn = props.itemsToReturn
-  const itemsMap = props.itemsMap
-  const title = props.title
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const itemsToSend = props.itemsToSend;
+  const itemsToReturn = props.itemsToReturn;
+  const itemsMap = props.itemsMap;
+  const title = props.title;
 
   const handleMouseEnter = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handleMouseLeave = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   if (!itemsToSend?.length && !itemsToReturn?.length) {
-    return
+    return;
   }
 
   return (
@@ -65,7 +65,7 @@ function ActivityItems(props: ActivityItemsProps) {
 
               <div className="flex flex-col">
                 {itemsToSend?.map((item) => {
-                  const originalItem = itemsMap?.get(item.item_id)!
+                  const originalItem = itemsMap?.get(item.item_id)!;
 
                   return (
                     <div className="flex items-center gap-x-3" key={item.id}>
@@ -79,7 +79,7 @@ function ActivityItems(props: ActivityItemsProps) {
                         {`${originalItem?.variant_title} · ${originalItem?.product_title}`}
                       </Text>
                     </div>
-                  )
+                  );
                 })}
 
                 <div className="flex flex-1 flex-row items-center gap-2"></div>
@@ -95,7 +95,7 @@ function ActivityItems(props: ActivityItemsProps) {
 
               <div className="flex flex-col">
                 {itemsToReturn?.map((item) => {
-                  const originalItem = itemsMap?.get(item.item_id)!
+                  const originalItem = itemsMap?.get(item.item_id)!;
 
                   return (
                     <div className="flex items-center gap-x-3" key={item.id}>
@@ -109,7 +109,7 @@ function ActivityItems(props: ActivityItemsProps) {
                         {`${originalItem?.variant_title} · ${originalItem?.product_title}`}
                       </Text>
                     </div>
-                  )
+                  );
                 })}
 
                 <div className="flex flex-1 flex-row items-center gap-2"></div>
@@ -119,7 +119,7 @@ function ActivityItems(props: ActivityItemsProps) {
         </div>
       </Popover.Content>
     </Popover>
-  )
+  );
 }
 
-export default ActivityItems
+export default ActivityItems;

@@ -1,9 +1,9 @@
-import { Column, Row, VisibilityState } from "@tanstack/react-table"
-import { ScrollToOptions, Virtualizer } from "@tanstack/react-virtual"
-import { Dispatch, SetStateAction, useCallback } from "react"
-import { FieldValues } from "react-hook-form"
-import { DataGridMatrix, DataGridQueryTool } from "../models"
-import { DataGridCoordinates } from "../types"
+import { Column, Row, VisibilityState } from "@tanstack/react-table";
+import { ScrollToOptions, Virtualizer } from "@tanstack/react-virtual";
+import { Dispatch, SetStateAction, useCallback } from "react";
+import { FieldValues } from "react-hook-form";
+import { DataGridMatrix, DataGridQueryTool } from "../models";
+import { DataGridCoordinates } from "../types";
 
 type UseDataGridNavigationOptions<TData, TFieldValues extends FieldValues> = {
   matrix: DataGridMatrix<TData, TFieldValues>
@@ -33,68 +33,68 @@ export const useDataGridNavigation = <TData, TFieldValues extends FieldValues>({
   const scrollToCoordinates = useCallback(
     (coords: DataGridCoordinates, direction: "horizontal" | "vertical" | "both") => {
       if (!anchor) {
-        return
+        return;
       }
 
-      const { row, col } = coords
-      const { row: anchorRow, col: anchorCol } = anchor
+      const { row, col } = coords;
+      const { row: anchorRow, col: anchorCol } = anchor;
 
-      const rowDirection = row >= anchorRow ? "down" : "up"
-      const colDirection = col >= anchorCol ? "right" : "left"
+      const rowDirection = row >= anchorRow ? "down" : "up";
+      const colDirection = col >= anchorCol ? "right" : "left";
 
-      let toRow = rowDirection === "down" ? row + 1 : row - 1
+      let toRow = rowDirection === "down" ? row + 1 : row - 1;
       if (visibleRows[toRow] === undefined) {
-        toRow = row
+        toRow = row;
       }
 
-      let toCol = colDirection === "right" ? col + 1 : col - 1
+      let toCol = colDirection === "right" ? col + 1 : col - 1;
       if (visibleColumns[toCol] === undefined) {
-        toCol = col
+        toCol = col;
       }
 
-      const scrollOptions: ScrollToOptions = { align: "auto", behavior: "auto" }
+      const scrollOptions: ScrollToOptions = { align: "auto", behavior: "auto" };
 
       if (direction === "horizontal" || direction === "both") {
-        columnVirtualizer.scrollToIndex(toCol, scrollOptions)
+        columnVirtualizer.scrollToIndex(toCol, scrollOptions);
       }
 
       if (direction === "vertical" || direction === "both") {
-        rowVirtualizer.scrollToIndex(toRow, scrollOptions)
+        rowVirtualizer.scrollToIndex(toRow, scrollOptions);
       }
     },
     [anchor, columnVirtualizer, visibleRows, rowVirtualizer, visibleColumns]
-  )
+  );
 
   const navigateToField = useCallback(
     (field: string) => {
-      const coords = matrix.getCoordinatesByField(field)
+      const coords = matrix.getCoordinatesByField(field);
 
       if (!coords) {
-        return
+        return;
       }
 
-      const column = flatColumns[coords.col]
+      const column = flatColumns[coords.col];
 
       // Ensure that the column is visible
       setColumnVisibility((prev) => {
         return {
           ...prev,
           [column.id]: true,
-        }
-      })
+        };
+      });
 
       requestAnimationFrame(() => {
-        scrollToCoordinates(coords, "both")
-        setSingleRange(coords)
-      })
+        scrollToCoordinates(coords, "both");
+        setSingleRange(coords);
+      });
 
       requestAnimationFrame(() => {
-        const input = queryTool?.getInput(coords)
+        const input = queryTool?.getInput(coords);
 
         if (input) {
-          input.focus()
+          input.focus();
         }
-      })
+      });
     },
     [
       matrix,
@@ -104,10 +104,10 @@ export const useDataGridNavigation = <TData, TFieldValues extends FieldValues>({
       setSingleRange,
       queryTool,
     ]
-  )
+  );
 
   return {
     scrollToCoordinates,
     navigateToField,
-  }
-}
+  };
+};

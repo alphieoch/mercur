@@ -202,7 +202,7 @@ export function getRouteMap({
                             loader,
                             handle: {
                               breadcrumb: (
-                                // eslint-disable-next-line max-len
+                                 
                                 match: UIMatch<HttpTypes.AdminProductVariantResponse>,
                               ) => <Breadcrumb {...match} />,
                             },
@@ -1412,7 +1412,7 @@ export function getRouteMap({
                             loader,
                             handle: {
                               breadcrumb: (
-                                // eslint-disable-next-line max-len
+                                 
                                 match: UIMatch<HttpTypes.AdminShippingProfileResponse>,
                               ) => <Breadcrumb {...match} />,
                             },
@@ -1466,7 +1466,7 @@ export function getRouteMap({
                             loader,
                             handle: {
                               breadcrumb: (
-                                // eslint-disable-next-line max-len
+                                 
                                 match: UIMatch<HttpTypes.AdminShippingOptionTypeResponse>,
                               ) => <Breadcrumb {...match} />,
                             },

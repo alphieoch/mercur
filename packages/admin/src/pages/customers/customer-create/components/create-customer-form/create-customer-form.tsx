@@ -1,16 +1,16 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Form } from "../../../../../components/common/form"
+import { Form } from "../../../../../components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateCustomer } from "../../../../../hooks/api/customers"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateCustomer } from "../../../../../hooks/api/customers";
 
 const CreateCustomerSchema = zod.object({
   email: zod.string().email(),
@@ -18,13 +18,13 @@ const CreateCustomerSchema = zod.object({
   last_name: zod.string().optional(),
   company_name: zod.string().optional(),
   phone: zod.string().optional(),
-})
+});
 
 export const CreateCustomerForm = () => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
-  const { mutateAsync, isPending } = useCreateCustomer()
+  const { mutateAsync, isPending } = useCreateCustomer();
 
   const form = useForm<zod.infer<typeof CreateCustomerSchema>>({
     defaultValues: {
@@ -35,7 +35,7 @@ export const CreateCustomerForm = () => {
       company_name: "",
     },
     resolver: zodResolver(CreateCustomerSchema),
-  })
+  });
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -52,15 +52,15 @@ export const CreateCustomerForm = () => {
             t("customers.create.successToast", {
               email: customer.email,
             })
-          )
-          handleSuccess(`/customers/${customer.id}`)
+          );
+          handleSuccess(`/customers/${customer.id}`);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="create-customer-form">
@@ -91,7 +91,7 @@ export const CreateCustomerForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage data-testid="create-customer-form-first-name-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -106,7 +106,7 @@ export const CreateCustomerForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage data-testid="create-customer-form-last-name-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -121,7 +121,7 @@ export const CreateCustomerForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage data-testid="create-customer-form-email-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -136,7 +136,7 @@ export const CreateCustomerForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage data-testid="create-customer-form-company-name-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -151,7 +151,7 @@ export const CreateCustomerForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage data-testid="create-customer-form-phone-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -177,5 +177,5 @@ export const CreateCustomerForm = () => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

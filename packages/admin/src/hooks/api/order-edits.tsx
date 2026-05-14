@@ -2,14 +2,14 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
-import { HttpTypes } from "@medusajs/types"
-import { useMutation, UseMutationOptions } from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { ordersQueryKeys } from "./orders"
-import { reservationItemsQueryKeys } from "./reservations"
-import { inventoryItemsQueryKeys } from "./inventory.tsx"
+} from "@mercurjs/client";
+import { HttpTypes } from "@medusajs/types";
+import { useMutation, UseMutationOptions } from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { ordersQueryKeys } from "./orders";
+import { reservationItemsQueryKeys } from "./reservations";
+import { inventoryItemsQueryKeys } from "./inventory.tsx";
 
 export const useCreateOrderEdit = (
   orderId: string,
@@ -25,16 +25,16 @@ export const useCreateOrderEdit = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRequestOrderEdit = (
   id: string,
@@ -49,24 +49,24 @@ export const useRequestOrderEdit = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(id),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.changes(id),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.lineItems(id),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useConfirmOrderEdit = (
   id: string,
@@ -81,37 +81,37 @@ export const useConfirmOrderEdit = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(id),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.changes(id),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.lineItems(id),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: reservationItemsQueryKeys.lists(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: inventoryItemsQueryKeys.lists(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: inventoryItemsQueryKeys.details(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelOrderEdit = (
   orderId: string,
@@ -122,24 +122,24 @@ export const useCancelOrderEdit = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.changes(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.lineItems(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddOrderEditItems = (
   id: string,
@@ -155,12 +155,12 @@ export const useAddOrderEditItems = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(id),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 /**
  * Update (quantity) of an item that was originally on the order.
@@ -182,17 +182,17 @@ export const useUpdateOrderEditOriginalItem = (
         $id: id,
         $itemId: itemId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(id),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 /**
  * Update (quantity) of an item that was added to the order edit.
@@ -214,17 +214,17 @@ export const useUpdateOrderEditAddedItem = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(id),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 /**
  * Remove item that was added to the edit.
@@ -247,9 +247,9 @@ export const useRemoveOrderEditItem = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(id),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

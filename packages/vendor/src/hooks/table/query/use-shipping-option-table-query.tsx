@@ -1,5 +1,5 @@
-import { HttpTypes } from "@medusajs/types"
-import { useQueryParams } from "../../use-query-params"
+import { HttpTypes } from "@medusajs/types";
+import { useQueryParams } from "../../use-query-params";
 
 type UseShippingOptionTableQueryProps = {
   regionId: string
@@ -25,7 +25,7 @@ export const useShippingOptionTableQuery = ({
       "stock_location_id",
     ],
     prefix
-  )
+  );
 
   const {
     offset,
@@ -36,7 +36,7 @@ export const useShippingOptionTableQuery = ({
     created_at,
     updated_at,
     stock_location_id,
-  } = queryObject
+  } = queryObject;
 
   const searchParams: HttpTypes.AdminShippingOptionListParams = {
     limit: pageSize,
@@ -52,10 +52,10 @@ export const useShippingOptionTableQuery = ({
     stock_location_id,
     created_at: created_at ? JSON.parse(created_at) : undefined,
     updated_at: updated_at ? JSON.parse(updated_at) : undefined,
-  }
+  };
 
   return {
     searchParams,
     raw: queryObject,
-  }
-}
+  };
+};

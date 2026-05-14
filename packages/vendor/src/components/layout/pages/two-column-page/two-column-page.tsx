@@ -1,9 +1,9 @@
-import { clx } from "@medusajs/ui"
-import { Children, ComponentPropsWithoutRef } from "react"
-import { Outlet } from "react-router-dom"
-import { JsonViewSection } from "../../../common/json-view-section"
-import { MetadataSection } from "../../../common/metadata-section"
-import { PageProps } from "../types"
+import { clx } from "@medusajs/ui";
+import { Children, ComponentPropsWithoutRef } from "react";
+import { Outlet } from "react-router-dom";
+import { JsonViewSection } from "../../../common/json-view-section";
+import { MetadataSection } from "../../../common/metadata-section";
+import { PageProps } from "../types";
 
 
 interface TwoColumnPageProps<TData> extends PageProps<TData> {
@@ -28,35 +28,35 @@ const Root = <TData,>({
    */
   hasOutlet = true,
 }: TwoColumnPageProps<TData>) => {
-  const widgetProps = { data }
+  const widgetProps = { data };
   if (showJSON && !data) {
     if (process.env.NODE_ENV === "development") {
       console.warn(
         "`showJSON` is true but no data is provided. To display JSON, provide data prop."
-      )
+      );
     }
 
-    showJSON = false
+    showJSON = false;
   }
 
   if (showMetadata && !data) {
     if (process.env.NODE_ENV === "development") {
       console.warn(
         "`showMetadata` is true but no data is provided. To display metadata, provide data prop."
-      )
+      );
     }
 
-    showMetadata = false
+    showMetadata = false;
   }
 
-  const childrenArray = Children.toArray(children)
+  const childrenArray = Children.toArray(children);
 
   if (childrenArray.length !== 2) {
-    throw new Error("TwoColumnPage expects exactly two children")
+    throw new Error("TwoColumnPage expects exactly two children");
   }
 
-  const [main, sidebar] = childrenArray
-  const showExtraData = showJSON || showMetadata
+  const [main, sidebar] = childrenArray;
+  const showExtraData = showJSON || showMetadata;
 
   return (
     <div className="flex w-full flex-col gap-y-3">
@@ -82,8 +82,8 @@ const Root = <TData,>({
       </div>
       {hasOutlet && <Outlet />}
     </div>
-  )
-}
+  );
+};
 
 const Main = ({
   children,
@@ -94,8 +94,8 @@ const Main = ({
     <div className={clx("flex w-full flex-col gap-y-3", className)} {...props}>
       {children}
     </div>
-  )
-}
+  );
+};
 
 const Sidebar = ({
   children,
@@ -112,7 +112,7 @@ const Sidebar = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-export const TwoColumnPage = Object.assign(Root, { Main, Sidebar })
+export const TwoColumnPage = Object.assign(Root, { Main, Sidebar });

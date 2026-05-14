@@ -1,17 +1,17 @@
-import { Tooltip } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { PlaceholderCell } from "../placeholder-cell"
-import { useDate } from "../../../../../hooks/use-date"
+import { Tooltip } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { PlaceholderCell } from "../placeholder-cell";
+import { useDate } from "../../../../../hooks/use-date";
 
 type DateCellProps = {
   date?: Date | string | null
 }
 
 export const DateCell = ({ date }: DateCellProps) => {
-  const { getFullDate } = useDate()
+  const { getFullDate } = useDate();
 
   if (!date) {
-    return <PlaceholderCell />
+    return <PlaceholderCell />;
   }
 
   return (
@@ -30,15 +30,15 @@ export const DateCell = ({ date }: DateCellProps) => {
         </span>
       </Tooltip>
     </div>
-  )
-}
+  );
+};
 
 export const DateHeader = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex h-full w-full items-center">
       <span className="truncate">{t("fields.date")}</span>
     </div>
-  )
-}
+  );
+};

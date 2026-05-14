@@ -1,11 +1,11 @@
-import { Heading, Text } from "@medusajs/ui"
-import { DataTableFilter } from "../../../../components/table/data-table/data-table-filter"
-import { useTranslation } from "react-i18next"
-import { useProductTableFilters } from "../../../../hooks/table/filters"
+import { Heading, Text } from "@medusajs/ui";
+import { DataTableFilter } from "../../../../components/table/data-table/data-table-filter";
+import { useTranslation } from "react-i18next";
+import { useProductTableFilters } from "../../../../hooks/table/filters";
 
 export const ExportFilters = () => {
-  const { t } = useTranslation()
-  const filters = useProductTableFilters()
+  const { t } = useTranslation();
+  const filters = useProductTableFilters();
 
   return (
     <div>
@@ -18,5 +18,5 @@ export const ExportFilters = () => {
         <DataTableFilter filters={filters} readonly />
       </div>
     </div>
-  )
-}
+  );
+};

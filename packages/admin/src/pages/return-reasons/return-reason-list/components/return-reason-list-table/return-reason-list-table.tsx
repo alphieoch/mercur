@@ -1,36 +1,36 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Container, Heading, Text } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Container, Heading, Text } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useReturnReasons } from "../../../../../hooks/api/return-reasons"
-import { useReturnReasonTableColumns } from "../../../../../hooks/table/columns"
-import { useReturnReasonTableQuery } from "../../../../../hooks/table/query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useDeleteReturnReasonAction } from "../../../common/hooks/use-delete-return-reason-action"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useReturnReasons } from "../../../../../hooks/api/return-reasons";
+import { useReturnReasonTableColumns } from "../../../../../hooks/table/columns";
+import { useReturnReasonTableQuery } from "../../../../../hooks/table/query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useDeleteReturnReasonAction } from "../../../common/hooks/use-delete-return-reason-action";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const ReturnReasonListTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { searchParams, raw } = useReturnReasonTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
 
   const { return_reasons, count, isPending, isError, error } = useReturnReasons(
     searchParams,
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const columns = useColumns()
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: return_reasons,
@@ -38,10 +38,10 @@ export const ReturnReasonListTable = () => {
     count,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -70,8 +70,8 @@ export const ReturnReasonListTable = () => {
         data-testid="return-reason-list-table"
       />
     </Container>
-  )
-}
+  );
+};
 
 type ReturnReasonRowActionsProps = {
   returnReason: HttpTypes.AdminReturnReason
@@ -80,8 +80,8 @@ type ReturnReasonRowActionsProps = {
 const ReturnReasonRowActions = ({
   returnReason,
 }: ReturnReasonRowActionsProps) => {
-  const { t } = useTranslation()
-  const handleDelete = useDeleteReturnReasonAction(returnReason)
+  const { t } = useTranslation();
+  const handleDelete = useDeleteReturnReasonAction(returnReason);
 
   return (
     <ActionMenu
@@ -107,13 +107,13 @@ const ReturnReasonRowActions = ({
       ]}
       data-testid={`return-reason-list-table-action-menu-${returnReason.id}`}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminReturnReason>()
+const columnHelper = createColumnHelper<HttpTypes.AdminReturnReason>();
 
 const useColumns = () => {
-  const base = useReturnReasonTableColumns()
+  const base = useReturnReasonTableColumns();
 
   return useMemo(
     () => [
@@ -126,5 +126,5 @@ const useColumns = () => {
       }),
     ],
     [base]
-  )
-}
+  );
+};

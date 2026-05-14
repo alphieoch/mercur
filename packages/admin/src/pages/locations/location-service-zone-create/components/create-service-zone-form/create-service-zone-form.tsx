@@ -1,30 +1,30 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Heading, InlineTip, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Heading, InlineTip, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { Form } from "../../../../../components/common/form"
+import { Form } from "../../../../../components/common/form";
 import {
   RouteFocusModal,
   StackedFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateFulfillmentSetServiceZone } from "../../../../../hooks/api/fulfillment-sets"
-import { GeoZoneForm } from "../../../common/components/geo-zone-form"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateFulfillmentSetServiceZone } from "../../../../../hooks/api/fulfillment-sets";
+import { GeoZoneForm } from "../../../common/components/geo-zone-form";
 import {
   FulfillmentSetType,
   GEO_ZONE_STACKED_MODAL_ID,
-} from "../../../common/constants"
+} from "../../../common/constants";
 
 const CreateServiceZoneSchema = z.object({
   name: z.string().min(1),
   countries: z
     .array(z.object({ iso_2: z.string().min(2), display_name: z.string() }))
     .min(1),
-})
+});
 
 type CreateServiceZoneFormProps = {
   fulfillmentSet: HttpTypes.AdminFulfillmentSet
@@ -37,8 +37,8 @@ export function CreateServiceZoneForm({
   type,
   location,
 }: CreateServiceZoneFormProps) {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof CreateServiceZoneSchema>>({
     defaultValues: {
@@ -46,11 +46,11 @@ export function CreateServiceZoneForm({
       countries: [],
     },
     resolver: zodResolver(CreateServiceZoneSchema),
-  })
+  });
 
   const { mutateAsync, isPending } = useCreateFulfillmentSetServiceZone(
     fulfillmentSet.id
-  )
+  );
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -67,16 +67,16 @@ export function CreateServiceZoneForm({
             t("stockLocations.serviceZones.create.successToast", {
               name: data.name,
             })
-          )
+          );
 
-          handleSuccess(`/settings/locations/${location.id}`)
+          handleSuccess(`/settings/locations/${location.id}`);
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="location-service-zone-create-form">
@@ -92,11 +92,11 @@ export function CreateServiceZoneForm({
                 <Heading data-testid="location-service-zone-create-form-heading">
                   {type === FulfillmentSetType.Pickup
                     ? t("stockLocations.serviceZones.create.headerPickup", {
-                        location: location.name,
-                      })
+                      location: location.name,
+                    })
                     : t("stockLocations.serviceZones.create.headerShipping", {
-                        location: location.name,
-                      })}
+                      location: location.name,
+                    })}
                 </Heading>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -112,7 +112,7 @@ export function CreateServiceZoneForm({
                           </Form.Control>
                           <Form.ErrorMessage data-testid="location-service-zone-create-form-name-error" />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
                 </div>
@@ -142,5 +142,5 @@ export function CreateServiceZoneForm({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }

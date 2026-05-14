@@ -149,8 +149,8 @@ export const NavItem = ({
           state={
             from
               ? {
-                  from,
-                }
+                from,
+              }
               : undefined
           }
           className={({ isActive }) => {

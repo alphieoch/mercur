@@ -1,21 +1,21 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AdminCampaign, AdminPromotion } from "@medusajs/types"
-import { Button, RadioGroup, toast } from "@medusajs/ui"
-import { useEffect } from "react"
-import { useForm, useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdatePromotion } from "../../../../../hooks/api/promotions"
-import { CreateCampaignFormFields } from "../../../../campaigns/common/components/create-campaign-form-fields"
-import { CampaignDetails } from "./campaign-details"
-import { sdk } from "../../../../../lib/client"
-import { useComboboxData } from "../../../../../hooks/use-combobox-data"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { useCampaign } from "../../../../../hooks/api/campaigns"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AdminCampaign, AdminPromotion } from "@medusajs/types";
+import { Button, RadioGroup, toast } from "@medusajs/ui";
+import { useEffect } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdatePromotion } from "../../../../../hooks/api/promotions";
+import { CreateCampaignFormFields } from "../../../../campaigns/common/components/create-campaign-form-fields";
+import { CampaignDetails } from "./campaign-details";
+import { sdk } from "../../../../../lib/client";
+import { useComboboxData } from "../../../../../hooks/use-combobox-data";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { useCampaign } from "../../../../../hooks/api/campaigns";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
 
 type EditPromotionFormProps = {
   promotion: AdminPromotion
@@ -24,7 +24,7 @@ type EditPromotionFormProps = {
 const EditPromotionSchema = zod.object({
   campaign_id: zod.string().optional().nullable(),
   campaign_choice: zod.enum(["none", "existing"]).optional(),
-})
+});
 
 export const AddCampaignPromotionFields = ({
   form,
@@ -35,18 +35,18 @@ export const AddCampaignPromotionFields = ({
   withNewCampaign?: boolean
   promotionCurrencyCode?: string
 }) => {
-  const { t } = useTranslation()
-  const direction = useDocumentDirection()
+  const { t } = useTranslation();
+  const direction = useDocumentDirection();
 
   const watchCampaignId = useWatch({
     control: form.control,
     name: "campaign_id",
-  })
+  });
 
   const watchCampaignChoice = useWatch({
     control: form.control,
     name: "campaign_choice",
-  })
+  });
 
   const campaignsCombobox = useComboboxData({
     queryFn: (params) =>
@@ -63,7 +63,7 @@ export const AddCampaignPromotionFields = ({
           campaign.budget?.currency_code?.toLowerCase() !==
             promotionCurrencyCode?.toLowerCase(), // also cannot add promotion which doesn't have currency defined to a campaign with a currency amount budget
       })),
-  })
+  });
 
   const { campaign: selectedCampaign } = useCampaign(
     watchCampaignId as string,
@@ -71,7 +71,7 @@ export const AddCampaignPromotionFields = ({
     {
       enabled: !!watchCampaignId,
     }
-  )
+  );
 
   return (
     <div className="flex flex-col gap-y-8" data-testid="promotion-add-campaign-fields">
@@ -123,7 +123,7 @@ export const AddCampaignPromotionFields = ({
 
               <Form.ErrorMessage data-testid="promotion-add-campaign-form-campaign-choice-error" />
             </Form.Item>
-          )
+          );
         }}
       />
 
@@ -157,7 +157,7 @@ export const AddCampaignPromotionFields = ({
                 )}
                 <Form.ErrorMessage data-testid="promotion-add-campaign-form-campaign-id-error" />
               </Form.Item>
-            )
+            );
           }}
         />
       )}
@@ -168,17 +168,17 @@ export const AddCampaignPromotionFields = ({
 
       <CampaignDetails campaign={selectedCampaign as AdminCampaign} />
     </div>
-  )
-}
+  );
+};
 
 export const AddCampaignPromotionForm = ({
   promotion,
 }: EditPromotionFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const { campaign } = promotion
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const { campaign } = promotion;
 
-  const originalId = campaign?.id
+  const originalId = campaign?.id;
 
   const form = useForm<zod.infer<typeof EditPromotionSchema>>({
     defaultValues: {
@@ -186,40 +186,40 @@ export const AddCampaignPromotionForm = ({
       campaign_choice: campaign?.id ? "existing" : "none",
     },
     resolver: zodResolver(EditPromotionSchema),
-  })
+  });
 
-  const { setValue } = form
+  const { setValue } = form;
 
-  const { mutateAsync, isPending } = useUpdatePromotion(promotion.id)
+  const { mutateAsync, isPending } = useUpdatePromotion(promotion.id);
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
       { campaign_id: data.campaign_id },
       {
         onSuccess: () => {
-          toast.success(t("promotions.campaign.edit.successToast"))
-          handleSuccess()
+          toast.success(t("promotions.campaign.edit.successToast"));
+          handleSuccess();
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   const watchCampaignChoice = useWatch({
     control: form.control,
     name: "campaign_choice",
-  })
+  });
 
   useEffect(() => {
     if (watchCampaignChoice === "none") {
-      setValue("campaign_id", null)
+      setValue("campaign_id", null);
     }
 
     if (watchCampaignChoice === "existing") {
-      setValue("campaign_id", originalId)
+      setValue("campaign_id", originalId);
     }
-  }, [watchCampaignChoice, setValue, originalId])
+  }, [watchCampaignChoice, setValue, originalId]);
 
   return (
     <RouteDrawer.Form form={form} data-testid="promotion-add-campaign-form">
@@ -250,5 +250,5 @@ export const AddCampaignPromotionForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

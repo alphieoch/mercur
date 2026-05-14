@@ -77,6 +77,7 @@ const ReviewListPage = () => {
 
 export default ReviewListPage;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const config: RouteConfig = {
   label: "Reviews",
   icon: Star,

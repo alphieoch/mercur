@@ -1,15 +1,15 @@
-import { XMarkMini } from "@medusajs/icons"
-import { IconButton, Input, Select, Textarea } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { XMarkMini } from "@medusajs/icons";
+import { IconButton, Input, Select, Textarea } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "@components/common/form"
-import { SwitchBox } from "@components/common/switch-box"
-import { ChipInput } from "@components/inputs/chip-input"
-import { Combobox } from "@components/inputs/combobox"
-import { NumericInput } from "../../../../components/inputs/numeric-input"
-import { ProductAttribute } from "../../types"
-import { ProductCreateSchemaType } from "../types"
+import { Form } from "@components/common/form";
+import { SwitchBox } from "@components/common/switch-box";
+import { ChipInput } from "@components/inputs/chip-input";
+import { Combobox } from "@components/inputs/combobox";
+import { NumericInput } from "../../../../components/inputs/numeric-input";
+import { ProductAttribute } from "../../types";
+import { ProductCreateSchemaType } from "../types";
 
 type UserCreatedOptionsListProps = {
   form: UseFormReturn<ProductCreateSchemaType>
@@ -39,30 +39,30 @@ export const UserCreatedOptionsList = ({
   isExistingProduct = false,
   allowCreate = true,
 }: UserCreatedOptionsListProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (options?.fields?.length === 0) {
-    return null
+    return null;
   }
 
   return (
     <ul className="flex flex-col gap-y-4">
       {options.fields.map(({ id }, index) => {
         const attributeLookup =
-          allNonRequiredAttributes || availableAttributes
+          allNonRequiredAttributes || availableAttributes;
         const selectedAttribute = attributeLookup?.find(
           (attribute) =>
             attribute.id ===
             form.watch(`options.${index}.attributeId`)
-        )
-        const uiComponent = selectedAttribute?.ui_component
+        );
+        const uiComponent = selectedAttribute?.ui_component;
         const possibleValueOptions =
           selectedAttribute?.possible_values.map(({ value }) => ({
             label: value,
             value: value,
-          })) ?? []
+          })) ?? [];
         const showUseForVariants =
-          !selectedAttribute || uiComponent === "multivalue"
+          !selectedAttribute || uiComponent === "multivalue";
 
         return (
           <li
@@ -106,64 +106,64 @@ export const UserCreatedOptionsList = ({
                                   availableAttributes?.find(
                                     (attribute) =>
                                       attribute.id === v
-                                  )
+                                  );
                                 if (foundAttribute) {
                                   form.setValue(
                                     `options.${index}.values`,
                                     []
-                                  )
+                                  );
                                   form.setValue(
                                     `options.${index}.attributeId`,
                                     v as string
-                                  )
+                                  );
                                   form.setValue(
                                     `options.${index}.title`,
                                     foundAttribute.name || ""
-                                  )
+                                  );
                                   form.setValue(
                                     `options.${index}.metadata`,
                                     { author: "admin" }
-                                  )
+                                  );
                                   form.setValue(
                                     `options.${index}.useForVariants`,
                                     false
-                                  )
-                                  return
+                                  );
+                                  return;
                                 }
                                 form.setValue(
                                   `options.${index}.values`,
                                   []
-                                )
+                                );
                                 form.setValue(
                                   `options.${index}.attributeId`,
                                   ""
-                                )
+                                );
                                 form.setValue(
                                   `options.${index}.metadata`,
                                   { author: "vendor" }
-                                )
-                                onChange(v)
+                                );
+                                onChange(v);
                               }}
                               onCreateOption={
                                 allowCreate
                                   ? (value) => {
-                                      form.setValue(
-                                        `options.${index}.title`,
-                                        value
-                                      )
-                                      form.setValue(
-                                        `options.${index}.attributeId`,
-                                        ""
-                                      )
-                                      form.setValue(
-                                        `options.${index}.metadata`,
-                                        { author: "vendor" }
-                                      )
-                                      form.setValue(
-                                        `options.${index}.values`,
-                                        []
-                                      )
-                                    }
+                                    form.setValue(
+                                      `options.${index}.title`,
+                                      value
+                                    );
+                                    form.setValue(
+                                      `options.${index}.attributeId`,
+                                      ""
+                                    );
+                                    form.setValue(
+                                      `options.${index}.metadata`,
+                                      { author: "vendor" }
+                                    );
+                                    form.setValue(
+                                      `options.${index}.values`,
+                                      []
+                                    );
+                                  }
                                   : undefined
                               }
                               className="w-full bg-ui-bg-base hover:bg-ui-bg-base-hover"
@@ -174,7 +174,7 @@ export const UserCreatedOptionsList = ({
                           </div>
                         </Form.Control>
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -193,7 +193,7 @@ export const UserCreatedOptionsList = ({
                             className="w-full"
                             aria-invalid={!!fieldState.error}
                           />
-                        )
+                        );
                       }
 
                       if (uiComponent === "select") {
@@ -211,7 +211,7 @@ export const UserCreatedOptionsList = ({
                             aria-invalid={!!fieldState.error}
                             className="w-full bg-ui-bg-base hover:bg-ui-bg-base-hover"
                           />
-                        )
+                        );
                       }
 
                       if (uiComponent === "text") {
@@ -227,7 +227,7 @@ export const UserCreatedOptionsList = ({
                             className="w-full"
                             aria-invalid={!!fieldState.error}
                           />
-                        )
+                        );
                       }
 
                       if (uiComponent === "text_area") {
@@ -243,7 +243,7 @@ export const UserCreatedOptionsList = ({
                             className="w-full"
                             aria-invalid={!!fieldState.error}
                           />
-                        )
+                        );
                       }
 
                       if (uiComponent === "toggle") {
@@ -273,7 +273,7 @@ export const UserCreatedOptionsList = ({
                               </Select.Item>
                             </Select.Content>
                           </Select>
-                        )
+                        );
                       }
 
                       if (uiComponent === "unit") {
@@ -295,7 +295,7 @@ export const UserCreatedOptionsList = ({
                             aria-invalid={!!fieldState.error}
                             hideControls
                           />
-                        )
+                        );
                       }
 
                       return (
@@ -305,18 +305,18 @@ export const UserCreatedOptionsList = ({
                           onCreateOption={
                             allowCreate
                               ? (value) => {
-                                  form.setValue(
-                                    `options.${index}.values`,
-                                    [...field.value, value]
-                                  )
-                                }
+                                form.setValue(
+                                  `options.${index}.values`,
+                                  [...field.value, value]
+                                );
+                              }
                               : undefined
                           }
                           aria-invalid={!!fieldState.error}
                           className="w-full bg-ui-bg-base hover:bg-ui-bg-base-hover"
                         />
-                      )
-                    }
+                      );
+                    };
 
                     return (
                       <Form.Item className="flex flex-row items-start gap-x-1.5 space-y-0">
@@ -332,7 +332,7 @@ export const UserCreatedOptionsList = ({
                           </div>
                         </Form.Control>
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -358,18 +358,18 @@ export const UserCreatedOptionsList = ({
                 description={
                   isExistingProduct
                     ? t(
-                        "products.fields.attributes.useForVariants.editDescription"
-                      )
+                      "products.fields.attributes.useForVariants.editDescription"
+                    )
                     : t(
-                        "products.fields.attributes.useForVariants.description"
-                      )
+                      "products.fields.attributes.useForVariants.description"
+                    )
                 }
                 className="pl-14 [&>*]:shadow-none"
               />
             )}
           </li>
-        )
+        );
       })}
     </ul>
-  )
-}
+  );
+};

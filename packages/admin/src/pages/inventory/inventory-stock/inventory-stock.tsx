@@ -1,19 +1,19 @@
-import { useTranslation } from "react-i18next"
-import { useSearchParams } from "react-router-dom"
-import { RouteFocusModal } from "../../../components/modals"
-import { useInventoryItems, useStockLocations } from "../../../hooks/api"
-import { INVENTORY_ITEM_IDS_KEY } from "../common/constants"
-import { InventoryStockForm } from "./components/inventory-stock-form"
+import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
+import { RouteFocusModal } from "../../../components/modals";
+import { useInventoryItems, useStockLocations } from "../../../hooks/api";
+import { INVENTORY_ITEM_IDS_KEY } from "../common/constants";
+import { InventoryStockForm } from "./components/inventory-stock-form";
 
 export const InventoryStock = () => {
-  const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
+  const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
   const inventoryItemIds =
-    searchParams.get(INVENTORY_ITEM_IDS_KEY)?.split(",") || undefined
+    searchParams.get(INVENTORY_ITEM_IDS_KEY)?.split(",") || undefined;
 
   const { inventory_items, isPending, isError, error } = useInventoryItems({
     id: inventoryItemIds,
-  })
+  });
 
   const {
     stock_locations,
@@ -23,20 +23,20 @@ export const InventoryStock = () => {
   } = useStockLocations({
     limit: 9999,
     fields: "id,name",
-  })
+  });
 
   const ready =
     !isPending &&
     !!inventory_items &&
     !isPendingStockLocations &&
-    !!stock_locations
+    !!stock_locations;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   if (isErrorStockLocations) {
-    throw errorStockLocations
+    throw errorStockLocations;
   }
 
   return (
@@ -54,5 +54,5 @@ export const InventoryStock = () => {
         />
       )}
     </RouteFocusModal>
-  )
-}
+  );
+};

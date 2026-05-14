@@ -1,4 +1,4 @@
-import { XMark } from "@medusajs/icons"
+import { XMark } from "@medusajs/icons";
 import {
   Button,
   clx,
@@ -7,13 +7,13 @@ import {
   Input,
   Kbd,
   Text,
-} from "@medusajs/ui"
-import { Dialog as RadixDialog } from "radix-ui"
-import { useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { Dialog as RadixDialog } from "radix-ui";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const useDataGridShortcuts = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const shortcuts = useMemo(
     () => [
@@ -152,10 +152,10 @@ const useDataGridShortcuts = () => {
       },
     ],
     [t]
-  )
+  );
 
-  return shortcuts
-}
+  return shortcuts;
+};
 
 type DataGridKeyboardShortcutModalProps = {
   open: boolean
@@ -166,15 +166,15 @@ export const DataGridKeyboardShortcutModal = ({
   open,
   onOpenChange,
 }: DataGridKeyboardShortcutModalProps) => {
-  const { t } = useTranslation()
-  const [searchValue, onSearchValueChange] = useState("")
-  const shortcuts = useDataGridShortcuts()
+  const { t } = useTranslation();
+  const [searchValue, onSearchValueChange] = useState("");
+  const shortcuts = useDataGridShortcuts();
 
   const searchResults = useMemo(() => {
     return shortcuts.filter((shortcut) =>
       shortcut.label.toLowerCase().includes(searchValue.toLowerCase())
-    )
-  }, [searchValue, shortcuts])
+    );
+  }, [searchValue, shortcuts]);
 
   return (
     <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
@@ -231,15 +231,15 @@ export const DataGridKeyboardShortcutModal = ({
                         <div className="flex items-center gap-x-1" key={index}>
                           <Kbd>{key}</Kbd>
                         </div>
-                      )
+                      );
                     })}
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </RadixDialog.Content>
       </RadixDialog.Portal>
     </RadixDialog.Root>
-  )
-}
+  );
+};

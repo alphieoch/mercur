@@ -7,16 +7,16 @@ import {
   ComboboxPopover as PrimitiveComboboxPopover,
   ComboboxProvider as PrimitiveComboboxProvider,
   Separator as PrimitiveSeparator,
-} from "@ariakit/react"
+} from "@ariakit/react";
 import {
   CheckMini,
   EllipseMiniSolid,
   PlusMini,
   TrianglesMini,
   XMarkMini,
-} from "@medusajs/icons"
-import { clx, Text } from "@medusajs/ui"
-import { matchSorter } from "match-sorter"
+} from "@medusajs/icons";
+import { clx, Text } from "@medusajs/ui";
+import { matchSorter } from "match-sorter";
 import {
   ComponentPropsWithoutRef,
   CSSProperties,
@@ -30,10 +30,10 @@ import {
   useRef,
   useState,
   useTransition,
-} from "react"
-import { useTranslation } from "react-i18next"
+} from "react";
+import { useTranslation } from "react-i18next";
 
-import { genericForwardRef } from "../../utilities/generic-forward-ref"
+import { genericForwardRef } from "../../utilities/generic-forward-ref";
 
 type ComboboxOption = {
   value: string
@@ -43,8 +43,8 @@ type ComboboxOption = {
 
 type Value = string[] | string
 
-const TABLUAR_NUM_WIDTH = 8
-const TAG_BASE_WIDTH = 28
+const TABLUAR_NUM_WIDTH = 8;
+const TAG_BASE_WIDTH = 28;
 
 interface ComboboxProps<T extends Value = Value>
   extends Omit<ComponentPropsWithoutRef<"input">, "onChange" | "value"> {
@@ -82,32 +82,32 @@ const ComboboxImpl = <T extends Value = string>(
   }: ComboboxProps<T>,
   ref: ForwardedRef<HTMLInputElement>
 ) => {
-  const [open, setOpen] = useState(false)
-  const [isPending, startTransition] = useTransition()
-  const { t } = useTranslation()
+  const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const { t } = useTranslation();
 
-  const comboboxRef = useRef<HTMLInputElement>(null)
-  const listboxRef = useRef<HTMLDivElement>(null)
+  const comboboxRef = useRef<HTMLInputElement>(null);
+  const listboxRef = useRef<HTMLDivElement>(null);
 
-  useImperativeHandle(ref, () => comboboxRef.current!)
+  useImperativeHandle(ref, () => comboboxRef.current!);
 
-  const isValueControlled = controlledValue !== undefined
-  const isSearchControlled = controlledSearchValue !== undefined
+  const isValueControlled = controlledValue !== undefined;
+  const isSearchControlled = controlledSearchValue !== undefined;
 
-  const isArrayValue = Array.isArray(controlledValue)
-  const emptyState = (isArrayValue ? [] : "") as T
+  const isArrayValue = Array.isArray(controlledValue);
+  const emptyState = (isArrayValue ? [] : "") as T;
 
   const [uncontrolledSearchValue, setUncontrolledSearchValue] = useState(
     controlledSearchValue || ""
-  )
-  const defferedSearchValue = useDeferredValue(uncontrolledSearchValue)
+  );
+  const defferedSearchValue = useDeferredValue(uncontrolledSearchValue);
 
-  const [uncontrolledValue, setUncontrolledValue] = useState<T>(emptyState)
+  const [uncontrolledValue, setUncontrolledValue] = useState<T>(emptyState);
 
   const searchValue = isSearchControlled
     ? controlledSearchValue
-    : uncontrolledSearchValue
-  const selectedValues = isValueControlled ? controlledValue : uncontrolledValue
+    : uncontrolledSearchValue;
+  const selectedValues = isValueControlled ? controlledValue : uncontrolledValue;
 
   const handleValueChange = (newValues?: T) => {
     // check if the value already exists in options
@@ -115,35 +115,35 @@ const ComboboxImpl = <T extends Value = string>(
       .filter((o) => !o.disabled)
       .find((o) => {
         if (isArrayValue) {
-          return newValues?.includes(o.value)
+          return newValues?.includes(o.value);
         }
-        return o.value === newValues
-      })
+        return o.value === newValues;
+      });
 
     // If the value does not exist in the options, and the component has a handler
     // for creating new options, call it.
     if (!exists && onCreateOption && newValues) {
-      onCreateOption(newValues as string)
+      onCreateOption(newValues as string);
     }
 
     if (!isValueControlled) {
-      setUncontrolledValue(newValues || emptyState)
+      setUncontrolledValue(newValues || emptyState);
     }
 
     if (onChange) {
-      onChange(newValues)
+      onChange(newValues);
     }
 
-    setUncontrolledSearchValue("")
-  }
+    setUncontrolledSearchValue("");
+  };
 
   const handleSearchChange = (query: string) => {
-    setUncontrolledSearchValue(query)
+    setUncontrolledSearchValue(query);
 
     if (onSearchValueChange) {
-      onSearchValueChange(query)
+      onSearchValueChange(query);
     }
-  }
+  };
 
   /**
    * Filter and sort the options based on the search value,
@@ -153,45 +153,45 @@ const ComboboxImpl = <T extends Value = string>(
    */
   const matches = useMemo(() => {
     if (isSearchControlled) {
-      return []
+      return [];
     }
 
     // do not use `matcher` if the input is hidden
     if (forceHideInput) {
-      return options
+      return options;
     }
 
     return matchSorter(options, defferedSearchValue, {
       keys: ["label"],
-    })
-  }, [options, defferedSearchValue, isSearchControlled, forceHideInput])
+    });
+  }, [options, defferedSearchValue, isSearchControlled, forceHideInput]);
 
   const observer = useRef(
     new IntersectionObserver(
       (entries) => {
-        const first = entries[0]
+        const first = entries[0];
         if (first.isIntersecting) {
-          fetchNextPage?.()
+          fetchNextPage?.();
         }
       },
       { threshold: 1 }
     )
-  )
+  );
 
   const lastOptionRef = useCallback(
     (node: HTMLDivElement) => {
       if (isFetchingNextPage) {
-        return
+        return;
       }
       if (observer.current) {
-        observer.current.disconnect()
+        observer.current.disconnect();
       }
       if (node) {
-        observer.current.observe(node)
+        observer.current.observe(node);
       }
     },
     [isFetchingNextPage]
-  )
+  );
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
@@ -199,41 +199,41 @@ const ComboboxImpl = <T extends Value = string>(
       if (hideCreateOption && onCreateOption && uncontrolledSearchValue.trim()) {
         const matchesExisting = options.some(
           (o) => o.label?.toLowerCase() === uncontrolledSearchValue.trim().toLowerCase()
-        )
+        );
         if (!matchesExisting) {
-          onCreateOption(uncontrolledSearchValue.trim())
+          onCreateOption(uncontrolledSearchValue.trim());
         }
       }
-      setUncontrolledSearchValue("")
+      setUncontrolledSearchValue("");
     }
 
-    setOpen(open)
-  }
+    setOpen(open);
+  };
 
-  const hasValue = selectedValues?.length > 0
+  const hasValue = selectedValues?.length > 0;
 
-  const showTag = hasValue && isArrayValue
-  const showSelected = showTag && !searchValue && !open
+  const showTag = hasValue && isArrayValue;
+  const showSelected = showTag && !searchValue && !open;
 
-  const hideInput = forceHideInput || (!isArrayValue && hasValue && !open)
-  const selectedLabel = options.find((o) => o.value === selectedValues)?.label || (typeof selectedValues === "string" ? selectedValues : undefined)
+  const hideInput = forceHideInput || (!isArrayValue && hasValue && !open);
+  const selectedLabel = options.find((o) => o.value === selectedValues)?.label || (typeof selectedValues === "string" ? selectedValues : undefined);
 
-  const hidePlaceholder = showSelected || open
+  const hidePlaceholder = showSelected || open;
 
   const tagWidth = useMemo(() => {
     if (!Array.isArray(selectedValues)) {
-      return TAG_BASE_WIDTH + TABLUAR_NUM_WIDTH // There can only be a single digit
+      return TAG_BASE_WIDTH + TABLUAR_NUM_WIDTH; // There can only be a single digit
     }
 
-    const count = selectedValues.length
-    const digits = count.toString().length
+    const count = selectedValues.length;
+    const digits = count.toString().length;
 
-    return TAG_BASE_WIDTH + digits * TABLUAR_NUM_WIDTH
-  }, [selectedValues])
+    return TAG_BASE_WIDTH + digits * TABLUAR_NUM_WIDTH;
+  }, [selectedValues]);
 
   const results = useMemo(() => {
-    return isSearchControlled ? options : matches
-  }, [matches, options, isSearchControlled])
+    return isSearchControlled ? options : matches;
+  }, [matches, options, isSearchControlled]);
 
   return (
     <PrimitiveComboboxProvider
@@ -243,7 +243,7 @@ const ComboboxImpl = <T extends Value = string>(
       setSelectedValue={(value) => handleValueChange(value as T)}
       value={uncontrolledSearchValue}
       setValue={(query) => {
-        startTransition(() => handleSearchChange(query))
+        startTransition(() => handleSearchChange(query));
       }}
     >
       <div
@@ -266,8 +266,8 @@ const ComboboxImpl = <T extends Value = string>(
           <button
             type="button"
             onClick={(e) => {
-              e.preventDefault()
-              handleValueChange(isArrayValue ? ([] as unknown as T) : undefined)
+              e.preventDefault();
+              handleValueChange(isArrayValue ? ([] as unknown as T) : undefined);
             }}
             className="bg-ui-bg-base hover:bg-ui-bg-base-hover txt-compact-small-plus text-ui-fg-subtle focus-within:border-ui-fg-interactive transition-fg absolute start-0.5 top-0.5 z-[1] flex h-[28px] items-center rounded-[4px] border py-[3px] pe-1 ps-1.5 outline-none"
           >
@@ -327,8 +327,8 @@ const ComboboxImpl = <T extends Value = string>(
           <button
             type="button"
             onClick={(e) => {
-              e.preventDefault()
-              handleValueChange(undefined)
+              e.preventDefault();
+              handleValueChange(undefined);
             }}
             className="bg-ui-bg-base hover:bg-ui-bg-base-hover txt-compact-small-plus text-ui-fg-subtle focus-within:border-ui-fg-interactive transition-fg absolute end-[28px] top-0.5 z-[1] flex h-[28px] items-center rounded-[4px] border px-1.5 py-[2px] outline-none"
           >
@@ -345,7 +345,7 @@ const ComboboxImpl = <T extends Value = string>(
               >
                 <TrianglesMini />
               </button>
-            )
+            );
           }}
         />
       </div>
@@ -427,7 +427,7 @@ const ComboboxImpl = <T extends Value = string>(
         )}
       </PrimitiveComboboxPopover>
     </PrimitiveComboboxProvider>
-  )
-}
+  );
+};
 
-export const Combobox = genericForwardRef(ComboboxImpl)
+export const Combobox = genericForwardRef(ComboboxImpl);

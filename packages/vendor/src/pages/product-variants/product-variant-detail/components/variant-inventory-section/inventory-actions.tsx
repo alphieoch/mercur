@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
 
-import { Buildings } from "@medusajs/icons"
+import { Buildings } from "@medusajs/icons";
 
-import { ActionMenu } from "@components/common/action-menu"
+import { ActionMenu } from "@components/common/action-menu";
 
 export const InventoryActions = ({ item }: { item: string }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <ActionMenu
@@ -21,5 +21,5 @@ export const InventoryActions = ({ item }: { item: string }) => {
         },
       ]}
     />
-  )
-}
+  );
+};

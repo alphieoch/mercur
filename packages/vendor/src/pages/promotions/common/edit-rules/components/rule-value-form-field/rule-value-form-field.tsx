@@ -147,27 +147,27 @@ export const RuleValueFormField = ({
               <Form.ErrorMessage />
             </Form.Item>
           );
-        } else {
-          return (
-            <Form.Item className="basis-1/2">
-              <Form.Control>
-                <Combobox
-                  {...field}
-                  {...comboboxData}
-                  ref={ref}
-                  placeholder={
-                    watchOperator === "eq"
-                      ? t("labels.selectValue")
-                      : t("labels.selectValues")
-                  }
-                  disabled={!watchOperator}
-                  onChange={onChange}
-                />
-              </Form.Control>
-              <Form.ErrorMessage />
-            </Form.Item>
-          );
-        }
+        } 
+        return (
+          <Form.Item className="basis-1/2">
+            <Form.Control>
+              <Combobox
+                {...field}
+                {...comboboxData}
+                ref={ref}
+                placeholder={
+                  watchOperator === "eq"
+                    ? t("labels.selectValue")
+                    : t("labels.selectValues")
+                }
+                disabled={!watchOperator}
+                onChange={onChange}
+              />
+            </Form.Control>
+            <Form.ErrorMessage />
+          </Form.Item>
+        );
+        
       }}
     />
   );

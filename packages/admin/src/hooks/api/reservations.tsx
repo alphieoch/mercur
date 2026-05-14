@@ -2,26 +2,26 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 import {
   inventoryItemLevelsQueryKeys,
   inventoryItemsQueryKeys,
-} from "./inventory.tsx"
+} from "./inventory.tsx";
 
-const RESERVATION_ITEMS_QUERY_KEY = "reservation_items" as const
+const RESERVATION_ITEMS_QUERY_KEY = "reservation_items" as const;
 export const reservationItemsQueryKeys = queryKeysFactory(
   RESERVATION_ITEMS_QUERY_KEY
-)
+);
 
 export const useReservationItem = (
   id: string,
@@ -43,10 +43,10 @@ export const useReservationItem = (
     queryKey: reservationItemsQueryKeys.detail(id),
     queryFn: () => sdk.admin.reservations.$id.query({ $id: id, ...query }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useReservationItems = (
   query?: InferClientInput<typeof sdk.admin.reservations.query>,
@@ -64,10 +64,10 @@ export const useReservationItems = (
     queryFn: () => sdk.admin.reservations.query({ ...query }),
     queryKey: reservationItemsQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useUpdateReservationItem = (
   id: string,
@@ -86,21 +86,21 @@ export const useUpdateReservationItem = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: reservationItemsQueryKeys.detail(id),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: reservationItemsQueryKeys.lists(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: inventoryItemsQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: inventoryItemLevelsQueryKeys.details(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCreateReservationItem = (
   options?: UseMutationOptions<
@@ -114,18 +114,18 @@ export const useCreateReservationItem = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: reservationItemsQueryKeys.lists(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: inventoryItemsQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: inventoryItemLevelsQueryKeys.details(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteReservationItem = (
   id: string,
@@ -140,18 +140,18 @@ export const useDeleteReservationItem = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: reservationItemsQueryKeys.lists(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: reservationItemsQueryKeys.detail(id),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: inventoryItemsQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: inventoryItemLevelsQueryKeys.details(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

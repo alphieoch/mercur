@@ -1,17 +1,17 @@
-import { useCallback } from "react"
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { useCallback } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 import {
   FileType,
   FileUpload,
-} from "../../../../../components/common/file-upload"
-import { Form } from "../../../../../components/common/form"
-import { MediaSchema } from "../../../product-create/constants"
+} from "../../../../../components/common/file-upload";
+import { Form } from "../../../../../components/common/form";
+import { MediaSchema } from "../../../product-create/constants";
 import {
   EditProductMediaSchemaType,
   ProductCreateSchemaType,
-} from "../../../product-create/types"
+} from "../../../product-create/types";
 
 type Media = z.infer<typeof MediaSchema>
 
@@ -22,7 +22,7 @@ const SUPPORTED_FORMATS = [
   "image/webp",
   "image/heic",
   "image/svg+xml",
-]
+];
 
 const SUPPORTED_FORMATS_FILE_EXTENSIONS = [
   ".jpeg",
@@ -31,7 +31,7 @@ const SUPPORTED_FORMATS_FILE_EXTENSIONS = [
   ".webp",
   ".heic",
   ".svg",
-]
+];
 
 export const UploadMediaFormItem = ({
   form,
@@ -44,13 +44,13 @@ export const UploadMediaFormItem = ({
   append: (value: Media) => void
   showHint?: boolean
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const hasInvalidFiles = useCallback(
     (fileList: FileType[]) => {
       const invalidFile = fileList.find(
         (f) => !SUPPORTED_FORMATS.includes(f.file.type)
-      )
+      );
 
       if (invalidFile) {
         form.setError("media", {
@@ -59,27 +59,27 @@ export const UploadMediaFormItem = ({
             name: invalidFile.file.name,
             types: SUPPORTED_FORMATS_FILE_EXTENSIONS.join(", "),
           }),
-        })
+        });
 
-        return true
+        return true;
       }
 
-      return false
+      return false;
     },
     [form, t]
-  )
+  );
 
   const onUploaded = useCallback(
     (files: FileType[]) => {
-      form.clearErrors("media")
+      form.clearErrors("media");
       if (hasInvalidFiles(files)) {
-        return
+        return;
       }
 
-      files.forEach((f) => append({ ...f, isThumbnail: false }))
+      files.forEach((f) => append({ ...f, isThumbnail: false }));
     },
     [form, append, hasInvalidFiles]
-  )
+  );
 
   return (
     <Form.Field
@@ -109,8 +109,8 @@ export const UploadMediaFormItem = ({
               <Form.ErrorMessage />
             </div>
           </Form.Item>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};

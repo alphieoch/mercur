@@ -1,1 +1,1 @@
-export * from "./attribute-list-view"
+export * from "./attribute-list-view";

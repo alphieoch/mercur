@@ -1,6 +1,6 @@
-import { ComponentType } from "react"
-import { LoaderFunction, RouteObject } from "react-router-dom"
-import { ErrorBoundary } from "../components/utilities/error-boundary"
+import { ComponentType } from "react";
+import { LoaderFunction, RouteObject } from "react-router-dom";
+import { ErrorBoundary } from "../components/utilities/error-boundary";
 
 export type Route = {
     Component: ComponentType
@@ -25,40 +25,40 @@ export type MenuItem = {
  * @param segment - The path segment for this branch
  */
 const createBranchRoute = (segment: string): RouteObject => ({
-    path: segment,
-    children: [],
-})
+  path: segment,
+  children: [],
+});
 
 /**
  * Creates a route object for a leaf node with its component
  * @param Component - The React component to render at this route
  */
 const createLeafRoute = (
-    Component: ComponentType,
-    loader?: LoaderFunction,
-    handle?: object,
-    path: string = ""
+  Component: ComponentType,
+  loader?: LoaderFunction,
+  handle?: object,
+  path: string = ""
 ): RouteObject => ({
-    path,
-    ErrorBoundary: ErrorBoundary,
-    async lazy() {
-        const result: {
+  path,
+  ErrorBoundary: ErrorBoundary,
+  async lazy() {
+    const result: {
             Component: ComponentType
             loader?: LoaderFunction
             handle?: object
-        } = { Component }
+        } = { Component };
 
-        if (loader) {
-            result.loader = loader
-        }
+    if (loader) {
+      result.loader = loader;
+    }
 
-        if (handle) {
-            result.handle = handle
-        }
+    if (handle) {
+      result.handle = handle;
+    }
 
-        return result
-    },
-})
+    return result;
+  },
+});
 
 /**
  * Creates a parallel route configuration
@@ -66,30 +66,30 @@ const createLeafRoute = (
  * @param Component - The React component to render
  */
 const createParallelRoute = (
-    path: string,
-    Component: ComponentType,
-    loader?: LoaderFunction,
-    handle?: object
+  path: string,
+  Component: ComponentType,
+  loader?: LoaderFunction,
+  handle?: object
 ) => ({
-    path,
-    async lazy() {
-        const result: {
+  path,
+  async lazy() {
+    const result: {
             Component: ComponentType
             loader?: LoaderFunction
             handle?: object
-        } = { Component }
+        } = { Component };
 
-        if (loader) {
-            result.loader = loader
-        }
+    if (loader) {
+      result.loader = loader;
+    }
 
-        if (handle) {
-            result.handle = handle
-        }
+    if (handle) {
+      result.handle = handle;
+    }
 
-        return result
-    },
-})
+    return result;
+  },
+});
 
 /**
  * Processes parallel routes by cleaning their paths relative to the current path
@@ -97,19 +97,19 @@ const createParallelRoute = (
  * @param currentFullPath - The full path of the current route
  */
 const processParallelRoutes = (
-    parallelRoutes: Route[] | undefined,
-    currentFullPath: string
+  parallelRoutes: Route[] | undefined,
+  currentFullPath: string
 ): RouteObject[] | undefined => {
-    return parallelRoutes
-        ?.map(({ path, Component, loader, handle }) => {
-            const childPath = path?.replace(currentFullPath, "").replace(/^\/+/, "")
-            if (!childPath) {
-                return null
-            }
-            return createParallelRoute(childPath, Component, loader, handle)
-        })
-        .filter(Boolean) as RouteObject[]
-}
+  return parallelRoutes
+    ?.map(({ path, Component, loader, handle }) => {
+      const childPath = path?.replace(currentFullPath, "").replace(/^\/+/, "");
+      if (!childPath) {
+        return null;
+      }
+      return createParallelRoute(childPath, Component, loader, handle);
+    })
+    .filter(Boolean) as RouteObject[];
+};
 
 /**
  * Recursively builds the route tree by adding routes at the correct level
@@ -120,80 +120,80 @@ const processParallelRoutes = (
  * @param fullPath - The full path up to the current level
  */
 const addRoute = (
-    pathSegments: string[],
-    Component: ComponentType,
-    currentLevel: RouteObject[],
-    loader?: LoaderFunction,
-    handle?: object,
-    parallelRoutes?: Route[],
-    fullPath?: string,
-    componentPath?: string
+  pathSegments: string[],
+  Component: ComponentType,
+  currentLevel: RouteObject[],
+  loader?: LoaderFunction,
+  handle?: object,
+  parallelRoutes?: Route[],
+  fullPath?: string,
+  componentPath?: string
 ) => {
-    if (!pathSegments.length) {
-        return
+  if (!pathSegments.length) {
+    return;
+  }
+
+  const [currentSegment, ...remainingSegments] = pathSegments;
+  let route = currentLevel.find((r) => r.path === currentSegment);
+
+  if (!route) {
+    route = createBranchRoute(currentSegment);
+    currentLevel.push(route);
+  }
+
+  const currentFullPath = fullPath
+    ? `${fullPath}/${currentSegment}`
+    : currentSegment;
+
+  const isComponentSegment = currentFullPath === componentPath;
+
+  if (isComponentSegment || remainingSegments.length === 0) {
+    route.children ||= [];
+
+    if (handle) {
+      route.handle = handle;
     }
 
-    const [currentSegment, ...remainingSegments] = pathSegments
-    let route = currentLevel.find((r) => r.path === currentSegment)
-
-    if (!route) {
-        route = createBranchRoute(currentSegment)
-        currentLevel.push(route)
+    if (loader) {
+      route.loader = loader;
     }
 
-    const currentFullPath = fullPath
-        ? `${fullPath}/${currentSegment}`
-        : currentSegment
-
-    const isComponentSegment = currentFullPath === componentPath
-
-    if (isComponentSegment || remainingSegments.length === 0) {
-        route.children ||= []
-
-        if (handle) {
-            route.handle = handle
-        }
-
-        if (loader) {
-            route.loader = loader
-        }
-
-        // Since splat segments must occur at the end of a route, react-router enforces the segment to be a leaf.
-        // Therefore we can't create a child leaf route with `path: ""` and must instead modify the route itself
-        if (currentSegment === "*?" || currentSegment === "*") {
-            const leaf = createLeafRoute(Component, loader, handle, currentSegment)
-            leaf.children = processParallelRoutes(parallelRoutes, currentFullPath)
-            Object.assign(route, leaf)
-        } else {
-            const leaf = createLeafRoute(Component, loader)
-            leaf.children = processParallelRoutes(parallelRoutes, currentFullPath)
-            route.children.push(leaf)
-        }
-        if (remainingSegments.length > 0) {
-            addRoute(
-                remainingSegments,
-                Component,
-                route.children,
-                undefined,
-                undefined,
-                undefined,
-                currentFullPath
-            )
-        }
+    // Since splat segments must occur at the end of a route, react-router enforces the segment to be a leaf.
+    // Therefore we can't create a child leaf route with `path: ""` and must instead modify the route itself
+    if (currentSegment === "*?" || currentSegment === "*") {
+      const leaf = createLeafRoute(Component, loader, handle, currentSegment);
+      leaf.children = processParallelRoutes(parallelRoutes, currentFullPath);
+      Object.assign(route, leaf);
     } else {
-        route.children ||= []
-        addRoute(
-            remainingSegments,
-            Component,
-            route.children,
-            loader,
-            handle,
-            parallelRoutes,
-            currentFullPath,
-            componentPath
-        )
+      const leaf = createLeafRoute(Component, loader);
+      leaf.children = processParallelRoutes(parallelRoutes, currentFullPath);
+      route.children.push(leaf);
     }
-}
+    if (remainingSegments.length > 0) {
+      addRoute(
+        remainingSegments,
+        Component,
+        route.children,
+        undefined,
+        undefined,
+        undefined,
+        currentFullPath
+      );
+    }
+  } else {
+    route.children ||= [];
+    addRoute(
+      remainingSegments,
+      Component,
+      route.children,
+      loader,
+      handle,
+      parallelRoutes,
+      currentFullPath,
+      componentPath
+    );
+  }
+};
 
 /**
  * Creates a complete route map from route extensions
@@ -202,67 +202,67 @@ const addRoute = (
  * @returns An array of route objects forming a route tree
  */
 export const createRouteMap = (
-    routes: Route[],
-    ignore?: string
+  routes: Route[],
+  ignore?: string
 ): RouteObject[] => {
-    const root: RouteObject[] = []
+  const root: RouteObject[] = [];
 
-    routes.forEach(({ path, Component, loader, handle, children }) => {
-        const cleanedPath = ignore
-            ? path.replace(ignore, "").replace(/^\/+/, "")
-            : path.replace(/^\/+/, "")
-        const pathSegments = cleanedPath.split("/").filter(Boolean)
-        addRoute(
-            pathSegments,
-            Component,
-            root,
-            loader,
-            handle,
-            children,
-            undefined,
-            path
-        )
-    })
+  routes.forEach(({ path, Component, loader, handle, children }) => {
+    const cleanedPath = ignore
+      ? path.replace(ignore, "").replace(/^\/+/, "")
+      : path.replace(/^\/+/, "");
+    const pathSegments = cleanedPath.split("/").filter(Boolean);
+    addRoute(
+      pathSegments,
+      Component,
+      root,
+      loader,
+      handle,
+      children,
+      undefined,
+      path
+    );
+  });
 
-    return root
-}
+  return root;
+};
 
-const settingsRouteRegex = /^\/settings\//
+const settingsRouteRegex = /^\/settings\//;
 
 export const getRoutesByType = (routes: Route[], type: "settings" | "main" | "public") => {
-    return routes.filter((route) => {
-        if (type === "public") {
-            return route.isPublic === true
-        }
-        if (type === "settings") {
-            return !route.isPublic && settingsRouteRegex.test(route.path)
-        }
-        return !route.isPublic && !settingsRouteRegex.test(route.path)
-    })
-}
+  return routes.filter((route) => {
+    if (type === "public") {
+      return route.isPublic === true;
+    }
+    if (type === "settings") {
+      return !route.isPublic && settingsRouteRegex.test(route.path);
+    }
+    return !route.isPublic && !settingsRouteRegex.test(route.path);
+  });
+};
 
 export const getMenuItemsByType = (
-    menuItems: MenuItem[],
-    type: "settings" | "main"
+  menuItems: MenuItem[],
+  type: "settings" | "main"
 ) => {
-    return menuItems.filter((item) => {
-        if (item.nested) {
-            return false
-        }
+  return menuItems.filter((item) => {
+    if (item.nested) {
+      return false;
+    }
 
-        if (type === "settings") {
-            return settingsRouteRegex.test(item.path)
-        }
+    if (type === "settings") {
+      return settingsRouteRegex.test(item.path);
+    }
 
-        return !settingsRouteRegex.test(item.path)
-    })
-}
+    return !settingsRouteRegex.test(item.path);
+  });
+};
 
 export const getNestedMenuItems = (
-    menuItems: MenuItem[],
-    parentPath: string
+  menuItems: MenuItem[],
+  parentPath: string
 ) => {
-    return menuItems
-        .filter((item) => item.nested === parentPath)
-        .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
-}
+  return menuItems
+    .filter((item) => item.nested === parentPath)
+    .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
+};

@@ -1,1 +1,1 @@
-export { CollectionListPage as Component } from "./collection-list"
+export { CollectionListPage as Component } from "./collection-list";

@@ -1,25 +1,25 @@
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
 
 import {
   EmailCell,
   EmailHeader,
-} from "../../../components/table/table-cells/common/email-cell"
+} from "../../../components/table/table-cells/common/email-cell";
 import {
   NameCell,
   NameHeader,
-} from "../../../components/table/table-cells/common/name-cell"
+} from "../../../components/table/table-cells/common/name-cell";
 import {
   AccountCell,
   AccountHeader,
-} from "../../../components/table/table-cells/customer/account-cell/account-cell"
+} from "../../../components/table/table-cells/customer/account-cell/account-cell";
 import {
   FirstSeenCell,
   FirstSeenHeader,
-} from "../../../components/table/table-cells/customer/first-seen-cell"
-import { HttpTypes } from "@medusajs/types"
+} from "../../../components/table/table-cells/customer/first-seen-cell";
+import { HttpTypes } from "@medusajs/types";
 
-const columnHelper = createColumnHelper<HttpTypes.AdminCustomer>()
+const columnHelper = createColumnHelper<HttpTypes.AdminCustomer>();
 
 export const useCustomerTableColumns = () => {
   return useMemo(
@@ -47,5 +47,5 @@ export const useCustomerTableColumns = () => {
       }),
     ],
     []
-  )
-}
+  );
+};

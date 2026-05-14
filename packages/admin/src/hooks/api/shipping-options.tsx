@@ -2,24 +2,24 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   useMutation,
   UseMutationOptions,
   useQuery,
   UseQueryOptions,
-} from "@tanstack/react-query"
+} from "@tanstack/react-query";
 
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
-import { stockLocationsQueryKeys } from "./stock-locations"
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
+import { stockLocationsQueryKeys } from "./stock-locations";
 
-const SHIPPING_OPTIONS_QUERY_KEY = "shipping_options" as const
+const SHIPPING_OPTIONS_QUERY_KEY = "shipping_options" as const;
 export const shippingOptionsQueryKeys = queryKeysFactory(
   SHIPPING_OPTIONS_QUERY_KEY
-)
+);
 
 export const useShippingOption = (
   id: string,
@@ -41,10 +41,10 @@ export const useShippingOption = (
     queryFn: () => sdk.admin.shippingOptions.$id.query({ $id: id, ...query }),
     queryKey: shippingOptionsQueryKeys.detail(id),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useShippingOptions = (
   query?: InferClientInput<typeof sdk.admin.shippingOptions.query>,
@@ -62,10 +62,10 @@ export const useShippingOptions = (
     queryFn: () => sdk.admin.shippingOptions.query({ ...query }),
     queryKey: shippingOptionsQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateShippingOptions = (
   options?: UseMutationOptions<
@@ -79,15 +79,15 @@ export const useCreateShippingOptions = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.all,
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: shippingOptionsQueryKeys.all,
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateShippingOptions = (
   id: string,
@@ -106,15 +106,15 @@ export const useUpdateShippingOptions = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.all,
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: shippingOptionsQueryKeys.all,
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteShippingOption = (
   optionId: string,
@@ -129,13 +129,13 @@ export const useDeleteShippingOption = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.all,
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: shippingOptionsQueryKeys.all,
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

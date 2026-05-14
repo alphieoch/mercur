@@ -1,22 +1,22 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { Form } from "../../../../../components/common/form"
-import { RouteFocusModal, useRouteModal, } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateShippingOptionType } from "../../../../../hooks/api"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { Form } from "../../../../../components/common/form";
+import { RouteFocusModal, useRouteModal, } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateShippingOptionType } from "../../../../../hooks/api";
 
 const CreateShippingOptionTypeSchema = z.object({
   label: z.string().min(1),
   code: z.string().min(1),
   description: z.string().optional(),
-})
+});
 
 export const CreateShippingOptionTypeForm = () => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof CreateShippingOptionTypeSchema>>({
     defaultValues: {
@@ -25,17 +25,17 @@ export const CreateShippingOptionTypeForm = () => {
       description: undefined,
     },
     resolver: zodResolver(CreateShippingOptionTypeSchema),
-  })
+  });
 
   const generateCodeFromLabel = (label: string) => {
     return label
       .toLowerCase()
       .replace(/[^a-z0-9]/g, "_")
       .replace(/_+/g, "_")
-      .replace(/^_|_$/g, "")
-  }
+      .replace(/^_|_$/g, "");
+  };
 
-  const { mutateAsync, isPending } = useCreateShippingOptionType()
+  const { mutateAsync, isPending } = useCreateShippingOptionType();
 
   const handleSubmit = form.handleSubmit(
     async (values: z.infer<typeof CreateShippingOptionTypeSchema>) => {
@@ -45,18 +45,18 @@ export const CreateShippingOptionTypeForm = () => {
             t("shippingOptionTypes.create.successToast", {
               label: shipping_option_type.label.trim(),
             })
-          )
+          );
 
           handleSuccess(
             `/settings/locations/shipping-option-types/${shipping_option_type.id}`
-          )
+          );
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
-      })
+      });
     }
-  )
+  );
 
   return (
     <RouteFocusModal.Form form={form} data-testid="shipping-option-type-create-form">
@@ -90,16 +90,16 @@ export const CreateShippingOptionTypeForm = () => {
                               form.setValue(
                                 "code",
                                 generateCodeFromLabel(e.target.value)
-                              )
+                              );
                             }
-                            field.onChange(e)
+                            field.onChange(e);
                           }}
                           data-testid="shipping-option-type-create-form-label-input"
                         />
                       </Form.Control>
                       <Form.ErrorMessage data-testid="shipping-option-type-create-form-label-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -116,7 +116,7 @@ export const CreateShippingOptionTypeForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage data-testid="shipping-option-type-create-form-code-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -140,7 +140,7 @@ export const CreateShippingOptionTypeForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage data-testid="shipping-option-type-create-form-description-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -166,5 +166,5 @@ export const CreateShippingOptionTypeForm = () => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

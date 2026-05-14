@@ -1,14 +1,14 @@
-import { XCircle } from "@medusajs/icons"
-import { AdminOrderLineItem, HttpTypes } from "@medusajs/types"
-import { Input, Text } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { XCircle } from "@medusajs/icons";
+import { AdminOrderLineItem, HttpTypes } from "@medusajs/types";
+import { Input, Text } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { Form } from "../../../../../components/common/form"
-import { Thumbnail } from "../../../../../components/common/thumbnail"
-import { MoneyAmountCell } from "../../../../../components/table/table-cells/common/money-amount-cell"
-import { CreateClaimSchemaType } from "./schema"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { Form } from "../../../../../components/common/form";
+import { Thumbnail } from "../../../../../components/common/thumbnail";
+import { MoneyAmountCell } from "../../../../../components/table/table-cells/common/money-amount-cell";
+import { CreateClaimSchemaType } from "./schema";
 
 type ClaimOutboundItemProps = {
   previewItem: AdminOrderLineItem
@@ -30,7 +30,7 @@ function ClaimOutboundItem({
   onUpdate,
   index,
 }: ClaimOutboundItemProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="bg-ui-bg-subtle shadow-elevation-card-rest my-2 rounded-xl ">
@@ -71,20 +71,20 @@ function ClaimOutboundItem({
                         // max={previewItem.quantity}
                         type="number"
                         onBlur={(e) => {
-                          const val = e.target.value
-                          const payload = val === "" ? null : Number(val)
+                          const val = e.target.value;
+                          const payload = val === "" ? null : Number(val);
 
-                          field.onChange(payload)
+                          field.onChange(payload);
 
                           if (payload) {
-                            onUpdate({ quantity: payload })
+                            onUpdate({ quantity: payload });
                           }
                         }}
                       />
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Text className="txt-small text-ui-fg-subtle">
@@ -115,7 +115,7 @@ function ClaimOutboundItem({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export { ClaimOutboundItem }
+export { ClaimOutboundItem };

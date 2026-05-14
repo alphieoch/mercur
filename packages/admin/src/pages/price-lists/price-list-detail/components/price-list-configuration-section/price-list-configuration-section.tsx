@@ -1,12 +1,12 @@
-import { PencilSquare } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { DateRangeDisplay } from "../../../../../components/common/date-range-display"
-import { ListSummary } from "../../../../../components/common/list-summary"
-import { Skeleton } from "../../../../../components/common/skeleton"
-import { useCustomerGroups } from "../../../../../hooks/api/customer-groups"
+import { PencilSquare } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { DateRangeDisplay } from "../../../../../components/common/date-range-display";
+import { ListSummary } from "../../../../../components/common/list-summary";
+import { Skeleton } from "../../../../../components/common/skeleton";
+import { useCustomerGroups } from "../../../../../hooks/api/customer-groups";
 
 type PriceListConfigurationSectionProps = {
   priceList: HttpTypes.AdminPriceList
@@ -15,7 +15,7 @@ type PriceListConfigurationSectionProps = {
 export const PriceListConfigurationSection = ({
   priceList,
 }: PriceListConfigurationSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="flex flex-col gap-y-4" data-testid="price-list-configuration-section-container">
@@ -47,19 +47,19 @@ export const PriceListConfigurationSection = ({
         data-testid="price-list-configuration-section-date-range"
       />
     </Container>
-  )
-}
+  );
+};
 
 const CustomerGroupDisplay = ({
   priceList,
 }: {
   priceList: HttpTypes.AdminPriceList
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const customerGroupIds = priceList.rules["customer.groups.id"] as
     | string[]
-    | undefined
+    | undefined;
 
   const { customer_groups, isPending, isError, error } = useCustomerGroups(
     {
@@ -68,14 +68,14 @@ const CustomerGroupDisplay = ({
     {
       enabled: !!customerGroupIds?.length,
     }
-  )
+  );
 
   if (isError || !customerGroupIds?.length) {
-    return null
+    return null;
   }
 
   if (isPending || !customer_groups) {
-    return <Skeleton className="h-5 w-full max-w-48" />
+    return <Skeleton className="h-5 w-full max-w-48" />;
   }
 
   return (
@@ -90,5 +90,5 @@ const CustomerGroupDisplay = ({
         className="txt-small-plus text-ui-fg-muted"
       />
     </div>
-  )
-}
+  );
+};

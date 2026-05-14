@@ -1,1 +1,1 @@
-export * from "./store-list-table"
+export * from "./store-list-table";

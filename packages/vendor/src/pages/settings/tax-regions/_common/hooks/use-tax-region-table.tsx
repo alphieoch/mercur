@@ -1,13 +1,13 @@
-import { HttpTypes } from "@medusajs/types"
+import { HttpTypes } from "@medusajs/types";
 import {
   OnChangeFn,
   PaginationState,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-import { useEffect, useMemo, useState } from "react"
-import { useSearchParams } from "react-router-dom"
+} from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 type UseTaxRegionTableProps = {
   data?: HttpTypes.AdminTaxRegion[]
@@ -22,56 +22,56 @@ export const useTaxRegionTable = ({
   pageSize: _pageSize = 10,
   prefix,
 }: UseTaxRegionTableProps) => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const offsetKey = `${prefix ? `${prefix}_` : ""}offset`
-  const offset = searchParams.get(offsetKey)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const offsetKey = `${prefix ? `${prefix}_` : ""}offset`;
+  const offset = searchParams.get(offsetKey);
 
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: offset ? Math.ceil(Number(offset) / _pageSize) : 0,
     pageSize: _pageSize,
-  })
+  });
   const pagination = useMemo(
     () => ({
       pageIndex,
       pageSize,
     }),
     [pageIndex, pageSize]
-  )
+  );
 
   useEffect(() => {
-    const index = offset ? Math.ceil(Number(offset) / _pageSize) : 0
+    const index = offset ? Math.ceil(Number(offset) / _pageSize) : 0;
 
     if (index === pageIndex) {
-      return
+      return;
     }
 
     setPagination((prev) => ({
       ...prev,
       pageIndex: index,
-    }))
-  }, [offset, _pageSize, pageIndex])
+    }));
+  }, [offset, _pageSize, pageIndex]);
 
   const onPaginationChange = (
     updater: (old: PaginationState) => PaginationState
   ) => {
-    const state = updater(pagination)
-    const { pageIndex, pageSize } = state
+    const state = updater(pagination);
+    const { pageIndex, pageSize } = state;
 
     setSearchParams((prev) => {
       if (!pageIndex) {
-        prev.delete(offsetKey)
-        return prev
+        prev.delete(offsetKey);
+        return prev;
       }
 
-      const newSearch = new URLSearchParams(prev)
-      newSearch.set(offsetKey, String(pageIndex * pageSize))
+      const newSearch = new URLSearchParams(prev);
+      newSearch.set(offsetKey, String(pageIndex * pageSize));
 
-      return newSearch
-    })
+      return newSearch;
+    });
 
-    setPagination(state)
-    return state
-  }
+    setPagination(state);
+    return state;
+  };
 
   const table = useReactTable({
     data,
@@ -84,9 +84,9 @@ export const useTaxRegionTable = ({
     onPaginationChange: onPaginationChange as OnChangeFn<PaginationState>,
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,
-  })
+  });
 
   return {
     table,
-  }
-}
+  };
+};

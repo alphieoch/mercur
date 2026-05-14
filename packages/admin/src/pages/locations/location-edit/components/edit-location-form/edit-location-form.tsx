@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateStockLocation } from "../../../../../hooks/api/stock-locations"
-import { CountrySelect } from "../../../../../components/inputs/country-select/country-select"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateStockLocation } from "../../../../../hooks/api/stock-locations";
+import { CountrySelect } from "../../../../../components/inputs/country-select/country-select";
 
 type EditLocationFormProps = {
   location: HttpTypes.AdminStockLocation
@@ -26,11 +26,11 @@ const EditLocationSchema = zod.object({
     company: zod.string().optional(),
     phone: zod.string().optional(), // TODO: Add validation
   }),
-})
+});
 
 export const EditLocationForm = ({ location }: EditLocationFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof EditLocationSchema>>({
     defaultValues: {
@@ -47,12 +47,12 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
       },
     },
     resolver: zodResolver(EditLocationSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateStockLocation(location.id)
+  const { mutateAsync, isPending } = useUpdateStockLocation(location.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    const { name, address } = values
+    const { name, address } = values;
 
     await mutateAsync(
       {
@@ -61,15 +61,15 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
       },
       {
         onSuccess: () => {
-          toast.success(t("stockLocations.edit.successToast", { name: name }))
-          handleSuccess()
+          toast.success(t("stockLocations.edit.successToast", { name: name }));
+          handleSuccess();
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="location-edit-form">
@@ -91,7 +91,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="location-edit-form-name-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -106,7 +106,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -121,7 +121,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -136,7 +136,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -151,7 +151,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -166,7 +166,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -181,7 +181,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -196,7 +196,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -211,7 +211,7 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -230,5 +230,5 @@ export const EditLocationForm = ({ location }: EditLocationFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

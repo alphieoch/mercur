@@ -1,17 +1,17 @@
-import { useMemo } from "react"
-import { useParams } from "react-router-dom"
+import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 
-import { RouteFocusModal } from "@components/modals"
-import { useStockLocations } from "@hooks/api"
-import { useMultipleInventoryItemLevels } from "@hooks/api/inventory"
-import { useProduct } from "@hooks/api/products"
-import { StocksAndPricesEdit } from "./components/stocks-and-prices-edit"
+import { RouteFocusModal } from "@components/modals";
+import { useStockLocations } from "@hooks/api";
+import { useMultipleInventoryItemLevels } from "@hooks/api/inventory";
+import { useProduct } from "@hooks/api/products";
+import { StocksAndPricesEdit } from "./components/stocks-and-prices-edit";
 
 export const ProductEditStocksAndPrices = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
   if (!id) {
-    return null
+    return null;
   }
 
   const {
@@ -21,7 +21,7 @@ export const ProductEditStocksAndPrices = () => {
     error: errorStockLocations,
   } = useStockLocations({
     limit: 9999,
-  })
+  });
 
   const {
     product,
@@ -30,20 +30,20 @@ export const ProductEditStocksAndPrices = () => {
     error: productError,
   } = useProduct(id, {
     fields: "*variants,*variants.inventory_items,*categories",
-  } as any)
+  } as any);
 
   const inventoryItemIds = useMemo(() => {
-    if (!product || !product.variants) return []
+    if (!product || !product.variants) return [];
 
-    const ids: string[] = []
+    const ids: string[] = [];
     product.variants.forEach((variant: any) => {
       variant.inventory_items?.forEach((item: any) => {
-        ids.push(item.inventory_item_id)
-      })
-    })
+        ids.push(item.inventory_item_id);
+      });
+    });
 
-    return ids
-  }, [product])
+    return ids;
+  }, [product]);
 
   const {
     inventoryItemsWithLevels,
@@ -52,20 +52,20 @@ export const ProductEditStocksAndPrices = () => {
     error: inventoryError,
   } = useMultipleInventoryItemLevels(inventoryItemIds, {
     fields: "*stock_locations",
-  })
+  });
 
-  const isError = isProductError || isErrorStockLocations || isInventoryError
-  const error = productError || errorStockLocations || inventoryError
+  const isError = isProductError || isErrorStockLocations || isInventoryError;
+  const error = productError || errorStockLocations || inventoryError;
   const isPending =
-    isProductPending || isStockLocationsPending || isInventoryPending
+    isProductPending || isStockLocationsPending || isInventoryPending;
   const ready =
     !isPending &&
     !!product &&
     !!inventoryItemsWithLevels &&
-    !!stock_locations
+    !!stock_locations;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -79,7 +79,7 @@ export const ProductEditStocksAndPrices = () => {
         />
       )}
     </RouteFocusModal>
-  )
-}
+  );
+};
 
-export const Component = ProductEditStocksAndPrices
+export const Component = ProductEditStocksAndPrices;

@@ -1,6 +1,6 @@
-import { Children, ReactNode } from "react"
+import { Children, ReactNode } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   PromotionListTable,
   PromotionListHeader,
@@ -8,15 +8,15 @@ import {
   PromotionListActions,
   PromotionListCreateButton,
   PromotionListDataTable,
-} from "./components/promotion-list-table"
+} from "./components/promotion-list-table";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage>
       {Children.count(children) > 0 ? children : <PromotionListTable />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const PromotionListPage = Object.assign(Root, {
   Table: PromotionListTable,
@@ -25,4 +25,4 @@ export const PromotionListPage = Object.assign(Root, {
   HeaderActions: PromotionListActions,
   HeaderCreateButton: PromotionListCreateButton,
   DataTable: PromotionListDataTable,
-})
+});

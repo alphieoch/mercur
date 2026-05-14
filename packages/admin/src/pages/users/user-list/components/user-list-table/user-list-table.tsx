@@ -1,15 +1,15 @@
-import { Children, ReactNode } from "react"
-import { Container } from "@medusajs/ui"
+import { Children, ReactNode } from "react";
+import { Container } from "@medusajs/ui";
 
-import { UserListHeader } from "./user-list-header"
-import { UserListDataTable } from "./user-list-data-table"
+import { UserListHeader } from "./user-list-header";
+import { UserListDataTable } from "./user-list-data-table";
 
-export { UserListDataTable } from "./user-list-data-table"
+export { UserListDataTable } from "./user-list-data-table";
 export {
   UserListHeader,
   UserListTitle,
   UserListActions,
-} from "./user-list-header"
+} from "./user-list-header";
 
 export const UserListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -23,5 +23,5 @@ export const UserListTable = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </Container>
-  )
-}
+  );
+};

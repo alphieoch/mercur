@@ -1,1 +1,1 @@
-export { Component } from "../../../common/edit-rules"
+export { Component } from "../../../common/edit-rules";

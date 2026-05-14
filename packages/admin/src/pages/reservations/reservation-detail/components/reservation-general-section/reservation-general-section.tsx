@@ -1,12 +1,12 @@
-import { AdminReservationResponse } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
+import { AdminReservationResponse } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { PencilSquare } from "@medusajs/icons"
-import { SectionRow } from "../../../../../components/common/section"
-import { useInventoryItem } from "../../../../../hooks/api/inventory"
-import { useStockLocation } from "../../../../../hooks/api/stock-locations"
-import { useTranslation } from "react-i18next"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { PencilSquare } from "@medusajs/icons";
+import { SectionRow } from "../../../../../components/common/section";
+import { useInventoryItem } from "../../../../../hooks/api/inventory";
+import { useStockLocation } from "../../../../../hooks/api/stock-locations";
+import { useTranslation } from "react-i18next";
 
 type ReservationGeneralSectionProps = {
   reservation: AdminReservationResponse["reservation"]
@@ -15,13 +15,13 @@ type ReservationGeneralSectionProps = {
 export const ReservationGeneralSection = ({
   reservation,
 }: ReservationGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { inventory_item: inventoryItem, isPending: isLoadingInventoryItem } =
-    useInventoryItem(reservation.inventory_item_id)
+    useInventoryItem(reservation.inventory_item_id);
 
   const { stock_location: location, isPending: isLoadingLocation } =
-    useStockLocation(reservation.location_id)
+    useStockLocation(reservation.location_id);
 
   if (
     isLoadingInventoryItem ||
@@ -29,13 +29,13 @@ export const ReservationGeneralSection = ({
     isLoadingLocation ||
     !location
   ) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   const locationLevel = inventoryItem.location_levels!.find(
     (level) =>
       level.location_id === reservation.location_id
-  )
+  );
 
   return (
     <Container className="divide-y p-0">
@@ -84,5 +84,5 @@ export const ReservationGeneralSection = ({
         value={locationLevel?.reserved_quantity}
       />
     </Container>
-  )
-}
+  );
+};

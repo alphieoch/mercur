@@ -1,17 +1,17 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
-import { RouteFocusModal } from "../../../components/modals"
-import { useShippingOption } from "../../../hooks/api/shipping-options"
-import { EditShippingOptionsPricingForm } from "./components/create-shipping-options-form"
+import { RouteFocusModal } from "../../../components/modals";
+import { useShippingOption } from "../../../hooks/api/shipping-options";
+import { EditShippingOptionsPricingForm } from "./components/create-shipping-options-form";
 
 export function LocationServiceZoneShippingOptionPricing() {
-  const { so_id, location_id } = useParams()
+  const { so_id, location_id } = useParams();
 
   if (!so_id) {
     throw new Response(
       JSON.stringify({ message: "Shipping Option ID paramater is missing" }),
       { status: 404, headers: { "Content-Type": "application/json" } }
-    )
+    );
   }
 
   const {
@@ -20,10 +20,10 @@ export function LocationServiceZoneShippingOptionPricing() {
     error,
   } = useShippingOption(so_id, {
     fields: "*prices,*prices.price_rules",
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -32,5 +32,5 @@ export function LocationServiceZoneShippingOptionPricing() {
         <EditShippingOptionsPricingForm shippingOption={shippingOption} />
       )}
     </RouteFocusModal>
-  )
+  );
 }

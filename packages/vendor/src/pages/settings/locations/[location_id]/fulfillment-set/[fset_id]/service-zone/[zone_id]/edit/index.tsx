@@ -1,23 +1,23 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { json, useParams } from "react-router-dom"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { json, useParams } from "react-router-dom";
 
-import { RouteDrawer } from "@components/modals"
-import { useStockLocation } from "@hooks/api/stock-locations"
-import { EditServiceZoneForm } from "./_components/edit-service-zone-form"
+import { RouteDrawer } from "@components/modals";
+import { useStockLocation } from "@hooks/api/stock-locations";
+import { EditServiceZoneForm } from "./_components/edit-service-zone-form";
 
 const LocationServiceZoneEdit = () => {
-  const { t } = useTranslation()
-  const { location_id, fset_id, zone_id } = useParams()
+  const { t } = useTranslation();
+  const { location_id, fset_id, zone_id } = useParams();
 
   const { stock_location, isPending, isFetching, isError, error } =
     useStockLocation(location_id!, {
       fields: "*fulfillment_sets.service_zones",
-    })
+    });
 
   const serviceZone = stock_location?.fulfillment_sets
     ?.find((f) => f.id === fset_id)
-    ?.service_zones.find((z) => z.id === zone_id)
+    ?.service_zones.find((z) => z.id === zone_id);
 
   if (!isPending && !isFetching && !serviceZone) {
     throw json(
@@ -25,11 +25,11 @@ const LocationServiceZoneEdit = () => {
         message: `Service zone with ID ${zone_id} was not found`,
       },
       404
-    )
+    );
   }
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -45,7 +45,7 @@ const LocationServiceZoneEdit = () => {
         />
       )}
     </RouteDrawer>
-  )
-}
+  );
+};
 
-export const Component = LocationServiceZoneEdit
+export const Component = LocationServiceZoneEdit;

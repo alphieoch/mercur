@@ -53,45 +53,45 @@ export const OnboardingWizard = ({ memberEmail }: OnboardingWizardProps) => {
 
   const renderStep = () => {
     switch (currentStep) {
-      case 0:
-        return (
-          <WizardStep key="store">
-            <StoreStep onSubmit={submitStoreStep} isPending={isPending} />
-          </WizardStep>
-        );
-      case 1:
-        return (
-          <WizardStep key="address">
-            <AddressStep
-              onSubmit={submitAddressStep}
-              onSkip={skipAddressStep}
-              isPending={isPending}
-            />
-          </WizardStep>
-        );
-      case 2:
-        return (
-          <WizardStep key="company">
-            <CompanyStep
-              onSubmit={submitCompanyStep}
-              onSkip={skipCompanyStep}
-              isPending={isPending}
-            />
-          </WizardStep>
-        );
-      case 3:
-        return (
-          <WizardStep key="payment">
-            <PaymentStep
-              sellerId={sellerId!}
-              onSubmit={submitPaymentStep}
-              onSkip={skipPaymentStep}
-              isPending={isPending}
-            />
-          </WizardStep>
-        );
-      default:
-        return null;
+    case 0:
+      return (
+        <WizardStep key="store">
+          <StoreStep onSubmit={submitStoreStep} isPending={isPending} />
+        </WizardStep>
+      );
+    case 1:
+      return (
+        <WizardStep key="address">
+          <AddressStep
+            onSubmit={submitAddressStep}
+            onSkip={skipAddressStep}
+            isPending={isPending}
+          />
+        </WizardStep>
+      );
+    case 2:
+      return (
+        <WizardStep key="company">
+          <CompanyStep
+            onSubmit={submitCompanyStep}
+            onSkip={skipCompanyStep}
+            isPending={isPending}
+          />
+        </WizardStep>
+      );
+    case 3:
+      return (
+        <WizardStep key="payment">
+          <PaymentStep
+            sellerId={sellerId!}
+            onSubmit={submitPaymentStep}
+            onSkip={skipPaymentStep}
+            isPending={isPending}
+          />
+        </WizardStep>
+      );
+    default:
+      return null;
     }
   };
 

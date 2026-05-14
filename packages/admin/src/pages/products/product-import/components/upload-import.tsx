@@ -1,23 +1,23 @@
-import { useState } from "react"
-import { FileType, FileUpload } from "../../../../components/common/file-upload"
-import { Hint } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { useState } from "react";
+import { FileType, FileUpload } from "../../../../components/common/file-upload";
+import { Hint } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-const SUPPORTED_FORMATS = ["text/csv"]
-const SUPPORTED_FORMATS_FILE_EXTENSIONS = [".csv"]
+const SUPPORTED_FORMATS = ["text/csv"];
+const SUPPORTED_FORMATS_FILE_EXTENSIONS = [".csv"];
 
 export const UploadImport = ({
   onUploaded,
 }: {
   onUploaded: (file: File) => void
 }) => {
-  const { t } = useTranslation()
-  const [error, setError] = useState<string>()
+  const { t } = useTranslation();
+  const [error, setError] = useState<string>();
 
   const hasInvalidFiles = (fileList: FileType[]) => {
     const invalidFile = fileList.find(
       (f) => !SUPPORTED_FORMATS.includes(f.file.type)
-    )
+    );
 
     if (invalidFile) {
       setError(
@@ -25,13 +25,13 @@ export const UploadImport = ({
           name: invalidFile.file.name,
           types: SUPPORTED_FORMATS_FILE_EXTENSIONS.join(", "),
         })
-      )
+      );
 
-      return true
+      return true;
     }
 
-    return false
-  }
+    return false;
+  };
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -42,11 +42,11 @@ export const UploadImport = ({
         hasError={!!error}
         formats={SUPPORTED_FORMATS}
         onUploaded={(files) => {
-          setError(undefined)
+          setError(undefined);
           if (hasInvalidFiles(files)) {
-            return
+            return;
           }
-          onUploaded(files[0].file)
+          onUploaded(files[0].file);
         }}
       />
 
@@ -56,5 +56,5 @@ export const UploadImport = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};

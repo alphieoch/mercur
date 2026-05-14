@@ -10,16 +10,16 @@ import { useProductDetailContext } from "../../context";
 
 const productStatusColor = (status: string) => {
   switch (status) {
-    case "draft":
-      return "grey";
-    case "proposed":
-      return "orange";
-    case "published":
-      return "green";
-    case "rejected":
-      return "red";
-    default:
-      return "grey";
+  case "draft":
+    return "grey";
+  case "proposed":
+    return "orange";
+  case "published":
+    return "green";
+  case "rejected":
+    return "red";
+  default:
+    return "grey";
   }
 };
 

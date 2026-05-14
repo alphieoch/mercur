@@ -1,6 +1,6 @@
-import { clx } from "@medusajs/ui"
-import { getStylizedAmount } from "../../../../../lib/money-amount-helpers"
-import { PlaceholderCell } from "../placeholder-cell"
+import { clx } from "@medusajs/ui";
+import { getStylizedAmount } from "../../../../../lib/money-amount-helpers";
+import { PlaceholderCell } from "../placeholder-cell";
 
 type MoneyAmountCellProps = {
   currencyCode: string
@@ -16,10 +16,10 @@ export const MoneyAmountCell = ({
   className,
 }: MoneyAmountCellProps) => {
   if (typeof amount === "undefined" || amount === null) {
-    return <PlaceholderCell />
+    return <PlaceholderCell />;
   }
 
-  const formatted = getStylizedAmount(amount, currencyCode)
+  const formatted = getStylizedAmount(amount, currencyCode);
 
   return (
     <div
@@ -34,5 +34,5 @@ export const MoneyAmountCell = ({
     >
       <span className="truncate">{formatted}</span>
     </div>
-  )
-}
+  );
+};

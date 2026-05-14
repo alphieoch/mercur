@@ -1,8 +1,8 @@
-import { XMarkMini } from "@medusajs/icons"
-import { Text, clx } from "@medusajs/ui"
-import { Popover as RadixPopover } from "radix-ui"
-import { MouseEvent } from "react"
-import { useTranslation } from "react-i18next"
+import { XMarkMini } from "@medusajs/icons";
+import { Text, clx } from "@medusajs/ui";
+import { Popover as RadixPopover } from "radix-ui";
+import { MouseEvent } from "react";
+import { useTranslation } from "react-i18next";
 
 export type FilterChipProps = {
   hadPreviousValue?: boolean
@@ -21,12 +21,12 @@ const FilterChip = ({
   hasOperator,
   onRemove,
 }: FilterChipProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const handleRemove = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    onRemove()
-  }
+    e.stopPropagation();
+    onRemove();
+  };
 
   return (
     <div className="bg-ui-bg-field transition-fg shadow-borders-base text-ui-fg-subtle flex cursor-default select-none items-stretch overflow-hidden rounded-md">
@@ -91,7 +91,7 @@ const FilterChip = ({
         </button>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default FilterChip
+export default FilterChip;

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 const EyeIcon = ({ className }: { className?: string }) => (
   <svg
@@ -16,7 +16,7 @@ const EyeIcon = ({ className }: { className?: string }) => (
     <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
     <circle cx="12" cy="12" r="3" />
   </svg>
-)
+);
 
 const EyeOffIcon = ({ className }: { className?: string }) => (
   <svg
@@ -36,7 +36,7 @@ const EyeOffIcon = ({ className }: { className?: string }) => (
     <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7c.78 0 1.53-.09 2.24-.26" />
     <path d="M2 2l20 20" />
   </svg>
-)
+);
 
 // --- TYPE DEFINITIONS ---
 
@@ -90,13 +90,13 @@ const GoogleIcon = () => (
       d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.022 35.026 44 30.038 44 24c0-2.641-.21-5.236-.611-7.743z"
     />
   </svg>
-)
+);
 
 const GlassInputWrapper = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--foreground))]/5 backdrop-blur-sm transition-colors focus-within:border-violet-400/70 focus-within:bg-violet-500/10">
     {children}
   </div>
-)
+);
 
 const TestimonialCard = ({
   testimonial,
@@ -121,7 +121,7 @@ const TestimonialCard = ({
       </p>
     </div>
   </div>
-)
+);
 
 // --- MAIN COMPONENT ---
 
@@ -141,7 +141,7 @@ const ArrowLeftIcon = ({ className }: { className?: string }) => (
     <path d="m12 19-7-7 7-7" />
     <path d="M19 12H5" />
   </svg>
-)
+);
 
 export const SignUpPage: React.FC<SignUpPageProps> = ({
   title = (
@@ -159,18 +159,18 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({
   serverError = null,
   storefrontUrl,
 }) => {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
     onSignUp?.({
       first_name: String(formData.get("first_name") || ""),
       last_name: String(formData.get("last_name") || ""),
       email: String(formData.get("email") || ""),
       password: String(formData.get("password") || ""),
-    })
-  }
+    });
+  };
 
   return (
     <div className="h-[100dvh] flex flex-col md:flex-row w-[100dvw] relative">
@@ -358,5 +358,5 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({
         </section>
       )}
     </div>
-  )
-}
+  );
+};

@@ -16,7 +16,7 @@ export const useReviewTableQuery = ({
 
   const { offset, created_at, updated_at, q, order } = queryObject;
 
-  const searchParams: Record<string, any> = {
+  const searchParams: Record<string, string | number | undefined> = {
     limit: pageSize,
     offset: offset ? Number(offset) : 0,
     created_at: created_at ? JSON.parse(created_at) : undefined,

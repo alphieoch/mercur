@@ -1,18 +1,18 @@
-import { castNumber } from "./cast-number"
+import { castNumber } from "./cast-number";
 
 export function transformNullableFormValue<T>(
   value: T,
   nullify = true
 ): T | undefined | null {
   if (typeof value === "string" && value.trim() === "") {
-    return nullify ? null : undefined
+    return nullify ? null : undefined;
   }
 
   if (Array.isArray(value) && value.length === 0) {
-    return nullify ? null : undefined
+    return nullify ? null : undefined;
   }
 
-  return value
+  return value;
 }
 
 type Nullable<T> = { [K in keyof T]: T[K] | null }
@@ -26,8 +26,8 @@ export function transformNullableFormData<
     return {
       ...acc,
       [key]: transformNullableFormValue(value, nullify),
-    }
-  }, {} as K extends true ? Nullable<T> : Optional<T>)
+    };
+  }, {} as K extends true ? Nullable<T> : Optional<T>);
 }
 
 export function transformNullableFormNumber<K extends boolean = true>(
@@ -40,14 +40,14 @@ export function transformNullableFormNumber<K extends boolean = true>(
   ) {
     return (nullify ? null : undefined) as K extends true
       ? number | null
-      : number | undefined
+      : number | undefined;
   }
 
   if (typeof value === "string") {
-    return castNumber(value)
+    return castNumber(value);
   }
 
-  return value
+  return value;
 }
 
 type NullableNumbers = Record<string, number | null>
@@ -64,6 +64,6 @@ export function transformNullableFormNumbers<
     return {
       ...acc,
       [key]: transformNullableFormNumber(value, nullify),
-    }
-  }, {} as K extends true ? NullableNumbers : OptionalNumbers)
+    };
+  }, {} as K extends true ? NullableNumbers : OptionalNumbers);
 }

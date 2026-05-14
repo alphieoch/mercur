@@ -1,6 +1,6 @@
-import { Badge, Tooltip } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { DataGridRowError } from "../types"
+import { Badge, Tooltip } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { DataGridRowError } from "../types";
 
 type DataGridRowErrorIndicatorProps = {
   rowErrors: DataGridRowError[]
@@ -9,10 +9,10 @@ type DataGridRowErrorIndicatorProps = {
 export const DataGridRowErrorIndicator = ({
   rowErrors,
 }: DataGridRowErrorIndicatorProps) => {
-  const rowErrorCount = rowErrors ? rowErrors.length : 0
+  const rowErrorCount = rowErrors ? rowErrors.length : 0;
 
   if (!rowErrors || rowErrorCount <= 0) {
-    return null
+    return null;
   }
 
   return (
@@ -30,15 +30,15 @@ export const DataGridRowErrorIndicator = ({
         {rowErrorCount}
       </Badge>
     </Tooltip>
-  )
-}
+  );
+};
 
 const DataGridRowErrorLine = ({
   error,
 }: {
   error: { message: string; to: () => void }
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <li className="txt-compact-small flex flex-col items-start">
@@ -51,5 +51,5 @@ const DataGridRowErrorLine = ({
         {t("dataGrid.errors.fixError")}
       </button>
     </li>
-  )
-}
+  );
+};

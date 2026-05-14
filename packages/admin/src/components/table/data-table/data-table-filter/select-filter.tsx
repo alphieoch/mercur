@@ -1,14 +1,14 @@
-import { CheckMini, EllipseMiniSolid, XMarkMini } from "@medusajs/icons"
-import { clx } from "@medusajs/ui"
-import { Command } from "cmdk"
-import { Popover as RadixPopover } from "radix-ui"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { CheckMini, EllipseMiniSolid, XMarkMini } from "@medusajs/icons";
+import { clx } from "@medusajs/ui";
+import { Command } from "cmdk";
+import { Popover as RadixPopover } from "radix-ui";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { useSelectedParams } from "../hooks"
-import { useDataTableFilterContext } from "./context"
-import FilterChip from "./filter-chip"
-import { IFilter } from "./types"
+import { useSelectedParams } from "../hooks";
+import { useDataTableFilterContext } from "./context";
+import FilterChip from "./filter-chip";
+import { IFilter } from "./types";
 
 interface SelectFilterProps extends IFilter {
   options: { label: string; value: unknown }[]
@@ -26,76 +26,76 @@ export const SelectFilter = ({
   options,
   openOnMount,
 }: SelectFilterProps) => {
-  const [open, setOpen] = useState(openOnMount)
-  const [search, setSearch] = useState("")
-  const [searchRef, setSearchRef] = useState<HTMLInputElement | null>(null)
+  const [open, setOpen] = useState(openOnMount);
+  const [search, setSearch] = useState("");
+  const [searchRef, setSearchRef] = useState<HTMLInputElement | null>(null);
 
-  const { t } = useTranslation()
-  const { removeFilter } = useDataTableFilterContext()
+  const { t } = useTranslation();
+  const { removeFilter } = useDataTableFilterContext();
 
-  const { key, label } = filter
-  const selectedParams = useSelectedParams({ param: key, prefix, multiple })
-  const currentValue = selectedParams.get()
+  const { key, label } = filter;
+  const selectedParams = useSelectedParams({ param: key, prefix, multiple });
+  const currentValue = selectedParams.get();
 
   const labelValues = currentValue
     .map((v) => options.find((o) => o.value === v)?.label)
-    .filter(Boolean) as string[]
+    .filter(Boolean) as string[];
 
   const [previousValue, setPreviousValue] = useState<
     string | string[] | undefined
-  >(labelValues)
+  >(labelValues);
 
   const handleRemove = () => {
-    selectedParams.delete()
-    removeFilter(key)
-  }
+    selectedParams.delete();
+    removeFilter(key);
+  };
 
-  let timeoutId: ReturnType<typeof setTimeout> | null = null
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   const handleOpenChange = (open: boolean) => {
-    setOpen(open)
+    setOpen(open);
 
-    setPreviousValue(labelValues)
+    setPreviousValue(labelValues);
 
     if (timeoutId) {
-      clearTimeout(timeoutId)
+      clearTimeout(timeoutId);
     }
 
     if (!open && !currentValue.length) {
       timeoutId = setTimeout(() => {
-        removeFilter(key)
-      }, 200)
+        removeFilter(key);
+      }, 200);
     }
-  }
+  };
 
   const handleClearSearch = () => {
-    setSearch("")
+    setSearch("");
 
     if (searchRef) {
-      searchRef.focus()
+      searchRef.focus();
     }
-  }
+  };
 
   const handleSelect = (value: unknown) => {
-    const isSelected = selectedParams.get().includes(String(value))
+    const isSelected = selectedParams.get().includes(String(value));
 
     if (isSelected) {
-      selectedParams.delete(String(value))
+      selectedParams.delete(String(value));
     } else {
-      selectedParams.add(String(value))
+      selectedParams.add(String(value));
     }
-  }
+  };
 
   const normalizedValues = labelValues
     ? Array.isArray(labelValues)
       ? labelValues
       : [labelValues]
-    : null
+    : null;
   const normalizedPrev = previousValue
     ? Array.isArray(previousValue)
       ? previousValue
       : [previousValue]
-    : null
+    : null;
 
   return (
     <RadixPopover.Root modal open={open} onOpenChange={handleOpenChange}>
@@ -123,8 +123,8 @@ export const SelectFilter = ({
                   e.target.attributes.getNamedItem("data-name")?.value ===
                   "filters_menu_content"
                 ) {
-                  e.preventDefault()
-                  e.stopPropagation()
+                  e.preventDefault();
+                  e.stopPropagation();
                 }
               }
             }}
@@ -166,7 +166,7 @@ export const SelectFilter = ({
                 {options.map((option) => {
                   const isSelected = selectedParams
                     .get()
-                    .includes(String(option.value))
+                    .includes(String(option.value));
 
                   return (
                     <Command.Item
@@ -174,7 +174,7 @@ export const SelectFilter = ({
                       className="bg-ui-bg-base hover:bg-ui-bg-base-hover aria-selected:bg-ui-bg-base-pressed focus-visible:bg-ui-bg-base-pressed text-ui-fg-base data-[disabled]:text-ui-fg-disabled txt-compact-small relative flex cursor-pointer select-none items-center gap-x-2 rounded-md px-2 py-1.5 outline-none transition-colors data-[disabled]:pointer-events-none"
                       value={option.label}
                       onSelect={() => {
-                        handleSelect(option.value)
+                        handleSelect(option.value);
                       }}
                     >
                       <div
@@ -189,7 +189,7 @@ export const SelectFilter = ({
                       </div>
                       {option.label}
                     </Command.Item>
-                  )
+                  );
                 })}
               </Command.List>
             </Command>
@@ -197,5 +197,5 @@ export const SelectFilter = ({
         </RadixPopover.Portal>
       )}
     </RadixPopover.Root>
-  )
-}
+  );
+};

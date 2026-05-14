@@ -1,10 +1,10 @@
-import { PencilSquare, Plus, Trash } from "@medusajs/icons"
-import { Badge, Container, Heading, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { SectionRow } from "../../../../../components/common/section"
-import { useDeleteProductOption } from "../../../../../hooks/api/products"
-import { HttpTypes } from "@medusajs/types"
+import { PencilSquare, Plus, Trash } from "@medusajs/icons";
+import { Badge, Container, Heading, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { SectionRow } from "../../../../../components/common/section";
+import { useDeleteProductOption } from "../../../../../hooks/api/products";
+import { HttpTypes } from "@medusajs/types";
 
 const OptionActions = ({
   productId,
@@ -13,9 +13,9 @@ const OptionActions = ({
   productId: string
   option: HttpTypes.AdminProductOption
 }) => {
-  const { t } = useTranslation()
-  const { mutateAsync } = useDeleteProductOption(productId, option.id)
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const { mutateAsync } = useDeleteProductOption(productId, option.id);
+  const prompt = usePrompt();
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -25,14 +25,14 @@ const OptionActions = ({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
-    await mutateAsync()
-  }
+    await mutateAsync();
+  };
 
   return (
     <ActionMenu
@@ -58,15 +58,15 @@ const OptionActions = ({
       ]}
       data-testid={`product-option-actions-${option.id}`}
     />
-  )
-}
+  );
+};
 
 export const ProductOptionSection = ({
   product,
 }: {
   product: HttpTypes.AdminProduct;
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="divide-y p-0" data-testid="product-option-section">
@@ -103,13 +103,13 @@ export const ProductOptionSection = ({
                 >
                   {val.value}
                 </Badge>
-              )
+              );
             })}
             actions={<OptionActions productId={product.id} option={option} />}
             data-testid={`product-option-row-${option.id}`}
           />
-        )
+        );
       })}
     </Container>
-  )
-}
+  );
+};

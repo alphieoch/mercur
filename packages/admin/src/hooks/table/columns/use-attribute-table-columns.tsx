@@ -1,7 +1,7 @@
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
-import { createPortal } from "react-dom"
-import { useTranslation } from "react-i18next"
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import {
   Badge,
   Button,
@@ -11,95 +11,95 @@ import {
   Text,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { TextCell } from "../../../components/table/table-cells/common/text-cell"
-import { ActionMenu } from "../../../components/common/action-menu"
-import { Combobox } from "../../../components/inputs/combobox"
+} from "@medusajs/ui";
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { TextCell } from "../../../components/table/table-cells/common/text-cell";
+import { ActionMenu } from "../../../components/common/action-menu";
+import { Combobox } from "../../../components/inputs/combobox";
 import {
   useDeleteAttribute,
   useUpdateAttribute,
-} from "../../../hooks/api/attributes"
-import { useProductCategories } from "../../../hooks/api"
+} from "../../../hooks/api/attributes";
+import { useProductCategories } from "../../../hooks/api";
 
-const MAX_VISIBLE_VALUES = 2
+const MAX_VISIBLE_VALUES = 2;
 
 // --- Filterable Toggle ---
 
 const FilterableToggle = ({ attribute }: { attribute: Record<string, any> }) => {
-  const { mutateAsync } = useUpdateAttribute(attribute.id)
+  const { mutateAsync } = useUpdateAttribute(attribute.id);
 
   const handleToggle = async (checked: boolean) => {
     try {
-      await mutateAsync({ is_filterable: checked })
+      await mutateAsync({ is_filterable: checked });
     } catch (err: any) {
-      toast.error(err.message)
+      toast.error(err.message);
     }
-  }
+  };
 
   return (
-    <div onClick={(e) => { e.preventDefault(); e.stopPropagation() }}>
+    <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
       <Switch
         checked={!!attribute.is_filterable}
         onCheckedChange={handleToggle}
         size="small"
       />
     </div>
-  )
-}
+  );
+};
 
 // --- Global Toggle with Category Modal ---
 
 const GlobalToggle = ({ attribute }: { attribute: Record<string, any> }) => {
-  const { t } = useTranslation()
-  const { mutateAsync } = useUpdateAttribute(attribute.id)
-  const [categoryModalOpen, setCategoryModalOpen] = useState(false)
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([])
+  const { t } = useTranslation();
+  const { mutateAsync } = useUpdateAttribute(attribute.id);
+  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
 
-  const categories = attribute.product_categories ?? []
-  const isGlobal = !categories.length
+  const categories = attribute.product_categories ?? [];
+  const isGlobal = !categories.length;
 
   const { product_categories: allCategories } = useProductCategories({
     limit: 999,
-  })
+  });
 
   const categoryOptions = (allCategories ?? []).map((cat: any) => ({
     label: cat.name,
     value: cat.id,
-  }))
+  }));
 
   const handleToggle = async (checked: boolean) => {
     if (checked) {
       // Turning ON global — remove category assignments
       try {
-        await mutateAsync({ product_category_ids: [] })
+        await mutateAsync({ product_category_ids: [] });
       } catch (err: any) {
-        toast.error(err.message)
+        toast.error(err.message);
       }
     } else {
       // Turning OFF global — need to pick categories
-      setSelectedCategoryIds(categories.map((c: any) => c.id))
-      setCategoryModalOpen(true)
+      setSelectedCategoryIds(categories.map((c: any) => c.id));
+      setCategoryModalOpen(true);
     }
-  }
+  };
 
   const handleSaveCategory = async () => {
-    if (!selectedCategoryIds.length) return
+    if (!selectedCategoryIds.length) return;
 
     try {
       await mutateAsync({
         product_category_ids: selectedCategoryIds,
-      })
-      setCategoryModalOpen(false)
-      setSelectedCategoryIds([])
+      });
+      setCategoryModalOpen(false);
+      setSelectedCategoryIds([]);
     } catch (err: any) {
-      toast.error(err.message)
+      toast.error(err.message);
     }
-  }
+  };
 
   return (
     <>
-      <div onClick={(e) => { e.preventDefault(); e.stopPropagation() }}>
+      <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
         <Switch
           checked={isGlobal}
           onCheckedChange={handleToggle}
@@ -111,15 +111,15 @@ const GlobalToggle = ({ attribute }: { attribute: Record<string, any> }) => {
           <div
             className="fixed inset-0 z-50 flex items-center justify-center"
             onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
+              e.preventDefault();
+              e.stopPropagation();
             }}
           >
             <div
               className="bg-ui-bg-overlay fixed inset-0"
               onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
+                e.preventDefault();
+                e.stopPropagation();
               }}
             />
             <div className="bg-ui-bg-base shadow-elevation-flyout relative flex w-full max-w-[400px] flex-col rounded-lg border">
@@ -143,8 +143,8 @@ const GlobalToggle = ({ attribute }: { attribute: Record<string, any> }) => {
                   variant="secondary"
                   size="small"
                   onClick={() => {
-                    setCategoryModalOpen(false)
-                    setSelectedCategoryIds([])
+                    setCategoryModalOpen(false);
+                    setSelectedCategoryIds([]);
                   }}
                 >
                   {t("actions.cancel")}
@@ -162,8 +162,8 @@ const GlobalToggle = ({ attribute }: { attribute: Record<string, any> }) => {
           document.body
         )}
     </>
-  )
-}
+  );
+};
 
 // --- Delete Actions ---
 
@@ -172,10 +172,10 @@ const AttributeActions = ({
 }: {
   attribute: Record<string, any>
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync } = useDeleteAttribute(attribute.id)
-  const [inUseOpen, setInUseOpen] = useState(false)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync } = useDeleteAttribute(attribute.id);
+  const [inUseOpen, setInUseOpen] = useState(false);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -185,25 +185,25 @@ const AttributeActions = ({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
-    if (!res) return
+    if (!res) return;
 
     try {
-      await mutateAsync(undefined)
+      await mutateAsync(undefined);
       toast.success(
         t("attributes.delete.successToast", { name: attribute.name })
-      )
+      );
     } catch (err: any) {
-      const isInUse = err.message?.includes("can't be deleted")
+      const isInUse = err.message?.includes("can't be deleted");
 
       if (isInUse) {
-        setInUseOpen(true)
+        setInUseOpen(true);
       } else {
-        toast.error(err.message)
+        toast.error(err.message);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -250,15 +250,15 @@ const AttributeActions = ({
         document.body
       )}
     </>
-  )
-}
+  );
+};
 
 // --- Columns ---
 
-const columnHelper = createColumnHelper<any>()
+const columnHelper = createColumnHelper<any>();
 
 export const useAttributeTableColumns = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -283,12 +283,12 @@ export const useAttributeTableColumns = () => {
         id: "values",
         header: () => t("attributes.fields.values"),
         cell: ({ row }) => {
-          const values = row.original.possible_values ?? []
+          const values = row.original.possible_values ?? [];
           if (!values.length) {
-            return <span className="text-ui-fg-muted">-</span>
+            return <span className="text-ui-fg-muted">-</span>;
           }
-          const visible = values.slice(0, MAX_VISIBLE_VALUES)
-          const remaining = values.length - MAX_VISIBLE_VALUES
+          const visible = values.slice(0, MAX_VISIBLE_VALUES);
+          const remaining = values.length - MAX_VISIBLE_VALUES;
           return (
             <div className="flex items-center gap-x-1">
               {visible.map((v: any) => (
@@ -302,7 +302,7 @@ export const useAttributeTableColumns = () => {
                 </Badge>
               )}
             </div>
-          )
+          );
         },
       }),
       columnHelper.display({
@@ -311,5 +311,5 @@ export const useAttributeTableColumns = () => {
       }),
     ],
     [t]
-  )
-}
+  );
+};

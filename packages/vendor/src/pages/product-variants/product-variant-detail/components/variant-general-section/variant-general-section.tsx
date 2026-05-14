@@ -1,25 +1,25 @@
-import { Component, PencilSquare, Trash } from "@medusajs/icons"
-import { Badge, Container, Heading, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { Component, PencilSquare, Trash } from "@medusajs/icons";
+import { Badge, Container, Heading, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { SectionRow } from "@components/common/section"
-import { useDeleteVariant } from "@hooks/api/products"
-import { ExtendedAdminProductVariant } from "@custom-types/products"
+import { ActionMenu } from "@components/common/action-menu";
+import { SectionRow } from "@components/common/section";
+import { useDeleteVariant } from "@hooks/api/products";
+import { ExtendedAdminProductVariant } from "@custom-types/products";
 
 type VariantGeneralSectionProps = {
   variant: ExtendedAdminProductVariant
 }
 
 export function VariantGeneralSection({ variant }: VariantGeneralSectionProps) {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
 
-  const hasInventoryKit = variant.inventory && variant.inventory.length > 1
+  const hasInventoryKit = variant.inventory && variant.inventory.length > 1;
 
-  const { mutateAsync } = useDeleteVariant(variant.product_id!, variant.id)
+  const { mutateAsync } = useDeleteVariant(variant.product_id!, variant.id);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -29,18 +29,18 @@ export function VariantGeneralSection({ variant }: VariantGeneralSectionProps) {
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
       onSuccess: () => {
-        navigate("..", { replace: true })
+        navigate("..", { replace: true });
       },
-    })
-  }
+    });
+  };
 
   return (
     <Container className="divide-y p-0">
@@ -93,5 +93,5 @@ export function VariantGeneralSection({ variant }: VariantGeneralSectionProps) {
         />
       ))}
     </Container>
-  )
+  );
 }

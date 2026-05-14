@@ -1,15 +1,15 @@
-import { ChartPie, PencilSquare } from "@medusajs/icons"
-import { AdminCampaign } from "@medusajs/types"
-import { Container, Heading, Text } from "@medusajs/ui"
-import { Trans, useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
+import { ChartPie, PencilSquare } from "@medusajs/icons";
+import { AdminCampaign } from "@medusajs/types";
+import { Container, Heading, Text } from "@medusajs/ui";
+import { Trans, useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
 
 type CampaignBudgetProps = {
   campaign: AdminCampaign
 }
 
 export const CampaignBudget = ({ campaign }: CampaignBudgetProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="flex flex-col gap-y-4 px-6 py-4" data-testid="campaign-budget-container">
@@ -28,8 +28,8 @@ export const CampaignBudget = ({ campaign }: CampaignBudgetProps) => {
           >
             {campaign.budget?.type === "use_by_attribute"
               ? t("campaigns.budget.fields.totalUsedByAttribute", {
-                  attribute: campaign.budget?.attribute,
-                })
+                attribute: campaign.budget?.attribute,
+              })
               : t("campaigns.fields.budget_limit")}
           </Heading>
         </div>
@@ -82,5 +82,5 @@ export const CampaignBudget = ({ campaign }: CampaignBudgetProps) => {
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

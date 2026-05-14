@@ -1,17 +1,17 @@
-import { Heading, Input, Select, Text, Textarea } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Heading, Input, Select, Text, Textarea } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "../../../../../components/common/form"
-import { HandleInput } from "../../../../../components/inputs/handle-input"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
-import { CreateCategorySchema } from "./schema"
+import { Form } from "../../../../../components/common/form";
+import { HandleInput } from "../../../../../components/inputs/handle-input";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
+import { CreateCategorySchema } from "./schema";
 
 const Root = () => {
-  const { t } = useTranslation()
-  const form = useTabbedForm<CreateCategorySchema>()
-  const direction = useDocumentDirection()
+  const { t } = useTranslation();
+  const form = useTabbedForm<CreateCategorySchema>();
+  const direction = useDocumentDirection();
 
   return (
     <div className="flex flex-col items-center p-16">
@@ -35,7 +35,7 @@ const Root = () => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="category-create-form-name-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -52,7 +52,7 @@ const Root = () => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="category-create-form-handle-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
@@ -68,7 +68,7 @@ const Root = () => {
                 </Form.Control>
                 <Form.ErrorMessage data-testid="category-create-form-description-error" />
               </Form.Item>
-            )
+            );
           }}
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -101,7 +101,7 @@ const Root = () => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="category-create-form-status-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -135,19 +135,19 @@ const Root = () => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="category-create-form-visibility-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 Root._tabMeta = defineTabMeta<CreateCategorySchema>({
   id: "details",
   labelKey: "categories.create.tabs.details",
   validationFields: ["name", "handle", "description", "status", "visibility"],
-})
+});
 
-export const CreateCategoryDetails = Root
+export const CreateCategoryDetails = Root;

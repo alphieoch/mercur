@@ -1,6 +1,6 @@
-import { HttpTypes } from "@medusajs/types"
-import { castNumber } from "../../../lib/cast-number"
-import { ProductCreateSchemaType } from "./types"
+import { HttpTypes } from "@medusajs/types";
+import { castNumber } from "../../../lib/cast-number";
+import { ProductCreateSchemaType } from "./types";
 
 export const normalizeProductFormValues = (
   values: ProductCreateSchemaType & {
@@ -8,10 +8,10 @@ export const normalizeProductFormValues = (
     regionsCurrencyMap: Record<string, string>
   }
 ): HttpTypes.AdminCreateProduct => {
-  const thumbnail = values.media?.find((media) => media.isThumbnail)?.url
+  const thumbnail = values.media?.find((media) => media.isThumbnail)?.url;
   const images = values.media
     ?.filter((media) => !media.isThumbnail)
-    .map((media) => ({ url: media.url }))
+    .map((media) => ({ url: media.url }));
 
   return {
     status: values.status,
@@ -49,8 +49,8 @@ export const normalizeProductFormValues = (
       values.variants.filter((variant) => variant.should_create),
       values.regionsCurrencyMap
     ),
-  }
-}
+  };
+};
 
 export const normalizeVariants = (
   variants: ProductCreateSchemaType["variants"],
@@ -67,16 +67,16 @@ export const normalizeVariants = (
       .inventory!.map((i) => {
         const quantity = i.required_quantity
           ? castNumber(i.required_quantity)
-          : null
+          : null;
 
         if (!i.inventory_item_id || !quantity) {
-          return false
+          return false;
         }
 
         return {
           ...i,
           required_quantity: quantity,
-        }
+        };
       })
       .filter(
         (
@@ -87,7 +87,7 @@ export const normalizeVariants = (
     prices: Object.entries(variant.prices || {})
       .map(([key, value]: any) => {
         if (value === "" || value === undefined) {
-          return undefined
+          return undefined;
         }
 
         if (key.startsWith("reg_")) {
@@ -95,17 +95,17 @@ export const normalizeVariants = (
             currency_code: regionsCurrencyMap[key],
             amount: castNumber(value),
             rules: { region_id: key },
-          }
-        } else {
-          return {
-            currency_code: key,
-            amount: castNumber(value),
-          }
-        }
+          };
+        } 
+        return {
+          currency_code: key,
+          amount: castNumber(value),
+        };
+        
       })
       .filter((v) => !!v),
-  }))
-}
+  }));
+};
 
 export const decorateVariantsWithDefaultValues = (
   variants: ProductCreateSchemaType["variants"]
@@ -117,5 +117,5 @@ export const decorateVariantsWithDefaultValues = (
     manage_inventory: variant.manage_inventory || false,
     allow_backorder: variant.allow_backorder || false,
     inventory_kit: variant.inventory_kit || false,
-  }))
-}
+  }));
+};

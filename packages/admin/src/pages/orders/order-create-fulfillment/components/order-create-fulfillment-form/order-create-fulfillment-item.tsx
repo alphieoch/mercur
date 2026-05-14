@@ -1,16 +1,16 @@
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { clx, Input, Text, Tooltip } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { HttpTypes } from "@medusajs/types"
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { clx, Input, Text, Tooltip } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { HttpTypes } from "@medusajs/types";
 
-import { Form } from "../../../../../components/common/form/index"
-import { Thumbnail } from "../../../../../components/common/thumbnail/index"
-import { useProductVariant } from "../../../../../hooks/api/products"
-import { getFulfillableQuantity } from "../../../../../lib/order-item"
-import { CreateFulfillmentSchema } from "./constants"
-import { InformationCircleSolid } from "@medusajs/icons"
+import { Form } from "../../../../../components/common/form/index";
+import { Thumbnail } from "../../../../../components/common/thumbnail/index";
+import { useProductVariant } from "../../../../../hooks/api/products";
+import { getFulfillableQuantity } from "../../../../../lib/order-item";
+import { CreateFulfillmentSchema } from "./constants";
+import { InformationCircleSolid } from "@medusajs/icons";
 
 type OrderEditItemProps = {
   item: HttpTypes.AdminOrderLineItem
@@ -29,7 +29,7 @@ export function OrderCreateFulfillmentItem({
   reservations,
   disabled,
 }: OrderEditItemProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { variant } = useProductVariant(
     item.product_id,
@@ -40,7 +40,7 @@ export function OrderCreateFulfillmentItem({
     {
       enabled: !!item.variant,
     }
-  )
+  );
 
   const { availableQuantity, inStockQuantity } = useMemo(() => {
     if (
@@ -48,69 +48,69 @@ export function OrderCreateFulfillmentItem({
       !variant?.inventory?.length ||
       !locationId
     ) {
-      return {}
+      return {};
     }
 
-    const { inventory, inventory_items } = variant
+    const { inventory, inventory_items } = variant;
 
     const locationHasEveryInventoryItem = inventory.every((i) =>
       i.location_levels?.find((inv) => inv.location_id === locationId)
-    )
+    );
 
     if (!locationHasEveryInventoryItem) {
-      return {}
+      return {};
     }
 
     const inventoryItemRequiredQuantityMap = new Map(
       inventory_items.map((i) => [i.inventory_item_id, i.required_quantity])
-    )
+    );
 
     // since we don't allow split fulifllments only one reservation from inventory kit is enough to calculate avalabel product quantity
-    const reservation = reservations?.find((r) => r.line_item_id === item.id)
+    const reservation = reservations?.find((r) => r.line_item_id === item.id);
     const iitemRequiredQuantity = inventory_items.find(
       (i) => i.inventory_item_id === reservation?.inventory_item_id
-    )?.required_quantity
+    )?.required_quantity;
 
     const reservedQuantityForItem = !reservation
       ? 0
-      : reservation?.quantity / (iitemRequiredQuantity || 1)
+      : reservation?.quantity / (iitemRequiredQuantity || 1);
 
     const locationInventoryLevels = inventory.map((i) => {
       const level = i.location_levels?.find(
         (inv) => inv.location_id === locationId
-      )
+      );
 
-      const requiredQuantity = inventoryItemRequiredQuantityMap.get(i.id)
+      const requiredQuantity = inventoryItemRequiredQuantityMap.get(i.id);
 
       if (!level || !requiredQuantity) {
         return {
           availableQuantity: Number.MAX_SAFE_INTEGER,
           stockedQuantity: Number.MAX_SAFE_INTEGER,
-        }
+        };
       }
 
-      const availableQuantity = level.available_quantity / requiredQuantity
-      const stockedQuantity = level.stocked_quantity / requiredQuantity
+      const availableQuantity = level.available_quantity / requiredQuantity;
+      const stockedQuantity = level.stocked_quantity / requiredQuantity;
 
       return {
         availableQuantity,
         stockedQuantity,
-      }
-    })
+      };
+    });
 
     const maxAvailableQuantity = Math.min(
       ...locationInventoryLevels.map((i) => i.availableQuantity)
-    )
+    );
 
     const maxStockedQuantity = Math.min(
       ...locationInventoryLevels.map((i) => i.stockedQuantity)
-    )
+    );
 
     if (
       maxAvailableQuantity === Number.MAX_SAFE_INTEGER ||
       maxStockedQuantity === Number.MAX_SAFE_INTEGER
     ) {
-      return {}
+      return {};
     }
 
     return {
@@ -118,14 +118,14 @@ export function OrderCreateFulfillmentItem({
         maxAvailableQuantity + reservedQuantityForItem
       ),
       inStockQuantity: Math.floor(maxStockedQuantity),
-    }
-  }, [variant, locationId, reservations])
+    };
+  }, [variant, locationId, reservations]);
 
-  const minValue = 0
+  const minValue = 0;
   const maxValue = Math.min(
     getFulfillableQuantity(item),
     availableQuantity || Number.MAX_SAFE_INTEGER
-  )
+  );
 
   return (
     <Form.Field
@@ -214,9 +214,9 @@ export function OrderCreateFulfillmentItem({
                             const val =
                               e.target.value === ""
                                 ? null
-                                : Number(e.target.value)
+                                : Number(e.target.value);
 
-                            field.onChange(val)
+                            field.onChange(val);
 
                             if (!isNaN(val)) {
                               if (val < minValue || val > maxValue) {
@@ -229,9 +229,9 @@ export function OrderCreateFulfillmentItem({
                                       number: maxValue,
                                     }
                                   ),
-                                })
+                                });
                               } else {
-                                form.clearErrors(`quantity.${item.id}`)
+                                form.clearErrors(`quantity.${item.id}`);
                               }
                             }
                           }}
@@ -251,8 +251,8 @@ export function OrderCreateFulfillmentItem({
 
             <Form.ErrorMessage className="flex justify-end pr-3 pb-2" />
           </div>
-        )
+        );
       }}
     />
-  )
+  );
 }

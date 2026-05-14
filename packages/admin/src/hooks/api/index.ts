@@ -14,7 +14,7 @@ export * from "./fulfillment-sets";
 export * from "./inventory";
 export * from "./invites";
 export * from "./notification";
-export * from "./order-groups"
+export * from "./order-groups";
 export * from "./orders";
 export * from "./payment-collections";
 export * from "./payouts";

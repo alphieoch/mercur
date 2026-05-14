@@ -46,11 +46,11 @@ export const useFulfillmentProviderOptions = (
   const { data, ...rest } = useQuery({
     queryFn: () => {
       if (!providerId) {
-        throw new Error("providerId is required for useFulfillmentProviderOptions")
+        throw new Error("providerId is required for useFulfillmentProviderOptions");
       }
       return fetchQuery(`/vendor/fulfillment-providers/${providerId}/options`, {
         method: "GET",
-      })
+      });
     },
     queryKey: fulfillmentProviderOptionsQueryKeys.list(providerId),
     ...options,

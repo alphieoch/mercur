@@ -1,12 +1,12 @@
-import { Switch } from "@medusajs/ui"
-import { useEffect, useRef, useState } from "react"
-import CurrencyInput, { CurrencyInputProps } from "react-currency-input-field"
-import { Controller, ControllerRenderProps } from "react-hook-form"
-import { useCombinedRefs } from "../../../hooks/use-combined-refs"
-import { ConditionalTooltip } from "../../common/conditional-tooltip"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { DataGridCellProps, InputProps } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { Switch } from "@medusajs/ui";
+import { useEffect, useRef, useState } from "react";
+import CurrencyInput, { CurrencyInputProps } from "react-currency-input-field";
+import { Controller, ControllerRenderProps } from "react-hook-form";
+import { useCombinedRefs } from "../../../hooks/use-combined-refs";
+import { ConditionalTooltip } from "../../common/conditional-tooltip";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { DataGridCellProps, InputProps } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 export const DataGridTogglableNumberCell = <TData, TValue = any>({
   context,
@@ -22,10 +22,10 @@ export const DataGridTogglableNumberCell = <TData, TValue = any>({
 }) => {
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
-  const errorProps = useDataGridCellError({ context })
+  });
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
+  const { container, input } = renderProps;
 
   return (
     <Controller
@@ -47,11 +47,11 @@ export const DataGridTogglableNumberCell = <TData, TValue = any>({
           >
             <Inner field={field} inputProps={input} hideInput={hideInput} {...rest} />
           </DataGridCellContainer>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const OuterComponent = ({
   field,
@@ -64,38 +64,38 @@ const OuterComponent = ({
   isAnchor: boolean
   tooltip?: string
 }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const { value } = field
-  const { onChange } = inputProps
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { value } = field;
+  const { onChange } = inputProps;
 
-  const [localValue, setLocalValue] = useState(value)
+  const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
-    setLocalValue(value)
-  }, [value])
+    setLocalValue(value);
+  }, [value]);
 
   const handleCheckedChange = (update: boolean) => {
-    const newValue = { ...localValue, checked: update }
+    const newValue = { ...localValue, checked: update };
 
     if (update && (newValue.quantity === "" || newValue.quantity === null || newValue.quantity === undefined)) {
-      newValue.quantity = 0
+      newValue.quantity = 0;
     }
 
-    setLocalValue(newValue)
-    onChange(newValue, value)
-  }
+    setLocalValue(newValue);
+    onChange(newValue, value);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isAnchor && e.key.toLowerCase() === "x") {
-        e.preventDefault()
-        buttonRef.current?.click()
+        e.preventDefault();
+        buttonRef.current?.click();
       }
-    }
+    };
 
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [isAnchor])
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isAnchor]);
 
   return (
     <ConditionalTooltip
@@ -114,8 +114,8 @@ const OuterComponent = ({
         />
       </div>
     </ConditionalTooltip>
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -131,30 +131,30 @@ const Inner = ({
   placeholder?: string
   hideInput?: boolean
 }) => {
-  const { ref, value, onChange: _, onBlur, ...fieldProps } = field
+  const { ref, value, onChange: _, onBlur, ...fieldProps } = field;
   const {
     ref: inputRef,
     onChange,
     onBlur: onInputBlur,
     onFocus,
     ...attributes
-  } = inputProps
+  } = inputProps;
 
-  const [localValue, setLocalValue] = useState(value)
+  const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
-    setLocalValue(value)
-  }, [value])
+    setLocalValue(value);
+  }, [value]);
 
-  const combinedRefs = useCombinedRefs(inputRef, ref)
+  const combinedRefs = useCombinedRefs(inputRef, ref);
 
   const handleInputChange: CurrencyInputProps["onValueChange"] = (
     updatedValue,
     _name,
     _values
   ) => {
-    const ensuredValue = updatedValue !== undefined ? updatedValue : ""
-    const newValue = { ...localValue, quantity: ensuredValue }
+    const ensuredValue = updatedValue !== undefined ? updatedValue : "";
+    const newValue = { ...localValue, quantity: ensuredValue };
 
     /**
      * If the value is not empty, then the location should be enabled.
@@ -163,21 +163,21 @@ const Inner = ({
      * location should be disabled, unless toggling the location is disabled.
      */
     if (ensuredValue !== "") {
-      newValue.checked = true
+      newValue.checked = true;
     } else if (newValue.checked && newValue.disabledToggle === false) {
-      newValue.checked = false
+      newValue.checked = false;
     }
 
-    setLocalValue(newValue)
-  }
+    setLocalValue(newValue);
+  };
 
   const handleOnChange = () => {
     if (localValue.disabledToggle && localValue.quantity === "") {
-      localValue.quantity = 0
+      localValue.quantity = 0;
     }
 
-    onChange(localValue, value)
-  }
+    onChange(localValue, value);
+  };
 
   if (hideInput) {
     return (
@@ -187,8 +187,8 @@ const Inner = ({
           className="sr-only"
           onFocus={onFocus}
           onBlur={() => {
-            onBlur()
-            onInputBlur()
+            onBlur();
+            onInputBlur();
           }}
           tabIndex={-1}
           readOnly
@@ -197,7 +197,7 @@ const Inner = ({
           {localValue?.checked ? "Enabled" : "Not enabled"}
         </span>
       </div>
-    )
+    );
   }
 
   if (!localValue?.checked) {
@@ -208,8 +208,8 @@ const Inner = ({
           className="sr-only"
           onFocus={onFocus}
           onBlur={() => {
-            onBlur()
-            onInputBlur()
+            onBlur();
+            onInputBlur();
           }}
           tabIndex={-1}
           readOnly
@@ -218,7 +218,7 @@ const Inner = ({
           Not enabled
         </span>
       </div>
-    )
+    );
   }
 
   return (
@@ -233,9 +233,9 @@ const Inner = ({
         onValueChange={handleInputChange}
         formatValueOnBlur
         onBlur={() => {
-          onBlur()
-          onInputBlur()
-          handleOnChange()
+          onBlur();
+          onInputBlur();
+          handleOnChange();
         }}
         onFocus={onFocus}
         decimalsLimit={0}
@@ -243,5 +243,5 @@ const Inner = ({
         tabIndex={-1}
       />
     </div>
-  )
-}
+  );
+};

@@ -1,35 +1,35 @@
-import { InformationCircleSolid } from "@medusajs/icons"
-import { AdminOrderShippingMethod } from "@medusajs/types"
-import { Badge, Tooltip } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { InformationCircleSolid } from "@medusajs/icons";
+import { AdminOrderShippingMethod } from "@medusajs/types";
+import { Badge, Tooltip } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 type ShippingInfoPopoverProps = {
   shippingMethod: AdminOrderShippingMethod
 }
 
 function ShippingInfoPopover({ shippingMethod }: ShippingInfoPopoverProps) {
-  const { t } = useTranslation()
-  const shippingDetail = shippingMethod?.detail
+  const { t } = useTranslation();
+  const shippingDetail = shippingMethod?.detail;
 
   if (!shippingDetail) {
-    return
+    return;
   }
 
-  let rmaType = t("orders.return")
-  let rmaId = shippingDetail.return_id
+  let rmaType = t("orders.return");
+  let rmaId = shippingDetail.return_id;
 
   if (shippingDetail.claim_id) {
-    rmaType = t("orders.claim")
-    rmaId = shippingDetail.claim_id
+    rmaType = t("orders.claim");
+    rmaId = shippingDetail.claim_id;
   }
 
   if (shippingDetail.exchange_id) {
-    rmaType = t("orders.exchange")
-    rmaId = shippingDetail.exchange_id
+    rmaType = t("orders.exchange");
+    rmaId = shippingDetail.exchange_id;
   }
 
   if (!rmaId) {
-    return
+    return;
   }
 
   return (
@@ -42,7 +42,7 @@ function ShippingInfoPopover({ shippingMethod }: ShippingInfoPopoverProps) {
     >
       <InformationCircleSolid className="inline-block text-ui-fg-muted ml-1" />
     </Tooltip>
-  )
+  );
 }
 
-export default ShippingInfoPopover
+export default ShippingInfoPopover;

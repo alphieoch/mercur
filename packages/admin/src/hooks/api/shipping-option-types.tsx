@@ -2,22 +2,22 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   useMutation,
   UseMutationOptions,
   useQuery,
   UseQueryOptions,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const SHIPPING_OPTION_TYPES_QUERY_KEY = "shipping_option_types" as const
+const SHIPPING_OPTION_TYPES_QUERY_KEY = "shipping_option_types" as const;
 export const shippingOptionTypesQueryKeys = queryKeysFactory(
   SHIPPING_OPTION_TYPES_QUERY_KEY
-)
+);
 
 export const useShippingOptionType = (
   id: string,
@@ -40,10 +40,10 @@ export const useShippingOptionType = (
       sdk.admin.shippingOptionTypes.$id.query({ $id: id, ...query }),
     queryKey: shippingOptionTypesQueryKeys.detail(id),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useShippingOptionTypes = (
   query?: InferClientInput<typeof sdk.admin.shippingOptionTypes.query>,
@@ -61,10 +61,10 @@ export const useShippingOptionTypes = (
     queryFn: () => sdk.admin.shippingOptionTypes.query({ ...query }),
     queryKey: shippingOptionTypesQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateShippingOptionType = (
   options?: UseMutationOptions<
@@ -78,13 +78,13 @@ export const useCreateShippingOptionType = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: shippingOptionTypesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateShippingOptionType = (
   id: string,
@@ -103,16 +103,16 @@ export const useUpdateShippingOptionType = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: shippingOptionTypesQueryKeys.detail(id),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: shippingOptionTypesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteShippingOptionType = (
   id: string,
@@ -127,13 +127,13 @@ export const useDeleteShippingOptionType = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: shippingOptionTypesQueryKeys.detail(id),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: shippingOptionTypesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

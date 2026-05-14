@@ -3,19 +3,19 @@ import {
   Heading,
   Input,
   Textarea,
-} from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "../../../../../components/common/form"
-import { SwitchBox } from "../../../../../components/common/switch-box"
-import { CountrySelect } from "../../../../../components/inputs/country-select"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
-import { CreateInventoryItemSchema } from "./schema"
+import { Form } from "../../../../../components/common/form";
+import { SwitchBox } from "../../../../../components/common/switch-box";
+import { CountrySelect } from "../../../../../components/inputs/country-select";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
+import { CreateInventoryItemSchema } from "./schema";
 
 const Root = () => {
-  const { t } = useTranslation()
-  const form = useTabbedForm<CreateInventoryItemSchema>()
+  const { t } = useTranslation();
+  const form = useTabbedForm<CreateInventoryItemSchema>();
 
   return (
     <div className="flex flex-1 flex-col items-center overflow-y-auto px-3">
@@ -191,8 +191,8 @@ const Root = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 Root._tabMeta = defineTabMeta<CreateInventoryItemSchema>({
   id: "details",
@@ -202,6 +202,6 @@ Root._tabMeta = defineTabMeta<CreateInventoryItemSchema>({
     "height", "width", "origin_country", "mid_code", "material",
     "requires_shipping", "thumbnail",
   ],
-})
+});
 
-export const InventoryCreateDetailsTab = Root
+export const InventoryCreateDetailsTab = Root;

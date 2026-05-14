@@ -1,31 +1,31 @@
-import { Children, ReactNode } from "react"
-import { Container, Heading } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { useTranslation } from "react-i18next"
+import { Children, ReactNode } from "react";
+import { Container, Heading } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
-import { _DataTable } from "../../../components/table/data-table"
-import { usePayouts } from "../../../hooks/api/payouts"
-import { usePayoutTableColumns } from "../../../hooks/table/columns/use-payout-table-columns"
-import { usePayoutTableQuery } from "../../../hooks/table/query/use-payout-table-query"
-import { useDataTable } from "../../../hooks/use-data-table"
-import { PayoutDTO } from "@mercurjs/types"
+import { SingleColumnPage } from "../../../components/layout/pages";
+import { _DataTable } from "../../../components/table/data-table";
+import { usePayouts } from "../../../hooks/api/payouts";
+import { usePayoutTableColumns } from "../../../hooks/table/columns/use-payout-table-columns";
+import { usePayoutTableQuery } from "../../../hooks/table/query/use-payout-table-query";
+import { useDataTable } from "../../../hooks/use-data-table";
+import { PayoutDTO } from "@mercurjs/types";
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const PayoutListTitle = () => {
   return (
     <Heading level="h2">Payouts</Heading>
-  )
-}
+  );
+};
 
 export const PayoutListActions = ({ children }: { children?: ReactNode }) => {
   return (
     <div className="flex items-center gap-x-2">
       {Children.count(children) > 0 ? children : null}
     </div>
-  )
-}
+  );
+};
 
 export const PayoutListHeader = ({ children }: { children?: ReactNode }) => {
   return (
@@ -39,24 +39,24 @@ export const PayoutListHeader = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const PayoutListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { searchParams, raw } = usePayoutTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
 
   const { payouts, count, isError, error, isLoading } = usePayouts(
     searchParams,
     {
       placeholderData: keepPreviousData,
     },
-  )
+  );
 
-  const columns = usePayoutTableColumns()
+  const columns = usePayoutTableColumns();
 
   const { table } = useDataTable({
     data: (payouts as PayoutDTO[]) ?? [],
@@ -64,10 +64,10 @@ export const PayoutListDataTable = () => {
     enablePagination: true,
     count: count ?? 0,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -89,8 +89,8 @@ export const PayoutListDataTable = () => {
         message: "No payouts found",
       }}
     />
-  )
-}
+  );
+};
 
 export const PayoutListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -104,16 +104,16 @@ export const PayoutListTable = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </Container>
-  )
-}
+  );
+};
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage>
       {Children.count(children) > 0 ? children : <PayoutListTable />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const PayoutListPage = Object.assign(Root, {
   Table: PayoutListTable,
@@ -121,4 +121,4 @@ export const PayoutListPage = Object.assign(Root, {
   HeaderTitle: PayoutListTitle,
   HeaderActions: PayoutListActions,
   DataTable: PayoutListDataTable,
-})
+});

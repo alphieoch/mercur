@@ -1,33 +1,33 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, toast, usePrompt } from "@medusajs/ui"
-import { HttpTypes } from "@medusajs/types"
-import { useEffect, useMemo, useRef, useState } from "react"
-import { DefaultValues, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, toast, usePrompt } from "@medusajs/ui";
+import { HttpTypes } from "@medusajs/types";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { DefaultValues, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { DataGrid } from "@components/data-grid"
+import { DataGrid } from "@components/data-grid";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useBatchInventoryItemsLocationLevels } from "@hooks/api"
-import { castNumber } from "@lib/cast-number"
-import { useProductStockColumns } from "../use-product-stock-columns"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useBatchInventoryItemsLocationLevels } from "@hooks/api";
+import { castNumber } from "@lib/cast-number";
+import { useProductStockColumns } from "../use-product-stock-columns";
 import {
   ProductStockInventoryItemSchema,
   ProductStockLocationSchema,
   ProductStockSchema,
   ProductStockVariantSchema,
-} from "../schema"
+} from "../schema";
 import {
   getDisabledInventoryRows,
   isProductVariantWithInventoryPivot,
-} from "../utils"
+} from "../utils";
 import {
   ExtendedAdminProductVariant,
   ProductStockGridRow,
-} from "@custom-types/products"
+} from "@custom-types/products";
 
 type ProductStockFormProps = {
   variants: ExtendedAdminProductVariant[]
@@ -40,27 +40,27 @@ export const ProductStockForm = ({
   locations,
   onLoaded,
 }: ProductStockFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess, setCloseOnEscape } = useRouteModal()
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const { handleSuccess, setCloseOnEscape } = useRouteModal();
+  const prompt = usePrompt();
 
   useEffect(() => {
-    onLoaded()
-  }, [onLoaded])
+    onLoaded();
+  }, [onLoaded]);
 
-  const [isPromptOpen, setIsPromptOpen] = useState(false)
+  const [isPromptOpen, setIsPromptOpen] = useState(false);
 
   const form = useForm<ProductStockSchema>({
     defaultValues: getDefaultValue(variants, locations),
     resolver: zodResolver(ProductStockSchema),
-  })
+  });
 
-  const initialValues = useRef(getDefaultValue(variants, locations))
+  const initialValues = useRef(getDefaultValue(variants, locations));
 
-  const disabled = useMemo(() => getDisabledInventoryRows(variants), [variants])
-  const columns = useProductStockColumns(locations, disabled)
+  const disabled = useMemo(() => getDisabledInventoryRows(variants), [variants]);
+  const columns = useProductStockColumns(locations, disabled);
 
-  const { mutateAsync, isPending } = useBatchInventoryItemsLocationLevels()
+  const { mutateAsync, isPending } = useBatchInventoryItemsLocationLevels();
 
   const onSubmit = form.handleSubmit(async (data) => {
     const payload: HttpTypes.AdminBatchInventoryItemsLocationLevels = {
@@ -68,7 +68,7 @@ export const ProductStockForm = ({
       update: [],
       delete: [],
       force: true,
-    }
+    };
 
     for (const [variantId, variant] of Object.entries(data.variants)) {
       for (const [inventory_item_id, item] of Object.entries(
@@ -79,24 +79,24 @@ export const ProductStockForm = ({
             const wasChecked =
               initialValues.current?.variants?.[variantId]?.inventory_items?.[
                 inventory_item_id
-              ]?.locations?.[location_id]?.checked
+              ]?.locations?.[location_id]?.checked;
 
             if (wasChecked && !level.checked) {
-              payload.delete.push(level.id)
+              payload.delete.push(level.id);
             } else {
               const newQuantity =
-                level.quantity !== "" ? castNumber(level.quantity) : 0
+                level.quantity !== "" ? castNumber(level.quantity) : 0;
               const originalQuantity =
                 initialValues.current?.variants?.[variantId]?.inventory_items?.[
                   inventory_item_id
-                ]?.locations?.[location_id]?.quantity
+                ]?.locations?.[location_id]?.quantity;
 
               if (newQuantity !== originalQuantity) {
                 payload.update.push({
                   inventory_item_id,
                   location_id,
                   stocked_quantity: newQuantity,
-                })
+                });
               }
             }
           }
@@ -106,14 +106,14 @@ export const ProductStockForm = ({
               inventory_item_id,
               location_id,
               stocked_quantity: castNumber(level.quantity),
-            })
+            });
           }
         }
       }
     }
 
     if (payload.delete.length > 0) {
-      setIsPromptOpen(true)
+      setIsPromptOpen(true);
       const confirm = await prompt({
         title: t("general.areYouSure"),
         description: t("inventory.stock.disablePrompt", {
@@ -122,25 +122,25 @@ export const ProductStockForm = ({
         confirmText: t("actions.continue"),
         cancelText: t("actions.cancel"),
         variant: "confirmation",
-      })
+      });
 
-      setIsPromptOpen(false)
+      setIsPromptOpen(false);
 
       if (!confirm) {
-        return
+        return;
       }
     }
 
     await mutateAsync(payload, {
       onSuccess: () => {
-        toast.success(t("inventory.stock.successToast"))
-        handleSuccess()
+        toast.success(t("inventory.stock.successToast"));
+        handleSuccess();
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -171,12 +171,12 @@ export const ProductStockForm = ({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};
 
 function getSubRows(row: ProductStockGridRow): ProductStockGridRow[] | undefined {
   if (isProductVariantWithInventoryPivot(row)) {
-    return row.inventory_items
+    return row.inventory_items;
   }
 }
 
@@ -192,7 +192,7 @@ function getDefaultValue(
             const locationsMap = locations.reduce((locationAcc, location) => {
               const level = item.inventory?.location_levels?.find(
                 (level) => level.location_id === location.id
-              )
+              );
 
               locationAcc[location.id] = {
                 id: level?.id,
@@ -204,20 +204,20 @@ function getDefaultValue(
                 disabledToggle:
                   (level?.incoming_quantity || 0) > 0 ||
                   (level?.reserved_quantity || 0) > 0,
-              }
-              return locationAcc
-            }, {} as ProductStockLocationSchema)
+              };
+              return locationAcc;
+            }, {} as ProductStockLocationSchema);
 
-            itemAcc[item.inventory_item_id] = { locations: locationsMap }
-            return itemAcc
+            itemAcc[item.inventory_item_id] = { locations: locationsMap };
+            return itemAcc;
           },
           {} as Record<string, ProductStockInventoryItemSchema>
-        )
+        );
 
-        variantAcc[variant.id] = { inventory_items: inventoryItems || {} }
-        return variantAcc
+        variantAcc[variant.id] = { inventory_items: inventoryItems || {} };
+        return variantAcc;
       },
       {} as Record<string, ProductStockVariantSchema>
     ),
-  }
+  };
 }

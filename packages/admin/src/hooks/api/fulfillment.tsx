@@ -1,13 +1,13 @@
-import { ClientError } from "@mercurjs/client"
-import { HttpTypes } from "@medusajs/types"
-import { useMutation, UseMutationOptions } from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
-import { ordersQueryKeys } from "./orders"
+import { ClientError } from "@mercurjs/client";
+import { HttpTypes } from "@medusajs/types";
+import { useMutation, UseMutationOptions } from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
+import { ordersQueryKeys } from "./orders";
 
-const FULFILLMENTS_QUERY_KEY = "fulfillments" as const
-export const fulfillmentsQueryKeys = queryKeysFactory(FULFILLMENTS_QUERY_KEY)
+const FULFILLMENTS_QUERY_KEY = "fulfillments" as const;
+export const fulfillmentsQueryKeys = queryKeysFactory(FULFILLMENTS_QUERY_KEY);
 
 export const useCreateFulfillment = (
   options?: UseMutationOptions<any, ClientError, any>
@@ -15,15 +15,15 @@ export const useCreateFulfillment = (
   return useMutation({
     mutationFn: (payload: any) => sdk.admin.fulfillments.mutate(payload),
     onSuccess: (data: any, variables: any, context: any) => {
-      queryClient.invalidateQueries({ queryKey: fulfillmentsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: fulfillmentsQueryKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.all,
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelFulfillment = (
   id: string,
@@ -33,15 +33,15 @@ export const useCancelFulfillment = (
     mutationFn: () =>
       sdk.admin.fulfillments.$id.cancel.mutate({ $id: id }),
     onSuccess: (data: any, variables: any, context: any) => {
-      queryClient.invalidateQueries({ queryKey: fulfillmentsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: fulfillmentsQueryKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.all,
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCreateFulfillmentShipment = (
   fulfillmentId: string,
@@ -60,9 +60,9 @@ export const useCreateFulfillmentShipment = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.all,
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

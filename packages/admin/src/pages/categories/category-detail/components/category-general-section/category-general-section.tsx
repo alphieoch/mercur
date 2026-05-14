@@ -1,10 +1,10 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, StatusBadge, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useDeleteProductCategoryAction } from "../../../common/hooks/use-delete-product-category-action"
-import { getIsActiveProps, getIsInternalProps } from "../../../common/utils"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, StatusBadge, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useDeleteProductCategoryAction } from "../../../common/hooks/use-delete-product-category-action";
+import { getIsActiveProps, getIsInternalProps } from "../../../common/utils";
 
 type CategoryGeneralSectionProps = {
   category: HttpTypes.AdminProductCategory
@@ -13,12 +13,12 @@ type CategoryGeneralSectionProps = {
 export const CategoryGeneralSection = ({
   category,
 }: CategoryGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const activeProps = getIsActiveProps(category.is_active, t)
-  const internalProps = getIsInternalProps(category.is_internal, t)
+  const activeProps = getIsActiveProps(category.is_active, t);
+  const internalProps = getIsInternalProps(category.is_internal, t);
 
-  const handleDelete = useDeleteProductCategoryAction(category)
+  const handleDelete = useDeleteProductCategoryAction(category);
 
   return (
     <Container className="divide-y p-0">
@@ -74,5 +74,5 @@ export const CategoryGeneralSection = ({
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

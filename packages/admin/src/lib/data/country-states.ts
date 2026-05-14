@@ -19,12 +19,12 @@ export function getCountryProvinceObjectByIso2(
   iso2: string | null | undefined
 ): CountryProvinceObject | null {
   if (!iso2) {
-    return null
+    return null;
   }
 
-  const code = iso2.toUpperCase()
+  const code = iso2.toUpperCase();
 
-  return countryProvinceMap[code] || null
+  return countryProvinceMap[code] || null;
 }
 
 /**
@@ -33,18 +33,18 @@ export function getCountryProvinceObjectByIso2(
  */
 export function getProvinceByIso2(iso2: string | null | undefined) {
   if (!iso2) {
-    return null
+    return null;
   }
 
-  const key = iso2.toUpperCase()
+  const key = iso2.toUpperCase();
 
   for (const country in countryProvinceMap) {
     if (countryProvinceMap[country].options[key]) {
-      return countryProvinceMap[country].options[key]
+      return countryProvinceMap[country].options[key];
     }
   }
 
-  return null
+  return null;
 }
 
 export function isProvinceInCountry(
@@ -52,14 +52,14 @@ export function isProvinceInCountry(
   provinceCode?: string | null
 ) {
   if (!countryCode || !provinceCode) {
-    return false
+    return false;
   }
 
-  const code = provinceCode.toUpperCase()
+  const code = provinceCode.toUpperCase();
 
-  const country = countryProvinceMap[countryCode.toUpperCase()]
+  const country = countryProvinceMap[countryCode.toUpperCase()];
 
-  return country?.options[code] !== undefined
+  return country?.options[code] !== undefined;
 }
 
 const countryProvinceMap: Record<string, CountryProvinceObject> = {
@@ -1308,4 +1308,4 @@ const countryProvinceMap: Record<string, CountryProvinceObject> = {
       "VE-Y": "Vargas",
     },
   },
-}
+};

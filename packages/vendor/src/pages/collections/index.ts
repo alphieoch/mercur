@@ -1,1 +1,1 @@
-export * from './collection-list-page'
+export * from './collection-list-page';

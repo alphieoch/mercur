@@ -1,16 +1,16 @@
-import { OnChangeFn, RowSelectionState } from "@tanstack/react-table"
-import { useState } from "react"
+import { OnChangeFn, RowSelectionState } from "@tanstack/react-table";
+import { useState } from "react";
 
-import { useTranslation } from "react-i18next"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useVariants } from "../../../../../hooks/api"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useOrderEditItemsTableColumns } from "./use-order-edit-item-table-columns"
-import { useOrderEditItemTableFilters } from "./use-order-edit-item-table-filters"
-import { useOrderEditItemTableQuery } from "./use-order-edit-item-table-query"
+import { useTranslation } from "react-i18next";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useVariants } from "../../../../../hooks/api";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useOrderEditItemsTableColumns } from "./use-order-edit-item-table-columns";
+import { useOrderEditItemTableFilters } from "./use-order-edit-item-table-filters";
+import { useOrderEditItemTableQuery } from "./use-order-edit-item-table-query";
 
-const PAGE_SIZE = 50
-const PREFIX = "rit"
+const PAGE_SIZE = 50;
+const PREFIX = "rit";
 
 type AddExchangeOutboundItemsTableProps = {
   onSelectionChange: (ids: string[]) => void
@@ -21,30 +21,30 @@ export const AddOrderEditItemsTable = ({
   onSelectionChange,
   currencyCode,
 }: AddExchangeOutboundItemsTableProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const updater: OnChangeFn<RowSelectionState> = (fn) => {
     const newState: RowSelectionState =
-      typeof fn === "function" ? fn(rowSelection) : fn
+      typeof fn === "function" ? fn(rowSelection) : fn;
 
-    setRowSelection(newState)
-    onSelectionChange(Object.keys(newState))
-  }
+    setRowSelection(newState);
+    onSelectionChange(Object.keys(newState));
+  };
 
   const { searchParams, raw } = useOrderEditItemTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
 
   const { variants = [], count } = useVariants({
     ...searchParams,
     fields: "*inventory_items.inventory.location_levels,+inventory_quantity",
-  })
+  });
 
-  const columns = useOrderEditItemsTableColumns(currencyCode)
-  const filters = useOrderEditItemTableFilters()
+  const columns = useOrderEditItemsTableColumns(currencyCode);
+  const filters = useOrderEditItemTableFilters();
 
   const { table } = useDataTable({
     data: variants,
@@ -55,13 +55,13 @@ export const AddOrderEditItemsTable = ({
     pageSize: PAGE_SIZE,
     enableRowSelection: (_row) => {
       // TODO: Check inventory here. Check if other validations needs to be made
-      return true
+      return true;
     },
     rowSelection: {
       state: rowSelection,
       updater,
     },
-  })
+  });
 
   return (
     <div className="flex size-full flex-col overflow-hidden">
@@ -83,5 +83,5 @@ export const AddOrderEditItemsTable = ({
         queryObject={raw}
       />
     </div>
-  )
-}
+  );
+};

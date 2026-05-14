@@ -1,1 +1,1 @@
-export { CommissionRateListTable } from "./commission-rate-list-table"
+export { CommissionRateListTable } from "./commission-rate-list-table";

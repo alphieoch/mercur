@@ -1,6 +1,6 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { MagnifyingGlass, XMark } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { MagnifyingGlass, XMark } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
 import {
   Button,
   DatePicker,
@@ -10,19 +10,19 @@ import {
   Text,
   clx,
   toast,
-} from "@medusajs/ui"
-import { useFieldArray, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+} from "@medusajs/ui";
+import { useFieldArray, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { StackedDrawer } from "../../../../../components/modals/stacked-drawer"
-import { useStackedModal } from "../../../../../components/modals/stacked-modal-provider"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdatePriceList } from "../../../../../hooks/api/price-lists"
-import { PriceListCustomerGroupRuleForm } from "../../../common/components/price-list-customer-group-rule-form"
-import { PricingCustomerGroupsArrayType } from "../../../price-list-create/components/price-list-create-form/schema"
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { StackedDrawer } from "../../../../../components/modals/stacked-drawer";
+import { useStackedModal } from "../../../../../components/modals/stacked-modal-provider";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdatePriceList } from "../../../../../hooks/api/price-lists";
+import { PriceListCustomerGroupRuleForm } from "../../../common/components/price-list-customer-group-rule-form";
+import { PricingCustomerGroupsArrayType } from "../../../price-list-create/components/price-list-create-form/schema";
 
 type PriceListConfigurationFormProps = {
   priceList: HttpTypes.AdminPriceList
@@ -38,17 +38,17 @@ const PriceListConfigurationSchema = z.object({
       name: z.string(),
     })
   ),
-})
+});
 
-const STACKED_MODAL_ID = "cg"
+const STACKED_MODAL_ID = "cg";
 
 export const PriceListConfigurationForm = ({
   priceList,
   customerGroups,
 }: PriceListConfigurationFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const { setIsOpen } = useStackedModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const { setIsOpen } = useStackedModal();
 
   const form = useForm<z.infer<typeof PriceListConfigurationSchema>>({
     defaultValues: {
@@ -57,47 +57,47 @@ export const PriceListConfigurationForm = ({
       customer_group_id: customerGroups,
     },
     resolver: zodResolver(PriceListConfigurationSchema),
-  })
+  });
 
   const { fields, remove, append } = useFieldArray({
     control: form.control,
     name: "customer_group_id",
     keyName: "cg_id",
-  })
+  });
 
   const handleAddCustomerGroup = (groups: PricingCustomerGroupsArrayType) => {
     if (!groups.length) {
-      form.setValue("customer_group_id", [])
-      setIsOpen(STACKED_MODAL_ID, false)
-      return
+      form.setValue("customer_group_id", []);
+      setIsOpen(STACKED_MODAL_ID, false);
+      return;
     }
 
-    const newIds = groups.map((group) => group.id)
+    const newIds = groups.map((group) => group.id);
 
     const fieldsToAdd = groups.filter(
       (group) => !fields.some((field) => field.id === group.id)
-    )
+    );
 
     for (const field of fields) {
       if (!newIds.includes(field.id)) {
-        remove(fields.indexOf(field))
+        remove(fields.indexOf(field));
       }
     }
 
-    append(fieldsToAdd)
-    setIsOpen(STACKED_MODAL_ID, false)
-  }
+    append(fieldsToAdd);
+    setIsOpen(STACKED_MODAL_ID, false);
+  };
 
-  const { mutateAsync } = useUpdatePriceList(priceList.id)
+  const { mutateAsync } = useUpdatePriceList(priceList.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    const groupIds = values.customer_group_id.map((group) => group.id)
-    const rules = { ...priceList.rules } // preserve other rules set on the PL
+    const groupIds = values.customer_group_id.map((group) => group.id);
+    const rules = { ...priceList.rules }; // preserve other rules set on the PL
 
     if (groupIds.length) {
-      rules["customer.groups.id"] = groupIds
+      rules["customer.groups.id"] = groupIds;
     } else {
-      delete rules["customer.groups.id"]
+      delete rules["customer.groups.id"];
     }
 
     await mutateAsync(
@@ -108,13 +108,13 @@ export const PriceListConfigurationForm = ({
       },
       {
         onSuccess: () => {
-          toast.success(t("priceLists.configuration.edit.successToast"))
-          handleSuccess()
+          toast.success(t("priceLists.configuration.edit.successToast"));
+          handleSuccess();
         },
         onError: (error) => toast.error(error.message),
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="price-list-configuration-form">
@@ -151,7 +151,7 @@ export const PriceListConfigurationForm = ({
                   </div>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Divider />
@@ -180,7 +180,7 @@ export const PriceListConfigurationForm = ({
                   </div>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Divider />
@@ -283,7 +283,7 @@ export const PriceListConfigurationForm = ({
                                     <XMark />
                                   </IconButton>
                                 </div>
-                              )
+                              );
                             })}
                           </div>
                         </div>
@@ -292,7 +292,7 @@ export const PriceListConfigurationForm = ({
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
         </RouteDrawer.Body>
@@ -310,5 +310,5 @@ export const PriceListConfigurationForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

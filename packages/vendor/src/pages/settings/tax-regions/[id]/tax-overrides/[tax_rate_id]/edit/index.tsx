@@ -1,32 +1,32 @@
-import { HttpTypes } from "@medusajs/types"
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+import { HttpTypes } from "@medusajs/types";
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-import { RouteDrawer } from "@components/modals"
-import { useCollections } from "@hooks/api/collections"
-import { useCustomerGroups } from "@hooks/api/customer-groups"
-import { useProductTypes } from "@hooks/api/product-types"
-import { useProducts } from "@hooks/api/products"
-import { useProductTags } from "@hooks/api/tags"
-import { useTaxRate } from "@hooks/api/tax-rates"
-import { TaxRateRuleReferenceType } from "@pages/settings/tax-regions/_common/constants"
-import { TaxRegionTaxOverrideEditForm } from "./_components/tax-region-tax-override-edit-form"
-import { InitialRuleValues } from "./types"
+import { RouteDrawer } from "@components/modals";
+import { useCollections } from "@hooks/api/collections";
+import { useCustomerGroups } from "@hooks/api/customer-groups";
+import { useProductTypes } from "@hooks/api/product-types";
+import { useProducts } from "@hooks/api/products";
+import { useProductTags } from "@hooks/api/tags";
+import { useTaxRate } from "@hooks/api/tax-rates";
+import { TaxRateRuleReferenceType } from "@pages/settings/tax-regions/_common/constants";
+import { TaxRegionTaxOverrideEditForm } from "./_components/tax-region-tax-override-edit-form";
+import { InitialRuleValues } from "./types";
 
 const TaxRegionTaxOverrideEdit = () => {
-  const { t } = useTranslation()
-  const { tax_rate_id } = useParams()
+  const { t } = useTranslation();
+  const { tax_rate_id } = useParams();
 
-  const { tax_rate, isPending, isError, error } = useTaxRate(tax_rate_id!)
+  const { tax_rate, isPending, isError, error } = useTaxRate(tax_rate_id!);
 
   const { initialValues, isPending: isInitializing } =
-    useDefaultRulesValues(tax_rate)
+    useDefaultRulesValues(tax_rate);
 
-  const ready = !isPending && !!tax_rate && !isInitializing && !!initialValues
+  const ready = !isPending && !!tax_rate && !isInitializing && !!initialValues;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -47,13 +47,13 @@ const TaxRegionTaxOverrideEdit = () => {
         />
       )}
     </RouteDrawer>
-  )
-}
+  );
+};
 
 const useDefaultRulesValues = (
   taxRate?: HttpTypes.AdminTaxRate
 ): { initialValues?: InitialRuleValues; isPending: boolean } => {
-  const rules = taxRate?.rules || []
+  const rules = taxRate?.rules || [];
 
   const idsByReferenceType: {
     [key in TaxRateRuleReferenceType]: string[]
@@ -63,12 +63,12 @@ const useDefaultRulesValues = (
     [TaxRateRuleReferenceType.PRODUCT_TAG]: [],
     [TaxRateRuleReferenceType.PRODUCT_TYPE]: [],
     [TaxRateRuleReferenceType.CUSTOMER_GROUP]: [],
-  }
+  };
 
   rules.forEach((rule) => {
-    const reference = rule.reference as TaxRateRuleReferenceType
-    idsByReferenceType[reference]?.push(rule.reference_id)
-  })
+    const reference = rule.reference as TaxRateRuleReferenceType;
+    idsByReferenceType[reference]?.push(rule.reference_id);
+  });
 
   const queries = [
     {
@@ -125,33 +125,33 @@ const useDefaultRulesValues = (
           value: customerGroup.id,
         })),
     },
-  ]
+  ];
 
   const queryResults = queries.map(({ ids, hook }) => {
-    const enabled = ids.length > 0
+    const enabled = ids.length > 0;
     return {
       result: hook({ id: ids, limit: ids.length }, { enabled }),
       enabled,
-    }
-  })
+    };
+  });
 
   if (!taxRate) {
-    return { isPending: true }
+    return { isPending: true };
   }
 
   const isPending = queryResults.some(
     ({ result, enabled }) => enabled && result.isPending
-  )
+  );
 
   if (isPending) {
-    return { isPending }
+    return { isPending };
   }
 
   queryResults.forEach(({ result, enabled }) => {
     if (enabled && result.isError) {
-      throw result.error
+      throw result.error;
     }
-  })
+  });
 
   const initialRulesValues: InitialRuleValues = queries.reduce(
     (acc, { key, getResult }, index) => ({
@@ -161,9 +161,9 @@ const useDefaultRulesValues = (
         : [],
     }),
     {} as InitialRuleValues
-  )
+  );
 
-  return { initialValues: initialRulesValues, isPending: false }
-}
+  return { initialValues: initialRulesValues, isPending: false };
+};
 
-export const Component = TaxRegionTaxOverrideEdit
+export const Component = TaxRegionTaxOverrideEdit;

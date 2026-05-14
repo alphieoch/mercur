@@ -1,5 +1,5 @@
-import { HttpTypes } from "@medusajs/types"
-import { useQueryParams } from "../../../../hooks/use-query-params"
+import { HttpTypes } from "@medusajs/types";
+import { useQueryParams } from "../../../../hooks/use-query-params";
 
 type UseSalesChannelTableQueryProps = {
   prefix?: string
@@ -13,9 +13,9 @@ export const useSalesChannelTableQuery = ({
   const queryObject = useQueryParams(
     ["offset", "q", "order", "created_at", "updated_at", "is_disabled"],
     prefix
-  )
+  );
 
-  const { offset, created_at, updated_at, is_disabled, ...rest } = queryObject
+  const { offset, created_at, updated_at, is_disabled, ...rest } = queryObject;
 
   const searchParams: HttpTypes.AdminSalesChannelListParams = {
     limit: pageSize,
@@ -24,7 +24,7 @@ export const useSalesChannelTableQuery = ({
     updated_at: updated_at ? JSON.parse(updated_at) : undefined,
     is_disabled: is_disabled ? JSON.parse(is_disabled) : undefined,
     ...rest,
-  }
+  };
 
-  return searchParams
-}
+  return searchParams;
+};

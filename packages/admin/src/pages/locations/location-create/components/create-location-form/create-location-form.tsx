@@ -1,16 +1,16 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { Form } from "../../../../../components/common/form"
-import { CountrySelect } from "../../../../../components/inputs/country-select"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { Form } from "../../../../../components/common/form";
+import { CountrySelect } from "../../../../../components/inputs/country-select";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateStockLocation } from "../../../../../hooks/api/stock-locations"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateStockLocation } from "../../../../../hooks/api/stock-locations";
 
 const CreateLocationSchema = zod.object({
   name: zod.string().min(1),
@@ -24,11 +24,11 @@ const CreateLocationSchema = zod.object({
     company: zod.string().optional(),
     phone: zod.string().optional(),
   }),
-})
+});
 
 export const CreateLocationForm = () => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof CreateLocationSchema>>({
     defaultValues: {
@@ -45,9 +45,9 @@ export const CreateLocationForm = () => {
       },
     },
     resolver: zodResolver(CreateLocationSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateStockLocation()
+  const { mutateAsync, isPending } = useCreateStockLocation();
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(
@@ -57,16 +57,16 @@ export const CreateLocationForm = () => {
       },
       {
         onSuccess: ({ stock_location }) => {
-          toast.success(t("locations.toast.create"))
+          toast.success(t("locations.toast.create"));
 
-          handleSuccess(`/settings/locations/${stock_location.id}`)
+          handleSuccess(`/settings/locations/${stock_location.id}`);
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="location-create-form">
@@ -99,7 +99,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-name-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -116,7 +116,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-address-1-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -131,7 +131,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-address-2-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -148,7 +148,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-postal-code-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -163,7 +163,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-city-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -178,7 +178,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-country-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -193,7 +193,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-province-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -208,7 +208,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-company-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -223,7 +223,7 @@ export const CreateLocationForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-create-form-phone-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -244,5 +244,5 @@ export const CreateLocationForm = () => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

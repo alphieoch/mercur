@@ -1,1 +1,1 @@
-export { ReservationListPage as Component } from "./reservation-list"
+export { ReservationListPage as Component } from "./reservation-list";

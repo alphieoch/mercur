@@ -1,4 +1,4 @@
-import { FieldPath, FieldValues, UseFormReturn } from "react-hook-form"
+import { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 
 export interface TabDefinition<T extends FieldValues = FieldValues> {
   /** Unique tab identifier, used as ProgressTabs value */
@@ -31,13 +31,13 @@ export const defineTabMeta = <T extends FieldValues = FieldValues>(
 ): TabDefinition<T> => {
   if (process.env.NODE_ENV !== "production") {
     if (!meta.id) {
-      console.warn("[TabbedForm] Tab meta is missing required 'id' field")
+      console.warn("[TabbedForm] Tab meta is missing required 'id' field");
     }
     if (!meta.labelKey && !meta.label) {
       console.warn(
         `[TabbedForm] Tab "${meta.id}" has neither 'labelKey' nor 'label' — the tab header will be empty`
-      )
+      );
     }
   }
-  return meta
-}
+  return meta;
+};

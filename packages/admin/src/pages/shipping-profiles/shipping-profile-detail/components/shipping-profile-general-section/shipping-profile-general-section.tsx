@@ -1,11 +1,11 @@
-import { Trash } from "@medusajs/icons"
-import { AdminShippingProfileResponse } from "@medusajs/types"
-import { Container, Heading, toast, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { SectionRow } from "../../../../../components/common/section"
-import { useDeleteShippingProfile } from "../../../../../hooks/api/shipping-profiles"
+import { Trash } from "@medusajs/icons";
+import { AdminShippingProfileResponse } from "@medusajs/types";
+import { Container, Heading, toast, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { SectionRow } from "../../../../../components/common/section";
+import { useDeleteShippingProfile } from "../../../../../hooks/api/shipping-profiles";
 
 type ShippingProfileGeneralSectionProps = {
   profile: AdminShippingProfileResponse["shipping_profile"]
@@ -14,11 +14,11 @@ type ShippingProfileGeneralSectionProps = {
 export const ShippingProfileGeneralSection = ({
   profile,
 }: ShippingProfileGeneralSectionProps) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
 
-  const { mutateAsync } = useDeleteShippingProfile(profile.id)
+  const { mutateAsync } = useDeleteShippingProfile(profile.id);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -30,10 +30,10 @@ export const ShippingProfileGeneralSection = ({
       verificationInstruction: t("general.typeToConfirm"),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
@@ -42,15 +42,15 @@ export const ShippingProfileGeneralSection = ({
           t("shippingProfile.delete.successToast", {
             name: profile.name,
           })
-        )
+        );
 
-        navigate("/settings/locations/shipping-profiles", { replace: true })
+        navigate("/settings/locations/shipping-profiles", { replace: true });
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <Container className="divide-y p-0" data-testid="shipping-profile-general-section-container">
@@ -73,5 +73,5 @@ export const ShippingProfileGeneralSection = ({
       </div>
       <SectionRow title={t("fields.type")} value={profile.type} data-testid="shipping-profile-general-section-type-row" />
     </Container>
-  )
-}
+  );
+};

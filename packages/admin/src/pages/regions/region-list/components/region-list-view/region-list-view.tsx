@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { RegionListDataTable } from "./region-list-data-table"
-import { RegionListHeader } from "./region-list-header"
+import { RegionListDataTable } from "./region-list-data-table";
+import { RegionListHeader } from "./region-list-header";
 
-export { RegionListDataTable } from "./region-list-data-table"
+export { RegionListDataTable } from "./region-list-data-table";
 export {
   RegionListHeader,
   RegionListTitle,
   RegionListActions,
-} from "./region-list-header"
+} from "./region-list-header";
 
 export const RegionListView = ({
   children,
@@ -27,5 +27,5 @@ export const RegionListView = ({
         </>
       )}
     </Container>
-  )
-}
+  );
+};

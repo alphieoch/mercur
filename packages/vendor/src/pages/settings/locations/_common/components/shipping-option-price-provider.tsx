@@ -1,8 +1,8 @@
-import { ShippingOptionPriceContext } from "./shipping-option-price-context"
-import { PropsWithChildren } from "react"
-import { ConditionalPriceInfo } from "../../types"
+import { ShippingOptionPriceContext } from "./shipping-option-price-context";
+import { PropsWithChildren } from "react";
+import { ConditionalPriceInfo } from "../../types";
 
-export { useShippingOptionPrice } from "./use-shipping-option-price"
+export { useShippingOptionPrice } from "./use-shipping-option-price";
 
 type ShippingOptionPriceProviderProps = PropsWithChildren<{
   onOpenConditionalPricesModal: (info: ConditionalPriceInfo) => void
@@ -20,5 +20,5 @@ export const ShippingOptionPriceProvider = ({
     >
       {children}
     </ShippingOptionPriceContext.Provider>
-  )
-}
+  );
+};

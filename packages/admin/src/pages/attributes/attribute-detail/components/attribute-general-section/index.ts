@@ -1,1 +1,1 @@
-export * from "./attribute-general-section"
+export * from "./attribute-general-section";

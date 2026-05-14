@@ -1,25 +1,25 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Form } from "@components/common/form"
+import { Form } from "@components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCreateShippingProfile } from "@hooks/api/shipping-profiles"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCreateShippingProfile } from "@hooks/api/shipping-profiles";
 
 const CreateShippingOptionsSchema = zod.object({
   name: zod.string().min(1),
   type: zod.string().min(1),
-})
+});
 
 export function CreateShippingProfileForm() {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof CreateShippingOptionsSchema>>({
     defaultValues: {
@@ -27,9 +27,9 @@ export function CreateShippingProfileForm() {
       type: "",
     },
     resolver: zodResolver(CreateShippingOptionsSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateShippingProfile()
+  const { mutateAsync, isPending } = useCreateShippingProfile();
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(
@@ -43,18 +43,18 @@ export function CreateShippingProfileForm() {
             t("shippingProfile.create.successToast", {
               name: shipping_profile.name,
             })
-          )
+          );
 
           handleSuccess(
             `/settings/locations/shipping-profiles/${shipping_profile.id}`
-          )
+          );
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -87,7 +87,7 @@ export function CreateShippingProfileForm() {
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -104,7 +104,7 @@ export function CreateShippingProfileForm() {
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -125,5 +125,5 @@ export function CreateShippingProfileForm() {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }

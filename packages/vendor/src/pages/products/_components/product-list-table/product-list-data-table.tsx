@@ -137,14 +137,14 @@ export const ProductListDataTable = () => {
       commands={[
         {
           action: () => {
-            const selectedIds = Object.keys(rowSelection)
+            const selectedIds = Object.keys(rowSelection);
             const selectedProducts = (products ?? []).filter((p: any) =>
               selectedIds.includes(p.id)
-            )
+            );
             if (selectedProducts.length > 0) {
               navigate("bulk-edit", {
                 state: { products: selectedProducts },
-              })
+              });
             }
           },
           label: t("actions.edit"),

@@ -1,4 +1,4 @@
-import { QueryKey, UseQueryOptions } from "@tanstack/react-query"
+import { QueryKey, UseQueryOptions } from "@tanstack/react-query";
 
 export type TQueryKey<TKey, TListQuery = any, TDetailQuery = string> = {
   all: readonly [TKey]
@@ -34,8 +34,8 @@ export const queryKeysFactory = <
   TListQueryType = any,
   TDetailQueryType = string
 >(
-  globalKey: T
-) => {
+    globalKey: T
+  ) => {
   const queryKeyFactory: TQueryKey<T, TListQueryType, TDetailQueryType> = {
     all: [globalKey],
     lists: () => [...queryKeyFactory.all, "list"],
@@ -48,6 +48,6 @@ export const queryKeysFactory = <
       [...queryKeyFactory.details(), id, query ? { query } : undefined].filter(
         (k) => !!k
       ),
-  }
-  return queryKeyFactory
-}
+  };
+  return queryKeyFactory;
+};

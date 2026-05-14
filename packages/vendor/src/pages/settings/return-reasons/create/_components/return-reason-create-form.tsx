@@ -1,25 +1,25 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, Textarea, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { Form } from "@components/common/form"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, Textarea, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { Form } from "@components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCreateReturnReason } from "@hooks/api/return-reasons"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCreateReturnReason } from "@hooks/api/return-reasons";
 
 const ReturnReasonCreateSchema = z.object({
   value: z.string().min(1),
   label: z.string().min(1),
   description: z.string().optional(),
-})
+});
 
 export const ReturnReasonCreateForm = () => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof ReturnReasonCreateSchema>>({
     defaultValues: {
@@ -28,9 +28,9 @@ export const ReturnReasonCreateForm = () => {
       description: "",
     },
     resolver: zodResolver(ReturnReasonCreateSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateReturnReason()
+  const { mutateAsync, isPending } = useCreateReturnReason();
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(data, {
@@ -39,14 +39,14 @@ export const ReturnReasonCreateForm = () => {
           t("returnReasons.create.successToast", {
             label: return_reason.label,
           })
-        )
-        handleSuccess(`../`)
+        );
+        handleSuccess(`../`);
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -89,7 +89,7 @@ export const ReturnReasonCreateForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -111,7 +111,7 @@ export const ReturnReasonCreateForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -134,7 +134,7 @@ export const ReturnReasonCreateForm = () => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -153,5 +153,5 @@ export const ReturnReasonCreateForm = () => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 import type {
   ApplicationMethodAllocationValues,
-} from "@medusajs/types"
+} from "@medusajs/types";
 import {
   Alert,
   Badge,
@@ -14,18 +14,18 @@ import {
   RadioGroup,
   Switch,
   Text,
-} from "@medusajs/ui"
-import { useWatch } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { useWatch } from "react-hook-form";
+import { Trans, useTranslation } from "react-i18next";
 
-import { Form } from "../../../../../components/common/form"
-import { DeprecatedPercentageInput } from "../../../../../components/inputs/percentage-input"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
-import { currencies, getCurrencySymbol } from "../../../../../lib/data/currencies"
-import { RulesFormField } from "../../../common/edit-rules/components/rules-form-field"
-import { CreatePromotionSchemaType } from "./form-schema"
+import { Form } from "../../../../../components/common/form";
+import { DeprecatedPercentageInput } from "../../../../../components/inputs/percentage-input";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
+import { currencies, getCurrencySymbol } from "../../../../../lib/data/currencies";
+import { RulesFormField } from "../../../common/edit-rules/components/rules-form-field";
+import { CreatePromotionSchemaType } from "./form-schema";
 
 type AllocationMode = "each" | "across" | "once"
 
@@ -38,44 +38,44 @@ type PromotionDetailsTabProps = {
 }
 
 const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
-  const { t } = useTranslation()
-  const direction = useDocumentDirection()
-  const form = useTabbedForm<CreatePromotionSchemaType>()
-  const { setValue } = form
+  const { t } = useTranslation();
+  const direction = useDocumentDirection();
+  const form = useTabbedForm<CreatePromotionSchemaType>();
+  const { setValue } = form;
 
-  const [allocationMode, setAllocationMode] = useState<AllocationMode>("each")
+  const [allocationMode, setAllocationMode] = useState<AllocationMode>("each");
 
   const watchValueType = useWatch({
     control: form.control,
     name: "application_method.type",
-  })
-  const isFixedValueType = watchValueType === "fixed"
+  });
+  const isFixedValueType = watchValueType === "fixed";
 
   const watchAllocation = useWatch({
     control: form.control,
     name: "application_method.allocation",
-  })
+  });
 
   useEffect(() => {
     if (watchAllocation) {
-      setAllocationMode(watchAllocation as AllocationMode)
+      setAllocationMode(watchAllocation as AllocationMode);
     }
-  }, [watchAllocation])
+  }, [watchAllocation]);
 
   const watchType = useWatch({
     control: form.control,
     name: "type",
-  })
+  });
 
-  const isTypeStandard = watchType === "standard"
-  const isTypeBuyGet = watchType === "buyget"
+  const isTypeStandard = watchType === "standard";
+  const isTypeBuyGet = watchType === "buyget";
 
   const targetType = useWatch({
     control: form.control,
     name: "application_method.target_type",
-  })
+  });
 
-  const isTargetTypeOrder = targetType === "order"
+  const isTargetTypeOrder = targetType === "order";
 
   return (
     <div className="flex size-full flex-col items-center">
@@ -151,7 +151,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                 </Form.Control>
                 <Form.ErrorMessage data-testid="promotion-create-form-method-error" />
               </Form.Item>
-            )
+            );
           }}
         />
 
@@ -197,7 +197,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                 </Form.Control>
                 <Form.ErrorMessage data-testid="promotion-create-form-status-error" />
               </Form.Item>
-            )
+            );
           }}
         />
 
@@ -237,7 +237,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                   </Text>
                   <Form.ErrorMessage data-testid="promotion-create-form-code-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
@@ -283,7 +283,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                       </div>
                       <Form.ErrorMessage data-testid="promotion-create-form-tax-inclusive-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -331,7 +331,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="promotion-create-form-type-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         )}
@@ -387,7 +387,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="promotion-create-form-value-type-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
           </>
@@ -403,10 +403,10 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
               name="application_method.value"
               render={({ field: { onChange, value, ...field } }) => {
                 const currencyCode =
-                  form.getValues().application_method.currency_code
+                  form.getValues().application_method.currency_code;
 
                 const currencyInfo =
-                  currencies[currencyCode?.toUpperCase() || "USD"]
+                  currencies[currencyCode?.toUpperCase() || "USD"];
 
                 return (
                   <Form.Item
@@ -457,7 +457,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                               e.target.value === ""
                                 ? null
                                 : parseFloat(e.target.value)
-                            )
+                            );
                           }}
                           data-testid="promotion-create-form-value-percentage-input"
                         />
@@ -481,7 +481,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                     </Text>
                     <Form.ErrorMessage data-testid="promotion-create-form-value-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
           </>
@@ -533,7 +533,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                     </Text>
                     <Form.ErrorMessage data-testid="promotion-create-form-max-quantity-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
           </>
@@ -547,17 +547,17 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
             name="application_method.allocation"
             render={({ field }) => {
               const handleAllocationChange = (value: AllocationMode) => {
-                setAllocationMode(value)
+                setAllocationMode(value);
                 setValue(
                   "application_method.allocation",
                   value as ApplicationMethodAllocationValues
-                )
-                field.onChange(value as ApplicationMethodAllocationValues)
+                );
+                field.onChange(value as ApplicationMethodAllocationValues);
 
                 if (value === "once") {
-                  setValue("application_method.max_quantity", 1)
+                  setValue("application_method.max_quantity", 1);
                 }
-              }
+              };
 
               return (
                 <Form.Item data-testid="promotion-create-form-allocation-item">
@@ -604,7 +604,7 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="promotion-create-form-allocation-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         )}
@@ -632,8 +632,8 @@ const Root = ({ currentTemplate }: PromotionDetailsTabProps) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 Root._tabMeta = defineTabMeta<CreatePromotionSchemaType>({
   id: "promotion",
@@ -647,6 +647,6 @@ Root._tabMeta = defineTabMeta<CreatePromotionSchemaType>({
     "is_tax_inclusive",
     "application_method",
   ],
-})
+});
 
-export const PromotionDetailsTab = Root
+export const PromotionDetailsTab = Root;

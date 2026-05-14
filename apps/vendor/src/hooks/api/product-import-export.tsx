@@ -16,7 +16,7 @@ export const useImportProducts = (
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (file: any) => client.vendor.products.import.mutate({file, fetchOptions: {headers:{'Content-Type': 'multipart/form-data'}}}),
+    mutationFn: async (file: File) => client.vendor.products.import.mutate({file, fetchOptions: {headers:{'Content-Type': 'multipart/form-data'}}}),
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({ queryKey: productsQueryKeys.lists() })
       options?.onSuccess?.(data, variables, context)

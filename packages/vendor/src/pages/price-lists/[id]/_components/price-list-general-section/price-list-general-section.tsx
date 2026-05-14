@@ -1,11 +1,11 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, StatusBadge, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, StatusBadge, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { useDeletePriceListAction } from "../../../common/hooks/use-delete-price-list-action"
-import { getPriceListStatus } from "../../../common/utils"
+import { ActionMenu } from "@components/common/action-menu";
+import { useDeletePriceListAction } from "../../../common/hooks/use-delete-price-list-action";
+import { getPriceListStatus } from "../../../common/utils";
 
 type PriceListGeneralSectionProps = {
   priceList: HttpTypes.AdminPriceList
@@ -14,18 +14,18 @@ type PriceListGeneralSectionProps = {
 export const PriceListGeneralSection = ({
   priceList,
 }: PriceListGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const overrideCount = priceList.prices?.length || 0
+  const overrideCount = priceList.prices?.length || 0;
 
-  const { color, text } = getPriceListStatus(t, priceList)
+  const { color, text } = getPriceListStatus(t, priceList);
 
-  const handleDelete = useDeletePriceListAction({ priceList })
+  const handleDelete = useDeletePriceListAction({ priceList });
 
   const type =
     priceList.type === "sale"
       ? t("priceLists.fields.type.options.sale.label")
-      : t("priceLists.fields.type.options.override.label")
+      : t("priceLists.fields.type.options.override.label");
 
   return (
     <Container className="divide-y p-0">
@@ -82,5 +82,5 @@ export const PriceListGeneralSection = ({
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

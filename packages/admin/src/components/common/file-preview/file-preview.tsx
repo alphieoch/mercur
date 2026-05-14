@@ -1,6 +1,6 @@
-import { ArrowDownTray, Spinner } from "@medusajs/icons"
-import { IconButton, Text } from "@medusajs/ui"
-import { ActionGroup, ActionMenu } from "../action-menu"
+import { ArrowDownTray, Spinner } from "@medusajs/icons";
+import { IconButton, Text } from "@medusajs/ui";
+import { ActionGroup, ActionMenu } from "../action-menu";
 
 export const FilePreview = ({
   filename,
@@ -54,8 +54,8 @@ export const FilePreview = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const FileThumbnail = () => {
   return (
@@ -126,5 +126,5 @@ const FileThumbnail = () => {
         </linearGradient>
       </defs>
     </svg>
-  )
-}
+  );
+};

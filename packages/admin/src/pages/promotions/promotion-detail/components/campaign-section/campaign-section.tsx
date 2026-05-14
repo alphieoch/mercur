@@ -1,13 +1,13 @@
-import { ArrowUpRightOnBox, PencilSquare } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+import { ArrowUpRightOnBox, PencilSquare } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { DateRangeDisplay } from "../../../../../components/common/date-range-display"
-import { NoRecords } from "../../../../../components/common/empty-table-content"
-import { usePromotion } from "../../../../../hooks/api/promotions"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { DateRangeDisplay } from "../../../../../components/common/date-range-display";
+import { NoRecords } from "../../../../../components/common/empty-table-content";
+import { usePromotion } from "../../../../../hooks/api/promotions";
 
 const CampaignDetailSection = ({
   campaign,
@@ -33,20 +33,20 @@ const CampaignDetailSection = ({
         showTime
       />
     </div>
-  )
-}
+  );
+};
 
 export const CampaignSection = ({
   campaign: campaignProp,
 }: {
   campaign?: HttpTypes.AdminCampaign | null
 }) => {
-  const { t } = useTranslation()
-  const { id } = useParams()
+  const { t } = useTranslation();
+  const { id } = useParams();
   const { promotion } = usePromotion(id!, {
     enabled: campaignProp === undefined,
-  })
-  const campaign = campaignProp !== undefined ? campaignProp : (promotion?.campaign ?? null)
+  });
+  const campaign = campaignProp !== undefined ? campaignProp : (promotion?.campaign ?? null);
 
   const actions = [
     {
@@ -54,14 +54,14 @@ export const CampaignSection = ({
       to: "add-to-campaign",
       icon: <PencilSquare />,
     },
-  ]
+  ];
 
   if (campaign) {
     actions.unshift({
       label: t("promotions.campaign.actions.goToCampaign"),
       to: `/campaigns/${campaign.id}`,
       icon: <ArrowUpRightOnBox />,
-    })
+    });
   }
 
   return (
@@ -99,5 +99,5 @@ export const CampaignSection = ({
         </div>
       )}
     </Container>
-  )
-}
+  );
+};

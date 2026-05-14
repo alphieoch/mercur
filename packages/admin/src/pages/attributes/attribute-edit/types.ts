@@ -1,9 +1,9 @@
-import { z } from "zod"
+import { z } from "zod";
 import {
   CreateAttributeSchema,
   UpdateAttributeSchema,
   UpdatePossibleValueSchema,
-} from "./schema"
+} from "./schema";
 
 export type CreateAttributeFormValues = z.infer<typeof CreateAttributeSchema>
 export type UpdateAttributeFormValues = z.infer<typeof UpdateAttributeSchema>

@@ -1,27 +1,27 @@
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   type RowSelectionState,
   createColumnHelper,
-} from "@tanstack/react-table"
-import { useEffect, useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+} from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import type { HttpTypes } from "@medusajs/types"
-import { Button, Checkbox, toast } from "@medusajs/ui"
+import type { HttpTypes } from "@medusajs/types";
+import { Button, Checkbox, toast } from "@medusajs/ui";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateRegion } from "../../../../../hooks/api/regions"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { countries as staticCountries, type StaticCountry } from "../../../../../lib/data/countries"
-import { useCountries } from "../../../common/hooks/use-countries"
-import { useCountryTableColumns } from "../../../common/hooks/use-country-table-columns"
-import { useCountryTableQuery } from "../../../common/hooks/use-country-table-query"
+} from "../../../../../components/modals";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateRegion } from "../../../../../hooks/api/regions";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { countries as staticCountries, type StaticCountry } from "../../../../../lib/data/countries";
+import { useCountries } from "../../../common/hooks/use-countries";
+import { useCountryTableColumns } from "../../../common/hooks/use-country-table-columns";
+import { useCountryTableQuery } from "../../../common/hooks/use-country-table-query";
 
 type AddCountriesFormProps = {
   region: HttpTypes.AdminRegion
@@ -29,39 +29,39 @@ type AddCountriesFormProps = {
 
 const AddCountriesSchema = zod.object({
   countries: zod.array(zod.string()).min(1),
-})
+});
 
-const PAGE_SIZE = 50
-const PREFIX = "ac"
+const PAGE_SIZE = 50;
+const PREFIX = "ac";
 
 export const AddCountriesForm = ({ region }: AddCountriesFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const form = useForm<zod.infer<typeof AddCountriesSchema>>({
     defaultValues: {
       countries: [],
     },
     resolver: zodResolver(AddCountriesSchema),
-  })
+  });
 
-  const { setValue } = form
+  const { setValue } = form;
 
   useEffect(() => {
-    const ids = Object.keys(rowSelection).filter((k) => rowSelection[k])
+    const ids = Object.keys(rowSelection).filter((k) => rowSelection[k]);
 
     setValue("countries", ids, {
       shouldDirty: true,
       shouldTouch: true,
-    })
-  }, [rowSelection, setValue])
+    });
+  }, [rowSelection, setValue]);
 
   const { searchParams, raw } = useCountryTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
   const { countries, count } = useCountries({
     countries: staticCountries.map((c, i) => ({
       display_name: c.display_name,
@@ -74,9 +74,9 @@ export const AddCountriesForm = ({ region }: AddCountriesFormProps) => {
       region: {},
     })),
     ...searchParams,
-  })
+  });
 
-  const columns = useColumns()
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: countries || [],
@@ -87,7 +87,7 @@ export const AddCountriesForm = ({ region }: AddCountriesFormProps) => {
       return (
         region.countries?.findIndex((c) => c.iso_2 === row.original.iso_2) ===
         -1
-      )
+      );
     },
     getRowId: (row) => row.iso_2,
     pageSize: PAGE_SIZE,
@@ -96,15 +96,15 @@ export const AddCountriesForm = ({ region }: AddCountriesFormProps) => {
       updater: setRowSelection,
     },
     prefix: PREFIX,
-  })
+  });
 
-  const { mutateAsync, isPending: isLoading } = useUpdateRegion(region.id)
+  const { mutateAsync, isPending: isLoading } = useUpdateRegion(region.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     const payload = [
       ...(region.countries?.map((c) => c.iso_2!) ?? []),
       ...values.countries,
-    ]
+    ];
 
     await mutateAsync(
       {
@@ -112,15 +112,15 @@ export const AddCountriesForm = ({ region }: AddCountriesFormProps) => {
       },
       {
         onSuccess: () => {
-          toast.success(t("regions.toast.countries"))
-          handleSuccess()
+          toast.success(t("regions.toast.countries"));
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="region-add-countries-form">
@@ -160,13 +160,13 @@ export const AddCountriesForm = ({ region }: AddCountriesFormProps) => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<StaticCountry>()
+const columnHelper = createColumnHelper<StaticCountry>();
 
 const useColumns = () => {
-  const base = useCountryTableColumns()
+  const base = useCountryTableColumns();
 
   return useMemo(
     () => [
@@ -185,10 +185,10 @@ const useColumns = () => {
               }
               data-testid="region-add-countries-form-select-all-checkbox"
             />
-          )
+          );
         },
         cell: ({ row }) => {
-          const isPreselected = !row.getCanSelect()
+          const isPreselected = !row.getCanSelect();
 
           return (
             <Checkbox
@@ -196,15 +196,15 @@ const useColumns = () => {
               disabled={isPreselected}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
               data-testid={`region-add-countries-form-select-checkbox-${row.original.iso_2}`}
             />
-          )
+          );
         },
       }),
       ...base,
     ],
     [base]
-  )
-}
+  );
+};

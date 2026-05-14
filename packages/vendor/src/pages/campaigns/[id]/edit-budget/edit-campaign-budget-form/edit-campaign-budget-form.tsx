@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AdminCampaign } from "@medusajs/types"
-import { Button, CurrencyInput, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { Form } from "@components/common/form"
-import { RouteDrawer, useRouteModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdateCampaign } from "@hooks/api/campaigns"
-import { getCurrencySymbol } from "@lib/data/currencies"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AdminCampaign } from "@medusajs/types";
+import { Button, CurrencyInput, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { Form } from "@components/common/form";
+import { RouteDrawer, useRouteModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdateCampaign } from "@hooks/api/campaigns";
+import { getCurrencySymbol } from "@lib/data/currencies";
 
 type EditCampaignBudgetFormProps = {
   campaign: AdminCampaign
@@ -16,22 +16,22 @@ type EditCampaignBudgetFormProps = {
 
 const EditCampaignSchema = zod.object({
   limit: zod.number().min(0).optional().nullable(),
-})
+});
 
 export const EditCampaignBudgetForm = ({
   campaign,
 }: EditCampaignBudgetFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof EditCampaignSchema>>({
     defaultValues: {
       limit: campaign?.budget?.limit || undefined,
     },
     resolver: zodResolver(EditCampaignSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateCampaign(campaign.id)
+  const { mutateAsync, isPending } = useUpdateCampaign(campaign.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -46,16 +46,16 @@ export const EditCampaignBudgetForm = ({
             t("campaigns.edit.successToast", {
               name: campaign.name,
             })
-          )
+          );
 
-          handleSuccess()
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
   
   return (
     <RouteDrawer.Form form={form}>
@@ -83,8 +83,8 @@ export const EditCampaignBudgetForm = ({
                           symbol={
                             campaign.budget?.currency_code
                               ? getCurrencySymbol(
-                                  campaign.budget?.currency_code
-                                )
+                                campaign.budget?.currency_code
+                              )
                               : ""
                           }
                           {...field}
@@ -101,14 +101,14 @@ export const EditCampaignBudgetForm = ({
                               e.target.value === ""
                                 ? null
                                 : parseInt(e.target.value)
-                            )
+                            );
                           }}
                         />
                       )}
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -134,5 +134,5 @@ export const EditCampaignBudgetForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

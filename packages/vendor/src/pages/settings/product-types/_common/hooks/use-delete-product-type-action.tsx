@@ -1,7 +1,7 @@
 import { toast, usePrompt } from '@medusajs/ui';
 import { useTranslation } from 'react-i18next';
 
-import { useDeleteProductType } from "@hooks/api/product-types"
+import { useDeleteProductType } from "@hooks/api/product-types";
 
 export const useDeleteProductTypeAction = (id: string, value: string) => {
   const { t } = useTranslation();

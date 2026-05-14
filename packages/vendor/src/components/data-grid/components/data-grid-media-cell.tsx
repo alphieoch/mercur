@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 
-import { Plus } from "@medusajs/icons"
-import { Controller, ControllerRenderProps } from "react-hook-form"
+import { Plus } from "@medusajs/icons";
+import { Controller, ControllerRenderProps } from "react-hook-form";
 
-import { Thumbnail } from "../../common/thumbnail"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { DataGridCellProps, InputProps } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { Thumbnail } from "../../common/thumbnail";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { DataGridCellProps, InputProps } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 export type MediaData = {
   id?: string
@@ -26,10 +26,10 @@ export const DataGridMediaCell = <TData, TValue = MediaData[]>({
 }) => {
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
-  const errorProps = useDataGridCellError({ context })
+  });
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
+  const { container, input } = renderProps;
 
   return (
     <Controller
@@ -55,11 +55,11 @@ export const DataGridMediaCell = <TData, TValue = MediaData[]>({
               {...rest}
             />
           </DataGridCellContainer>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const OuterComponent = ({
   isAnchor,
@@ -70,7 +70,7 @@ const OuterComponent = ({
   onOpenMediaModal?: () => void
   disabled?: boolean
 }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -80,14 +80,14 @@ const OuterComponent = ({
         onOpenMediaModal &&
         !disabled
       ) {
-        e.preventDefault()
-        onOpenMediaModal()
+        e.preventDefault();
+        onOpenMediaModal();
       }
-    }
+    };
 
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [isAnchor, onOpenMediaModal, disabled])
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isAnchor, onOpenMediaModal, disabled]);
 
   return (
     <div className="absolute inset-y-0 right-4 z-[3] flex w-fit items-center justify-center opacity-0 transition-opacity group-hover/container:opacity-100">
@@ -103,8 +103,8 @@ const OuterComponent = ({
         />
       </button>
     </div>
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -115,28 +115,28 @@ const Inner = ({
   inputProps: InputProps
   disabled?: boolean
 }) => {
-  const { ref, value, onChange: _, onBlur, ...fieldProps } = field
+  const { ref, value, onChange: _, onBlur, ...fieldProps } = field;
   const {
     ref: inputRef,
     onChange,
     onBlur: onInputBlur,
     onFocus,
-  } = inputProps
+  } = inputProps;
 
-  const [localValue, setLocalValue] = useState<MediaData[]>(value || [])
+  const [localValue, setLocalValue] = useState<MediaData[]>(value || []);
 
   useEffect(() => {
-    setLocalValue(value || [])
-  }, [value])
+    setLocalValue(value || []);
+  }, [value]);
 
-  const combinedRef = useCombinedRefs(inputRef, ref)
+  const combinedRef = useCombinedRefs(inputRef, ref);
 
   const handleOnChange = () => {
-    onChange(localValue, value)
-  }
+    onChange(localValue, value);
+  };
 
-  const hasMedia = localValue && localValue.length > 0
-  const MAX_VISIBLE_THUMBNAILS = 4
+  const hasMedia = localValue && localValue.length > 0;
+  const MAX_VISIBLE_THUMBNAILS = 4;
 
   return (
     <div
@@ -151,10 +151,10 @@ const Inner = ({
           disabled
             ? undefined
             : () => {
-                onBlur()
-                onInputBlur()
-                handleOnChange()
-              }
+              onBlur();
+              onInputBlur();
+              handleOnChange();
+            }
         }
         tabIndex={disabled ? -1 : -1}
       >
@@ -189,8 +189,8 @@ const Inner = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 function useCombinedRefs<T extends HTMLElement>(
   ...refs: React.Ref<T>[]
@@ -198,10 +198,10 @@ function useCombinedRefs<T extends HTMLElement>(
   return (value: T | null) => {
     refs.forEach((ref) => {
       if (typeof ref === "function") {
-        ref(value)
+        ref(value);
       } else if (ref) {
-        ;(ref as React.MutableRefObject<T | null>).current = value
+        ;(ref as React.MutableRefObject<T | null>).current = value;
       }
-    })
-  }
+    });
+  };
 }

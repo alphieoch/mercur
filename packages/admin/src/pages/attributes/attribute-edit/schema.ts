@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const AttributeUIComponent = {
   SELECT: "select",
@@ -6,7 +6,7 @@ export const AttributeUIComponent = {
   UNIT: "unit",
   TOGGLE: "toggle",
   TEXTAREA: "text_area",
-} as const
+} as const;
 
 export const CreateAttributeSchema = z
   .object({
@@ -39,9 +39,9 @@ export const CreateAttributeSchema = z
         code: z.ZodIssueCode.custom,
         message: "At least one possible value is required for this type.",
         path: ["possible_values"],
-      })
+      });
     }
-  })
+  });
 
 export const UpdateAttributeSchema = z.object({
   name: z.string().min(1).optional(),
@@ -64,7 +64,7 @@ export const UpdateAttributeSchema = z.object({
     .optional(),
   product_category_ids: z.array(z.string()).optional(),
   metadata: z.record(z.string()).optional(),
-})
+});
 
 export const UpdatePossibleValueSchema = z.object({
   value: z.string().min(1),
@@ -77,4 +77,4 @@ export const UpdatePossibleValueSchema = z.object({
       })
     )
     .default([]),
-})
+});

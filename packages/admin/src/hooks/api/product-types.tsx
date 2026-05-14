@@ -2,20 +2,20 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const PRODUCT_TYPES_QUERY_KEY = "product_types" as const
-export const productTypesQueryKeys = queryKeysFactory(PRODUCT_TYPES_QUERY_KEY)
+const PRODUCT_TYPES_QUERY_KEY = "product_types" as const;
+export const productTypesQueryKeys = queryKeysFactory(PRODUCT_TYPES_QUERY_KEY);
 
 export const useProductType = (
   id: string,
@@ -37,10 +37,10 @@ export const useProductType = (
     queryFn: () => sdk.admin.productTypes.$id.query({ $id: id, ...query }),
     queryKey: productTypesQueryKeys.detail(id),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useProductTypes = (
   query?: InferClientInput<typeof sdk.admin.productTypes.query>,
@@ -58,10 +58,10 @@ export const useProductTypes = (
     queryFn: () => sdk.admin.productTypes.query({ ...query }),
     queryKey: productTypesQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateProductType = (
   options?: UseMutationOptions<
@@ -73,13 +73,13 @@ export const useCreateProductType = (
   return useMutation({
     mutationFn: (payload) => sdk.admin.productTypes.mutate(payload),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: productTypesQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: productTypesQueryKeys.lists() });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateProductType = (
   id: string,
@@ -98,14 +98,14 @@ export const useUpdateProductType = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: productTypesQueryKeys.detail(id),
-      })
-      queryClient.invalidateQueries({ queryKey: productTypesQueryKeys.lists() })
+      });
+      queryClient.invalidateQueries({ queryKey: productTypesQueryKeys.lists() });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteProductType = (
   id: string,
@@ -120,11 +120,11 @@ export const useDeleteProductType = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: productTypesQueryKeys.detail(id),
-      })
-      queryClient.invalidateQueries({ queryKey: productTypesQueryKeys.lists() })
+      });
+      queryClient.invalidateQueries({ queryKey: productTypesQueryKeys.lists() });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

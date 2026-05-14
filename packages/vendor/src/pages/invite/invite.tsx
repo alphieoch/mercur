@@ -256,13 +256,13 @@ const CreateView = ({
     try {
       const { token: authToken } = isExistingMember
         ? await signIn({
-            email: data.email,
-            password: data.password,
-          })
+          email: data.email,
+          password: data.password,
+        })
         : await signUp({
-            email: data.email,
-            password: data.password,
-          });
+          email: data.email,
+          password: data.password,
+        });
 
       await acceptInvite({
         invite_token: token,

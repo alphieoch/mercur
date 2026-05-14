@@ -1,4 +1,4 @@
-import { useQueryParams } from "../../use-query-params"
+import { useQueryParams } from "../../use-query-params";
 
 type UseMemberTableQueryProps = {
   prefix?: string
@@ -12,9 +12,9 @@ export const useMemberTableQuery = ({
   const queryObject = useQueryParams(
     ["offset", "order", "created_at", "updated_at"],
     prefix
-  )
+  );
 
-  const { offset, created_at, updated_at, order } = queryObject
+  const { offset, created_at, updated_at, order } = queryObject;
 
   const searchParams = {
     limit: pageSize,
@@ -22,10 +22,10 @@ export const useMemberTableQuery = ({
     order,
     created_at: created_at ? JSON.parse(created_at) : undefined,
     updated_at: updated_at ? JSON.parse(updated_at) : undefined,
-  }
+  };
 
   return {
     searchParams,
     raw: queryObject,
-  }
-}
+  };
+};

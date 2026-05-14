@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { ProductTagListDataTable } from "./product-tag-list-data-table"
-import { ProductTagListHeader } from "./product-tag-list-header"
+import { ProductTagListDataTable } from "./product-tag-list-data-table";
+import { ProductTagListHeader } from "./product-tag-list-header";
 
-export { ProductTagListDataTable } from "./product-tag-list-data-table"
+export { ProductTagListDataTable } from "./product-tag-list-data-table";
 export {
   ProductTagListHeader,
   ProductTagListTitle,
   ProductTagListActions,
-} from "./product-tag-list-header"
+} from "./product-tag-list-header";
 
 export const ProductTagListView = ({
   children,
@@ -27,5 +27,5 @@ export const ProductTagListView = ({
         </>
       )}
     </Container>
-  )
-}
+  );
+};

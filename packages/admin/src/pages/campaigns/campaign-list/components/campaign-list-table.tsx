@@ -1,50 +1,50 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { AdminCampaign } from "@medusajs/types"
-import { Button, Container, Heading, toast, usePrompt } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { Children, ReactNode, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
-import { ActionMenu } from "../../../../components/common/action-menu"
-import { _DataTable } from "../../../../components/table/data-table"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { AdminCampaign } from "@medusajs/types";
+import { Button, Container, Heading, toast, usePrompt } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { Children, ReactNode, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { ActionMenu } from "../../../../components/common/action-menu";
+import { _DataTable } from "../../../../components/table/data-table";
 import {
   useCampaigns,
   useDeleteCampaign,
-} from "../../../../hooks/api/campaigns"
-import { useCampaignTableColumns } from "../../../../hooks/table/columns/use-campaign-table-columns"
-import { useCampaignTableQuery } from "../../../../hooks/table/query/use-campaign-table-query"
-import { useDataTable } from "../../../../hooks/use-data-table"
+} from "../../../../hooks/api/campaigns";
+import { useCampaignTableColumns } from "../../../../hooks/table/columns/use-campaign-table-columns";
+import { useCampaignTableQuery } from "../../../../hooks/table/query/use-campaign-table-query";
+import { useDataTable } from "../../../../hooks/use-data-table";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const CampaignListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Heading level="h2" data-testid="campaign-list-table-heading">
       {t("campaigns.domain")}
     </Heading>
-  )
-}
+  );
+};
 
 export const CampaignListCreateButton = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Link to="/campaigns/create">
       <Button size="small" variant="secondary" data-testid="campaign-list-table-create-button">
         {t("actions.create")}
       </Button>
     </Link>
-  )
-}
+  );
+};
 
 export const CampaignListActions = ({ children }: { children?: ReactNode }) => {
   return (
     <div className="flex items-center gap-x-2">
       {Children.count(children) > 0 ? children : <CampaignListCreateButton />}
     </div>
-  )
-}
+  );
+};
 
 export const CampaignListHeader = ({ children }: { children?: ReactNode }) => {
   return (
@@ -61,12 +61,12 @@ export const CampaignListHeader = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const CampaignListDataTable = () => {
-  const { t } = useTranslation()
-  const { raw, searchParams } = useCampaignTableQuery({ pageSize: PAGE_SIZE })
+  const { t } = useTranslation();
+  const { raw, searchParams } = useCampaignTableQuery({ pageSize: PAGE_SIZE });
 
   const {
     campaigns,
@@ -76,9 +76,9 @@ export const CampaignListDataTable = () => {
     error,
   } = useCampaigns(searchParams, {
     placeholderData: keepPreviousData,
-  })
+  });
 
-  const columns = useColumns()
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: campaigns ?? [],
@@ -87,10 +87,10 @@ export const CampaignListDataTable = () => {
     enablePagination: true,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -111,8 +111,8 @@ export const CampaignListDataTable = () => {
       ]}
       data-testid="campaign-list-table"
     />
-  )
-}
+  );
+};
 
 export const CampaignListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -126,14 +126,14 @@ export const CampaignListTable = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </Container>
-  )
-}
+  );
+};
 
 // Keep these private (not exported from compound)
 const CampaignActions = ({ campaign }: { campaign: AdminCampaign }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync } = useDeleteCampaign(campaign.id)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync } = useDeleteCampaign(campaign.id);
 
   const handleDelete = async () => {
     const confirm = await prompt({
@@ -145,23 +145,23 @@ const CampaignActions = ({ campaign }: { campaign: AdminCampaign }) => {
       verificationText: campaign.name,
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!confirm) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
       onSuccess: () => {
         toast.success(
           t("campaigns.delete.successToast", { name: campaign.name })
-        )
+        );
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <ActionMenu
@@ -187,13 +187,13 @@ const CampaignActions = ({ campaign }: { campaign: AdminCampaign }) => {
       ]}
       data-testid={`campaign-list-table-action-menu-${campaign.id}`}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<AdminCampaign>()
+const columnHelper = createColumnHelper<AdminCampaign>();
 
 const useColumns = () => {
-  const base = useCampaignTableColumns()
+  const base = useCampaignTableColumns();
 
   return useMemo(
     () => [
@@ -201,10 +201,10 @@ const useColumns = () => {
       columnHelper.display({
         id: "actions",
         cell: ({ row }) => {
-          return <CampaignActions campaign={row.original} />
+          return <CampaignActions campaign={row.original} />;
         },
       }),
     ],
     [base]
-  )
-}
+  );
+};

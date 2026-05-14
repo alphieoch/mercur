@@ -122,12 +122,12 @@ export const useInviteSeller = (
   return useMutation({
     mutationFn: (payload) => sdk.admin.sellers.invite.mutate(payload),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: sellersQueryKeys.lists() })
-      options?.onSuccess?.(data, variables, context)
+      queryClient.invalidateQueries({ queryKey: sellersQueryKeys.lists() });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useSuspendSeller = (
   id: string,

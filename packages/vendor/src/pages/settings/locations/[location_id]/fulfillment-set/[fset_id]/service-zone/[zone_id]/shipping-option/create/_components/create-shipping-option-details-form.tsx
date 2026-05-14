@@ -1,18 +1,18 @@
-import { Heading, Input, RadioGroup, Text } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { Heading, Input, RadioGroup, Text } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { VendorExtendedAdminServiceZone } from "@custom-types/stock-location"
+import { VendorExtendedAdminServiceZone } from "@custom-types/stock-location";
 
-import { Form } from "@components/common/form"
-import { Combobox } from "@components/inputs/combobox"
-import { useComboboxData } from "@hooks/use-combobox-data"
-import { fetchQuery } from "@lib/client"
+import { Form } from "@components/common/form";
+import { Combobox } from "@components/inputs/combobox";
+import { useComboboxData } from "@hooks/use-combobox-data";
+import { fetchQuery } from "@lib/client";
 import {
   FulfillmentSetType,
   ShippingOptionPriceType,
-} from "@pages/settings/locations/_common/constants"
-import { CreateShippingOptionSchema } from "./schema"
+} from "@pages/settings/locations/_common/constants";
+import { CreateShippingOptionSchema } from "./schema";
 
 type CreateShippingOptionDetailsFormProps = {
   form: UseFormReturn<CreateShippingOptionSchema>
@@ -27,9 +27,9 @@ export const CreateShippingOptionDetailsForm = ({
   zone,
   type
 }: CreateShippingOptionDetailsFormProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const isPickup = type === FulfillmentSetType.Pickup
+  const isPickup = type === FulfillmentSetType.Pickup;
 
   const shippingProfiles = useComboboxData({
     queryFn: () =>
@@ -39,14 +39,14 @@ export const CreateShippingOptionDetailsForm = ({
     queryKey: ["shipping_profiles_create_shipping_option"],
     getOptions: (data) =>
       (data.shipping_profiles || []).map((profile: any) => {
-        const name = profile.shipping_profile?.name ?? profile.name ?? ""
-        const id = profile.shipping_profile?.id ?? profile.id
+        const name = profile.shipping_profile?.name ?? profile.name ?? "";
+        const id = profile.shipping_profile?.id ?? profile.id;
         return {
           label: name.includes(":") ? name.split(":")[1] : name,
           value: id,
-        }
+        };
       }),
-  })
+  });
 
   // const fulfillmentProviders = useComboboxData({
   //   queryFn: (params) =>
@@ -125,7 +125,7 @@ export const CreateShippingOptionDetailsForm = ({
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
         )}
@@ -143,7 +143,7 @@ export const CreateShippingOptionDetailsForm = ({
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -166,7 +166,7 @@ export const CreateShippingOptionDetailsForm = ({
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
@@ -272,5 +272,5 @@ export const CreateShippingOptionDetailsForm = ({
         /> */}
       </div>
     </div>
-  )
-}
+  );
+};

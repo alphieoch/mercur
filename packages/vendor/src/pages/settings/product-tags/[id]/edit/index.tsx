@@ -1,20 +1,20 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
-import { RouteDrawer } from "@components/modals"
-import { useProductTag } from "@hooks/api"
-import { ProductTagEditForm } from "./_components/product-tag-edit-form"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { RouteDrawer } from "@components/modals";
+import { useProductTag } from "@hooks/api";
+import { ProductTagEditForm } from "./_components/product-tag-edit-form";
 
 const ProductTagEdit = () => {
-  const { id } = useParams()
-  const { t } = useTranslation()
+  const { id } = useParams();
+  const { t } = useTranslation();
 
-  const { product_tag, isPending, isError, error } = useProductTag(id!)
+  const { product_tag, isPending, isError, error } = useProductTag(id!);
 
-  const ready = !isPending && !!product_tag
+  const ready = !isPending && !!product_tag;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -29,7 +29,7 @@ const ProductTagEdit = () => {
       </RouteDrawer.Header>
       {ready && <ProductTagEditForm productTag={product_tag} />}
     </RouteDrawer>
-  )
-}
+  );
+};
 
-export const Component = ProductTagEdit
+export const Component = ProductTagEdit;

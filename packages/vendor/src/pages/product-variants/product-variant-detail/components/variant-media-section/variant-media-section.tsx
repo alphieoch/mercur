@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState } from "react";
 
-import { PencilSquare, ThumbnailBadge } from "@medusajs/icons"
-import type { HttpTypes } from "@medusajs/types"
+import { PencilSquare, ThumbnailBadge } from "@medusajs/icons";
+import type { HttpTypes } from "@medusajs/types";
 import {
   Button,
   Checkbox,
@@ -11,15 +11,15 @@ import {
   Heading,
   Text,
   Tooltip,
-} from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+} from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { ActionMenu } from "@components/common/action-menu"
+import { ActionMenu } from "@components/common/action-menu";
 import {
   useUpdateProductVariant,
   useUpdateVariantMedia,
-} from "@hooks/api/products"
+} from "@hooks/api/products";
 
 type VariantMediaSectionProps = {
   variant: any
@@ -41,74 +41,74 @@ const getMedia = (
     id: image.id!,
     url: image.url!,
     isThumbnail: image.url === thumbnail,
-  }))
+  }));
 
   if (thumbnail && !media.some((m) => m.isThumbnail)) {
     media.unshift({
       id: "variant_thumbnail",
       url: thumbnail,
       isThumbnail: true,
-    })
+    });
   }
 
-  return media
-}
+  return media;
+};
 
 export const VariantMediaSection = ({
   variant,
   variantImages,
   productId,
 }: VariantMediaSectionProps) => {
-  const { t } = useTranslation()
-  const [selection, setSelection] = useState<Record<string, boolean>>({})
+  const { t } = useTranslation();
+  const [selection, setSelection] = useState<Record<string, boolean>>({});
 
-  const media = getMedia(variantImages, variant.thumbnail)
+  const media = getMedia(variantImages, variant.thumbnail);
 
   const handleCheckedChange = (id: string) => {
     setSelection((prev) => {
       if (prev[id]) {
-        const { [id]: _, ...rest } = prev
-        return rest
+        const { [id]: _, ...rest } = prev;
+        return rest;
       }
-      return { ...prev, [id]: true }
-    })
-  }
+      return { ...prev, [id]: true };
+    });
+  };
 
   const { mutateAsync: updateVariantMedia } = useUpdateVariantMedia(
     productId,
     variant.id
-  )
+  );
   const { mutateAsync: updateVariant } = useUpdateProductVariant(
     productId,
     variant.id
-  )
+  );
 
   const handleRemove = async () => {
-    const ids = Object.keys(selection)
+    const ids = Object.keys(selection);
     const includingThumbnail = ids.some(
       (id) => media.find((m) => m.id === id)?.isThumbnail
-    )
+    );
 
-    const imageIdsToRemove = ids.filter((id) => id !== "variant_thumbnail")
+    const imageIdsToRemove = ids.filter((id) => id !== "variant_thumbnail");
 
-    const ops: Promise<unknown>[] = []
+    const ops: Promise<unknown>[] = [];
 
     if (imageIdsToRemove.length) {
-      ops.push(updateVariantMedia({ remove: imageIdsToRemove }))
+      ops.push(updateVariantMedia({ remove: imageIdsToRemove }));
     }
 
     if (includingThumbnail) {
-      ops.push(updateVariant({ thumbnail: null } as any))
+      ops.push(updateVariant({ thumbnail: null } as any));
     }
 
     if (!ops.length) {
-      setSelection({})
-      return
+      setSelection({});
+      return;
     }
 
-    await Promise.all(ops)
-    setSelection({})
-  }
+    await Promise.all(ops);
+    setSelection({});
+  };
 
   return (
     <Container className="divide-y p-0">
@@ -131,7 +131,7 @@ export const VariantMediaSection = ({
       {media.length > 0 ? (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(96px,1fr))] gap-4 px-6 py-4">
           {media.map((item, index) => {
-            const isSelected = selection[item.id]
+            const isSelected = selection[item.id];
 
             return (
               <div
@@ -165,7 +165,7 @@ export const VariantMediaSection = ({
                   />
                 </Link>
               </div>
-            )
+            );
           })}
         </div>
       ) : (
@@ -206,5 +206,5 @@ export const VariantMediaSection = ({
         </CommandBar.Bar>
       </CommandBar>
     </Container>
-  )
-}
+  );
+};

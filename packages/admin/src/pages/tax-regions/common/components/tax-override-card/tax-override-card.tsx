@@ -3,8 +3,8 @@ import {
   PencilSquare,
   Trash,
   TriangleRightMini,
-} from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+} from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
 import {
   Badge,
   Divider,
@@ -12,49 +12,49 @@ import {
   StatusBadge,
   Text,
   Tooltip,
-} from "@medusajs/ui"
-import { Collapsible as RadixCollapsible } from "radix-ui"
-import { ComponentPropsWithoutRef } from "react"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { Collapsible as RadixCollapsible } from "radix-ui";
+import { ComponentPropsWithoutRef } from "react";
+import { useTranslation } from "react-i18next";
 
-import { ClientError } from "@mercurjs/client"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useProductTypes } from "../../../../../hooks/api/product-types"
-import { useProducts } from "../../../../../hooks/api/products"
-import { formatPercentage } from "../../../../../lib/percentage-helpers"
-import { TaxRateRuleReferenceType } from "../../constants"
-import { useDeleteTaxRateAction } from "../../hooks"
-import { useShippingOptions } from "../../../../../hooks/api"
+import { ClientError } from "@mercurjs/client";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useProductTypes } from "../../../../../hooks/api/product-types";
+import { useProducts } from "../../../../../hooks/api/products";
+import { formatPercentage } from "../../../../../lib/percentage-helpers";
+import { TaxRateRuleReferenceType } from "../../constants";
+import { useDeleteTaxRateAction } from "../../hooks";
+import { useShippingOptions } from "../../../../../hooks/api";
 
 interface TaxOverrideCardProps extends ComponentPropsWithoutRef<"div"> {
   taxRate: HttpTypes.AdminTaxRate
 }
 
 export const TaxOverrideCard = ({ taxRate }: TaxOverrideCardProps) => {
-  const { t } = useTranslation()
-  const handleDelete = useDeleteTaxRateAction(taxRate)
+  const { t } = useTranslation();
+  const handleDelete = useDeleteTaxRateAction(taxRate);
 
   if (taxRate.is_default) {
-    return null
+    return null;
   }
 
   const groupedRules = taxRate.rules.reduce(
     (acc, rule) => {
       if (!acc[rule.reference]) {
-        acc[rule.reference] = []
+        acc[rule.reference] = [];
       }
 
-      acc[rule.reference].push(rule.reference_id)
+      acc[rule.reference].push(rule.reference_id);
 
-      return acc
+      return acc;
     },
     {} as Record<string, string[]>
-  )
+  );
 
-  const validKeys = Object.values(TaxRateRuleReferenceType)
+  const validKeys = Object.values(TaxRateRuleReferenceType);
   const numberOfTargets = Object.keys(groupedRules).map((key) =>
     validKeys.includes(key as TaxRateRuleReferenceType)
-  ).length
+  ).length;
 
   return (
     <RadixCollapsible.Root>
@@ -155,7 +155,7 @@ export const TaxOverrideCard = ({ taxRate }: TaxOverrideCardProps) => {
                         </Text>
                       )}
                     </div>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -163,8 +163,8 @@ export const TaxOverrideCard = ({ taxRate }: TaxOverrideCardProps) => {
         </div>
       </RadixCollapsible.Content>
     </RadixCollapsible.Root>
-  )
-}
+  );
+};
 
 const Reference = ({
   reference,
@@ -178,44 +178,44 @@ const Reference = ({
       <ReferenceBadge reference={reference} />
       <ReferenceValues type={reference} ids={ids} />
     </div>
-  )
-}
+  );
+};
 
 const ReferenceBadge = ({
   reference,
 }: {
   reference: TaxRateRuleReferenceType
 }) => {
-  const { t } = useTranslation()
-  let label: string | null = null
+  const { t } = useTranslation();
+  let label: string | null = null;
 
   switch (reference) {
-    case TaxRateRuleReferenceType.PRODUCT:
-      label = t("taxRegions.fields.targets.tags.product")
-      break
+  case TaxRateRuleReferenceType.PRODUCT:
+    label = t("taxRegions.fields.targets.tags.product");
+    break;
     // case TaxRateRuleReferenceType.PRODUCT_COLLECTION:
     //   label = t("taxRegions.fields.targets.tags.productCollection")
     //   break
     // case TaxRateRuleReferenceType.PRODUCT_TAG:
     //   label = t("taxRegions.fields.targets.tags.productTag")
     //   break
-    case TaxRateRuleReferenceType.PRODUCT_TYPE:
-      label = t("taxRegions.fields.targets.tags.productType")
-      break
-    case TaxRateRuleReferenceType.SHIPPING_OPTION:
-      label = t("taxRegions.fields.targets.tags.shippingOption")
-      break
+  case TaxRateRuleReferenceType.PRODUCT_TYPE:
+    label = t("taxRegions.fields.targets.tags.productType");
+    break;
+  case TaxRateRuleReferenceType.SHIPPING_OPTION:
+    label = t("taxRegions.fields.targets.tags.shippingOption");
+    break;
     // case TaxRateRuleReferenceType.CUSTOMER_GROUP:
     //   label = t("taxRegions.fields.targets.tags.customerGroup")
     //   break
   }
 
   if (!label) {
-    return null
+    return null;
   }
 
-  return <Badge size="2xsmall">{label}</Badge>
-}
+  return <Badge size="2xsmall">{label}</Badge>;
+};
 
 const ReferenceValues = ({
   type,
@@ -224,21 +224,21 @@ const ReferenceValues = ({
   type: TaxRateRuleReferenceType
   ids: string[]
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { isPending, additional, labels, isError, error } = useReferenceValues(
     type,
     ids
-  )
+  );
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   if (isPending) {
     return (
       <div className="bg-ui-tag-neutral-bg border-ui-tag-neutral-border h-5 w-14 animate-pulse rounded-md" />
-    )
+    );
   }
 
   return (
@@ -264,8 +264,8 @@ const ReferenceValues = ({
         })}
       </Badge>
     </Tooltip>
-  )
-}
+  );
+};
 
 const useReferenceValues = (
   type: TaxRateRuleReferenceType,
@@ -285,7 +285,7 @@ const useReferenceValues = (
     {
       enabled: !!ids.length && type === TaxRateRuleReferenceType.PRODUCT,
     }
-  )
+  );
 
   // const tags = useProductTags(
   //   {
@@ -305,7 +305,7 @@ const useReferenceValues = (
     {
       enabled: !!ids.length && type === TaxRateRuleReferenceType.PRODUCT_TYPE,
     }
-  )
+  );
 
   const shippingOptions = useShippingOptions(
     {
@@ -316,7 +316,7 @@ const useReferenceValues = (
       enabled:
         !!ids.length && type === TaxRateRuleReferenceType.SHIPPING_OPTION,
     }
-  )
+  );
   // const collections = useCollections(
   //   {
   //     id: ids,
@@ -339,17 +339,17 @@ const useReferenceValues = (
   // )
 
   switch (type) {
-    case TaxRateRuleReferenceType.PRODUCT:
-      return {
-        labels: products.products?.map((product) => product.title),
-        isPending: products.isPending,
-        additional:
+  case TaxRateRuleReferenceType.PRODUCT:
+    return {
+      labels: products.products?.map((product) => product.title),
+      isPending: products.isPending,
+      additional:
           products.products && products.count
             ? products.count - products.products.length
             : 0,
-        isError: products.isError,
-        error: products.error,
-      }
+      isError: products.isError,
+      error: products.error,
+    };
     // case TaxRateRuleReferenceType.PRODUCT_TAG:
     //   return {
     //     labels: tags.product_tags?.map((tag: any) => tag.value),
@@ -361,28 +361,28 @@ const useReferenceValues = (
     //     isError: tags.isError,
     //     error: tags.error,
     //   }
-    case TaxRateRuleReferenceType.PRODUCT_TYPE:
-      return {
-        labels: productTypes.product_types?.map((type) => type.value),
-        isPending: productTypes.isPending,
-        additional:
+  case TaxRateRuleReferenceType.PRODUCT_TYPE:
+    return {
+      labels: productTypes.product_types?.map((type) => type.value),
+      isPending: productTypes.isPending,
+      additional:
           productTypes.product_types && productTypes.count
             ? productTypes.count - productTypes.product_types.length
             : 0,
-        isError: productTypes.isError,
-        error: productTypes.error,
-      }
-    case TaxRateRuleReferenceType.SHIPPING_OPTION:
-      return {
-        labels: shippingOptions.shipping_options?.map((option) => option.name),
-        isPending: shippingOptions.isPending,
-        additional: shippingOptions.count
-          ? shippingOptions.count -
+      isError: productTypes.isError,
+      error: productTypes.error,
+    };
+  case TaxRateRuleReferenceType.SHIPPING_OPTION:
+    return {
+      labels: shippingOptions.shipping_options?.map((option) => option.name),
+      isPending: shippingOptions.isPending,
+      additional: shippingOptions.count
+        ? shippingOptions.count -
             (shippingOptions.shipping_options?.length || 0)
-          : 0,
-        isError: shippingOptions.isError,
-        error: shippingOptions.error,
-      }
+        : 0,
+      isError: shippingOptions.isError,
+      error: shippingOptions.error,
+    };
     // case TaxRateRuleReferenceType.PRODUCT_COLLECTION:
     //   return {
     //     labels: collections.collections?.map((collection) => collection.title!),
@@ -406,4 +406,4 @@ const useReferenceValues = (
     //     error: customerGroups.error,
     //   }
   }
-}
+};

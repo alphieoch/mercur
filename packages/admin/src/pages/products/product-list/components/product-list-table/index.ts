@@ -7,4 +7,4 @@ export {
   ProductListExportButton,
   ProductListImportButton,
   ProductListDataTable,
-} from "./product-list-table"
+} from "./product-list-table";

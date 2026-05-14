@@ -1,10 +1,10 @@
-import { Select, clx } from "@medusajs/ui"
-import { Controller, ControllerRenderProps } from "react-hook-form"
+import { Select, clx } from "@medusajs/ui";
+import { Controller, ControllerRenderProps } from "react-hook-form";
 
-import { useCombinedRefs } from "../../../hooks/use-combined-refs"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { DataGridCellProps, InputProps } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { useCombinedRefs } from "../../../hooks/use-combined-refs";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { DataGridCellProps, InputProps } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 type Option = {
   label: string
@@ -24,10 +24,10 @@ export const DataGridSelectCell = <TData, TValue = any>({
   options,
   placeholder,
 }: DataGridSelectCellProps<TData, TValue>) => {
-  const { field, control, renderProps } = useDataGridCell({ context })
-  const errorProps = useDataGridCellError({ context })
+  const { field, control, renderProps } = useDataGridCell({ context });
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
+  const { container, input } = renderProps;
 
   return (
     <Controller
@@ -44,8 +44,8 @@ export const DataGridSelectCell = <TData, TValue = any>({
         </DataGridCellContainer>
       )}
     />
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -58,26 +58,26 @@ const Inner = ({
   options: Option[]
   placeholder?: string
 }) => {
-  const { ref, value, onChange, onBlur, ...fieldProps } = field
+  const { ref, value, onChange, onBlur, ...fieldProps } = field;
   const {
     ref: inputRef,
     onChange: _onInputChange,
     onBlur: onInputBlur,
     onFocus,
     ...attributes
-  } = inputProps
+  } = inputProps;
 
-  const combinedRefs = useCombinedRefs(inputRef, ref)
+  const combinedRefs = useCombinedRefs(inputRef, ref);
 
-  const selectedOption = options.find((option) => option.value === value)
+  const selectedOption = options.find((option) => option.value === value);
 
   return (
     <Select
       value={value ?? ""}
       onValueChange={(next) => {
-        onChange(next)
-        onBlur()
-        onInputBlur()
+        onChange(next);
+        onBlur();
+        onInputBlur();
       }}
       {...fieldProps}
     >
@@ -85,8 +85,8 @@ const Inner = ({
         ref={combinedRefs as React.Ref<HTMLButtonElement>}
         onFocus={onFocus}
         onBlur={() => {
-          onBlur()
-          onInputBlur()
+          onBlur();
+          onInputBlur();
         }}
         className={clx(
           "size-full rounded-none border-0 bg-transparent px-0 text-left shadow-none",
@@ -107,5 +107,5 @@ const Inner = ({
         ))}
       </Select.Content>
     </Select>
-  )
-}
+  );
+};

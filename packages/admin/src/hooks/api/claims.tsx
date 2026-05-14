@@ -1,21 +1,21 @@
-import { ClientError } from "@mercurjs/client"
-import { HttpTypes } from "@medusajs/types"
+import { ClientError } from "@mercurjs/client";
+import { HttpTypes } from "@medusajs/types";
 import {
   QueryKey,
   useMutation,
   UseMutationOptions,
   useQuery,
   UseQueryOptions,
-} from "@tanstack/react-query"
+} from "@tanstack/react-query";
 
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
-import { ordersQueryKeys } from "./orders"
-import { returnsQueryKeys } from "./returns"
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
+import { ordersQueryKeys } from "./orders";
+import { returnsQueryKeys } from "./returns";
 
-const CLAIMS_QUERY_KEY = "claims" as const
-export const claimsQueryKeys = queryKeysFactory(CLAIMS_QUERY_KEY)
+const CLAIMS_QUERY_KEY = "claims" as const;
+export const claimsQueryKeys = queryKeysFactory(CLAIMS_QUERY_KEY);
 
 export const useClaim = (
   id: string,
@@ -34,10 +34,10 @@ export const useClaim = (
     queryFn: async () => sdk.admin.claims.$id.query({ $id: id, ...query }),
     queryKey: claimsQueryKeys.detail(id, query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useClaims = (
   query?: HttpTypes.AdminClaimListParams,
@@ -55,10 +55,10 @@ export const useClaims = (
     queryFn: async () => sdk.admin.claims.query({ ...query }),
     queryKey: claimsQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateClaim = (
   orderId: string,
@@ -74,21 +74,21 @@ export const useCreateClaim = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: claimsQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelClaim = (
   id: string,
@@ -100,24 +100,24 @@ export const useCancelClaim = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: claimsQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: claimsQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddClaimItems = (
   id: string,
@@ -134,17 +134,17 @@ export const useAddClaimItems = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateClaimItems = (
   id: string,
@@ -164,22 +164,22 @@ export const useUpdateClaimItems = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRemoveClaimItem = (
   id: string,
@@ -199,17 +199,17 @@ export const useRemoveClaimItem = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddClaimInboundItems = (
   id: string,
@@ -226,17 +226,17 @@ export const useAddClaimInboundItems = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateClaimInboundItem = (
   id: string,
@@ -256,22 +256,22 @@ export const useUpdateClaimInboundItem = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRemoveClaimInboundItem = (
   id: string,
@@ -287,21 +287,21 @@ export const useRemoveClaimInboundItem = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddClaimInboundShipping = (
   id: string,
@@ -321,17 +321,17 @@ export const useAddClaimInboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateClaimInboundShipping = (
   id: string,
@@ -355,17 +355,17 @@ export const useUpdateClaimInboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteClaimInboundShipping = (
   id: string,
@@ -381,17 +381,17 @@ export const useDeleteClaimInboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddClaimOutboundItems = (
   id: string,
@@ -408,17 +408,17 @@ export const useAddClaimOutboundItems = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateClaimOutboundItems = (
   id: string,
@@ -438,22 +438,22 @@ export const useUpdateClaimOutboundItems = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRemoveClaimOutboundItem = (
   id: string,
@@ -469,17 +469,17 @@ export const useRemoveClaimOutboundItem = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddClaimOutboundShipping = (
   id: string,
@@ -499,17 +499,17 @@ export const useAddClaimOutboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateClaimOutboundShipping = (
   id: string,
@@ -533,17 +533,17 @@ export const useUpdateClaimOutboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteClaimOutboundShipping = (
   id: string,
@@ -559,17 +559,17 @@ export const useDeleteClaimOutboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useClaimConfirmRequest = (
   id: string,
@@ -586,25 +586,25 @@ export const useClaimConfirmRequest = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.all,
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: claimsQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelClaimRequest = (
   id: string,
@@ -616,20 +616,20 @@ export const useCancelClaimRequest = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: claimsQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: claimsQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

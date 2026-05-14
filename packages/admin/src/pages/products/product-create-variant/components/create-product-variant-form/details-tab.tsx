@@ -1,28 +1,28 @@
-import { Heading, Input, Switch } from "@medusajs/ui"
-import { useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { Heading, Input, Switch } from "@medusajs/ui";
+import { useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { HttpTypes } from "@medusajs/types"
+import { HttpTypes } from "@medusajs/types";
 
-import { Form } from "../../../../../components/common/form"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
-import { CreateProductVariantSchema } from "./constants"
+import { Form } from "../../../../../components/common/form";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
+import { CreateProductVariantSchema } from "./constants";
 
 type DetailsTabProps = {
   product: HttpTypes.AdminProduct
 }
 
 function DetailsTab({ product }: DetailsTabProps) {
-  const { t } = useTranslation()
-  const form = useTabbedForm<z.infer<typeof CreateProductVariantSchema>>()
+  const { t } = useTranslation();
+  const form = useTabbedForm<z.infer<typeof CreateProductVariantSchema>>();
 
   const manageInventoryEnabled = useWatch({
     control: form.control,
     name: "manage_inventory",
-  })
+  });
 
   return (
     <div className="flex flex-1 flex-col items-center overflow-y-auto" data-testid="product-variant-create-form-details-tab">
@@ -42,7 +42,7 @@ function DetailsTab({ product }: DetailsTabProps) {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="product-variant-create-form-title-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
 
@@ -58,7 +58,7 @@ function DetailsTab({ product }: DetailsTabProps) {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="product-variant-create-form-sku-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
 
@@ -75,7 +75,7 @@ function DetailsTab({ product }: DetailsTabProps) {
                       <Combobox
                         value={value}
                         onChange={(v) => {
-                          onChange(v)
+                          onChange(v);
                         }}
                         {...field}
                         options={option.values.map((v: any) => ({
@@ -87,7 +87,7 @@ function DetailsTab({ product }: DetailsTabProps) {
                     </Form.Control>
                     <Form.ErrorMessage data-testid={`product-variant-create-form-option-${option.title}-error`} />
                   </Form.Item>
-                )
+                );
               }}
             />
           ))}
@@ -122,7 +122,7 @@ function DetailsTab({ product }: DetailsTabProps) {
                   </div>
                   <Form.ErrorMessage data-testid="product-variant-create-form-manage-inventory-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -155,7 +155,7 @@ function DetailsTab({ product }: DetailsTabProps) {
                   </div>
                   <Form.ErrorMessage data-testid="product-variant-create-form-allow-backorder-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -187,19 +187,19 @@ function DetailsTab({ product }: DetailsTabProps) {
                   </div>
                   <Form.ErrorMessage data-testid="product-variant-create-form-inventory-kit-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 DetailsTab._tabMeta = defineTabMeta<z.infer<typeof CreateProductVariantSchema>>({
   id: "detail",
   labelKey: "priceLists.create.tabs.details",
   validationFields: ["title", "sku", "manage_inventory", "allow_backorder", "inventory_kit", "options"],
-})
+});
 
-export default DetailsTab
+export default DetailsTab;

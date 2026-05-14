@@ -1,18 +1,18 @@
-import { Children, ReactNode, useCallback, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Children, ReactNode, useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { RouteFocusModal, StackedFocusModal, useStackedModal } from "@components/modals"
-import { useSalesChannels } from "@hooks/api"
-import { useStore } from "@hooks/api/store"
+import { RouteFocusModal, StackedFocusModal, useStackedModal } from "@components/modals";
+import { useSalesChannels } from "@hooks/api";
+import { useStore } from "@hooks/api/store";
 
-import { ProductCreateForm } from "./product-create-form/product-create-form"
-import { ProductCreateDetailsForm } from "./product-create-details-form"
-import { ProductCreateOrganizeForm } from "./product-create-organize-form"
-import { ProductCreateVariantsForm } from "./product-create-variants-form"
-import { ProductCreateInventoryKitForm } from "./product-create-inventory-kit-form"
-import { VariantMediaView } from "./variant-media-view/variant-media-view"
-import { TabbedForm } from "@components/tabbed-form"
-import { HttpTypes } from "@mercurjs/types"
+import { ProductCreateForm } from "./product-create-form/product-create-form";
+import { ProductCreateDetailsForm } from "./product-create-details-form";
+import { ProductCreateOrganizeForm } from "./product-create-organize-form";
+import { ProductCreateVariantsForm } from "./product-create-variants-form";
+import { ProductCreateInventoryKitForm } from "./product-create-inventory-kit-form";
+import { VariantMediaView } from "./variant-media-view/variant-media-view";
+import { TabbedForm } from "@components/tabbed-form";
+import { HttpTypes } from "@mercurjs/types";
 
 type MediaItem = {
   file?: File
@@ -28,14 +28,14 @@ const ProductCreateFormWithModal = ({
   defaultChannel?: HttpTypes.AdminSalesChannel
   store?: HttpTypes.AdminStore
 }) => {
-  const { setIsOpen } = useStackedModal()
-  const [selectedVariantIndex, setSelectedVariantIndex] = useState<number | null>(null)
-  const [selectedVariantTitle, setSelectedVariantTitle] = useState<string | undefined>(undefined)
-  const [selectedVariantMedia, setSelectedVariantMedia] = useState<MediaItem[] | undefined>(undefined)
-  const [productMedia, setProductMedia] = useState<MediaItem[]>([])
+  const { setIsOpen } = useStackedModal();
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState<number | null>(null);
+  const [selectedVariantTitle, setSelectedVariantTitle] = useState<string | undefined>(undefined);
+  const [selectedVariantMedia, setSelectedVariantMedia] = useState<MediaItem[] | undefined>(undefined);
+  const [productMedia, setProductMedia] = useState<MediaItem[]>([]);
   const saveVariantMediaRef = useRef<
     ((variantIndex: number, media: MediaItem[]) => void) | null
-  >(null)
+      >(null);
 
   const handleOpenMediaModal = useCallback(
     (
@@ -44,29 +44,29 @@ const ProductCreateFormWithModal = ({
       initialMedia?: MediaItem[],
       currentProductMedia?: MediaItem[]
     ) => {
-      setSelectedVariantIndex(variantIndex)
-      setSelectedVariantTitle(variantTitle)
-      setSelectedVariantMedia(initialMedia)
-      setProductMedia(currentProductMedia || [])
-      setIsOpen("variant-media-modal", true)
+      setSelectedVariantIndex(variantIndex);
+      setSelectedVariantTitle(variantTitle);
+      setSelectedVariantMedia(initialMedia);
+      setProductMedia(currentProductMedia || []);
+      setIsOpen("variant-media-modal", true);
     },
     []
-  )
+  );
 
   const handleCloseModal = () => {
-    setIsOpen("variant-media-modal", false)
-    setSelectedVariantIndex(null)
-    setSelectedVariantTitle(undefined)
-    setSelectedVariantMedia(undefined)
-    setProductMedia([])
-  }
+    setIsOpen("variant-media-modal", false);
+    setSelectedVariantIndex(null);
+    setSelectedVariantTitle(undefined);
+    setSelectedVariantMedia(undefined);
+    setProductMedia([]);
+  };
 
   const handleSaveMedia = useCallback((variantIndex: number, media: MediaItem[]) => {
     if (saveVariantMediaRef.current) {
-      saveVariantMediaRef.current(variantIndex, media)
+      saveVariantMediaRef.current(variantIndex, media);
     }
-    handleCloseModal()
-  }, [])
+    handleCloseModal();
+  }, []);
 
   return (
     <>
@@ -80,7 +80,7 @@ const ProductCreateFormWithModal = ({
         id="variant-media-modal"
         onOpenChangeCallback={(open) => {
           if (!open) {
-            handleCloseModal()
+            handleCloseModal();
           }
         }}
       >
@@ -96,22 +96,22 @@ const ProductCreateFormWithModal = ({
         )}
       </StackedFocusModal>
     </>
-  )
-}
+  );
+};
 
 const Root = ({ children }: { children?: ReactNode }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { store, isPending: isStorePending } = useStore()
+  const { store, isPending: isStorePending } = useStore();
   const { sales_channels, isPending: isSalesChannelPending } =
-    useSalesChannels()
+    useSalesChannels();
 
   const ready =
-    !!store && !isStorePending && !!sales_channels && !isSalesChannelPending
+    !!store && !isStorePending && !!sales_channels && !isSalesChannelPending;
 
   const defaultChannel = sales_channels?.[0] as
     | HttpTypes.AdminSalesChannel
-    | undefined
+    | undefined;
 
   return (
     <RouteFocusModal>
@@ -129,8 +129,8 @@ const Root = ({ children }: { children?: ReactNode }) => {
         )
       )}
     </RouteFocusModal>
-  )
-}
+  );
+};
 
 export const ProductCreatePage = Object.assign(Root, {
   DetailsForm: ProductCreateDetailsForm,
@@ -139,4 +139,4 @@ export const ProductCreatePage = Object.assign(Root, {
   InventoryKitForm: ProductCreateInventoryKitForm,
   Form: ProductCreateForm,
   Tab: TabbedForm.Tab,
-})
+});

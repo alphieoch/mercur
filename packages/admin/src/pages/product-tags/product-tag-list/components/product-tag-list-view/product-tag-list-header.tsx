@@ -1,23 +1,23 @@
-import { Children, ReactNode } from "react"
-import { Button, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { Children, ReactNode } from "react";
+import { Button, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const ProductTagListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Heading data-testid="product-tag-list-table-heading">
       {t("productTags.domain")}
     </Heading>
-  )
-}
+  );
+};
 
 export const ProductTagListActions = ({
   children,
 }: {
   children?: ReactNode
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-center gap-x-2">
       {Children.count(children) > 0 ? (
@@ -33,8 +33,8 @@ export const ProductTagListActions = ({
         </Button>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const ProductTagListHeader = ({
   children,
@@ -55,5 +55,5 @@ export const ProductTagListHeader = ({
         </>
       )}
     </div>
-  )
-}
+  );
+};

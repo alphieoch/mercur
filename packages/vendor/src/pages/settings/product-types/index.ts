@@ -1,1 +1,1 @@
-export * from './product-type-list-page'
+export * from './product-type-list-page';

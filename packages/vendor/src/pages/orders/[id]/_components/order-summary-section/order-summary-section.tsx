@@ -1,16 +1,16 @@
-import { ReactNode, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { ReactNode, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import {
   ArrowLongRight,
   TriangleDownMini,
-} from "@medusajs/icons"
+} from "@medusajs/icons";
 import {
   AdminOrder,
   AdminOrderLineItem,
   HttpTypes,
-} from "@medusajs/types"
+} from "@medusajs/types";
 import {
   Button,
   clx,
@@ -18,17 +18,17 @@ import {
   Copy,
   Heading,
   Text,
-} from "@medusajs/ui"
+} from "@medusajs/ui";
 
-import { ActionMenu } from "@components/common/action-menu"
+import { ActionMenu } from "@components/common/action-menu";
 import {
   getLocaleAmount,
   getStylizedAmount,
   isAmountLessThenRoundingError,
-} from "@lib/money-amount-helpers"
-import { getTotalCaptured } from "@lib/payment"
-import ShippingInfoPopover from "./shipping-info-popover"
-import { Thumbnail } from "@components/common/thumbnail"
+} from "@lib/money-amount-helpers";
+import { getTotalCaptured } from "@lib/payment";
+import ShippingInfoPopover from "./shipping-info-popover";
+import { Thumbnail } from "@components/common/thumbnail";
 
 type OrderSummarySectionProps = {
   order: HttpTypes.AdminOrder
@@ -37,27 +37,27 @@ type OrderSummarySectionProps = {
 export const OrderSummarySection = ({
   order,
 }: OrderSummarySectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const receivableReturns = useMemo(
     () => order.returns?.filter((r) => !r.canceled_at),
     [order]
-  )
+  );
 
-  const showReturns = !!receivableReturns?.length
+  const showReturns = !!receivableReturns?.length;
 
   const unpaidPaymentCollection = order.payment_collections?.find(
     (pc) => pc.status !== "captured" && pc.status !== "canceled"
-  )
+  );
 
-  const pendingDifference = order.summary?.pending_difference || 0
+  const pendingDifference = order.summary?.pending_difference || 0;
   const isAmountSignificant = !isAmountLessThenRoundingError(
     pendingDifference,
     order.currency_code
-  )
+  );
 
   const showRefund =
-    unpaidPaymentCollection && pendingDifference < 0 && isAmountSignificant
+    unpaidPaymentCollection && pendingDifference < 0 && isAmountSignificant;
 
   return (
     <Container className="divide-y divide-dashed p-0">
@@ -82,17 +82,17 @@ export const OrderSummarySection = ({
                 groups={[
                   {
                     actions: receivableReturns?.map((r) => {
-                      let id = r.id
-                      let returnType = "Return"
+                      let id = r.id;
+                      let returnType = "Return";
 
                       if (r.exchange_id) {
-                        id = r.exchange_id
-                        returnType = "Exchange"
+                        id = r.exchange_id;
+                        returnType = "Exchange";
                       }
 
                       if (r.claim_id) {
-                        id = r.claim_id
-                        returnType = "Claim"
+                        id = r.claim_id;
+                        returnType = "Claim";
                       }
 
                       return {
@@ -102,7 +102,7 @@ export const OrderSummarySection = ({
                         }),
                         icon: <ArrowLongRight />,
                         to: `/orders/${order.id}/returns/${r.id}/receive`,
-                      }
+                      };
                     }),
                   },
                 ]}
@@ -128,18 +128,18 @@ export const OrderSummarySection = ({
         </div>
       )}
     </Container>
-  )
-}
+  );
+};
 
 const Header = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex items-center justify-between px-6 py-4">
       <Heading level="h2">{t("fields.summary")}</Heading>
     </div>
-  )
-}
+  );
+};
 
 const Item = ({
   item,
@@ -150,8 +150,8 @@ const Item = ({
 }) => {
   const original_price =
     item.variant?.prices?.find((price) => price.currency_code === currencyCode)
-      ?.amount || 0
-  const price = item.unit_price
+      ?.amount || 0;
+  const price = item.unit_price;
 
   return (
     <>
@@ -211,8 +211,8 @@ const Item = ({
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 const ItemBreakdown = ({
   order,
@@ -228,11 +228,11 @@ const ItemBreakdown = ({
             item={item}
             currencyCode={order.currency_code}
           />
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
 const Cost = ({
   label,
@@ -260,60 +260,60 @@ const Cost = ({
       </Text>
     </div>
   </div>
-)
+);
 
 const CostBreakdown = ({
   order,
 }: {
   order: HttpTypes.AdminOrder
 }) => {
-  const { t } = useTranslation()
-  const [isTaxOpen, setIsTaxOpen] = useState(false)
-  const [isShippingOpen, setIsShippingOpen] = useState(false)
+  const { t } = useTranslation();
+  const [isTaxOpen, setIsTaxOpen] = useState(false);
+  const [isShippingOpen, setIsShippingOpen] = useState(false);
 
   const commissionTotal = useMemo(() => {
     return order.items.reduce((acc, item) => {
-      const lines = (item as any).commission_lines as any[] | undefined
-      if (!lines) return acc
-      return acc + lines.reduce((sum: number, line: any) => sum + (line.amount ?? 0), 0)
-    }, 0)
-  }, [order.items])
+      const lines = (item as any).commission_lines as any[] | undefined;
+      if (!lines) return acc;
+      return acc + lines.reduce((sum: number, line: any) => sum + (line.amount ?? 0), 0);
+    }, 0);
+  }, [order.items]);
 
   const discountCodes = useMemo(() => {
-    const codes = new Set()
+    const codes = new Set();
     order.items.forEach((item) =>
       item.adjustments?.forEach((adj) => {
-        codes.add(adj.code)
+        codes.add(adj.code);
       })
-    )
+    );
 
-    return Array.from(codes).sort()
-  }, [order])
+    return Array.from(codes).sort();
+  }, [order]);
 
   const taxCodes = useMemo(() => {
-    const taxCodeMap: Record<string, number> = {}
+    const taxCodeMap: Record<string, number> = {};
 
     order.items.forEach((item) => {
       item.tax_lines?.forEach((line) => {
-        taxCodeMap[line.code] = (taxCodeMap[line.code] || 0) + line.total
-      })
-    })
+        taxCodeMap[line.code] = (taxCodeMap[line.code] || 0) + line.total;
+      });
+    });
 
     order.shipping_methods.forEach((sm) => {
       sm.tax_lines?.forEach((line) => {
-        taxCodeMap[line.code] = (taxCodeMap[line.code] || 0) + line.total
-      })
-    })
+        taxCodeMap[line.code] = (taxCodeMap[line.code] || 0) + line.total;
+      });
+    });
 
-    return taxCodeMap
-  }, [order])
+    return taxCodeMap;
+  }, [order]);
 
-  const automaticTaxesOn = !!order.region?.automatic_taxes
-  const hasTaxLines = !!Object.keys(taxCodes).length
+  const automaticTaxesOn = !!order.region?.automatic_taxes;
+  const hasTaxLines = !!Object.keys(taxCodes).length;
 
   const discountTotal = automaticTaxesOn
     ? order.discount_total
-    : order.discount_subtotal
+    : order.discount_subtotal;
 
   return (
     <div className="text-ui-fg-subtle flex flex-col gap-y-2 px-6 py-4">
@@ -381,7 +381,7 @@ const CostBreakdown = ({
                     )}
                   </span>
                 </div>
-              )
+              );
             })}
         </div>
       )}
@@ -450,7 +450,7 @@ const CostBreakdown = ({
                     {getLocaleAmount(total as number, order.currency_code)}
                   </span>
                 </div>
-              )
+              );
             })}
           </div>
         )}
@@ -462,11 +462,11 @@ const CostBreakdown = ({
         />
       )}
     </div>
-  )
-}
+  );
+};
 
 const Total = ({ order }: { order: AdminOrder }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className=" flex flex-col gap-y-2 px-6 py-4">
@@ -511,5 +511,5 @@ const Total = ({ order }: { order: AdminOrder }) => {
         </Text>
       </div>
     </div>
-  )
-}
+  );
+};

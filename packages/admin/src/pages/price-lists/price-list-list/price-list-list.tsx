@@ -1,21 +1,21 @@
-import { ReactNode, Children } from "react"
+import { ReactNode, Children } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   PriceListListTable,
   PriceListListDataTable,
   PriceListListHeader,
   PriceListListActions,
   PriceListListTitle,
-} from "./components/price-list-list-table"
+} from "./components/price-list-list-table";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage>
       {Children.count(children) > 0 ? children : <PriceListListTable />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const PriceListListPage = Object.assign(Root, {
   Table: PriceListListTable,
@@ -23,4 +23,4 @@ export const PriceListListPage = Object.assign(Root, {
   HeaderTitle: PriceListListTitle,
   HeaderActions: PriceListListActions,
   DataTable: PriceListListDataTable,
-})
+});

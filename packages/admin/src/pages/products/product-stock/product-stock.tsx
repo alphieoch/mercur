@@ -1,20 +1,20 @@
-import { HttpTypes } from "@medusajs/types"
-import { AnimatePresence } from "motion/react"
-import { Suspense, useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Await, useLoaderData } from "react-router-dom"
+import { HttpTypes } from "@medusajs/types";
+import { AnimatePresence } from "motion/react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Await, useLoaderData } from "react-router-dom";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { ProgressBar } from "../../../components/common/progress-bar"
-import { Skeleton } from "../../../components/common/skeleton"
-import { DataGridSkeleton } from "../../../components/data-grid/components"
-import { RouteFocusModal } from "../../../components/modals"
-import { ProductStockForm } from "./components/product-stock-form"
-import { productStockLoader } from "./loader"
+import { ColumnDef } from "@tanstack/react-table";
+import { ProgressBar } from "../../../components/common/progress-bar";
+import { Skeleton } from "../../../components/common/skeleton";
+import { DataGridSkeleton } from "../../../components/data-grid/components";
+import { RouteFocusModal } from "../../../components/modals";
+import { ProductStockForm } from "./components/product-stock-form";
+import { productStockLoader } from "./loader";
 
 export const ProductStock = () => {
-  const { t } = useTranslation()
-  const data = useLoaderData() as Awaited<ReturnType<typeof productStockLoader>>
+  const { t } = useTranslation();
+  const data = useLoaderData() as Awaited<ReturnType<typeof productStockLoader>>;
 
   /**
    * We render a local ProgressBar, as we cannot rely on the global NavigationBar.
@@ -27,27 +27,27 @@ export const ProductStock = () => {
    * Here we instead render a local ProgressBar, which is animated, and exit
    * the animation when the data is loaded, and the form is rendered.
    */
-  const [isLoading, setIsLoading] = useState(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const [isLoading, setIsLoading] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     timeoutRef.current = setTimeout(() => {
-      setIsLoading(true)
-    }, 200)
+      setIsLoading(true);
+    }, 200);
 
     return () => {
       if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
+        clearTimeout(timeoutRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   const onLoaded = () => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
+      clearTimeout(timeoutRef.current);
     }
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   return (
     <div>
@@ -75,14 +75,14 @@ export const ProductStock = () => {
                   locations={data.locations}
                   onLoaded={onLoaded}
                 />
-              )
+              );
             }}
           </Await>
         </Suspense>
       </RouteFocusModal>
     </div>
-  )
-}
+  );
+};
 
 const ProductStockFallback = () => {
   return (
@@ -102,5 +102,5 @@ const ProductStockFallback = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

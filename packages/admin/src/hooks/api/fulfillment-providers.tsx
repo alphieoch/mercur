@@ -1,19 +1,19 @@
-import type { ClientError, InferClientInput, InferClientOutput } from "@mercurjs/client"
-import { type  QueryKey, useQuery, type UseQueryOptions } from "@tanstack/react-query"
-import type { ExtendedAdminFulfillmentProviderOptionsListResponse } from "@custom-types/fulfillment-providers/common"
-import { queryKeysFactory } from "@lib/query-key-factory"
-import { sdk } from "@lib/client"
+import type { ClientError, InferClientInput, InferClientOutput } from "@mercurjs/client";
+import { type  QueryKey, useQuery, type UseQueryOptions } from "@tanstack/react-query";
+import type { ExtendedAdminFulfillmentProviderOptionsListResponse } from "@custom-types/fulfillment-providers/common";
+import { queryKeysFactory } from "@lib/query-key-factory";
+import { sdk } from "@lib/client";
 
-const FULFILLMENT_PROVIDERS_QUERY_KEY = "fulfillment_providers" as const
+const FULFILLMENT_PROVIDERS_QUERY_KEY = "fulfillment_providers" as const;
 export const fulfillmentProvidersQueryKeys = queryKeysFactory(
   FULFILLMENT_PROVIDERS_QUERY_KEY
-)
+);
 
 const FULFILLMENT_PROVIDER_OPTIONS_QUERY_KEY =
-  "fulfillment_provider_options" as const
+  "fulfillment_provider_options" as const;
 export const fulfillmentProviderOptionsQueryKeys = queryKeysFactory(
   FULFILLMENT_PROVIDER_OPTIONS_QUERY_KEY
-)
+);
 
 export const useFulfillmentProviders = (
   query?: InferClientInput<typeof sdk.admin.fulfillmentProviders.query>,
@@ -31,10 +31,10 @@ export const useFulfillmentProviders = (
     queryFn: () => sdk.admin.fulfillmentProviders.query({ ...query }),
     queryKey: fulfillmentProvidersQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useFulfillmentProviderOptions = (
   providerId: string,
@@ -53,7 +53,7 @@ export const useFulfillmentProviderOptions = (
       sdk.admin.fulfillmentProviders.$id.options.query({ $id: providerId }) as Promise<ExtendedAdminFulfillmentProviderOptionsListResponse>,
     queryKey: fulfillmentProviderOptionsQueryKeys.list(providerId),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};

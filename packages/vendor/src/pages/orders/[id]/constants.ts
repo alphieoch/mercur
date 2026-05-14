@@ -20,7 +20,7 @@ const DEFAULT_PROPERTIES = [
   "refundable_total",
   "order_change",
   "commission_value",
-]
+];
 
 const DEFAULT_RELATIONS = [
   "*customer",
@@ -49,8 +49,8 @@ const DEFAULT_RELATIONS = [
   "*payment_collections.payments",
   "payment_status",
   "*returns",
-]
+];
 
 export const DEFAULT_FIELDS = `${DEFAULT_PROPERTIES.join(
   ","
-)},${DEFAULT_RELATIONS.join(",")}`
+)},${DEFAULT_RELATIONS.join(",")}`;

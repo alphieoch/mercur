@@ -1,4 +1,4 @@
-import { ExtendedPromotionRule } from "@custom-types/promotion"
+import { ExtendedPromotionRule } from "@custom-types/promotion";
 
 export const requiredProductRule: ExtendedPromotionRule = {
   id: "product",
@@ -10,4 +10,4 @@ export const requiredProductRule: ExtendedPromotionRule = {
   required: true,
   field_type: "select",
   disguised: false,
-}
+};

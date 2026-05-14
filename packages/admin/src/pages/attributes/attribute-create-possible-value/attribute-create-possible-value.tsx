@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -7,16 +7,16 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
-} from "@dnd-kit/core"
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
-import { DotsSix, XMark, Tag } from "@medusajs/icons"
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { DotsSix, XMark, Tag } from "@medusajs/icons";
 import {
   Button,
   Heading,
@@ -25,20 +25,20 @@ import {
   ProgressTabs,
   Text,
   toast,
-} from "@medusajs/ui"
-import { useFieldArray, useForm, useFormContext, FormProvider } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+} from "@medusajs/ui";
+import { useFieldArray, useForm, useFormContext, FormProvider } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-import { RouteFocusModal, useRouteModal } from "../../../components/modals"
+import { RouteFocusModal, useRouteModal } from "../../../components/modals";
 import {
   useAttribute,
   useCreateAttributePossibleValue,
   attributesQueryKeys,
-} from "../../../hooks/api/attributes"
-import { sdk } from "../../../lib/client"
-import { queryClient } from "../../../lib/query-client"
-import { ATTRIBUTE_DETAIL_FIELDS } from "../attribute-detail/constants"
+} from "../../../hooks/api/attributes";
+import { sdk } from "../../../lib/client";
+import { queryClient } from "../../../lib/query-client";
+import { ATTRIBUTE_DETAIL_FIELDS } from "../attribute-detail/constants";
 
 type NewValueItem = {
   id: string
@@ -68,15 +68,15 @@ const SortableValueInput = ({
   index,
   onRemove,
 }: SortableValueInputProps) => {
-  const { t } = useTranslation()
-  const { register } = useFormContext<CreatePossibleValuesFormValues>()
+  const { t } = useTranslation();
+  const { register } = useFormContext<CreatePossibleValuesFormValues>();
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id })
+    useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-  }
+  };
 
   return (
     <div
@@ -112,8 +112,8 @@ const SortableValueInput = ({
         <XMark />
       </IconButton>
     </div>
-  )
-}
+  );
+};
 
 // --- Sortable Item for Tab 2 (Organize Ranking) ---
 
@@ -129,12 +129,12 @@ const SortableRankingItem = ({
   index,
 }: SortableRankingItemProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id })
+    useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-  }
+  };
 
   return (
     <div
@@ -157,94 +157,94 @@ const SortableRankingItem = ({
         {value}
       </Text>
     </div>
-  )
-}
+  );
+};
 
 // --- Inner Form Component ---
 
 const AttributeCreatePossibleValueInner = () => {
-  const { t } = useTranslation()
-  const { id } = useParams()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const { handleSuccess } = useRouteModal();
 
   const { attribute, isPending: isAttributeLoading } = useAttribute(id!, {
     fields: ATTRIBUTE_DETAIL_FIELDS,
-  })
+  });
 
-  const { mutateAsync: createValue } = useCreateAttributePossibleValue(id!)
+  const { mutateAsync: createValue } = useCreateAttributePossibleValue(id!);
 
   const [activeTab, setActiveTab] = useState<"values" | "organize-ranking">(
     "values"
-  )
+  );
   const [tabStatuses, setTabStatuses] = useState<{
     valuesStatus: "not-started" | "in-progress" | "completed"
     organizeStatus: "not-started" | "in-progress" | "completed"
   }>({
     valuesStatus: "not-started",
     organizeStatus: "not-started",
-  })
-  const [rankingItems, setRankingItems] = useState<RankingItem[]>([])
-  const [isSaving, setIsSaving] = useState(false)
+  });
+  const [rankingItems, setRankingItems] = useState<RankingItem[]>([]);
+  const [isSaving, setIsSaving] = useState(false);
 
   const form = useForm<CreatePossibleValuesFormValues>({
     defaultValues: {
       new_values: [{ id: crypto.randomUUID(), value: "" }],
     },
-  })
+  });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "new_values",
-  })
+  });
 
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
-  )
+  );
 
   const handleValuesDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event
+    const { active, over } = event;
     if (over && active.id !== over.id) {
-      const oldIndex = fields.findIndex((field) => field.id === active.id)
-      const newIndex = fields.findIndex((field) => field.id === over.id)
-      const currentValues = form.getValues("new_values")
-      const reordered = arrayMove(currentValues, oldIndex, newIndex)
+      const oldIndex = fields.findIndex((field) => field.id === active.id);
+      const newIndex = fields.findIndex((field) => field.id === over.id);
+      const currentValues = form.getValues("new_values");
+      const reordered = arrayMove(currentValues, oldIndex, newIndex);
       reordered.forEach((item, idx) => {
-        form.setValue(`new_values.${idx}.id`, item.id)
-        form.setValue(`new_values.${idx}.value`, item.value)
-      })
+        form.setValue(`new_values.${idx}.id`, item.id);
+        form.setValue(`new_values.${idx}.value`, item.value);
+      });
     }
-  }
+  };
 
   const handleRankingDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event
+    const { active, over } = event;
     if (over && active.id !== over.id) {
       setRankingItems((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over.id)
-        return arrayMove(items, oldIndex, newIndex)
-      })
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
     }
-  }
+  };
 
   const handleAddValue = () => {
-    append({ id: crypto.randomUUID(), value: "" })
+    append({ id: crypto.randomUUID(), value: "" });
     setTabStatuses((prev) => ({
       ...prev,
       valuesStatus: "in-progress",
-    }))
-  }
+    }));
+  };
 
   const handleContinue = () => {
     const newValues = form
       .getValues("new_values")
-      .filter((v) => v.value.trim() !== "")
+      .filter((v) => v.value.trim() !== "");
 
     if (newValues.length === 0) {
-      toast.warning(t("attributes.createPossibleValues.enterValue"))
-      return
+      toast.warning(t("attributes.createPossibleValues.enterValue"));
+      return;
     }
 
     // Build ranking items: existing values + new values
@@ -257,38 +257,38 @@ const AttributeCreatePossibleValueInner = () => {
         id: pv.id,
         value: pv.value,
         isNew: false,
-      }))
+      }));
 
     const newRankingItems: RankingItem[] = newValues.map((nv) => ({
       id: nv.id,
       value: nv.value,
       isNew: true,
-    }))
+    }));
 
-    setRankingItems([...existingValues, ...newRankingItems])
+    setRankingItems([...existingValues, ...newRankingItems]);
 
     setTabStatuses({
       valuesStatus: "completed",
       organizeStatus: "in-progress",
-    })
-    setActiveTab("organize-ranking")
-  }
+    });
+    setActiveTab("organize-ranking");
+  };
 
   const handleTabChange = (value: string) => {
-    const newTab = value as "values" | "organize-ranking"
+    const newTab = value as "values" | "organize-ranking";
 
     if (
       newTab === "organize-ranking" &&
       tabStatuses.valuesStatus !== "completed"
     ) {
-      return
+      return;
     }
 
-    setActiveTab(newTab)
-  }
+    setActiveTab(newTab);
+  };
 
   const handleSave = async () => {
-    setIsSaving(true)
+    setIsSaving(true);
     try {
       // Create new values with their rank based on position in the ranking list (1-based)
       for (const [index, item] of rankingItems.entries()) {
@@ -297,7 +297,7 @@ const AttributeCreatePossibleValueInner = () => {
             value: item.value,
             rank: index + 1,
             metadata: {},
-          })
+          });
         }
       }
 
@@ -306,13 +306,13 @@ const AttributeCreatePossibleValueInner = () => {
         if (!item.isNew) {
           const existingPV = (attribute?.possible_values ?? []).find(
             (pv: any) => pv.id === item.id
-          )
+          );
           if (existingPV && existingPV.rank !== index + 1) {
             await sdk.admin.attributes.$id.values.$valueId.mutate({
               $id: id!,
               $valueId: item.id,
               rank: index + 1,
-            } as any)
+            } as any);
           }
         }
       }
@@ -320,19 +320,19 @@ const AttributeCreatePossibleValueInner = () => {
       // Invalidate queries so the detail page refreshes
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.detail(id!),
-      })
+      });
 
-      toast.success(t("attributes.createPossibleValues.successToast"))
-      handleSuccess(`/settings/attributes/${id}`)
+      toast.success(t("attributes.createPossibleValues.successToast"));
+      handleSuccess(`/settings/attributes/${id}`);
     } catch (error: any) {
-      toast.error(error.message)
+      toast.error(error.message);
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   if (isAttributeLoading || !attribute) {
-    return null
+    return null;
   }
 
   return (
@@ -483,13 +483,13 @@ const AttributeCreatePossibleValueInner = () => {
         </RouteFocusModal.Footer>
       </ProgressTabs>
     </FormProvider>
-  )
-}
+  );
+};
 
 export const AttributeCreatePossibleValue = () => {
   return (
     <RouteFocusModal data-testid="attribute-create-possible-value-modal">
       <AttributeCreatePossibleValueInner />
     </RouteFocusModal>
-  )
-}
+  );
+};

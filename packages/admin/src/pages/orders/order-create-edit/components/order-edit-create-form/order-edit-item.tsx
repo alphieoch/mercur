@@ -1,18 +1,18 @@
-import { ArrowUturnLeft, DocumentSeries, XCircle } from "@medusajs/icons"
-import { AdminOrderLineItem } from "@medusajs/types"
-import { Badge, Input, Text, toast } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { ArrowUturnLeft, DocumentSeries, XCircle } from "@medusajs/icons";
+import { AdminOrderLineItem } from "@medusajs/types";
+import { Badge, Input, Text, toast } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { Thumbnail } from "../../../../../components/common/thumbnail"
-import { MoneyAmountCell } from "../../../../../components/table/table-cells/common/money-amount-cell"
-import { useMemo } from "react"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { Thumbnail } from "../../../../../components/common/thumbnail";
+import { MoneyAmountCell } from "../../../../../components/table/table-cells/common/money-amount-cell";
+import { useMemo } from "react";
 import {
   useAddOrderEditItems,
   useRemoveOrderEditItem,
   useUpdateOrderEditAddedItem,
   useUpdateOrderEditOriginalItem,
-} from "../../../../../hooks/api/order-edits"
+} from "../../../../../hooks/api/order-edits";
 
 type OrderEditItemProps = {
   item: AdminOrderLineItem
@@ -21,29 +21,29 @@ type OrderEditItemProps = {
 }
 
 function OrderEditItem({ item, currencyCode, orderId }: OrderEditItemProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { mutateAsync: addItems } = useAddOrderEditItems(orderId)
-  const { mutateAsync: updateAddedItem } = useUpdateOrderEditAddedItem(orderId)
+  const { mutateAsync: addItems } = useAddOrderEditItems(orderId);
+  const { mutateAsync: updateAddedItem } = useUpdateOrderEditAddedItem(orderId);
   const { mutateAsync: updateOriginalItem } =
-    useUpdateOrderEditOriginalItem(orderId)
-  const { mutateAsync: undoAction } = useRemoveOrderEditItem(orderId)
+    useUpdateOrderEditOriginalItem(orderId);
+  const { mutateAsync: undoAction } = useRemoveOrderEditItem(orderId);
 
   const isAddedItem = useMemo(
     () => !!item.actions?.find((a) => a.action === "ITEM_ADD"),
     [item]
-  )
+  );
 
   const isItemUpdated = useMemo(
     () => !!item.actions?.find((a) => a.action === "ITEM_UPDATE"),
     [item]
-  )
+  );
 
   const isItemRemoved = useMemo(() => {
     // To be removed item needs to have updated quantity
-    const updateAction = item.actions?.find((a) => a.action === "ITEM_UPDATE")
-    return !!updateAction && item.quantity === item.detail.fulfilled_quantity
-  }, [item])
+    const updateAction = item.actions?.find((a) => a.action === "ITEM_UPDATE");
+    return !!updateAction && item.quantity === item.detail.fulfilled_quantity;
+  }, [item]);
 
   /**
    * HANDLERS
@@ -51,63 +51,63 @@ function OrderEditItem({ item, currencyCode, orderId }: OrderEditItemProps) {
 
   const onUpdate = async (quantity: number) => {
     if (quantity <= item.detail.fulfilled_quantity) {
-      toast.error(t("orders.edits.validation.quantityLowerThanFulfillment"))
-      return
+      toast.error(t("orders.edits.validation.quantityLowerThanFulfillment"));
+      return;
     }
 
     if (quantity === item.quantity) {
-      return
+      return;
     }
 
-    const addItemAction = item.actions?.find((a) => a.action === "ITEM_ADD")
+    const addItemAction = item.actions?.find((a) => a.action === "ITEM_ADD");
 
     try {
       if (addItemAction) {
-        await updateAddedItem({ quantity, actionId: addItemAction.id })
+        await updateAddedItem({ quantity, actionId: addItemAction.id });
       } else {
-        await updateOriginalItem({ quantity, itemId: item.id })
+        await updateOriginalItem({ quantity, itemId: item.id });
       }
     } catch (e) {
-      toast.error(e.message)
+      toast.error(e.message);
     }
-  }
+  };
 
   const onRemove = async () => {
-    const addItemAction = item.actions?.find((a) => a.action === "ITEM_ADD")
+    const addItemAction = item.actions?.find((a) => a.action === "ITEM_ADD");
 
     try {
       if (addItemAction) {
-        await undoAction(addItemAction.id)
+        await undoAction(addItemAction.id);
       } else {
         await updateOriginalItem({
           quantity: item.detail.fulfilled_quantity, //
           itemId: item.id,
-        })
+        });
       }
     } catch (e) {
-      toast.error(e.message)
+      toast.error(e.message);
     }
-  }
+  };
 
   const onRemoveUndo = async () => {
     const updateItemAction = item.actions?.find(
       (a) => a.action === "ITEM_UPDATE"
-    )
+    );
 
     try {
       if (updateItemAction) {
-        await undoAction(updateItemAction.id) // Remove action that updated items quantity to fulfilled quantity which makes it "removed"
+        await undoAction(updateItemAction.id); // Remove action that updated items quantity to fulfilled quantity which makes it "removed"
       }
     } catch (e) {
-      toast.error(e.message)
+      toast.error(e.message);
     }
-  }
+  };
 
   const onDuplicate = async () => {
     if (!item.variant_id) {
-      toast.error(t("orders.edits.duplicateItemErrorToast"))
+      toast.error(t("orders.edits.duplicateItemErrorToast"));
       
-      return
+      return;
     }
 
     try {
@@ -118,11 +118,11 @@ function OrderEditItem({ item, currencyCode, orderId }: OrderEditItemProps) {
             quantity: item.quantity,
           },
         ],
-      })
+      });
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "An error occurred")
+      toast.error(e instanceof Error ? e.message : "An error occurred");
     }
-  }
+  };
 
   return (
     <div
@@ -183,11 +183,11 @@ function OrderEditItem({ item, currencyCode, orderId }: OrderEditItemProps) {
               min={item.detail.fulfilled_quantity}
               defaultValue={item.quantity}
               onBlur={(e) => {
-                const val = e.target.value
-                const payload = val === "" ? null : Number(val)
+                const val = e.target.value;
+                const payload = val === "" ? null : Number(val);
 
                 if (payload) {
-                  onUpdate(payload)
+                  onUpdate(payload);
                 }
               }}
               data-testid={`order-edit-item-${item.id}-quantity-input`}
@@ -216,17 +216,17 @@ function OrderEditItem({ item, currencyCode, orderId }: OrderEditItemProps) {
                 actions: [
                   !isItemRemoved
                     ? {
-                        label: t("actions.remove"),
-                        onClick: onRemove,
-                        icon: <XCircle />,
-                        disabled:
+                      label: t("actions.remove"),
+                      onClick: onRemove,
+                      icon: <XCircle />,
+                      disabled:
                           item.detail.fulfilled_quantity === item.quantity,
-                      }
+                    }
                     : {
-                        label: t("actions.undo"),
-                        onClick: onRemoveUndo,
-                        icon: <ArrowUturnLeft />,
-                      },
+                      label: t("actions.undo"),
+                      onClick: onRemoveUndo,
+                      icon: <ArrowUturnLeft />,
+                    },
                 ].filter(Boolean),
               },
             ]}
@@ -235,7 +235,7 @@ function OrderEditItem({ item, currencyCode, orderId }: OrderEditItemProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export { OrderEditItem }
+export { OrderEditItem };

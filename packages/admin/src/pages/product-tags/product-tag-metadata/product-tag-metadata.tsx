@@ -1,17 +1,17 @@
-import { useParams } from "react-router-dom"
-import { MetadataForm } from "@components/forms/metadata-form/metadata-form"
-import { useProductTag, useUpdateProductTag } from "@hooks/api"
-import { ClientError } from "@mercurjs/client"
+import { useParams } from "react-router-dom";
+import { MetadataForm } from "@components/forms/metadata-form/metadata-form";
+import { useProductTag, useUpdateProductTag } from "@hooks/api";
+import { ClientError } from "@mercurjs/client";
 
 export const ProductTagMetadata = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
-  const { product_tag, isPending, isError, error } = useProductTag(id!)
+  const { product_tag, isPending, isError, error } = useProductTag(id!);
 
-  const { mutateAsync, isPending: isMutating } = useUpdateProductTag(id!)
+  const { mutateAsync, isPending: isMutating } = useUpdateProductTag(id!);
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   const handleSubmit = async (
@@ -21,16 +21,16 @@ export const ProductTagMetadata = () => {
     try {
       const result = await mutateAsync({
         metadata: params.metadata === undefined ? undefined : params.metadata,
-      })
-      callbacks.onSuccess?.()
+      });
+      callbacks.onSuccess?.();
 
-      return result
+      return result;
     } catch (error) {
-      const message = error instanceof ClientError ? error.message : 'An error occurred'
-      callbacks.onError?.(message)
-      throw error
+      const message = error instanceof ClientError ? error.message : 'An error occurred';
+      callbacks.onError?.(message);
+      throw error;
     }
-  }
+  };
 
   return (
     <MetadataForm
@@ -39,5 +39,5 @@ export const ProductTagMetadata = () => {
       isPending={isPending}
       isMutating={isMutating}
     />
-  )
-}
+  );
+};

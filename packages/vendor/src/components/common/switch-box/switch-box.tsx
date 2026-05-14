@@ -1,8 +1,8 @@
-import { Switch } from "@medusajs/ui"
-import { ReactNode } from "react"
-import { ControllerProps, FieldPath, FieldValues } from "react-hook-form"
+import { Switch } from "@medusajs/ui";
+import { ReactNode } from "react";
+import { ControllerProps, FieldPath, FieldValues } from "react-hook-form";
 
-import { Form } from "../../common/form"
+import { Form } from "../../common/form";
 
 interface HeadlessControllerProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -34,13 +34,13 @@ export const SwitchBox = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-  label,
-  description,
-  optional = false,
-  tooltip,
-  onCheckedChange,
-  ...props
-}: SwitchBoxProps<TFieldValues, TName>) => {
+    label,
+    description,
+    optional = false,
+    tooltip,
+    onCheckedChange,
+    ...props
+  }: SwitchBoxProps<TFieldValues, TName>) => {
   return (
     <Form.Field
       {...props}
@@ -55,8 +55,8 @@ export const SwitchBox = <
                   {...field}
                   checked={value}
                   onCheckedChange={(e) => {
-                    onCheckedChange?.(e)
-                    onChange(e)
+                    onCheckedChange?.(e);
+                    onChange(e);
                   }}
                 />
               </Form.Control>
@@ -69,8 +69,8 @@ export const SwitchBox = <
             </div>
             <Form.ErrorMessage />
           </Form.Item>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};

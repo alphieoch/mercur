@@ -1,53 +1,53 @@
-import { HttpTypes } from "@medusajs/types"
-import { Button, Checkbox } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
+import { HttpTypes } from "@medusajs/types";
+import { Button, Checkbox } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
 import {
   OnChangeFn,
   RowSelectionState,
   createColumnHelper,
-} from "@tanstack/react-table"
-import { useEffect, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
+} from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom";
 import {
   StackedDrawer,
   StackedFocusModal,
-} from "@components/modals"
-import { _DataTable } from "@components/table/data-table"
+} from "@components/modals";
+import { _DataTable } from "@components/table/data-table";
 import {
   useCollections,
   useCustomerGroups,
   useProductTags,
   useProductTypes,
   useProducts,
-} from "@hooks/api"
+} from "@hooks/api";
 import {
   useCollectionTableColumns,
   useCustomerGroupTableColumns,
   useProductTableColumns,
   useProductTagTableColumns,
   useProductTypeTableColumns,
-} from "@hooks/table/columns"
+} from "@hooks/table/columns";
 import {
   useCollectionTableFilters,
   useCustomerGroupTableFilters,
   useProductTableFilters,
   useProductTagTableFilters,
   useProductTypeTableFilters,
-} from "@hooks/table/filters"
+} from "@hooks/table/filters";
 import {
   useCollectionTableQuery,
   useCustomerGroupTableQuery,
   useProductTableQuery,
   useProductTagTableQuery,
   useProductTypeTableQuery,
-} from "@hooks/table/query"
-import { useDataTable } from "@hooks/use-data-table"
-import { ExtendedAdminProduct } from "@custom-types/products"
-import { TaxRateRuleReferenceType } from "../constants"
-import { TaxRateRuleReference } from "../schemas"
-import { CustomerGroupData } from "../../../../orders/common/customerGroupFiltering"
+} from "@hooks/table/query";
+import { useDataTable } from "@hooks/use-data-table";
+import { ExtendedAdminProduct } from "@custom-types/products";
+import { TaxRateRuleReferenceType } from "../constants";
+import { TaxRateRuleReference } from "../schemas";
+import { CustomerGroupData } from "../../../../orders/common/customerGroupFiltering";
 
 type TargetFormProps = {
   referenceType: TaxRateRuleReferenceType
@@ -58,9 +58,9 @@ type TargetFormProps = {
 
 function initRowSelection(state: TaxRateRuleReference[]) {
   return state.reduce((acc, reference) => {
-    acc[reference.value] = true
-    return acc
-  }, {} as RowSelectionState)
+    acc[reference.value] = true;
+    return acc;
+  }, {} as RowSelectionState);
 }
 
 export const TargetForm = ({
@@ -69,15 +69,15 @@ export const TargetForm = ({
   setState,
   state,
 }: TargetFormProps) => {
-  const { t } = useTranslation()
-  const Component = type === "focus" ? StackedFocusModal : StackedDrawer
+  const { t } = useTranslation();
+  const Component = type === "focus" ? StackedFocusModal : StackedDrawer;
 
   const [intermediate, setIntermediate] =
-    useState<TaxRateRuleReference[]>(state)
+    useState<TaxRateRuleReference[]>(state);
 
   const handleSave = () => {
-    setState(intermediate)
-  }
+    setState(intermediate);
+  };
 
   return (
     <div className="flex size-full flex-col overflow-hidden">
@@ -100,8 +100,8 @@ export const TargetForm = ({
         </Button>
       </Component.Footer>
     </div>
-  )
-}
+  );
+};
 
 type TableProps = {
   referenceType: TaxRateRuleReferenceType
@@ -112,20 +112,20 @@ type TableProps = {
 
 const Table = ({ referenceType, ...props }: TableProps) => {
   switch (referenceType) {
-    case TaxRateRuleReferenceType.CUSTOMER_GROUP:
-      return <CustomerGroupTable {...props} />
-    case TaxRateRuleReferenceType.PRODUCT:
-      return <ProductTable {...props} />
-    case TaxRateRuleReferenceType.PRODUCT_COLLECTION:
-      return <ProductCollectionTable {...props} />
-    case TaxRateRuleReferenceType.PRODUCT_TYPE:
-      return <ProductTypeTable {...props} />
-    case TaxRateRuleReferenceType.PRODUCT_TAG:
-      return <ProductTagTable {...props} />
-    default:
-      return null
+  case TaxRateRuleReferenceType.CUSTOMER_GROUP:
+    return <CustomerGroupTable {...props} />;
+  case TaxRateRuleReferenceType.PRODUCT:
+    return <ProductTable {...props} />;
+  case TaxRateRuleReferenceType.PRODUCT_COLLECTION:
+    return <ProductCollectionTable {...props} />;
+  case TaxRateRuleReferenceType.PRODUCT_TYPE:
+    return <ProductTypeTable {...props} />;
+  case TaxRateRuleReferenceType.PRODUCT_TAG:
+    return <ProductTagTable {...props} />;
+  default:
+    return null;
   }
-}
+};
 
 type TableImplementationProps = {
   initialRowState: RowSelectionState
@@ -133,9 +133,9 @@ type TableImplementationProps = {
   setIntermediate: (state: TaxRateRuleReference[]) => void
 }
 
-const PAGE_SIZE = 50
+const PAGE_SIZE = 50;
 
-const PREFIX_CUSTOMER_GROUP = "cg"
+const PREFIX_CUSTOMER_GROUP = "cg";
 
 const CustomerGroupTable = ({
   initialRowState,
@@ -143,43 +143,43 @@ const CustomerGroupTable = ({
   setIntermediate,
 }: TableImplementationProps) => {
   const [rowSelection, setRowSelection] =
-    useState<RowSelectionState>(initialRowState)
+    useState<RowSelectionState>(initialRowState);
 
-  useCleanupSearchParams()
+  useCleanupSearchParams();
 
   const { searchParams, raw } = useCustomerGroupTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX_CUSTOMER_GROUP,
-  })
+  });
   const { customer_groups, count, isLoading, isError, error } =
     useCustomerGroups(searchParams, {
       placeholderData: keepPreviousData,
-    })
+    });
 
   const updater: OnChangeFn<RowSelectionState> = (value) => {
-    const state = typeof value === "function" ? value(rowSelection) : value
-    const currentIds = Object.keys(rowSelection)
+    const state = typeof value === "function" ? value(rowSelection) : value;
+    const currentIds = Object.keys(rowSelection);
 
-    const ids = Object.keys(state)
+    const ids = Object.keys(state);
 
-    const newIds = ids.filter((id) => !currentIds.includes(id))
-    const removedIds = currentIds.filter((id) => !ids.includes(id))
+    const newIds = ids.filter((id) => !currentIds.includes(id));
+    const removedIds = currentIds.filter((id) => !ids.includes(id));
 
     const newCustomerGroups =
       customer_groups
         ?.filter((cg) => newIds.includes(cg.customer_group_id))
-        .flatMap((cg) => ({ value: cg.customer_group_id, label: cg.customer_group.name! })) || []
+        .flatMap((cg) => ({ value: cg.customer_group_id, label: cg.customer_group.name! })) || [];
 
     const filteredIntermediate = intermediate.filter(
       (cg) => !removedIds.includes(cg.value)
-    )
+    );
 
-    setIntermediate([...filteredIntermediate, ...newCustomerGroups])
-    setRowSelection(state)
-  }
+    setIntermediate([...filteredIntermediate, ...newCustomerGroups]);
+    setRowSelection(state);
+  };
 
-  const filters = useCustomerGroupTableFilters()
-  const columns = useGroupColumns()
+  const filters = useCustomerGroupTableFilters();
+  const columns = useGroupColumns();
 
   const { table } = useDataTable({
     data: customer_groups || [],
@@ -194,10 +194,10 @@ const CustomerGroupTable = ({
     },
     pageSize: PAGE_SIZE,
     prefix: PREFIX_CUSTOMER_GROUP,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -214,13 +214,13 @@ const CustomerGroupTable = ({
       prefix={PREFIX_CUSTOMER_GROUP}
       queryObject={raw}
     />
-  )
-}
+  );
+};
 
-const cgColumnHelper = createColumnHelper<CustomerGroupData>()
+const cgColumnHelper = createColumnHelper<CustomerGroupData>();
 
 const useGroupColumns = () => {
-  const base = useCustomerGroupTableColumns()
+  const base = useCustomerGroupTableColumns();
 
   return useMemo(
     () => [
@@ -238,7 +238,7 @@ const useGroupColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -246,52 +246,52 @@ const useGroupColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       ...base,
     ],
     [base]
-  )
-}
+  );
+};
 
-const PREFIX_PRODUCT = "p"
+const PREFIX_PRODUCT = "p";
 
 const ProductTable = ({
   initialRowState,
   intermediate,
   setIntermediate,
 }: TableImplementationProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [rowSelection, setRowSelection] =
-    useState<RowSelectionState>(initialRowState)
+    useState<RowSelectionState>(initialRowState);
 
-  useCleanupSearchParams()
+  useCleanupSearchParams();
 
   const { searchParams, raw } = useProductTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX_PRODUCT,
-  })
+  });
 
   const { products, count, isLoading, isError, error } = useProducts(
     searchParams,
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const updater: OnChangeFn<RowSelectionState> = (value) => {
-    const state = typeof value === "function" ? value(rowSelection) : value
-    const currentIds = Object.keys(rowSelection)
+    const state = typeof value === "function" ? value(rowSelection) : value;
+    const currentIds = Object.keys(rowSelection);
 
-    const ids = Object.keys(state)
+    const ids = Object.keys(state);
 
-    const newIds = ids.filter((id) => !currentIds.includes(id))
-    const removedIds = currentIds.filter((id) => !ids.includes(id))
+    const newIds = ids.filter((id) => !currentIds.includes(id));
+    const removedIds = currentIds.filter((id) => !ids.includes(id));
 
     const newProducts =
       products
@@ -299,18 +299,18 @@ const ProductTable = ({
         .map((p) => ({
           value: p.id,
           label: p.title!,
-        })) || []
+        })) || [];
 
     const filteredIntermediate = intermediate.filter(
       (p) => !removedIds.includes(p.value)
-    )
+    );
 
-    setIntermediate([...filteredIntermediate, ...newProducts])
-    setRowSelection(state)
-  }
+    setIntermediate([...filteredIntermediate, ...newProducts]);
+    setRowSelection(state);
+  };
 
-  const filters = useProductTableFilters()
-  const columns = useProductColumns()
+  const filters = useProductTableFilters();
+  const columns = useProductColumns();
 
   const { table } = useDataTable({
     data: products || [],
@@ -325,10 +325,10 @@ const ProductTable = ({
     },
     pageSize: PAGE_SIZE,
     prefix: PREFIX_PRODUCT,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -350,13 +350,13 @@ const ProductTable = ({
       prefix={PREFIX_PRODUCT}
       queryObject={raw}
     />
-  )
-}
+  );
+};
 
-const pColumnHelper = createColumnHelper<ExtendedAdminProduct>()
+const pColumnHelper = createColumnHelper<ExtendedAdminProduct>();
 
 const useProductColumns = () => {
-  const base = useProductTableColumns()
+  const base = useProductTableColumns();
 
   return useMemo(
     () => [
@@ -374,7 +374,7 @@ const useProductColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -382,52 +382,52 @@ const useProductColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       ...base,
     ],
     [base]
-  )
-}
+  );
+};
 
-const PREFIX_PRODUCT_COLLECTION = "pc"
+const PREFIX_PRODUCT_COLLECTION = "pc";
 
 const ProductCollectionTable = ({
   initialRowState,
   intermediate,
   setIntermediate,
 }: TableImplementationProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [rowSelection, setRowSelection] =
-    useState<RowSelectionState>(initialRowState)
+    useState<RowSelectionState>(initialRowState);
 
-  useCleanupSearchParams()
+  useCleanupSearchParams();
 
   const { searchParams, raw } = useCollectionTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX_PRODUCT_COLLECTION,
-  })
+  });
 
   const { product_collections: collections, count, isLoading, isError, error } = useCollections(
     searchParams,
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const updater: OnChangeFn<RowSelectionState> = (value) => {
-    const state = typeof value === "function" ? value(rowSelection) : value
-    const currentIds = Object.keys(rowSelection)
+    const state = typeof value === "function" ? value(rowSelection) : value;
+    const currentIds = Object.keys(rowSelection);
 
-    const ids = Object.keys(state)
+    const ids = Object.keys(state);
 
-    const newIds = ids.filter((id) => !currentIds.includes(id))
-    const removedIds = currentIds.filter((id) => !ids.includes(id))
+    const newIds = ids.filter((id) => !currentIds.includes(id));
+    const removedIds = currentIds.filter((id) => !ids.includes(id));
 
     const newCollections =
       collections
@@ -435,18 +435,18 @@ const ProductCollectionTable = ({
         .map((p) => ({
           value: p.id,
           label: p.title,
-        })) || []
+        })) || [];
 
     const filteredIntermediate = intermediate.filter(
       (p) => !removedIds.includes(p.value)
-    )
+    );
 
-    setIntermediate([...filteredIntermediate, ...newCollections])
-    setRowSelection(state)
-  }
+    setIntermediate([...filteredIntermediate, ...newCollections]);
+    setRowSelection(state);
+  };
 
-  const filters = useCollectionTableFilters()
-  const columns = useCollectionColumns()
+  const filters = useCollectionTableFilters();
+  const columns = useCollectionColumns();
 
   const { table } = useDataTable({
     data: collections || [],
@@ -461,10 +461,10 @@ const ProductCollectionTable = ({
     },
     pageSize: PAGE_SIZE,
     prefix: PREFIX_PRODUCT_COLLECTION,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -486,13 +486,13 @@ const ProductCollectionTable = ({
       prefix={PREFIX_PRODUCT_COLLECTION}
       queryObject={raw}
     />
-  )
-}
+  );
+};
 
-const pcColumnHelper = createColumnHelper<HttpTypes.AdminCollection>()
+const pcColumnHelper = createColumnHelper<HttpTypes.AdminCollection>();
 
 const useCollectionColumns = () => {
-  const base = useCollectionTableColumns()
+  const base = useCollectionTableColumns();
 
   return useMemo(
     () => [
@@ -510,7 +510,7 @@ const useCollectionColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -518,52 +518,52 @@ const useCollectionColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       ...base,
     ],
     [base]
-  )
-}
+  );
+};
 
-const PREFIX_PRODUCT_TYPE = "pt"
+const PREFIX_PRODUCT_TYPE = "pt";
 
 const ProductTypeTable = ({
   initialRowState,
   intermediate,
   setIntermediate,
 }: TableImplementationProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [rowSelection, setRowSelection] =
-    useState<RowSelectionState>(initialRowState)
+    useState<RowSelectionState>(initialRowState);
 
-  useCleanupSearchParams()
+  useCleanupSearchParams();
 
   const { searchParams, raw } = useProductTypeTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX_PRODUCT_TYPE,
-  })
+  });
 
   const { product_types, count, isLoading, isError, error } = useProductTypes(
     searchParams,
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const updater: OnChangeFn<RowSelectionState> = (value) => {
-    const state = typeof value === "function" ? value(rowSelection) : value
-    const currentIds = Object.keys(rowSelection)
+    const state = typeof value === "function" ? value(rowSelection) : value;
+    const currentIds = Object.keys(rowSelection);
 
-    const ids = Object.keys(state)
+    const ids = Object.keys(state);
 
-    const newIds = ids.filter((id) => !currentIds.includes(id))
-    const removedIds = currentIds.filter((id) => !ids.includes(id))
+    const newIds = ids.filter((id) => !currentIds.includes(id));
+    const removedIds = currentIds.filter((id) => !ids.includes(id));
 
     const newTypes =
       product_types
@@ -571,18 +571,18 @@ const ProductTypeTable = ({
         .map((p) => ({
           value: p.id,
           label: p.value,
-        })) || []
+        })) || [];
 
     const filteredIntermediate = intermediate.filter(
       (p) => !removedIds.includes(p.value)
-    )
+    );
 
-    setIntermediate([...filteredIntermediate, ...newTypes])
-    setRowSelection(state)
-  }
+    setIntermediate([...filteredIntermediate, ...newTypes]);
+    setRowSelection(state);
+  };
 
-  const filters = useProductTypeTableFilters()
-  const columns = useProductTypeColumns()
+  const filters = useProductTypeTableFilters();
+  const columns = useProductTypeColumns();
 
   const { table } = useDataTable({
     data: product_types || [],
@@ -597,10 +597,10 @@ const ProductTypeTable = ({
     },
     pageSize: PAGE_SIZE,
     prefix: PREFIX_PRODUCT_TYPE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -622,13 +622,13 @@ const ProductTypeTable = ({
       prefix={PREFIX_PRODUCT_TYPE}
       queryObject={raw}
     />
-  )
-}
+  );
+};
 
-const ptColumnHelper = createColumnHelper<HttpTypes.AdminProductType>()
+const ptColumnHelper = createColumnHelper<HttpTypes.AdminProductType>();
 
 const useProductTypeColumns = () => {
-  const base = useProductTypeTableColumns()
+  const base = useProductTypeTableColumns();
 
   return useMemo(
     () => [
@@ -646,7 +646,7 @@ const useProductTypeColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -654,52 +654,52 @@ const useProductTypeColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       ...base,
     ],
     [base]
-  )
-}
+  );
+};
 
-const PREFIX_PRODUCT_TAG = "ptag"
+const PREFIX_PRODUCT_TAG = "ptag";
 
 const ProductTagTable = ({
   initialRowState,
   intermediate,
   setIntermediate,
 }: TableImplementationProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [rowSelection, setRowSelection] =
-    useState<RowSelectionState>(initialRowState)
+    useState<RowSelectionState>(initialRowState);
 
-  useCleanupSearchParams()
+  useCleanupSearchParams();
 
   const { searchParams, raw } = useProductTagTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX_PRODUCT_TAG,
-  })
+  });
 
   const { product_tags, count, isLoading, isError, error } = useProductTags(
     searchParams,
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const updater: OnChangeFn<RowSelectionState> = (value) => {
-    const state = typeof value === "function" ? value(rowSelection) : value
-    const currentIds = Object.keys(rowSelection)
+    const state = typeof value === "function" ? value(rowSelection) : value;
+    const currentIds = Object.keys(rowSelection);
 
-    const ids = Object.keys(state)
+    const ids = Object.keys(state);
 
-    const newIds = ids.filter((id) => !currentIds.includes(id))
-    const removedIds = currentIds.filter((id) => !ids.includes(id))
+    const newIds = ids.filter((id) => !currentIds.includes(id));
+    const removedIds = currentIds.filter((id) => !ids.includes(id));
 
     const newTags =
       product_tags
@@ -707,18 +707,18 @@ const ProductTagTable = ({
         .map((p) => ({
           value: p.id,
           label: p.value,
-        })) || []
+        })) || [];
 
     const filteredIntermediate = intermediate.filter(
       (p) => !removedIds.includes(p.value)
-    )
+    );
 
-    setIntermediate([...filteredIntermediate, ...newTags])
-    setRowSelection(state)
-  }
+    setIntermediate([...filteredIntermediate, ...newTags]);
+    setRowSelection(state);
+  };
 
-  const filters = useProductTagTableFilters()
-  const columns = useProductTagColumns()
+  const filters = useProductTagTableFilters();
+  const columns = useProductTagColumns();
 
   const { table } = useDataTable({
     data: product_tags || [],
@@ -733,10 +733,10 @@ const ProductTagTable = ({
     },
     pageSize: PAGE_SIZE,
     prefix: PREFIX_PRODUCT_TAG,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -758,13 +758,13 @@ const ProductTagTable = ({
       prefix={PREFIX_PRODUCT_TAG}
       queryObject={raw}
     />
-  )
-}
+  );
+};
 
-const ptagColumnHelper = createColumnHelper<HttpTypes.AdminProductTag>()
+const ptagColumnHelper = createColumnHelper<HttpTypes.AdminProductTag>();
 
 const useProductTagColumns = () => {
-  const base = useProductTagTableColumns()
+  const base = useProductTagTableColumns();
 
   return useMemo(
     () => [
@@ -782,7 +782,7 @@ const useProductTagColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -790,25 +790,25 @@ const useProductTagColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       ...base,
     ],
     [base]
-  )
-}
+  );
+};
 
 const useCleanupSearchParams = () => {
-  const [_, setSearchParams] = useSearchParams()
+  const [_, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     return () => {
-      setSearchParams({})
-    }
+      setSearchParams({});
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-}
+  }, []);
+};

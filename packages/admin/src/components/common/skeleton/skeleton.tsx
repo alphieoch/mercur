@@ -1,5 +1,5 @@
-import { Container, Heading, Text, clx } from "@medusajs/ui"
-import { CSSProperties, ComponentPropsWithoutRef } from "react"
+import { Container, Heading, Text, clx } from "@medusajs/ui";
+import { CSSProperties, ComponentPropsWithoutRef } from "react";
 
 type SkeletonProps = {
   className?: string
@@ -16,8 +16,8 @@ export const Skeleton = ({ className, style }: SkeletonProps) => {
       )}
       style={style}
     />
-  )
-}
+  );
+};
 
 type TextSkeletonProps = {
   size?: ComponentPropsWithoutRef<typeof Text>["size"]
@@ -34,18 +34,18 @@ export const HeadingSkeleton = ({
   level = "h1",
   characters = 10,
 }: HeadingSkeletonProps) => {
-  let charWidth = 9
+  let charWidth = 9;
 
   switch (level) {
-    case "h1":
-      charWidth = 11
-      break
-    case "h2":
-      charWidth = 10
-      break
-    case "h3":
-      charWidth = 9
-      break
+  case "h1":
+    charWidth = 11;
+    break;
+  case "h2":
+    charWidth = 10;
+    break;
+  case "h3":
+    charWidth = 9;
+    break;
   }
 
   return (
@@ -59,32 +59,32 @@ export const HeadingSkeleton = ({
         width: `${charWidth * characters}px`,
       }}
     />
-  )
-}
+  );
+};
 
 export const TextSkeleton = ({
   size = "small",
   leading = "compact",
   characters = 10,
 }: TextSkeletonProps) => {
-  let charWidth = 9
+  let charWidth = 9;
 
   switch (size) {
-    case "xlarge":
-      charWidth = 13
-      break
-    case "large":
-      charWidth = 11
-      break
-    case "base":
-      charWidth = 10
-      break
-    case "small":
-      charWidth = 9
-      break
-    case "xsmall":
-      charWidth = 8
-      break
+  case "xlarge":
+    charWidth = 13;
+    break;
+  case "large":
+    charWidth = 11;
+    break;
+  case "base":
+    charWidth = 10;
+    break;
+  case "small":
+    charWidth = 9;
+    break;
+  case "xsmall":
+    charWidth = 8;
+    break;
   }
 
   return (
@@ -100,12 +100,12 @@ export const TextSkeleton = ({
         width: `${charWidth * characters}px`,
       }}
     />
-  )
-}
+  );
+};
 
 export const IconButtonSkeleton = () => {
-  return <Skeleton className="h-7 w-7 rounded-md" />
-}
+  return <Skeleton className="h-7 w-7 rounded-md" />;
+};
 
 type GeneralSectionSkeletonProps = {
   rowCount?: number
@@ -114,7 +114,7 @@ type GeneralSectionSkeletonProps = {
 export const GeneralSectionSkeleton = ({
   rowCount,
 }: GeneralSectionSkeletonProps) => {
-  const rows = Array.from({ length: rowCount ?? 0 }, (_, i) => i)
+  const rows = Array.from({ length: rowCount ?? 0 }, (_, i) => i);
 
   return (
     <Container className="divide-y p-0" aria-hidden>
@@ -133,8 +133,8 @@ export const GeneralSectionSkeleton = ({
         </div>
       ))}
     </Container>
-  )
-}
+  );
+};
 
 export const TableFooterSkeleton = ({ layout }: { layout: "fill" | "fit" }) => {
   return (
@@ -150,8 +150,8 @@ export const TableFooterSkeleton = ({ layout }: { layout: "fill" | "fit" }) => {
         <Skeleton className="h-7 w-11" />
       </div>
     </div>
-  )
-}
+  );
+};
 
 type TableSkeletonProps = {
   rowCount?: number
@@ -171,10 +171,10 @@ export const TableSkeleton = ({
   layout = "fit",
 }: TableSkeletonProps) => {
   // Row count + header row
-  const totalRowCount = rowCount + 1
+  const totalRowCount = rowCount + 1;
 
-  const rows = Array.from({ length: totalRowCount }, (_, i) => i)
-  const hasToolbar = search || filters || orderBy
+  const rows = Array.from({ length: totalRowCount }, (_, i) => i);
+  const hasToolbar = search || filters || orderBy;
 
   return (
     <div
@@ -201,8 +201,8 @@ export const TableSkeleton = ({
       </div>
       {pagination && <TableFooterSkeleton layout={layout} />}
     </div>
-  )
-}
+  );
+};
 
 export const TableSectionSkeleton = (props: TableSkeletonProps) => {
   return (
@@ -213,8 +213,8 @@ export const TableSectionSkeleton = (props: TableSkeletonProps) => {
       </div>
       <TableSkeleton {...props} />
     </Container>
-  )
-}
+  );
+};
 
 export const JsonViewSectionSkeleton = () => {
   return (
@@ -227,8 +227,8 @@ export const JsonViewSectionSkeleton = () => {
         <IconButtonSkeleton />
       </div>
     </Container>
-  )
-}
+  );
+};
 
 type SingleColumnPageSkeletonProps = {
   sections?: number
@@ -253,13 +253,13 @@ export const SingleColumnPageSkeleton = ({
               "max-h-[219px]": section === 0,
             })}
           />
-        )
+        );
       })}
       {showMetadata && <Skeleton className="h-[60px] w-full rounded-lg" />}
       {showJSON && <Skeleton className="h-[60px] w-full rounded-lg" />}
     </div>
-  )
-}
+  );
+};
 
 type TwoColumnPageSkeletonProps = {
   mainSections?: number
@@ -274,7 +274,7 @@ export const TwoColumnPageSkeleton = ({
   showJSON = false,
   showMetadata = true,
 }: TwoColumnPageSkeletonProps) => {
-  const showExtraData = showJSON || showMetadata
+  const showExtraData = showJSON || showMetadata;
 
   return (
     <div className="flex flex-col gap-y-3">
@@ -288,7 +288,7 @@ export const TwoColumnPageSkeleton = ({
                   "max-h-[219px]": section === 0,
                 })}
               />
-            )
+            );
           })}
           {showExtraData && (
             <div className="hidden flex-col gap-y-3 xl:flex">
@@ -309,7 +309,7 @@ export const TwoColumnPageSkeleton = ({
                     "max-h-[140px]": section === 0,
                   })}
                 />
-              )
+              );
             }
           )}
           {showExtraData && (
@@ -323,5 +323,5 @@ export const TwoColumnPageSkeleton = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

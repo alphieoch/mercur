@@ -1,29 +1,29 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { AdminOrder, HttpTypes } from "@medusajs/types"
-import { Alert, Button, Select, Switch, toast } from "@medusajs/ui"
-import { useForm, useWatch } from "react-hook-form"
+import { AdminOrder, HttpTypes } from "@medusajs/types";
+import { Alert, Button, Select, Switch, toast } from "@medusajs/ui";
+import { useForm, useWatch } from "react-hook-form";
 
-import { OrderLineItemDTO } from "@medusajs/types"
-import { Form } from "@components/common/form"
+import { OrderLineItemDTO } from "@medusajs/types";
+import { Form } from "@components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCreateOrderFulfillment } from "@hooks/api/orders"
-import { useStockLocations } from "@hooks/api/stock-locations"
-import { getFulfillableQuantity } from "@lib/order-item"
-import { CreateFulfillmentSchema } from "./constants"
-import { OrderCreateFulfillmentItem } from "./order-create-fulfillment-item"
-import { useShippingOptions } from "@hooks/api"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCreateOrderFulfillment } from "@hooks/api/orders";
+import { useStockLocations } from "@hooks/api/stock-locations";
+import { getFulfillableQuantity } from "@lib/order-item";
+import { CreateFulfillmentSchema } from "./constants";
+import { OrderCreateFulfillmentItem } from "./order-create-fulfillment-item";
+import { useShippingOptions } from "@hooks/api";
 import {
   isReturnOption,
   isSameLocation,
-} from "@lib/shipping-options"
+} from "@lib/shipping-options";
 
 type OrderCreateFulfillmentFormProps = {
   order: AdminOrder
@@ -34,11 +34,11 @@ export function OrderCreateFulfillmentForm({
   order,
   requiresShipping,
 }: OrderCreateFulfillmentFormProps) {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const { mutateAsync: createOrderFulfillment, isPending: isMutating } =
-    useCreateOrderFulfillment(order.id)
+    useCreateOrderFulfillment(order.id);
 
   const [fulfillableItems, setFulfillableItems] = useState(() =>
     (order.items || []).filter(
@@ -46,75 +46,75 @@ export function OrderCreateFulfillmentForm({
         item.requires_shipping === requiresShipping &&
         getFulfillableQuantity(item as any) > 0
     )
-  )
+  );
 
   const form = useForm<zod.infer<typeof CreateFulfillmentSchema>>({
     defaultValues: {
       quantity: fulfillableItems.reduce(
         (acc, item) => {
-          acc[item.id] = getFulfillableQuantity(item as any)
-          return acc
+          acc[item.id] = getFulfillableQuantity(item as any);
+          return acc;
         },
         {} as Record<string, number>
       ),
       send_notification: true,
     },
     resolver: zodResolver(CreateFulfillmentSchema),
-  })
+  });
 
   const selectedLocationId = useWatch({
     name: "location_id",
     control: form.control,
-  })
+  });
 
-  const { stock_locations = [] } = useStockLocations()
+  const { stock_locations = [] } = useStockLocations();
 
   const { shipping_options = [], isLoading: isShippingOptionsLoading } =
     useShippingOptions({
       fields: "+service_zone.fulfillment_set.location.id,*rules",
-    })
+    });
 
   const filteredShippingOptions = shipping_options.filter(
     (o) =>
       o !== null && !isReturnOption(o) && isSameLocation(o, selectedLocationId)
-  )
+  );
 
   const shippingOptionId = useWatch({
     name: "shipping_option_id",
     control: form.control,
-  })
+  });
 
   const handleSubmit = form.handleSubmit(async (data) => {
     const selectedShippingOption = shipping_options.find(
       (o) => o?.id === shippingOptionId
-    )
+    );
 
     if (!selectedShippingOption) {
       form.setError("shipping_option_id", {
         type: "manual",
         message: t("orders.fulfillment.error.noShippingOption"),
-      })
-      return
+      });
+      return;
     }
 
     if (!selectedLocationId) {
       form.setError("location_id", {
         type: "manual",
         message: t("orders.fulfillment.error.noLocation"),
-      })
-      return
+      });
+      return;
     }
 
     const selectedShippingProfileId =
-      selectedShippingOption?.shipping_profile_id
+      selectedShippingOption?.shipping_profile_id;
 
     const itemShippingProfileMap = order.items.reduce(
       (acc, item) => {
-        acc[item.id] = item.variant?.product?.shipping_profile?.id ?? null
-        return acc
+        acc[item.id] = item.variant?.product?.shipping_profile?.id ?? null;
+        return acc;
       },
       {} as Record<string, string | null>
-    )
+    );
 
     const payload: HttpTypes.AdminCreateOrderFulfillment & {
       requires_shipping: boolean
@@ -132,47 +132,47 @@ export function OrderCreateFulfillmentForm({
           id,
           quantity,
         })),
-    }
+    };
 
     try {
-      await createOrderFulfillment(payload)
+      await createOrderFulfillment(payload);
 
-      toast.success(t("orders.fulfillment.toast.created"))
-      handleSuccess(`/orders/${order.id}`)
+      toast.success(t("orders.fulfillment.toast.created"));
+      handleSuccess(`/orders/${order.id}`);
     } catch (e: any) {
-      toast.error(e.message)
+      toast.error(e.message);
     }
-  })
+  });
 
   useEffect(() => {
     if (stock_locations?.length && shipping_options?.length) {
       const initialShippingOptionId =
-        order.shipping_methods?.[0]?.shipping_option_id
+        order.shipping_methods?.[0]?.shipping_option_id;
 
       if (initialShippingOptionId) {
         const shippingOption = shipping_options.find(
           (o) => o?.id === initialShippingOptionId
-        )
+        );
 
         if (shippingOption) {
           const locationId =
-            shippingOption.service_zone.fulfillment_set.location.id
+            shippingOption.service_zone.fulfillment_set.location.id;
 
-          form.setValue("location_id", locationId)
+          form.setValue("location_id", locationId);
           form.setValue(
             "shipping_option_id",
             initialShippingOptionId || undefined
-          )
+          );
         } // else -> TODO: what if original shipping option is deleted?
       }
     }
-  }, [stock_locations?.length, shipping_options?.length])
+  }, [stock_locations?.length, shipping_options?.length]);
 
   const fulfilledQuantityArray = (order.items || []).map(
     (item) =>
       item.requires_shipping === requiresShipping &&
       item.detail.fulfilled_quantity
-  )
+  );
 
   useEffect(() => {
     const itemsToFulfill =
@@ -180,33 +180,33 @@ export function OrderCreateFulfillmentForm({
         (item) =>
           item.requires_shipping === requiresShipping &&
           getFulfillableQuantity(item as OrderLineItemDTO) > 0
-      ) || []
+      ) || [];
 
-    setFulfillableItems(itemsToFulfill)
+    setFulfillableItems(itemsToFulfill);
 
     if (itemsToFulfill.length) {
-      form.clearErrors("root")
+      form.clearErrors("root");
     } else {
       form.setError("root", {
         type: "manual",
         message: t("orders.fulfillment.error.noItems"),
-      })
+      });
     }
 
     const quantityMap = itemsToFulfill.reduce(
       (acc, item) => {
-        acc[item.id] = getFulfillableQuantity(item as OrderLineItemDTO)
-        return acc
+        acc[item.id] = getFulfillableQuantity(item as OrderLineItemDTO);
+        return acc;
       },
       {} as Record<string, number>
-    )
+    );
 
-    form.setValue("quantity", quantityMap)
-  }, [...fulfilledQuantityArray, requiresShipping])
+    form.setValue("quantity", quantityMap);
+  }, [...fulfilledQuantityArray, requiresShipping]);
 
   const differentOptionSelected =
     shippingOptionId &&
-    order.shipping_methods?.[0]?.shipping_option_id !== shippingOptionId
+    order.shipping_methods?.[0]?.shipping_option_id !== shippingOptionId;
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -256,7 +256,7 @@ export function OrderCreateFulfillmentForm({
                           </div>
                           <Form.ErrorMessage />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
                 </div>
@@ -310,7 +310,7 @@ export function OrderCreateFulfillmentForm({
                           </div>
                           <Form.ErrorMessage />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
 
@@ -340,7 +340,7 @@ export function OrderCreateFulfillmentForm({
                           shipping_options.find(
                             (o) => o?.id === shippingOptionId
                           )?.shipping_profile_id ===
-                          item.variant?.product?.shipping_profile?.id
+                          item.variant?.product?.shipping_profile?.id;
 
                         return (
                           <OrderCreateFulfillmentItem
@@ -352,7 +352,7 @@ export function OrderCreateFulfillmentForm({
                             onItemRemove={() => {}}
                             disabled={!isShippingProfileMatching}
                           />
-                        )
+                        );
                       })}
                     </div>
                   </Form.Item>
@@ -394,7 +394,7 @@ export function OrderCreateFulfillmentForm({
                           </Form.Hint>
                           <Form.ErrorMessage />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
                 </div>
@@ -421,5 +421,5 @@ export function OrderCreateFulfillmentForm({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }

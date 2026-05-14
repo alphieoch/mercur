@@ -22,7 +22,7 @@ export const useOrderTableFilters = (): Filter[] => {
   });
 
   return useMemo(() => {
-    let filters: Filter[] = [];
+    const filters: Filter[] = [];
 
     if (regions) {
       const regionFilter: Filter = {

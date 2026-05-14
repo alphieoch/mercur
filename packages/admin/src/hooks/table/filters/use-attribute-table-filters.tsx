@@ -1,8 +1,8 @@
-import { useTranslation } from "react-i18next"
-import { Filter } from "../../../components/table/data-table"
+import { useTranslation } from "react-i18next";
+import { Filter } from "../../../components/table/data-table";
 
 export const useAttributeTableFilters = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const filterableFilter: Filter = {
     key: "is_filterable",
@@ -18,7 +18,7 @@ export const useAttributeTableFilters = () => {
         value: "false",
       },
     ],
-  }
+  };
 
   const dateFilters: Filter[] = [
     { label: t("fields.createdAt"), key: "created_at" },
@@ -27,7 +27,7 @@ export const useAttributeTableFilters = () => {
     key: f.key,
     label: f.label,
     type: "date" as const,
-  }))
+  }));
 
-  return [filterableFilter, ...dateFilters]
-}
+  return [filterableFilter, ...dateFilters];
+};

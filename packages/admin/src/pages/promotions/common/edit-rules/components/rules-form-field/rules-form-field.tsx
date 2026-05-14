@@ -73,10 +73,10 @@ export const RulesFormField = ({
 
   const query: Record<string, string> = promotionType
     ? {
-        promotion_type: promotionType,
-        application_method_type: applicationMethodType,
-        application_method_target_type: applicationMethodTargetType
-      }
+      promotion_type: promotionType,
+      application_method_type: applicationMethodType,
+      application_method_target_type: applicationMethodTargetType
+    }
     : {};
 
   const { rules, isLoading } = usePromotionRules(promotion?.id || null, ruleType, query, {

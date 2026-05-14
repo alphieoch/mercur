@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react"
-import { FieldValues, Path, UseFormReturn } from "react-hook-form"
-import { DataGridMatrix } from "../models"
-import { DataGridCellSnapshot, DataGridCoordinates } from "../types"
+import { useCallback, useState } from "react";
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { DataGridMatrix } from "../models";
+import { DataGridCellSnapshot, DataGridCoordinates } from "../types";
 
 type UseDataGridCellSnapshotOptions<TData, TFieldValues extends FieldValues> = {
   matrix: DataGridMatrix<TData, TFieldValues>
@@ -12,13 +12,13 @@ export const useDataGridCellSnapshot = <
   TData,
   TFieldValues extends FieldValues
 >({
-  matrix,
-  form,
-}: UseDataGridCellSnapshotOptions<TData, TFieldValues>) => {
+    matrix,
+    form,
+  }: UseDataGridCellSnapshotOptions<TData, TFieldValues>) => {
   const [snapshot, setSnapshot] =
-    useState<DataGridCellSnapshot<TFieldValues> | null>(null)
+    useState<DataGridCellSnapshot<TFieldValues> | null>(null);
 
-  const { getValues, setValue } = form
+  const { getValues, setValue } = form;
 
   /**
    * Creates a snapshot of the current cell value.
@@ -26,16 +26,16 @@ export const useDataGridCellSnapshot = <
   const createSnapshot = useCallback(
     (cell: DataGridCoordinates | null) => {
       if (!cell) {
-        return null
+        return null;
       }
 
-      const field = matrix.getCellField(cell)
+      const field = matrix.getCellField(cell);
 
       if (!field) {
-        return null
+        return null;
       }
 
-      const value = getValues(field as Path<TFieldValues>)
+      const value = getValues(field as Path<TFieldValues>);
 
       setSnapshot((curr) => {
         /**
@@ -44,32 +44,32 @@ export const useDataGridCellSnapshot = <
          * we create a snapshot of the value before its destroyed by the space key.
          */
         if (curr?.field === field) {
-          return curr
+          return curr;
         }
 
-        return { field, value }
-      })
+        return { field, value };
+      });
     },
     [getValues, matrix]
-  )
+  );
 
   /**
    * Restores the cell value from the snapshot if it exists.
    */
   const restoreSnapshot = useCallback(() => {
     if (!snapshot) {
-      return
+      return;
     }
 
-    const { field, value } = snapshot
+    const { field, value } = snapshot;
 
     requestAnimationFrame(() => {
-      setValue(field as Path<TFieldValues>, value)
-    })
-  }, [setValue, snapshot])
+      setValue(field as Path<TFieldValues>, value);
+    });
+  }, [setValue, snapshot]);
 
   return {
     createSnapshot,
     restoreSnapshot,
-  }
-}
+  };
+};

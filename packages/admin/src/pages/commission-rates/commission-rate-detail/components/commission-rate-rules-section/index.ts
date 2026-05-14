@@ -1,1 +1,1 @@
-export { CommissionRateRulesSection } from "./commission-rate-rules-section"
+export { CommissionRateRulesSection } from "./commission-rate-rules-section";

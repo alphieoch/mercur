@@ -13,14 +13,14 @@ export const ProductOrganizationSection = () => {
   const { t } = useTranslation();
 
   const additionalSecondaryCategoryIds = useMemo(() => {
-    const additional = (product as any).additional_data?.secondary_categories
-    if (!additional || !Array.isArray(additional)) return []
+    const additional = (product as any).additional_data?.secondary_categories;
+    if (!additional || !Array.isArray(additional)) return [];
     return additional.flatMap((entry: any) =>
       Array.isArray(entry.category_ids) ? entry.category_ids : []
-    )
-  }, [product])
+    );
+  }, [product]);
 
-  const hasSecondaryFromAdditional = additionalSecondaryCategoryIds.length > 0
+  const hasSecondaryFromAdditional = additionalSecondaryCategoryIds.length > 0;
 
   const { product_categories: allCategories } = useProductCategories(
     {
@@ -28,17 +28,17 @@ export const ProductOrganizationSection = () => {
       limit: 100,
     },
     { enabled: hasSecondaryFromAdditional }
-  )
+  );
 
   const secondaryCategories = useMemo(() => {
     if ((product as any).secondary_categories?.length) {
-      return (product as any).secondary_categories
+      return (product as any).secondary_categories;
     }
     if (hasSecondaryFromAdditional && allCategories) {
-      return allCategories
+      return allCategories;
     }
-    return []
-  }, [product, hasSecondaryFromAdditional, allCategories])
+    return [];
+  }, [product, hasSecondaryFromAdditional, allCategories]);
 
   return (
     <Container className="divide-y p-0">
@@ -64,12 +64,12 @@ export const ProductOrganizationSection = () => {
         value={
           product.tags?.length
             ? product.tags.map((tag) => (
-                <OrganizationTag
-                  key={tag.id}
-                  label={tag.value}
-                  to={`/settings/product-tags/${tag.id}`}
-                />
-              ))
+              <OrganizationTag
+                key={tag.id}
+                label={tag.value}
+                to={`/settings/product-tags/${tag.id}`}
+              />
+            ))
             : undefined
         }
       />
@@ -102,12 +102,12 @@ export const ProductOrganizationSection = () => {
         value={
           product.categories?.length
             ? product.categories.map((pcat) => (
-                <OrganizationTag
-                  key={pcat.id}
-                  label={pcat.name}
-                  to={`/categories/${pcat.id}`}
-                />
-              ))
+              <OrganizationTag
+                key={pcat.id}
+                label={pcat.name}
+                to={`/categories/${pcat.id}`}
+              />
+            ))
             : undefined
         }
       />
@@ -117,12 +117,12 @@ export const ProductOrganizationSection = () => {
         value={
           secondaryCategories?.length
             ? secondaryCategories.map((cat: any) => (
-                <OrganizationTag
-                  key={cat.id}
-                  label={cat.name}
-                  to={`/categories/${cat.id}`}
-                />
-              ))
+              <OrganizationTag
+                key={cat.id}
+                label={cat.name}
+                to={`/categories/${cat.id}`}
+              />
+            ))
             : undefined
         }
       />

@@ -2,21 +2,21 @@ import {
   AdminOrderLineItem,
   DateComparisonOperator,
   NumericalComparisonOperator,
-} from "@medusajs/types"
-import { OnChangeFn, RowSelectionState } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
+} from "@medusajs/types";
+import { OnChangeFn, RowSelectionState } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
 
-import { useTranslation } from "react-i18next"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { getStylizedAmount } from "../../../../../lib/money-amount-helpers"
-import { getReturnableQuantity } from "../../../../../lib/rma"
-import { useClaimItemTableColumns } from "./use-claim-item-table-columns"
-import { useClaimItemTableFilters } from "./use-claim-item-table-filters"
-import { useClaimItemTableQuery } from "./use-claim-item-table-query"
+import { useTranslation } from "react-i18next";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { getStylizedAmount } from "../../../../../lib/money-amount-helpers";
+import { getReturnableQuantity } from "../../../../../lib/rma";
+import { useClaimItemTableColumns } from "./use-claim-item-table-columns";
+import { useClaimItemTableFilters } from "./use-claim-item-table-filters";
+import { useClaimItemTableQuery } from "./use-claim-item-table-query";
 
-const PAGE_SIZE = 50
-const PREFIX = "rit"
+const PAGE_SIZE = 50;
+const PREFIX = "rit";
 
 type AddReturnItemsTableProps = {
   onSelectionChange: (ids: string[]) => void
@@ -31,27 +31,27 @@ export const AddClaimItemsTable = ({
   items,
   currencyCode,
 }: AddReturnItemsTableProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>(
     selectedItems.reduce((acc, id) => {
-      acc[id] = true
-      return acc
+      acc[id] = true;
+      return acc;
     }, {} as RowSelectionState)
-  )
+  );
 
   const updater: OnChangeFn<RowSelectionState> = (fn) => {
     const newState: RowSelectionState =
-      typeof fn === "function" ? fn(rowSelection) : fn
+      typeof fn === "function" ? fn(rowSelection) : fn;
 
-    setRowSelection(newState)
-    onSelectionChange(Object.keys(newState))
-  }
+    setRowSelection(newState);
+    onSelectionChange(Object.keys(newState));
+  };
 
   const { searchParams, raw } = useClaimItemTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
 
   const queriedItems = useMemo(() => {
     const {
@@ -63,9 +63,9 @@ export const AddClaimItemsTable = ({
       updated_at,
       refundable_amount,
       returnable_quantity,
-    } = searchParams
+    } = searchParams;
 
-    let results: AdminOrderLineItem[] = items
+    let results: AdminOrderLineItem[] = items;
 
     if (q) {
       results = results.filter((i) => {
@@ -73,23 +73,23 @@ export const AddClaimItemsTable = ({
           i.product_title?.toLowerCase().includes(q.toLowerCase()) ||
           i.variant_title?.toLowerCase().includes(q.toLowerCase()) ||
           i.variant_sku?.toLowerCase().includes(q.toLowerCase())
-        )
-      })
+        );
+      });
     }
 
     if (order) {
-      const direction = order[0] === "-" ? "desc" : "asc"
-      const field = order.replace("-", "")
+      const direction = order[0] === "-" ? "desc" : "asc";
+      const field = order.replace("-", "");
 
-      results = sortItems(results, field, direction)
+      results = sortItems(results, field, direction);
     }
 
     if (created_at) {
-      results = filterByDate(results, created_at, "created_at")
+      results = filterByDate(results, created_at, "created_at");
     }
 
     if (updated_at) {
-      results = filterByDate(results, updated_at, "updated_at")
+      results = filterByDate(results, updated_at, "updated_at");
     }
 
     if (returnable_quantity) {
@@ -98,7 +98,7 @@ export const AddClaimItemsTable = ({
         returnable_quantity,
         "returnable_quantity",
         currencyCode
-      )
+      );
     }
 
     if (refundable_amount) {
@@ -107,14 +107,14 @@ export const AddClaimItemsTable = ({
         refundable_amount,
         "refundable_amount",
         currencyCode
-      )
+      );
     }
 
-    return results.slice(offset, offset + limit)
-  }, [items, currencyCode, searchParams])
+    return results.slice(offset, offset + limit);
+  }, [items, currencyCode, searchParams]);
 
-  const columns = useClaimItemTableColumns(currencyCode)
-  const filters = useClaimItemTableFilters()
+  const columns = useClaimItemTableColumns(currencyCode);
+  const filters = useClaimItemTableFilters();
 
   const { table } = useDataTable({
     data: queriedItems as AdminOrderLineItem[],
@@ -124,13 +124,13 @@ export const AddClaimItemsTable = ({
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
     enableRowSelection: (row) => {
-      return getReturnableQuantity(row.original) > 0
+      return getReturnableQuantity(row.original) > 0;
     },
     rowSelection: {
       state: rowSelection,
       updater,
     },
-  })
+  });
 
   return (
     <div className="flex size-full flex-col overflow-hidden">
@@ -160,8 +160,8 @@ export const AddClaimItemsTable = ({
         queryObject={raw}
       />
     </div>
-  )
-}
+  );
+};
 
 const sortItems = (
   items: AdminOrderLineItem[],
@@ -169,66 +169,66 @@ const sortItems = (
   direction: "asc" | "desc"
 ) => {
   return items.sort((a, b) => {
-    let aValue: any
-    let bValue: any
+    let aValue: any;
+    let bValue: any;
 
     if (field === "product_title") {
-      aValue = a.product_title
-      bValue = b.product_title
+      aValue = a.product_title;
+      bValue = b.product_title;
     } else if (field === "variant_title") {
-      aValue = a.variant_title
-      bValue = b.variant_title
+      aValue = a.variant_title;
+      bValue = b.variant_title;
     } else if (field === "sku") {
-      aValue = a.variant_sku
-      bValue = b.variant_sku
+      aValue = a.variant_sku;
+      bValue = b.variant_sku;
     } else if (field === "returnable_quantity") {
-      aValue = a.quantity - (a.returned_quantity || 0)
-      bValue = b.quantity - (b.returned_quantity || 0)
+      aValue = a.quantity - (a.returned_quantity || 0);
+      bValue = b.quantity - (b.returned_quantity || 0);
     } else if (field === "refundable_amount") {
-      aValue = a.refundable || 0
-      bValue = b.refundable || 0
+      aValue = a.refundable || 0;
+      bValue = b.refundable || 0;
     }
 
     if (aValue < bValue) {
-      return direction === "asc" ? -1 : 1
+      return direction === "asc" ? -1 : 1;
     }
     if (aValue > bValue) {
-      return direction === "asc" ? 1 : -1
+      return direction === "asc" ? 1 : -1;
     }
-    return 0
-  })
-}
+    return 0;
+  });
+};
 
 const filterByDate = (
   items: AdminOrderLineItem[],
   date: DateComparisonOperator,
   field: "created_at" | "updated_at"
 ) => {
-  const { gt, gte, lt, lte } = date
+  const { gt, gte, lt, lte } = date;
 
   return items.filter((i) => {
-    const itemDate = new Date(i[field])
-    let isValid = true
+    const itemDate = new Date(i[field]);
+    let isValid = true;
 
     if (gt) {
-      isValid = isValid && itemDate > new Date(gt)
+      isValid = isValid && itemDate > new Date(gt);
     }
 
     if (gte) {
-      isValid = isValid && itemDate >= new Date(gte)
+      isValid = isValid && itemDate >= new Date(gte);
     }
 
     if (lt) {
-      isValid = isValid && itemDate < new Date(lt)
+      isValid = isValid && itemDate < new Date(lt);
     }
 
     if (lte) {
-      isValid = isValid && itemDate <= new Date(lte)
+      isValid = isValid && itemDate <= new Date(lte);
     }
 
-    return isValid
-  })
-}
+    return isValid;
+  });
+};
 
 const defaultOperators = {
   eq: undefined,
@@ -236,7 +236,7 @@ const defaultOperators = {
   gte: undefined,
   lt: undefined,
   lte: undefined,
-}
+};
 
 const filterByNumber = (
   items: AdminOrderLineItem[],
@@ -247,37 +247,37 @@ const filterByNumber = (
   const { eq, gt, lt, gte, lte } =
     typeof value === "object"
       ? { ...defaultOperators, ...value }
-      : { ...defaultOperators, eq: value }
+      : { ...defaultOperators, eq: value };
 
   return items.filter((i) => {
-    const returnableQuantity = i.quantity - (i.returned_quantity || 0)
-    const refundableAmount = getStylizedAmount(i.refundable || 0, currency_code)
+    const returnableQuantity = i.quantity - (i.returned_quantity || 0);
+    const refundableAmount = getStylizedAmount(i.refundable || 0, currency_code);
 
     const itemValue =
-      field === "returnable_quantity" ? returnableQuantity : refundableAmount
+      field === "returnable_quantity" ? returnableQuantity : refundableAmount;
 
     if (eq) {
-      return itemValue === eq
+      return itemValue === eq;
     }
 
-    let isValid = true
+    let isValid = true;
 
     if (gt) {
-      isValid = isValid && itemValue > gt
+      isValid = isValid && itemValue > gt;
     }
 
     if (gte) {
-      isValid = isValid && itemValue >= gte
+      isValid = isValid && itemValue >= gte;
     }
 
     if (lt) {
-      isValid = isValid && itemValue < lt
+      isValid = isValid && itemValue < lt;
     }
 
     if (lte) {
-      isValid = isValid && itemValue <= lte
+      isValid = isValid && itemValue <= lte;
     }
 
-    return isValid
-  })
-}
+    return isValid;
+  });
+};

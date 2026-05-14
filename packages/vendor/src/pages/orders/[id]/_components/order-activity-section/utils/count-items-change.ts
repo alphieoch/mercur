@@ -1,24 +1,24 @@
-import { AdminOrderChange } from "@medusajs/types"
+import { AdminOrderChange } from "@medusajs/types";
 
 export function countItemsChange(actions: AdminOrderChange["actions"]) {
-  let added = 0
-  let removed = 0
+  let added = 0;
+  let removed = 0;
 
   actions.forEach((action) => {
     if (action.action === "ITEM_ADD") {
-      added += action.details!.quantity as number
+      added += action.details!.quantity as number;
     }
     if (action.action === "ITEM_UPDATE") {
-      const quantityDiff = action.details!.quantity_diff as number
+      const quantityDiff = action.details!.quantity_diff as number;
 
       if (quantityDiff > 0) {
-        added += quantityDiff
+        added += quantityDiff;
       } else {
-        removed += Math.abs(quantityDiff)
+        removed += Math.abs(quantityDiff);
       }
     }
-  })
+  });
 
-  return [added, removed]
+  return [added, removed];
 }
 

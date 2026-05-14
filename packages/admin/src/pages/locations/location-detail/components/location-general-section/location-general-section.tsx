@@ -6,8 +6,8 @@ import {
   Plus,
   Trash,
   TriangleDownMini,
-} from "@medusajs/icons"
-import type { HttpTypes } from "@medusajs/types"
+} from "@medusajs/icons";
+import type { HttpTypes } from "@medusajs/types";
 import {
   Badge,
   Container,
@@ -18,39 +18,39 @@ import {
   Text,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+} from "@medusajs/ui";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { NoRecords } from "../../../../../components/common/empty-table-content"
-import { IconAvatar } from "../../../../../components/common/icon-avatar"
-import { LinkButton } from "../../../../../components/common/link-button"
-import { ListSummary } from "../../../../../components/common/list-summary"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { NoRecords } from "../../../../../components/common/empty-table-content";
+import { IconAvatar } from "../../../../../components/common/icon-avatar";
+import { LinkButton } from "../../../../../components/common/link-button";
+import { ListSummary } from "../../../../../components/common/list-summary";
 import {
   useDeleteFulfillmentServiceZone,
   useDeleteFulfillmentSet,
-} from "../../../../../hooks/api/fulfillment-sets"
-import { useDeleteShippingOption } from "../../../../../hooks/api/shipping-options"
+} from "../../../../../hooks/api/fulfillment-sets";
+import { useDeleteShippingOption } from "../../../../../hooks/api/shipping-options";
 import {
   useCreateStockLocationFulfillmentSet,
   useDeleteStockLocation,
-} from "../../../../../hooks/api/stock-locations"
-import { getFormattedAddress } from "../../../../../lib/addresses"
+} from "../../../../../hooks/api/stock-locations";
+import { getFormattedAddress } from "../../../../../lib/addresses";
 import {
   StaticCountry,
   countries as staticCountries,
-} from "../../../../../lib/data/countries"
-import { formatProvider } from "../../../../../lib/format-provider"
+} from "../../../../../lib/data/countries";
+import { formatProvider } from "../../../../../lib/format-provider";
 import {
   isOptionEnabledInStore,
   isReturnOption,
-} from "../../../../../lib/shipping-options"
+} from "../../../../../lib/shipping-options";
 import {
   FulfillmentSetType,
   ShippingOptionPriceType,
-} from "../../../common/constants"
+} from "../../../common/constants";
 
 type LocationGeneralSectionProps = {
   location: HttpTypes.AdminStockLocation
@@ -91,8 +91,8 @@ export const LocationGeneralSection = ({
         )}
       />
     </>
-  )
-}
+  );
+};
 
 type ShippingOptionProps = {
   option: HttpTypes.AdminShippingOption
@@ -105,12 +105,12 @@ function ShippingOption({
   fulfillmentSetId,
   locationId,
 }: ShippingOptionProps) {
-  const prompt = usePrompt()
-  const { t } = useTranslation()
+  const prompt = usePrompt();
+  const { t } = useTranslation();
 
-  const isStoreOption = isOptionEnabledInStore(option)
+  const isStoreOption = isOptionEnabledInStore(option);
 
-  const { mutateAsync } = useDeleteShippingOption(option.id)
+  const { mutateAsync } = useDeleteShippingOption(option.id);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -122,10 +122,10 @@ function ShippingOption({
       verificationText: option.name,
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
@@ -134,13 +134,13 @@ function ShippingOption({
           t("stockLocations.shippingOptions.delete.successToast", {
             name: option.name,
           })
-        )
+        );
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex items-center justify-between px-3 py-2" data-testid={`location-shipping-option-${option.id}`}>
@@ -190,7 +190,7 @@ function ShippingOption({
         data-testid={`location-shipping-option-action-menu-${option.id}`}
       />
     </div>
-  )
+  );
 }
 
 type ServiceZoneOptionsProps = {
@@ -206,13 +206,13 @@ function ServiceZoneOptions({
   fulfillmentSetId,
   type,
 }: ServiceZoneOptionsProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const shippingOptions = zone.shipping_options.filter(
     (o) => !isReturnOption(o)
-  )
+  );
 
-  const returnOptions = zone.shipping_options.filter((o) => isReturnOption(o))
+  const returnOptions = zone.shipping_options.filter((o) => isReturnOption(o));
 
   return (
     <div data-testid={`location-service-zone-options-${zone.id}`}>
@@ -273,7 +273,7 @@ function ServiceZoneOptions({
         )}
       </div>
     </div>
-  )
+  );
 }
 
 type ServiceZoneProps = {
@@ -289,14 +289,14 @@ function ServiceZone({
   fulfillmentSetId,
   type,
 }: ServiceZoneProps) {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const [open, setOpen] = useState(true)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const [open, setOpen] = useState(true);
 
   const { mutateAsync: deleteZone } = useDeleteFulfillmentServiceZone(
     fulfillmentSetId,
     zone.id
-  )
+  );
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -306,34 +306,34 @@ function ServiceZone({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await deleteZone(undefined, {
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
       onSuccess: () => {
         toast.success(
           t("stockLocations.serviceZones.delete.successToast", {
             name: zone.name,
           })
-        )
+        );
       },
-    })
-  }
+    });
+  };
 
   const countries = useMemo(() => {
-    const countryGeoZones = zone.geo_zones.filter((g) => g.type === "country")
+    const countryGeoZones = zone.geo_zones.filter((g) => g.type === "country");
 
     const countries = countryGeoZones
       .map(({ country_code }) =>
         staticCountries.find((c) => c.iso_2 === country_code)
       )
-      .filter((c) => !!c) as StaticCountry[]
+      .filter((c) => !!c) as StaticCountry[];
 
     if (
       process.env.NODE_ENV === "development" &&
@@ -344,21 +344,21 @@ function ServiceZone({
         countryGeoZones
           .filter((g) => !countries.find((c) => c.iso_2 === g.country_code))
           .map((g) => g.country_code)
-      )
+      );
     }
 
-    return countries.sort((c1, c2) => c1.name.localeCompare(c2.name))
-  }, [zone.geo_zones])
+    return countries.sort((c1, c2) => c1.name.localeCompare(c2.name));
+  }, [zone.geo_zones]);
 
   const [shippingOptionsCount, returnOptionsCount] = useMemo(() => {
-    const options = zone.shipping_options
+    const options = zone.shipping_options;
 
-    const optionsCount = options.filter((o) => !isReturnOption(o)).length
+    const optionsCount = options.filter((o) => !isReturnOption(o)).length;
 
-    const returnOptionsCount = options.filter(isReturnOption).length
+    const returnOptionsCount = options.filter(isReturnOption).length;
 
-    return [optionsCount, returnOptionsCount]
-  }, [zone.shipping_options])
+    return [optionsCount, returnOptionsCount];
+  }, [zone.shipping_options]);
 
   return (
     <div className="flex flex-col" data-testid={`location-service-zone-${zone.id}`}>
@@ -447,7 +447,7 @@ function ServiceZone({
         />
       )}
     </div>
-  )
+  );
 }
 
 type FulfillmentSetProps = {
@@ -458,21 +458,21 @@ type FulfillmentSetProps = {
 }
 
 function FulfillmentSet(props: FulfillmentSetProps) {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
 
-  const { fulfillmentSet, locationName, locationId, type } = props
+  const { fulfillmentSet, locationName, locationId, type } = props;
 
-  const fulfillmentSetExists = !!fulfillmentSet
+  const fulfillmentSetExists = !!fulfillmentSet;
 
-  const hasServiceZones = !!fulfillmentSet?.service_zones.length
+  const hasServiceZones = !!fulfillmentSet?.service_zones.length;
 
   const { mutateAsync: createFulfillmentSet } =
-    useCreateStockLocationFulfillmentSet(locationId)
+    useCreateStockLocationFulfillmentSet(locationId);
 
   const { mutateAsync: deleteFulfillmentSet } = useDeleteFulfillmentSet(
     fulfillmentSet?.id ?? ""
-  )
+  );
 
   const handleCreate = async () => {
     await createFulfillmentSet(
@@ -484,14 +484,14 @@ function FulfillmentSet(props: FulfillmentSetProps) {
       },
       {
         onSuccess: () => {
-          toast.success(t(`stockLocations.fulfillmentSets.enable.${type}`))
+          toast.success(t(`stockLocations.fulfillmentSets.enable.${type}`));
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  }
+    );
+  };
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -501,54 +501,54 @@ function FulfillmentSet(props: FulfillmentSetProps) {
       }),
       confirmText: t("actions.disable"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await deleteFulfillmentSet(undefined, {
       onSuccess: () => {
-        toast.success(t(`stockLocations.fulfillmentSets.disable.${type}`))
+        toast.success(t(`stockLocations.fulfillmentSets.disable.${type}`));
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   const groups = fulfillmentSet
     ? [
-        {
-          actions: [
-            {
-              icon: <Plus />,
-              label: t("stockLocations.serviceZones.create.action"),
-              to: `/settings/locations/${locationId}/fulfillment-set/${fulfillmentSet.id}/service-zones/create`,
-            },
-          ],
-        },
-        {
-          actions: [
-            {
-              icon: <Trash />,
-              label: t("actions.disable"),
-              onClick: handleDelete,
-            },
-          ],
-        },
-      ]
+      {
+        actions: [
+          {
+            icon: <Plus />,
+            label: t("stockLocations.serviceZones.create.action"),
+            to: `/settings/locations/${locationId}/fulfillment-set/${fulfillmentSet.id}/service-zones/create`,
+          },
+        ],
+      },
+      {
+        actions: [
+          {
+            icon: <Trash />,
+            label: t("actions.disable"),
+            onClick: handleDelete,
+          },
+        ],
+      },
+    ]
     : [
-        {
-          actions: [
-            {
-              icon: <Plus />,
-              label: t("actions.enable"),
-              onClick: handleCreate,
-            },
-          ],
-        },
-      ]
+      {
+        actions: [
+          {
+            icon: <Plus />,
+            label: t("actions.enable"),
+            onClick: handleCreate,
+          },
+        ],
+      },
+    ];
 
   return (
     <Container className="p-0" data-testid={`location-fulfillment-set-${type}`}>
@@ -596,14 +596,14 @@ function FulfillmentSet(props: FulfillmentSetProps) {
         )}
       </div>
     </Container>
-  )
+  );
 }
 
 const Actions = ({ location }: { location: HttpTypes.AdminStockLocation }) => {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
-  const { mutateAsync } = useDeleteStockLocation(location.id)
-  const prompt = usePrompt()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { mutateAsync } = useDeleteStockLocation(location.id);
+  const prompt = usePrompt();
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -615,10 +615,10 @@ const Actions = ({ location }: { location: HttpTypes.AdminStockLocation }) => {
       verificationInstruction: t("general.typeToConfirm"),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
@@ -627,14 +627,14 @@ const Actions = ({ location }: { location: HttpTypes.AdminStockLocation }) => {
           t("stockLocations.create.successToast", {
             name: location.name,
           })
-        )
-        navigate("/settings/locations", { replace: true })
+        );
+        navigate("/settings/locations", { replace: true });
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <ActionMenu
@@ -665,5 +665,5 @@ const Actions = ({ location }: { location: HttpTypes.AdminStockLocation }) => {
       ]}
       data-testid="location-general-section-action-menu"
     />
-  )
-}
+  );
+};

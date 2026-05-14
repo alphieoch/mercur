@@ -1,5 +1,5 @@
-import { useQueryParams } from "@hooks/use-query-params"
-import type { HttpTypes } from "@medusajs/types"
+import { useQueryParams } from "@hooks/use-query-params";
+import type { HttpTypes } from "@medusajs/types";
 
 type UseOrderTableQueryProps = {
   prefix?: string
@@ -34,7 +34,7 @@ export const useOrderTableQuery = ({
       "order",
     ],
     prefix
-  )
+  );
 
   const {
     offset,
@@ -49,7 +49,7 @@ export const useOrderTableQuery = ({
     region_id,
     q,
     order,
-  } = queryObject
+  } = queryObject;
 
   const searchParams: ExtendedAdminOrderFilters = {
     limit: pageSize,
@@ -65,10 +65,10 @@ export const useOrderTableQuery = ({
     region_id: region_id?.split(","),
     order: order ? order : "-display_id",
     q,
-  }
+  };
 
   return {
     searchParams,
     raw: queryObject,
-  }
-}
+  };
+};

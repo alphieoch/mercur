@@ -1,21 +1,21 @@
-import { PencilSquare, Plus, Trash } from "@medusajs/icons"
-import { Badge, Container, Heading, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "@components/common/action-menu"
-import { SectionRow } from "@components/common/section"
-import { useDeleteProductOption } from "@hooks/api/products"
-import { HttpTypes } from "@medusajs/types"
-import { useProductDetailContext } from "../../context"
+import { PencilSquare, Plus, Trash } from "@medusajs/icons";
+import { Badge, Container, Heading, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "@components/common/action-menu";
+import { SectionRow } from "@components/common/section";
+import { useDeleteProductOption } from "@hooks/api/products";
+import { HttpTypes } from "@medusajs/types";
+import { useProductDetailContext } from "../../context";
 
 const OptionActions = ({
   option,
 }: {
   option: HttpTypes.AdminProductOption
 }) => {
-  const { product } = useProductDetailContext()
-  const { t } = useTranslation()
-  const { mutateAsync } = useDeleteProductOption(product.id, option.id)
-  const prompt = usePrompt()
+  const { product } = useProductDetailContext();
+  const { t } = useTranslation();
+  const { mutateAsync } = useDeleteProductOption(product.id, option.id);
+  const prompt = usePrompt();
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -25,14 +25,14 @@ const OptionActions = ({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
-    await mutateAsync()
-  }
+    await mutateAsync();
+  };
 
   return (
     <ActionMenu
@@ -57,12 +57,12 @@ const OptionActions = ({
         },
       ]}
     />
-  )
-}
+  );
+};
 
 export const ProductOptionSection = () => {
-  const { product } = useProductDetailContext()
-  const { t } = useTranslation()
+  const { product } = useProductDetailContext();
+  const { t } = useTranslation();
 
   return (
     <Container className="divide-y p-0">
@@ -97,12 +97,12 @@ export const ProductOptionSection = () => {
                 >
                   {val.value}
                 </Badge>
-              )
+              );
             })}
             actions={<OptionActions option={option} />}
           />
-        )
+        );
       })}
     </Container>
-  )
-}
+  );
+};

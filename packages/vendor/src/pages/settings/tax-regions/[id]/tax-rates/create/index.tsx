@@ -1,19 +1,19 @@
-import { useParams } from "react-router-dom"
-import { RouteFocusModal } from "@components/modals"
-import { useTaxRegion } from "@hooks/api/tax-regions"
-import { TaxRegionTaxRateCreateForm } from "./_components/tax-region-tax-rate-create-form"
+import { useParams } from "react-router-dom";
+import { RouteFocusModal } from "@components/modals";
+import { useTaxRegion } from "@hooks/api/tax-regions";
+import { TaxRegionTaxRateCreateForm } from "./_components/tax-region-tax-rate-create-form";
 
 const TaxRegionTaxRateCreate = () => {
-  const { id, province_id } = useParams()
+  const { id, province_id } = useParams();
 
   const { tax_region, isPending, isError, error } = useTaxRegion(
     province_id || id!
-  )
+  );
 
-  const ready = !isPending && !!tax_region
+  const ready = !isPending && !!tax_region;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -25,7 +25,7 @@ const TaxRegionTaxRateCreate = () => {
         />
       )}
     </RouteFocusModal>
-  )
-}
+  );
+};
 
-export const Component = TaxRegionTaxRateCreate
+export const Component = TaxRegionTaxRateCreate;

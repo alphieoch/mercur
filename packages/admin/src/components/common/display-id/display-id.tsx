@@ -1,8 +1,8 @@
-import { useTranslation } from "react-i18next"
-import { useState } from "react"
-import copy from "copy-to-clipboard"
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import copy from "copy-to-clipboard";
 
-import { clx, toast, Tooltip } from "@medusajs/ui"
+import { clx, toast, Tooltip } from "@medusajs/ui";
 
 type DisplayIdProps = {
   id: string
@@ -10,13 +10,13 @@ type DisplayIdProps = {
 }
 
 function DisplayId({ id, className }: DisplayIdProps) {
-  const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
 
   const onClick = () => {
-    copy(id)
-    toast.success(t("actions.idCopiedToClipboard"))
-  }
+    copy(id);
+    toast.success(t("actions.idCopiedToClipboard"));
+  };
 
   return (
     <Tooltip maxWidth={260} content={id} open={open} onOpenChange={setOpen}>
@@ -24,7 +24,7 @@ function DisplayId({ id, className }: DisplayIdProps) {
         #{id.slice(-7)}
       </span>
     </Tooltip>
-  )
+  );
 }
 
-export default DisplayId
+export default DisplayId;

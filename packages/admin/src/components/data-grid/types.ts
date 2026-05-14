@@ -4,15 +4,15 @@ import {
   ColumnMeta,
   Row,
   VisibilityState,
-} from "@tanstack/react-table"
-import React, { PropsWithChildren, ReactNode, RefObject } from "react"
+} from "@tanstack/react-table";
+import React, { PropsWithChildren, ReactNode, RefObject } from "react";
 import {
   FieldErrors,
   FieldPath,
   FieldValues,
   Path,
   PathValue,
-} from "react-hook-form"
+} from "react-hook-form";
 
 export type DataGridColumnType =
   | "text"

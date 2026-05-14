@@ -1,59 +1,59 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
 import {
   Container,
   createDataTableColumnHelper,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { useCallback, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import { DataTable } from "../../../../components/data-table"
-import * as hooks from "../../../../components/data-table/helpers/sales-channels"
-import { useStore } from "../../../../hooks/api"
+} from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { useCallback, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { DataTable } from "../../../../components/data-table";
+import * as hooks from "../../../../components/data-table/helpers/sales-channels";
+import { useStore } from "../../../../hooks/api";
 import {
   useDeleteSalesChannelLazy,
   useSalesChannels,
-} from "../../../../hooks/api/sales-channels"
+} from "../../../../hooks/api/sales-channels";
 
 type SalesChannelWithIsDefault = HttpTypes.AdminSalesChannel & {
   is_default?: boolean
 }
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const SalesChannelListTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { store } = useStore()
+  const { store } = useStore();
 
   const searchParams = hooks.useSalesChannelTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
 
   const { sales_channels, count, isPending, isError, error } = useSalesChannels(
     searchParams,
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const columns = useColumns()
-  const filters = hooks.useSalesChannelTableFilters()
-  const emptyState = hooks.useSalesChannelTableEmptyState()
+  const columns = useColumns();
+  const filters = hooks.useSalesChannelTableFilters();
+  const emptyState = hooks.useSalesChannelTableEmptyState();
 
   const sales_channels_data: SalesChannelWithIsDefault[] =
     sales_channels?.map((sales_channel) => {
       return {
         ...sales_channel,
         is_default: store?.default_sales_channel_id === sales_channel.id,
-      }
-    }) ?? []
+      };
+    }) ?? [];
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -78,20 +78,20 @@ export const SalesChannelListTable = () => {
         />
       </div>
     </Container>
-  )
-}
+  );
+};
 
 const columnHelper = createDataTableColumnHelper<
   HttpTypes.AdminSalesChannel & { is_default?: boolean }
->()
+>();
 
 const useColumns = () => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
-  const base = hooks.useSalesChannelTableColumns()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
+  const base = hooks.useSalesChannelTableColumns();
 
-  const { mutateAsync } = useDeleteSalesChannelLazy()
+  const { mutateAsync } = useDeleteSalesChannelLazy();
 
   const handleDelete = useCallback(
     async (salesChannel: HttpTypes.AdminSalesChannel) => {
@@ -104,23 +104,23 @@ const useColumns = () => {
         verificationText: salesChannel.name,
         confirmText: t("actions.delete"),
         cancelText: t("actions.cancel"),
-      })
+      });
 
       if (!confirm) {
-        return
+        return;
       }
 
       await mutateAsync(salesChannel.id, {
         onSuccess: () => {
-          toast.success(t("salesChannels.toast.delete"))
+          toast.success(t("salesChannels.toast.delete"));
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
-      })
+      });
     },
     [t, prompt, mutateAsync]
-  )
+  );
 
   return useMemo(
     () => [
@@ -129,7 +129,7 @@ const useColumns = () => {
         actions: (ctx) => {
           const disabledTooltip = ctx.row.original.is_default
             ? t("salesChannels.tooltip.cannotDeleteDefault")
-            : undefined
+            : undefined;
 
           return [
             [
@@ -151,10 +151,10 @@ const useColumns = () => {
                 disabledTooltip,
               },
             ],
-          ]
+          ];
         },
       }),
     ],
     [base, handleDelete, navigate, t]
-  )
-}
+  );
+};

@@ -1,35 +1,35 @@
-import { HttpTypes } from "@medusajs/types"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useShippingOptionTypes } from "../../../../../hooks/api"
-import { useShippingOptionTypeTableColumns } from "../../../../../hooks/table/columns/use-shipping-option-type-table-columns"
-import { useShippingOptionTypeTableFilters } from "../../../../../hooks/table/filters/use-shipping-option-type-table-filters"
-import { useShippingOptionTypeTableQuery } from "../../../../../hooks/table/query/use-shipping-option-type-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { ShippingOptionTypeRowActions } from "../shipping-option-type-list-table/shipping-option-type-table-row-actions"
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useShippingOptionTypes } from "../../../../../hooks/api";
+import { useShippingOptionTypeTableColumns } from "../../../../../hooks/table/columns/use-shipping-option-type-table-columns";
+import { useShippingOptionTypeTableFilters } from "../../../../../hooks/table/filters/use-shipping-option-type-table-filters";
+import { useShippingOptionTypeTableQuery } from "../../../../../hooks/table/query/use-shipping-option-type-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { ShippingOptionTypeRowActions } from "../shipping-option-type-list-table/shipping-option-type-table-row-actions";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const ShippingOptionTypeListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { searchParams, raw } = useShippingOptionTypeTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
   const { shipping_option_types, count, isLoading, isError, error } =
     useShippingOptionTypes(
       searchParams as Parameters<typeof useShippingOptionTypes>[0],
       {
         placeholderData: keepPreviousData,
       }
-    )
+    );
 
-  const filters = useShippingOptionTypeTableFilters()
-  const columns = useColumns()
+  const filters = useShippingOptionTypeTableFilters();
+  const columns = useColumns();
 
   const { table } = useDataTable({
     columns,
@@ -37,10 +37,10 @@ export const ShippingOptionTypeListDataTable = () => {
     count,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -64,13 +64,13 @@ export const ShippingOptionTypeListDataTable = () => {
       search
       data-testid="shipping-option-type-list-table"
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminShippingOptionType>()
+const columnHelper = createColumnHelper<HttpTypes.AdminShippingOptionType>();
 
 const useColumns = () => {
-  const base = useShippingOptionTypeTableColumns()
+  const base = useShippingOptionTypeTableColumns();
 
   return useMemo(
     () => [
@@ -80,10 +80,10 @@ const useColumns = () => {
         cell: ({ row }) => {
           return (
             <ShippingOptionTypeRowActions shippingOptionType={row.original} />
-          )
+          );
         },
       }),
     ],
     [base]
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export * from './promotion-list-page'
+export * from './promotion-list-page';

@@ -1,1 +1,1 @@
-export { ProfileGeneralSection } from "./profile-general-section"
+export { ProfileGeneralSection } from "./profile-general-section";

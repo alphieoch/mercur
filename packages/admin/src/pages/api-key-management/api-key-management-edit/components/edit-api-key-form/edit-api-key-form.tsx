@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { ApiKeyDTO } from "@medusajs/types"
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateApiKey } from "../../../../../hooks/api/api-keys"
+import { ApiKeyDTO } from "@medusajs/types";
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateApiKey } from "../../../../../hooks/api/api-keys";
 
 type EditApiKeyFormProps = {
   apiKey: ApiKeyDTO
@@ -16,20 +16,20 @@ type EditApiKeyFormProps = {
 
 const EditApiKeySchema = zod.object({
   title: zod.string().min(1),
-})
+});
 
 export const EditApiKeyForm = ({ apiKey }: EditApiKeyFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof EditApiKeySchema>>({
     defaultValues: {
       title: apiKey.title,
     },
     resolver: zodResolver(EditApiKeySchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateApiKey(apiKey.id)
+  const { mutateAsync, isPending } = useUpdateApiKey(apiKey.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(data, {
@@ -38,14 +38,14 @@ export const EditApiKeyForm = ({ apiKey }: EditApiKeyFormProps) => {
           t("apiKeyManagement.edit.successToast", {
             title: api_key.title,
           })
-        )
-        handleSuccess()
+        );
+        handleSuccess();
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid={`${apiKey.type}-api-key-edit-form`}>
@@ -64,7 +64,7 @@ export const EditApiKeyForm = ({ apiKey }: EditApiKeyFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid={`${apiKey.type}-api-key-edit-title-error`} />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -83,5 +83,5 @@ export const EditApiKeyForm = ({ apiKey }: EditApiKeyFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

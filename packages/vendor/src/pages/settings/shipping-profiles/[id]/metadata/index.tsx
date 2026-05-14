@@ -1,23 +1,23 @@
-import { useParams } from "react-router-dom"
-import { MetadataForm } from "@components/forms/metadata-form/metadata-form"
+import { useParams } from "react-router-dom";
+import { MetadataForm } from "@components/forms/metadata-form/metadata-form";
 import {
   useShippingProfile,
   useUpdateShippingProfile,
-} from "@hooks/api"
+} from "@hooks/api";
 
 const ShippingProfileMetadata = () => {
-  const { shipping_profile_id } = useParams()
+  const { shipping_profile_id } = useParams();
 
   const { shipping_profile, isPending, isError, error } = useShippingProfile(
     shipping_profile_id!
-  )
+  );
 
   const { mutateAsync, isPending: isMutating } = useUpdateShippingProfile(
     shipping_profile?.id!
-  )
+  );
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -27,7 +27,7 @@ const ShippingProfileMetadata = () => {
       isPending={isPending}
       isMutating={isMutating}
     />
-  )
-}
+  );
+};
 
-export const Component = ShippingProfileMetadata
+export const Component = ShippingProfileMetadata;

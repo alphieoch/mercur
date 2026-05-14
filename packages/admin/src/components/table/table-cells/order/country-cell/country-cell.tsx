@@ -1,7 +1,7 @@
-import { Tooltip } from "@medusajs/ui"
-import ReactCountryFlag from "react-country-flag"
-import { PlaceholderCell } from "../../common/placeholder-cell"
-import { HttpTypes } from "@medusajs/types"
+import { Tooltip } from "@medusajs/ui";
+import ReactCountryFlag from "react-country-flag";
+import { PlaceholderCell } from "../../common/placeholder-cell";
+import { HttpTypes } from "@medusajs/types";
 
 type Country = Omit<HttpTypes.AdminRegionCountry, "id"> & {
   id?: string
@@ -13,7 +13,7 @@ export const CountryCell = ({
   country?: Country | null
 }) => {
   if (!country) {
-    return <PlaceholderCell />
+    return <PlaceholderCell />;
   }
 
   return (
@@ -32,5 +32,5 @@ export const CountryCell = ({
         </div>
       </Tooltip>
     </div>
-  )
-}
+  );
+};

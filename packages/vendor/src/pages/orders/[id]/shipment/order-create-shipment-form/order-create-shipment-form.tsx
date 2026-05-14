@@ -1,22 +1,22 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Button, Heading, Input, toast } from "@medusajs/ui"
-import { useFieldArray, useForm } from "react-hook-form"
+import { Button, Heading, Input, toast } from "@medusajs/ui";
+import { useFieldArray, useForm } from "react-hook-form";
 
-import { Form } from "@components/common/form"
+import { Form } from "@components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCreateOrderShipment } from "@hooks/api"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCreateOrderShipment } from "@hooks/api";
 import {
   ExtendedAdminOrder,
   ExtendedAdminOrderFulfillment,
-} from "@custom-types/order"
-import { CreateShipmentSchema } from "./constants"
+} from "@custom-types/order";
+import { CreateShipmentSchema } from "./constants";
 
 type OrderCreateFulfillmentFormProps = {
   order: ExtendedAdminOrder
@@ -27,21 +27,21 @@ export function OrderCreateShipmentForm({
   order,
   fulfillment,
 }: OrderCreateFulfillmentFormProps) {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const { mutateAsync: createShipment, isPending: isMutating } =
-    useCreateOrderShipment(order.id, fulfillment?.id)
+    useCreateOrderShipment(order.id, fulfillment?.id);
 
   const form = useForm<zod.infer<typeof CreateShipmentSchema>>({
     defaultValues: {},
     resolver: zodResolver(CreateShipmentSchema),
-  })
+  });
 
   const { fields: labels, append } = useFieldArray({
     name: "labels",
     control: form.control,
-  })
+  });
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await createShipment(
@@ -61,15 +61,15 @@ export function OrderCreateShipmentForm({
       },
       {
         onSuccess: () => {
-          toast.success(t("orders.shipment.toastCreated"))
-          handleSuccess(`/orders/${order.id}`)
+          toast.success(t("orders.shipment.toastCreated"));
+          handleSuccess(`/orders/${order.id}`);
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -117,7 +117,7 @@ export function OrderCreateShipmentForm({
                             </Form.Control>
                             <Form.ErrorMessage />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
                   ))}
@@ -137,5 +137,5 @@ export function OrderCreateShipmentForm({
         </RouteFocusModal.Body>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }

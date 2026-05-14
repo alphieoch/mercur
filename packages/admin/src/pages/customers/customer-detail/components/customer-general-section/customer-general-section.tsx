@@ -1,5 +1,5 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
 import {
   Container,
   Heading,
@@ -7,32 +7,32 @@ import {
   Text,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+} from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useDeleteCustomer } from "../../../../../hooks/api/customers"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useDeleteCustomer } from "../../../../../hooks/api/customers";
 
 export const CustomerGeneralSection = ({
   customer,
 }: {
   customer: HttpTypes.AdminCustomer
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
 
-  const { mutateAsync } = useDeleteCustomer(customer.id)
+  const { mutateAsync } = useDeleteCustomer(customer.id);
 
   const name = [customer.first_name, customer.last_name]
     .filter(Boolean)
-    .join(" ")
+    .join(" ");
 
-  const statusColor = customer.has_account ? "green" : "orange"
+  const statusColor = customer.has_account ? "green" : "orange";
   const statusText = customer.has_account
     ? t("customers.fields.registered")
-    : t("customers.fields.guest")
+    : t("customers.fields.guest");
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -44,10 +44,10 @@ export const CustomerGeneralSection = ({
       verificationText: customer.email,
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
@@ -56,15 +56,15 @@ export const CustomerGeneralSection = ({
           t("customers.delete.successToast", {
             email: customer.email,
           })
-        )
+        );
 
-        navigate("/customers", { replace: true })
+        navigate("/customers", { replace: true });
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <Container className="divide-y p-0" data-testid="customer-general-section">
@@ -122,5 +122,5 @@ export const CustomerGeneralSection = ({
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

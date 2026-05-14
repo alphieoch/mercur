@@ -1,6 +1,6 @@
-import { Avatar, Text } from "@medusajs/ui"
-import { Link } from "react-router-dom"
-import { useUser } from "../../../hooks/api/users"
+import { Avatar, Text } from "@medusajs/ui";
+import { Link } from "react-router-dom";
+import { useUser } from "../../../hooks/api/users";
 
 type UserLinkProps = {
   id: string
@@ -17,9 +17,9 @@ export const UserLink = ({
   email,
   type = "user",
 }: UserLinkProps) => {
-  const name = [first_name, last_name].filter(Boolean).join(" ")
-  const fallback = name ? name.slice(0, 1) : email.slice(0, 1)
-  const link = type === "user" ? `/settings/users/${id}` : `/customers/${id}`
+  const name = [first_name, last_name].filter(Boolean).join(" ");
+  const fallback = name ? name.slice(0, 1) : email.slice(0, 1);
+  const link = type === "user" ? `/settings/users/${id}` : `/customers/${id}`;
 
   return (
     <Link
@@ -31,15 +31,15 @@ export const UserLink = ({
         {name || email}
       </Text>
     </Link>
-  )
-}
+  );
+};
 
 export const By = ({ id }: { id: string }) => {
-  const { user } = useUser(id) // todo: extend to support customers
+  const { user } = useUser(id); // todo: extend to support customers
 
   if (!user) {
-    return null
+    return null;
   }
 
-  return <UserLink {...user} />
-}
+  return <UserLink {...user} />;
+};

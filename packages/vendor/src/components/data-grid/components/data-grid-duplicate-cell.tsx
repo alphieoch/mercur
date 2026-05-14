@@ -1,5 +1,5 @@
-import { ReactNode } from "react"
-import { useDataGridDuplicateCell } from "../hooks"
+import { ReactNode } from "react";
+import { useDataGridDuplicateCell } from "../hooks";
 
 interface DataGridDuplicateCellProps<TValue> {
   duplicateOf: string
@@ -9,7 +9,7 @@ export const DataGridDuplicateCell = <TValue,>({
   duplicateOf,
   children,
 }: DataGridDuplicateCellProps<TValue>) => {
-  const { watchedValue } = useDataGridDuplicateCell({ duplicateOf })
+  const { watchedValue } = useDataGridDuplicateCell({ duplicateOf });
 
   return (
     <div className="bg-ui-bg-base txt-compact-small text-ui-fg-subtle flex size-full cursor-not-allowed items-center justify-between overflow-hidden px-4 py-2.5 outline-none">
@@ -17,5 +17,5 @@ export const DataGridDuplicateCell = <TValue,>({
         ? children({ value: watchedValue })
         : children}
     </div>
-  )
-}
+  );
+};

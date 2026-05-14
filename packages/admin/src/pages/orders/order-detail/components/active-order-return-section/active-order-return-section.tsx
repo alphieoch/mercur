@@ -1,10 +1,10 @@
-import { ArrowUturnLeft } from "@medusajs/icons"
-import { Button, Container, Heading, Text, toast } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { ArrowUturnLeft } from "@medusajs/icons";
+import { Button, Container, Heading, Text, toast } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { HttpTypes } from "@medusajs/types"
-import { useNavigate } from "react-router-dom"
-import { useCancelReturnRequest } from "../../../../../hooks/api/returns"
+import { HttpTypes } from "@medusajs/types";
+import { useNavigate } from "react-router-dom";
+import { useCancelReturnRequest } from "../../../../../hooks/api/returns";
 
 type ActiveOrderReturnSectionProps = {
   orderPreview: HttpTypes.AdminOrderPreview
@@ -13,36 +13,36 @@ type ActiveOrderReturnSectionProps = {
 export const ActiveOrderReturnSection = ({
   orderPreview,
 }: ActiveOrderReturnSectionProps) => {
-  const { t } = useTranslation()
-  const orderChange = orderPreview?.order_change
-  const returnId = orderChange?.return_id
+  const { t } = useTranslation();
+  const orderChange = orderPreview?.order_change;
+  const returnId = orderChange?.return_id;
   const isReturnRequest =
-    orderChange?.change_type === "return_request" && !!orderChange.return_id
+    orderChange?.change_type === "return_request" && !!orderChange.return_id;
 
   const { mutateAsync: cancelReturn } = useCancelReturnRequest(
     returnId,
     orderPreview.id
-  )
+  );
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onContinueReturn = async () => {
-    navigate(`/orders/${orderPreview.id}/returns`)
-  }
+    navigate(`/orders/${orderPreview.id}/returns`);
+  };
 
   const onCancelReturn = async () => {
     await cancelReturn(undefined, {
       onSuccess: () => {
-        toast.success(t("orders.returns.toast.canceledSuccessfully"))
+        toast.success(t("orders.returns.toast.canceledSuccessfully"));
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  }
+    });
+  };
 
   if (!returnId || !isReturnRequest) {
-    return
+    return;
   }
 
   return (
@@ -79,5 +79,5 @@ export const ActiveOrderReturnSection = ({
         </div>
       </Container>
     </div>
-  )
-}
+  );
+};

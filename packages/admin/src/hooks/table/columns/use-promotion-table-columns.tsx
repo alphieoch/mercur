@@ -1,22 +1,22 @@
-import { HttpTypes } from "@medusajs/types"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   CodeCell,
   CodeHeader,
-} from "../../../components/table/table-cells/common/code-cell"
+} from "../../../components/table/table-cells/common/code-cell";
 import {
   TextCell,
   TextHeader,
-} from "../../../components/table/table-cells/common/text-cell"
-import { StatusCell } from "../../../components/table/table-cells/promotion/status-cell"
+} from "../../../components/table/table-cells/common/text-cell";
+import { StatusCell } from "../../../components/table/table-cells/promotion/status-cell";
 
-const columnHelper = createColumnHelper<HttpTypes.AdminPromotion>()
+const columnHelper = createColumnHelper<HttpTypes.AdminPromotion>();
 
 export const usePromotionTableColumns = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -32,9 +32,9 @@ export const usePromotionTableColumns = () => {
         cell: ({ row }) => {
           const text = row.original.is_automatic
             ? t("promotions.form.method.automatic.title")
-            : t("promotions.form.method.code.title")
+            : t("promotions.form.method.code.title");
 
-          return <TextCell text={text} />
+          return <TextCell text={text} />;
         },
       }),
 
@@ -45,5 +45,5 @@ export const usePromotionTableColumns = () => {
       }),
     ],
     [t]
-  )
-}
+  );
+};

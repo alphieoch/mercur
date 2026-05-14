@@ -1,4 +1,4 @@
-import * as zod from "zod"
+import * as zod from "zod";
 
 const LocationSchema = zod.object({
   id: zod.string(),
@@ -6,7 +6,7 @@ const LocationSchema = zod.object({
   checked: zod.boolean(),
   disabledToggle: zod.boolean(),
   level_id: zod.string().optional(),
-})
+});
 
 export const UpdateVariantStocksSchema = zod.object({
   variants: zod.array(
@@ -20,7 +20,7 @@ export const UpdateVariantStocksSchema = zod.object({
       locations: zod.array(LocationSchema),
     })
   ),
-})
+});
 
 export type UpdateVariantStocksSchemaType = zod.infer<
   typeof UpdateVariantStocksSchema

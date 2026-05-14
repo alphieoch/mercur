@@ -1,18 +1,18 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { toast } from "@medusajs/ui"
-import { Children, ReactNode, useMemo } from "react"
-import { DeepPartial, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { toast } from "@medusajs/ui";
+import { Children, ReactNode, useMemo } from "react";
+import { DeepPartial, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { useRouteModal } from "../../../../../components/modals"
-import { TabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { useBatchPriceListPrices } from "../../../../../hooks/api/price-lists"
-import { exctractPricesFromProducts } from "../../../common/utils"
-import { PriceListPricesAddPricesForm } from "./price-list-prices-add-prices-form"
-import { PriceListPricesAddProductIdsForm } from "./price-list-prices-add-product-ids-form"
-import { PriceListPricesAddSchema } from "./schema"
+import { useRouteModal } from "../../../../../components/modals";
+import { TabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { useBatchPriceListPrices } from "../../../../../hooks/api/price-lists";
+import { exctractPricesFromProducts } from "../../../common/utils";
+import { PriceListPricesAddPricesForm } from "./price-list-prices-add-prices-form";
+import { PriceListPricesAddProductIdsForm } from "./price-list-prices-add-product-ids-form";
+import { PriceListPricesAddSchema } from "./schema";
 
 export type PriceListPricesAddSchemaType = z.infer<typeof PriceListPricesAddSchema>
 
@@ -35,8 +35,8 @@ export const PriceListPricesAddForm = ({
   schema,
   defaultValues: extraDefaults,
 }: PriceListPricesAddFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<PriceListPricesAddSchemaType>({
     defaultValues: {
@@ -45,14 +45,14 @@ export const PriceListPricesAddForm = ({
       ...extraDefaults,
     } as PriceListPricesAddSchemaType,
     resolver: zodResolver(schema ?? PriceListPricesAddSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useBatchPriceListPrices(priceList.id)
+  const { mutateAsync, isPending } = useBatchPriceListPrices(priceList.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    const { products } = values
+    const { products } = values;
 
-    const prices = exctractPricesFromProducts(products, regions)
+    const prices = exctractPricesFromProducts(products, regions);
 
     await mutateAsync(
       {
@@ -60,13 +60,13 @@ export const PriceListPricesAddForm = ({
       },
       {
         onSuccess: () => {
-          toast.success(t("priceLists.products.add.successToast"))
-          handleSuccess()
+          toast.success(t("priceLists.products.add.successToast"));
+          handleSuccess();
         },
         onError: (e) => toast.error(e.message),
       }
-    )
-  })
+    );
+  });
 
   const defaultTabs = useMemo(
     () => [
@@ -79,9 +79,9 @@ export const PriceListPricesAddForm = ({
       />,
     ],
     [priceList, currencies, regions, pricePreferences]
-  )
+  );
 
-  const hasCustomChildren = Children.count(children) > 0
+  const hasCustomChildren = Children.count(children) > 0;
 
   return (
     <TabbedForm
@@ -91,5 +91,5 @@ export const PriceListPricesAddForm = ({
     >
       {hasCustomChildren ? children : defaultTabs}
     </TabbedForm>
-  )
-}
+  );
+};

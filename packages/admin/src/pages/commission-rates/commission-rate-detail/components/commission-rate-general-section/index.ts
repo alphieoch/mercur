@@ -1,1 +1,1 @@
-export { CommissionRateGeneralSection } from "./commission-rate-general-section"
+export { CommissionRateGeneralSection } from "./commission-rate-general-section";

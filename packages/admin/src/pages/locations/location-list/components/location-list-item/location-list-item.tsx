@@ -1,22 +1,22 @@
-import { Buildings, PencilSquare, Trash } from "@medusajs/icons"
-import type { HttpTypes } from "@medusajs/types"
-import { Container, StatusBadge, Text, toast, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Buildings, PencilSquare, Trash } from "@medusajs/icons";
+import type { HttpTypes } from "@medusajs/types";
+import { Container, StatusBadge, Text, toast, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { BadgeListSummary } from "../../../../../components/common/badge-list-summary"
-import { LinkButton } from "../../../../../components/common/link-button"
-import { useDeleteStockLocation } from "../../../../../hooks/api/stock-locations"
-import { getFormattedAddress } from "../../../../../lib/addresses"
-import { FulfillmentSetType } from "../../../common/constants"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { BadgeListSummary } from "../../../../../components/common/badge-list-summary";
+import { LinkButton } from "../../../../../components/common/link-button";
+import { useDeleteStockLocation } from "../../../../../hooks/api/stock-locations";
+import { getFormattedAddress } from "../../../../../lib/addresses";
+import { FulfillmentSetType } from "../../../common/constants";
 
 type SalesChannelsProps = {
   salesChannels?: HttpTypes.AdminSalesChannel[] | null
 }
 
 function SalesChannels(props: SalesChannelsProps) {
-  const { t } = useTranslation()
-  const { salesChannels } = props
+  const { t } = useTranslation();
+  const { salesChannels } = props;
 
   return (
     <div className="flex flex-col px-6 py-4">
@@ -43,7 +43,7 @@ function SalesChannels(props: SalesChannelsProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 type FulfillmentSetProps = {
@@ -52,10 +52,10 @@ type FulfillmentSetProps = {
 }
 
 function FulfillmentSet(props: FulfillmentSetProps) {
-  const { t } = useTranslation()
-  const { fulfillmentSet, type } = props
+  const { t } = useTranslation();
+  const { fulfillmentSet, type } = props;
 
-  const fulfillmentSetExists = !!fulfillmentSet
+  const fulfillmentSetExists = !!fulfillmentSet;
 
   return (
     <div className="flex flex-col px-6 py-4">
@@ -75,7 +75,7 @@ function FulfillmentSet(props: FulfillmentSetProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 type LocationProps = {
@@ -83,11 +83,11 @@ type LocationProps = {
 }
 
 function LocationListItem(props: LocationProps) {
-  const { location } = props
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const { location } = props;
+  const { t } = useTranslation();
+  const prompt = usePrompt();
 
-  const { mutateAsync: deleteLocation } = useDeleteStockLocation(location.id)
+  const { mutateAsync: deleteLocation } = useDeleteStockLocation(location.id);
 
   const handleDelete = async () => {
     const result = await prompt({
@@ -97,10 +97,10 @@ function LocationListItem(props: LocationProps) {
       }),
       confirmText: t("actions.remove"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!result) {
-      return
+      return;
     }
 
     await deleteLocation(undefined, {
@@ -109,13 +109,13 @@ function LocationListItem(props: LocationProps) {
           t("shippingProfile.delete.successToast", {
             name: location.name,
           })
-        )
+        );
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <Container className="flex flex-col divide-y p-0" data-testid={`location-list-item-${location.id}`}>
@@ -181,7 +181,7 @@ function LocationListItem(props: LocationProps) {
         )}
       />
     </Container>
-  )
+  );
 }
 
-export default LocationListItem
+export default LocationListItem;

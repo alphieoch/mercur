@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState } from "react";
 
 /**
  * Base interface for a command that can be managed
@@ -14,48 +14,48 @@ export interface Command {
  * Hook to manage a history of commands that can be undone, redone, and executed.
  */
 export const useCommandHistory = (maxHistory = 20) => {
-  const [past, setPast] = useState<Command[]>([])
-  const [future, setFuture] = useState<Command[]>([])
+  const [past, setPast] = useState<Command[]>([]);
+  const [future, setFuture] = useState<Command[]>([]);
 
-  const canUndo = past.length > 0
-  const canRedo = future.length > 0
+  const canUndo = past.length > 0;
+  const canRedo = future.length > 0;
 
   const undo = useCallback(() => {
     if (!canUndo) {
-      return
+      return;
     }
 
-    const previous = past[past.length - 1]
-    const newPast = past.slice(0, past.length - 1)
+    const previous = past[past.length - 1];
+    const newPast = past.slice(0, past.length - 1);
 
-    previous.undo()
+    previous.undo();
 
-    setPast(newPast)
-    setFuture([previous, ...future.slice(0, maxHistory - 1)])
-  }, [canUndo, future, past, maxHistory])
+    setPast(newPast);
+    setFuture([previous, ...future.slice(0, maxHistory - 1)]);
+  }, [canUndo, future, past, maxHistory]);
 
   const redo = useCallback(() => {
     if (!canRedo) {
-      return
+      return;
     }
 
-    const next = future[0]
-    const newFuture = future.slice(1)
+    const next = future[0];
+    const newFuture = future.slice(1);
 
-    next.redo()
+    next.redo();
 
-    setPast([...past, next].slice(0, maxHistory - 1))
-    setFuture(newFuture)
-  }, [canRedo, future, past, maxHistory])
+    setPast([...past, next].slice(0, maxHistory - 1));
+    setFuture(newFuture);
+  }, [canRedo, future, past, maxHistory]);
 
   const execute = useCallback(
     (command: Command) => {
-      command.execute()
-      setPast((past) => [...past, command].slice(0, maxHistory - 1))
-      setFuture([])
+      command.execute();
+      setPast((past) => [...past, command].slice(0, maxHistory - 1));
+      setFuture([]);
     },
     [maxHistory]
-  )
+  );
 
   return {
     undo,
@@ -63,5 +63,5 @@ export const useCommandHistory = (maxHistory = 20) => {
     execute,
     canUndo,
     canRedo,
-  }
-}
+  };
+};

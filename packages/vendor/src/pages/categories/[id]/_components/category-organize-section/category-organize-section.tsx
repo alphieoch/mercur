@@ -1,13 +1,13 @@
-import { FolderIllustration, TriangleRightMini } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Badge, Container, Heading, Text, Tooltip } from "@medusajs/ui"
-import { useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
-import { LinkButton } from "@components/common/link-button"
-import { Skeleton } from "@components/common/skeleton"
-import { useProductCategory } from "@hooks/api/categories"
-import { getCategoryChildren, getCategoryPath } from "../../../common/utils"
+import { FolderIllustration, TriangleRightMini } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Badge, Container, Heading, Text, Tooltip } from "@medusajs/ui";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { LinkButton } from "@components/common/link-button";
+import { Skeleton } from "@components/common/skeleton";
+import { useProductCategory } from "@hooks/api/categories";
+import { getCategoryChildren, getCategoryPath } from "../../../common/utils";
 
 type CategoryOrganizeSectionProps = {
   category: HttpTypes.AdminProductCategory
@@ -16,7 +16,7 @@ type CategoryOrganizeSectionProps = {
 export const CategoryOrganizeSection = ({
   category,
 }: CategoryOrganizeSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="divide-y p-0">
@@ -36,29 +36,29 @@ export const CategoryOrganizeSection = ({
         <ChildrenDisplay category={category} />
       </div>
     </Container>
-  )
-}
+  );
+};
 
 const PathDisplay = ({
   category,
 }: {
   category: HttpTypes.AdminProductCategory
 }) => {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(false);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const {
     product_category: withParents,
     isLoading,
   } = useProductCategory(category.id, {
     fields: "id,name,*parent_category",
-  })
+  });
 
-  const chips = useMemo(() => getCategoryPath(withParents), [withParents])
+  const chips = useMemo(() => getCategoryPath(withParents), [withParents]);
 
   if (isLoading || !withParents) {
-    return <Skeleton className="h-5 w-16" />
+    return <Skeleton className="h-5 w-16" />;
   }
 
   if (!chips.length) {
@@ -66,7 +66,7 @@ const PathDisplay = ({
       <Text size="small" leading="compact">
         -
       </Text>
-    )
+    );
   }
 
   if (chips.length > 1 && !expanded) {
@@ -98,7 +98,7 @@ const PathDisplay = ({
           </Text>
         </div>
       </div>
-    )
+    );
   }
 
   if (chips.length > 1 && expanded) {
@@ -123,11 +123,11 @@ const PathDisplay = ({
                 )}
                 {index < chips.length - 1 && <TriangleRightMini />}
               </div>
-            )
+            );
           })}
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -141,8 +141,8 @@ const PathDisplay = ({
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
 const ChildrenDisplay = ({
   category,
@@ -154,12 +154,12 @@ const ChildrenDisplay = ({
     isLoading,
   } = useProductCategory(category.id, {
     fields: "id,name,category_children",
-  })
+  });
 
-  const chips = useMemo(() => getCategoryChildren(withChildren), [withChildren])
+  const chips = useMemo(() => getCategoryChildren(withChildren), [withChildren]);
 
   if (isLoading || !withChildren) {
-    return <Skeleton className="h-5 w-16" />
+    return <Skeleton className="h-5 w-16" />;
   }
 
   if (!chips.length) {
@@ -167,7 +167,7 @@ const ChildrenDisplay = ({
       <Text size="small" leading="compact">
         -
       </Text>
-    )
+    );
   }
 
   return (
@@ -180,5 +180,5 @@ const ChildrenDisplay = ({
         </Badge>
       ))}
     </div>
-  )
-}
+  );
+};

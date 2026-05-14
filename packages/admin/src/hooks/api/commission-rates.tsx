@@ -2,22 +2,22 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const COMMISSION_RATES_QUERY_KEY = "commission_rates" as const
+const COMMISSION_RATES_QUERY_KEY = "commission_rates" as const;
 export const commissionRatesQueryKeys = queryKeysFactory(
   COMMISSION_RATES_QUERY_KEY
-)
+);
 
 export const useCommissionRate = (
   id: string,
@@ -40,10 +40,10 @@ export const useCommissionRate = (
       sdk.admin.commissionRates.$id.query({ $id: id, ...query }),
     queryKey: commissionRatesQueryKeys.detail(id),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCommissionRates = (
   query?: InferClientInput<typeof sdk.admin.commissionRates.query>,
@@ -61,10 +61,10 @@ export const useCommissionRates = (
     queryFn: () => sdk.admin.commissionRates.query({ ...query }),
     queryKey: commissionRatesQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateCommissionRate = (
   options?: UseMutationOptions<
@@ -78,13 +78,13 @@ export const useCreateCommissionRate = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: commissionRatesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateCommissionRate = (
   id: string,
@@ -103,16 +103,16 @@ export const useUpdateCommissionRate = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: commissionRatesQueryKeys.detail(id),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: commissionRatesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteCommissionRate = (
   id: string,
@@ -127,16 +127,16 @@ export const useDeleteCommissionRate = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: commissionRatesQueryKeys.detail(id),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: commissionRatesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useBatchCommissionRules = (
   id: string,
@@ -155,13 +155,13 @@ export const useBatchCommissionRules = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: commissionRatesQueryKeys.detail(id),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: commissionRatesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

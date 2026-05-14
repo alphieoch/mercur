@@ -11,22 +11,22 @@ import { commissionRateLoader } from "./loader";
 const Root = ({ children }: { children?: ReactNode }) => {
   const initialData = useLoaderData() as Awaited<
     ReturnType<typeof commissionRateLoader>
-  >
+  >;
 
-  const { id } = useParams()
+  const { id } = useParams();
   const {
     commission_rate,
     isPending: isLoading,
     isError,
     error,
-  } = useCommissionRate(id!, { fields: "*rules" }, { initialData })
+  } = useCommissionRate(id!, { fields: "*rules" }, { initialData });
 
   if (isLoading || !commission_rate) {
-    return <SingleColumnPageSkeleton sections={2} showJSON showMetadata />
+    return <SingleColumnPageSkeleton sections={2} showJSON showMetadata />;
   }
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return Children.count(children) > 0 ? (

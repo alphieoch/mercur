@@ -1,35 +1,35 @@
-import { ArrowPath } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useOrders } from "../../../../../hooks/api/orders"
-import { useOrderTableColumns } from "../../../../../hooks/table/columns/use-order-table-columns"
-import { useOrderTableFilters } from "../../../../../hooks/table/filters/use-order-table-filters"
-import { useOrderTableQuery } from "../../../../../hooks/table/query/use-order-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
+import { ArrowPath } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useOrders } from "../../../../../hooks/api/orders";
+import { useOrderTableColumns } from "../../../../../hooks/table/columns/use-order-table-columns";
+import { useOrderTableFilters } from "../../../../../hooks/table/filters/use-order-table-filters";
+import { useOrderTableQuery } from "../../../../../hooks/table/query/use-order-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
 
-const PREFIX = "cusord"
-const PAGE_SIZE = 10
-const DEFAULT_RELATIONS = "*customer,*items,*sales_channel"
+const PREFIX = "cusord";
+const PAGE_SIZE = 10;
+const DEFAULT_RELATIONS = "*customer,*items,*sales_channel";
 const DEFAULT_FIELDS =
-  "id,status,display_id,created_at,email,fulfillment_status,payment_status,total,currency_code"
+  "id,status,display_id,created_at,email,fulfillment_status,payment_status,total,currency_code";
 
 export const CustomerOrderSection = ({
   customer,
 }: {
   customer: HttpTypes.AdminCustomer
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { searchParams, raw } = useOrderTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
   const { orders, count, isLoading, isError, error } = useOrders(
     {
       ...searchParams,
@@ -39,10 +39,10 @@ export const CustomerOrderSection = ({
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const columns = useColumns()
-  const filters = useOrderTableFilters()
+  const columns = useColumns();
+  const filters = useOrderTableFilters();
 
   const { table } = useDataTable({
     data: orders ?? [],
@@ -51,10 +51,10 @@ export const CustomerOrderSection = ({
     count,
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -87,11 +87,11 @@ export const CustomerOrderSection = ({
         prefix={PREFIX}
       />
     </Container>
-  )
-}
+  );
+};
 
 const CustomerOrderActions = ({ order }: { order: HttpTypes.AdminOrder }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <ActionMenu
@@ -108,13 +108,13 @@ const CustomerOrderActions = ({ order }: { order: HttpTypes.AdminOrder }) => {
         },
       ]}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminOrder>()
+const columnHelper = createColumnHelper<HttpTypes.AdminOrder>();
 
 const useColumns = () => {
-  const base = useOrderTableColumns({ exclude: ["customer"] })
+  const base = useOrderTableColumns({ exclude: ["customer"] });
 
   return useMemo(
     () => [
@@ -125,5 +125,5 @@ const useColumns = () => {
       }),
     ],
     [base]
-  )
-}
+  );
+};

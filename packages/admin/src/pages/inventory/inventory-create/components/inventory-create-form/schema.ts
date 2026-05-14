@@ -1,5 +1,5 @@
-import { z } from "zod"
-import { optionalInt } from "../../../../../lib/validation"
+import { z } from "zod";
+import { optionalInt } from "../../../../../lib/validation";
 
 export const CreateInventoryItemSchema = z.object({
   title: z.string().min(1),
@@ -16,7 +16,7 @@ export const CreateInventoryItemSchema = z.object({
   requires_shipping: z.boolean().optional(),
   thumbnail: z.string().optional(),
   locations: z.record(z.string(), optionalInt).optional(),
-})
+});
 
 export type CreateInventoryItemSchema = z.infer<
   typeof CreateInventoryItemSchema

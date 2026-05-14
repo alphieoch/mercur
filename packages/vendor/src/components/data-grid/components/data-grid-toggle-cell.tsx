@@ -1,19 +1,19 @@
-import { Switch, Text } from "@medusajs/ui"
-import { useEffect, useRef, useState } from "react"
-import { Controller, ControllerRenderProps } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { DataGridCellProps, InputProps } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { Switch, Text } from "@medusajs/ui";
+import { useEffect, useRef, useState } from "react";
+import { Controller, ControllerRenderProps } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { DataGridCellProps, InputProps } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 export const DataGridToggleCell = <TData, TValue = any>({
   context,
 }: DataGridCellProps<TData, TValue>) => {
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
-  const errorProps = useDataGridCellError({ context })
-  const { container, input } = renderProps
+  });
+  const errorProps = useDataGridCellError({ context });
+  const { container, input } = renderProps;
 
   return (
     <Controller
@@ -24,11 +24,11 @@ export const DataGridToggleCell = <TData, TValue = any>({
           <DataGridCellContainer {...container} {...errorProps}>
             <Inner field={field} inputProps={input} isAnchor={container.isAnchor} />
           </DataGridCellContainer>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -39,39 +39,39 @@ const Inner = ({
   inputProps: InputProps
   isAnchor: boolean
 }) => {
-  const { t } = useTranslation()
-  const { value, onChange: _ } = field
-  const { onChange } = inputProps
-  const switchRef = useRef<HTMLButtonElement>(null)
+  const { t } = useTranslation();
+  const { value, onChange: _ } = field;
+  const { onChange } = inputProps;
+  const switchRef = useRef<HTMLButtonElement>(null);
 
-  const [localValue, setLocalValue] = useState(value)
+  const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
-    setLocalValue(value)
-  }, [value])
+    setLocalValue(value);
+  }, [value]);
 
   const handleCheckedChange = (checked: boolean) => {
-    const newValue = { ...localValue, checked }
+    const newValue = { ...localValue, checked };
     if (!checked) {
-      newValue.quantity = ""
+      newValue.quantity = "";
     }
     if (checked && (newValue.quantity === "" || newValue.quantity === null)) {
-      newValue.quantity = 0
+      newValue.quantity = 0;
     }
-    setLocalValue(newValue)
-    onChange(newValue, value)
-  }
+    setLocalValue(newValue);
+    onChange(newValue, value);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isAnchor && e.key.toLowerCase() === "x") {
-        e.preventDefault()
-        switchRef.current?.click()
+        e.preventDefault();
+        switchRef.current?.click();
       }
-    }
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [isAnchor])
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isAnchor]);
 
   return (
     <div className="flex size-full items-center gap-x-3 px-4">
@@ -88,5 +88,5 @@ const Inner = ({
         {localValue?.checked ? t("general.enabled", "Enabled") : t("inventory.stock.notEnabled", "Not enabled")}
       </Text>
     </div>
-  )
-}
+  );
+};

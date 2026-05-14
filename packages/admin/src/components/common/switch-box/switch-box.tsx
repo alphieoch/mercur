@@ -34,13 +34,13 @@ export const SwitchBox = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-  label,
-  description,
-  optional = false,
-  tooltip,
-  onCheckedChange,
-  ...props
-}: SwitchBoxProps<TFieldValues, TName>) => {
+    label,
+    description,
+    optional = false,
+    tooltip,
+    onCheckedChange,
+    ...props
+  }: SwitchBoxProps<TFieldValues, TName>) => {
   return (
     <Form.Field
       {...props}

@@ -1,16 +1,16 @@
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { clx, Input, Text, Tooltip } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { HttpTypes } from "@medusajs/types"
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { clx, Input, Text, Tooltip } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { HttpTypes } from "@medusajs/types";
 
-import { Form } from "@components/common/form/index"
-import { Thumbnail } from "@components/common/thumbnail/index"
-import { useProductVariant } from "@hooks/api/products"
-import { getFulfillableQuantity } from "@lib/order-item"
-import { CreateFulfillmentSchema } from "./constants"
-import { InformationCircleSolid } from "@medusajs/icons"
+import { Form } from "@components/common/form/index";
+import { Thumbnail } from "@components/common/thumbnail/index";
+import { useProductVariant } from "@hooks/api/products";
+import { getFulfillableQuantity } from "@lib/order-item";
+import { CreateFulfillmentSchema } from "./constants";
+import { InformationCircleSolid } from "@medusajs/icons";
 
 type OrderEditItemProps = {
   item: HttpTypes.AdminOrderLineItem
@@ -27,7 +27,7 @@ export function OrderCreateFulfillmentItem({
   locationId,
   disabled,
 }: OrderEditItemProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { variant } = useProductVariant(
     item.product_id!,
@@ -38,34 +38,34 @@ export function OrderCreateFulfillmentItem({
     {
       enabled: !!item.variant,
     }
-  )
+  );
 
   const { availableQuantity, inStockQuantity } = useMemo(() => {
     if (!variant || !locationId) {
-      return {}
+      return {};
     }
 
-    const { inventory } = variant as any
+    const { inventory } = variant as any;
 
     const locationInventory = inventory?.[0]?.location_levels?.find(
       (inv: any) => inv.location_id === locationId
-    )
+    );
 
     if (!locationInventory) {
-      return {}
+      return {};
     }
 
     return {
       availableQuantity: locationInventory.available_quantity,
       inStockQuantity: locationInventory.stocked_quantity,
-    }
-  }, [variant, locationId])
+    };
+  }, [variant, locationId]);
 
-  const minValue = 0
+  const minValue = 0;
   const maxValue = Math.min(
     getFulfillableQuantity(item as any),
     availableQuantity || Number.MAX_SAFE_INTEGER
-  )
+  );
 
   return (
     <Form.Field
@@ -144,40 +144,40 @@ export function OrderCreateFulfillmentItem({
 
                   <div className="flex flex-1 items-center gap-1">
 
-                          <Form.Item>
-                            <Form.Control>
-                              <Input
-                                className="bg-ui-bg-base txt-small w-[50px] rounded-lg text-right [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                                type="number"
-                                {...field}
-                                onChange={(e) => {
-                                  const val =
+                    <Form.Item>
+                      <Form.Control>
+                        <Input
+                          className="bg-ui-bg-base txt-small w-[50px] rounded-lg text-right [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                          type="number"
+                          {...field}
+                          onChange={(e) => {
+                            const val =
                                     e.target.value === ""
                                       ? null
-                                      : Number(e.target.value)
+                                      : Number(e.target.value);
 
-                                  field.onChange(val)
+                            field.onChange(val);
 
-                                  if (val !== null && !isNaN(val ?? 0)) {
-                                    if (val < minValue || val > maxValue) {
-                                      form.setError(`quantity.${item.id}`, {
-                                        type: "manual",
-                                        message: t(
-                                          "orders.fulfillment.error.wrongQuantity",
-                                          {
-                                            count: maxValue,
-                                            number: maxValue,
-                                          }
-                                        ),
-                                      })
-                                    } else {
-                                      form.clearErrors(`quantity.${item.id}`)
+                            if (val !== null && !isNaN(val ?? 0)) {
+                              if (val < minValue || val > maxValue) {
+                                form.setError(`quantity.${item.id}`, {
+                                  type: "manual",
+                                  message: t(
+                                    "orders.fulfillment.error.wrongQuantity",
+                                    {
+                                      count: maxValue,
+                                      number: maxValue,
                                     }
-                                  }
-                                }}
-                              />
-                            </Form.Control>
-                          </Form.Item>
+                                  ),
+                                });
+                              } else {
+                                form.clearErrors(`quantity.${item.id}`);
+                              }
+                            }
+                          }}
+                        />
+                      </Form.Control>
+                    </Form.Item>
 
 
                     <span className="text-ui-fg-subtle">
@@ -190,8 +190,8 @@ export function OrderCreateFulfillmentItem({
 
             <Form.ErrorMessage className="flex justify-end pr-3 pb-2" />
           </div>
-        )
+        );
       }}
     />
-  )
+  );
 }

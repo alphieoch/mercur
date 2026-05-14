@@ -1,9 +1,9 @@
-import { Input } from "@medusajs/ui"
-import { ChangeEvent, useCallback, useEffect } from "react"
-import { useTranslation } from "react-i18next"
+import { Input } from "@medusajs/ui";
+import { ChangeEvent, useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
-import debounce from "lodash.debounce"
-import { useSelectedParams } from "../hooks"
+import debounce from "lodash.debounce";
+import { useSelectedParams } from "../hooks";
 
 type DataTableSearchProps = {
   placeholder?: string
@@ -16,35 +16,35 @@ export const DataTableSearch = ({
   prefix,
   autofocus,
 }: DataTableSearchProps) => {
-  const { t } = useTranslation()
-  const placeholderText = placeholder || t("general.search")
+  const { t } = useTranslation();
+  const placeholderText = placeholder || t("general.search");
   const selectedParams = useSelectedParams({
     param: "q",
     prefix,
     multiple: false,
-  })
+  });
 
-  const query = selectedParams.get()
+  const query = selectedParams.get();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedOnChange = useCallback(
     debounce((e: ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value
+      const value = e.target.value;
 
       if (!value) {
-        selectedParams.delete()
+        selectedParams.delete();
       } else {
-        selectedParams.add(value)
+        selectedParams.add(value);
       }
     }, 500),
     [selectedParams]
-  )
+  );
 
   useEffect(() => {
     return () => {
-      debouncedOnChange.cancel()
-    }
-  }, [debouncedOnChange])
+      debouncedOnChange.cancel();
+    };
+  }, [debouncedOnChange]);
 
   return (
     <Input
@@ -57,5 +57,5 @@ export const DataTableSearch = ({
       onChange={debouncedOnChange}
       placeholder={placeholderText}
     />
-  )
-}
+  );
+};

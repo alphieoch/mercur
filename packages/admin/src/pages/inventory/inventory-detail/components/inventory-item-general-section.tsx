@@ -1,9 +1,9 @@
-import { Container, Heading } from "@medusajs/ui"
-import { PencilSquare } from "@medusajs/icons"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "@components/common/action-menu"
-import { SectionRow } from "@components/common/section"
-import type { ExtendedAdminInventoryItem } from "@custom-types/inventory"
+import { Container, Heading } from "@medusajs/ui";
+import { PencilSquare } from "@medusajs/icons";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "@components/common/action-menu";
+import { SectionRow } from "@components/common/section";
+import type { ExtendedAdminInventoryItem } from "@custom-types/inventory";
 
 type InventoryItemGeneralSectionProps = {
   inventoryItem: ExtendedAdminInventoryItem
@@ -12,18 +12,18 @@ type InventoryItemGeneralSectionProps = {
 export const InventoryItemGeneralSection = ({
   inventoryItem,
 }: InventoryItemGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const getQuantityFormat = (quantity: number) => {
     if (quantity !== undefined && !isNaN(quantity)) {
       return t("inventory.quantityAcrossLocations", {
         quantity,
         locations: inventoryItem.location_levels?.length,
-      })
+      });
     }
 
-    return "-"
-  }
+    return "-";
+  };
 
   return (
     <Container className="divide-y p-0" data-testid="inventory-item-general-section">
@@ -66,5 +66,5 @@ export const InventoryItemGeneralSection = ({
         data-testid="inventory-item-available-row"
       />
     </Container>
-  )
-}
+  );
+};

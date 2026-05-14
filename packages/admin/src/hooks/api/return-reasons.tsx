@@ -2,21 +2,21 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
+} from "@tanstack/react-query";
 
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const RETURN_REASONS_QUERY_KEY = "return_reasons" as const
-export const returnReasonsQueryKeys = queryKeysFactory(RETURN_REASONS_QUERY_KEY)
+const RETURN_REASONS_QUERY_KEY = "return_reasons" as const;
+export const returnReasonsQueryKeys = queryKeysFactory(RETURN_REASONS_QUERY_KEY);
 
 export const useReturnReasons = (
   query?: InferClientInput<typeof sdk.admin.returnReasons.query>,
@@ -34,10 +34,10 @@ export const useReturnReasons = (
     queryFn: () => sdk.admin.returnReasons.query({ ...query }),
     queryKey: returnReasonsQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useReturnReason = (
   id: string,
@@ -59,10 +59,10 @@ export const useReturnReason = (
     queryFn: () => sdk.admin.returnReasons.$id.query({ $id: id, ...query }),
     queryKey: returnReasonsQueryKeys.detail(id),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateReturnReason = (
   options?: UseMutationOptions<
@@ -76,13 +76,13 @@ export const useCreateReturnReason = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: returnReasonsQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateReturnReason = (
   id: string,
@@ -101,16 +101,16 @@ export const useUpdateReturnReason = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: returnReasonsQueryKeys.lists(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: returnReasonsQueryKeys.detail(id),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteReturnReason = (
   id: string,
@@ -125,17 +125,17 @@ export const useDeleteReturnReason = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: returnReasonsQueryKeys.lists(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: returnReasonsQueryKeys.detail(id),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnReasonsQueryKeys.details(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

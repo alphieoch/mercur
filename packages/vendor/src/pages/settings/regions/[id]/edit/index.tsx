@@ -1,18 +1,18 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-import { RouteDrawer } from "@components/modals"
-import { usePaymentProviders } from "@hooks/api/payments"
-import { useRegion } from "@hooks/api/regions"
-import { useStore } from "@hooks/api/store"
-import { currencies } from "@lib/data/currencies"
-import { EditRegionForm } from "./_components/edit-region-form"
-import { usePricePreferences } from "@hooks/api/price-preferences"
+import { RouteDrawer } from "@components/modals";
+import { usePaymentProviders } from "@hooks/api/payments";
+import { useRegion } from "@hooks/api/regions";
+import { useStore } from "@hooks/api/store";
+import { currencies } from "@lib/data/currencies";
+import { EditRegionForm } from "./_components/edit-region-form";
+import { usePricePreferences } from "@hooks/api/price-preferences";
 
 const RegionEdit = () => {
-  const { t } = useTranslation()
-  const { id } = useParams()
+  const { t } = useTranslation();
+  const { id } = useParams();
 
   const {
     region,
@@ -21,14 +21,14 @@ const RegionEdit = () => {
     error: regionError,
   } = useRegion(id!, {
     fields: "*payment_providers,*countries,+automatic_taxes",
-  })
+  });
 
   const {
     store,
     isPending: isStoreLoading,
     isError: isStoreError,
     error: storeError,
-  } = useStore()
+  } = useStore();
 
   const {
     price_preferences: pricePreferences = [],
@@ -41,28 +41,28 @@ const RegionEdit = () => {
       value: id,
     },
     { enabled: !!region }
-  )
+  );
 
-  const isLoading = isRegionLoading || isStoreLoading || isPreferenceLoading
+  const isLoading = isRegionLoading || isStoreLoading || isPreferenceLoading;
 
   const storeCurrencies = (store?.supported_currencies ?? []).map(
     (c) => currencies[c.currency_code.toUpperCase()]
-  )
+  );
   const { payment_providers: paymentProviders = [] } = usePaymentProviders({
     limit: 999,
     is_enabled: true,
-  })
+  });
 
   if (isRegionError) {
-    throw regionError
+    throw regionError;
   }
 
   if (isStoreError) {
-    throw storeError
+    throw storeError;
   }
 
   if (isPreferenceError) {
-    throw preferenceError
+    throw preferenceError;
   }
 
   return (
@@ -79,7 +79,7 @@ const RegionEdit = () => {
         />
       )}
     </RouteDrawer>
-  )
-}
+  );
+};
 
-export const Component = RegionEdit
+export const Component = RegionEdit;

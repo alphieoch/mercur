@@ -1,20 +1,20 @@
-import { HttpTypes } from "@medusajs/types"
+import { HttpTypes } from "@medusajs/types";
 import {
   QueryKey,
   useMutation,
   UseMutationOptions,
   useQuery,
   UseQueryOptions,
-} from "@tanstack/react-query"
+} from "@tanstack/react-query";
 
-import { ClientError } from "@mercurjs/client"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
-import { ordersQueryKeys } from "./orders"
+import { ClientError } from "@mercurjs/client";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
+import { ordersQueryKeys } from "./orders";
 
-const RETURNS_QUERY_KEY = "returns" as const
-export const returnsQueryKeys = queryKeysFactory(RETURNS_QUERY_KEY)
+const RETURNS_QUERY_KEY = "returns" as const;
+export const returnsQueryKeys = queryKeysFactory(RETURNS_QUERY_KEY);
 
 export const useReturn = (
   id: string,
@@ -28,10 +28,10 @@ export const useReturn = (
     queryFn: async () => sdk.admin.returns.$id.query({ $id: id, ...query }),
     queryKey: returnsQueryKeys.detail(id, query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useReturns = (
   query?: HttpTypes.AdminReturnFilters,
@@ -49,10 +49,10 @@ export const useReturns = (
     queryFn: async () => sdk.admin.returns.query({ ...query }),
     queryKey: returnsQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useInitiateReturn = (
   orderId: string,
@@ -68,20 +68,20 @@ export const useInitiateReturn = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelReturn = (
   id: string,
@@ -93,24 +93,24 @@ export const useCancelReturn = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
         refetchType: "all", // We want preview to be updated in the cache immediately
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 /**
  * REQUEST RETURN
@@ -131,23 +131,23 @@ export const useConfirmReturnRequest = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelReturnRequest = (
   id: string,
@@ -159,26 +159,26 @@ export const useCancelReturnRequest = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
         refetchType: "all", // We want preview to be updated in the cache immediately
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddReturnItem = (
   id: string,
@@ -195,17 +195,17 @@ export const useAddReturnItem = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateReturnItem = (
   id: string,
@@ -225,22 +225,22 @@ export const useUpdateReturnItem = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRemoveReturnItem = (
   id: string,
@@ -260,21 +260,21 @@ export const useRemoveReturnItem = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateReturn = (
   id: string,
@@ -287,22 +287,22 @@ export const useUpdateReturn = (
 ) => {
   return useMutation({
     mutationFn: (payload: HttpTypes.AdminUpdateReturnRequest) => {
-      return sdk.admin.returns.$id.mutate({ $id: id, ...payload })
+      return sdk.admin.returns.$id.mutate({ $id: id, ...payload });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddReturnShipping = (
   id: string,
@@ -319,17 +319,17 @@ export const useAddReturnShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateReturnShipping = (
   id: string,
@@ -353,17 +353,17 @@ export const useUpdateReturnShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteReturnShipping = (
   id: string,
@@ -383,21 +383,21 @@ export const useDeleteReturnShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 /**
  * RECEIVE RETURN
@@ -418,17 +418,17 @@ export const useInitiateReceiveReturn = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddReceiveItems = (
   id: string,
@@ -445,17 +445,17 @@ export const useAddReceiveItems = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateReceiveItem = (
   id: string,
@@ -475,22 +475,22 @@ export const useUpdateReceiveItem = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRemoveReceiveItems = (
   id: string,
@@ -506,22 +506,22 @@ export const useRemoveReceiveItems = (
       return sdk.admin.returns.$id.receiveItems.$actionId.delete({
         $id: id,
         $actionId: actionId,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddDismissItems = (
   id: string,
@@ -538,17 +538,17 @@ export const useAddDismissItems = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateDismissItem = (
   id: string,
@@ -568,22 +568,22 @@ export const useUpdateDismissItem = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRemoveDismissItem = (
   id: string,
@@ -599,22 +599,22 @@ export const useRemoveDismissItem = (
       return sdk.admin.returns.$id.dismissItems.$actionId.delete({
         $id: id,
         $actionId: actionId,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useConfirmReturnReceive = (
   id: string,
@@ -631,23 +631,23 @@ export const useConfirmReturnReceive = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelReceiveReturn = (
   id: string,
@@ -659,21 +659,21 @@ export const useCancelReceiveReturn = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
         refetchType: "all", // We want preview to be updated in the cache immediately
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

@@ -1,6 +1,6 @@
-import { useRegions } from "../../../../hooks/api/regions"
-import { useStore } from "../../../../hooks/api/store"
-import { usePricePreferences } from "../../../../hooks/api/price-preferences"
+import { useRegions } from "../../../../hooks/api/regions";
+import { useStore } from "../../../../hooks/api/store";
+import { usePricePreferences } from "../../../../hooks/api/price-preferences";
 
 export const usePriceListCurrencyData = () => {
   const {
@@ -10,9 +10,9 @@ export const usePriceListCurrencyData = () => {
     error: storeError,
   } = useStore({
     fields: "+supported_currencies",
-  })
+  });
 
-  const currencies = store?.supported_currencies
+  const currencies = store?.supported_currencies;
 
   const {
     regions,
@@ -22,14 +22,14 @@ export const usePriceListCurrencyData = () => {
   } = useRegions({
     fields: "id,name,currency_code",
     limit: 999,
-  })
+  });
 
   const {
     price_preferences: pricePreferences,
     isPending: isPreferencesPending,
     isError: isPreferencesError,
     error: preferencesError,
-  } = usePricePreferences({})
+  } = usePricePreferences({});
 
   const isReady =
     !!currencies &&
@@ -37,18 +37,18 @@ export const usePriceListCurrencyData = () => {
     !!pricePreferences &&
     !isStorePending &&
     !isRegionsPending &&
-    !isPreferencesPending
+    !isPreferencesPending;
 
   if (isRegionsError) {
-    throw regionsError
+    throw regionsError;
   }
 
   if (isStoreError) {
-    throw storeError
+    throw storeError;
   }
 
   if (isPreferencesError) {
-    throw preferencesError
+    throw preferencesError;
   }
 
   if (!isReady) {
@@ -57,8 +57,8 @@ export const usePriceListCurrencyData = () => {
       currencies: undefined,
       pricePreferences: undefined,
       isReady: false,
-    }
+    };
   }
 
-  return { regions, currencies, pricePreferences, isReady }
-}
+  return { regions, currencies, pricePreferences, isReady };
+};

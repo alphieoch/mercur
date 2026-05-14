@@ -353,112 +353,112 @@ const CommandInput = forwardRef<
     setArea: (area: SearchArea) => void;
     isFetching: boolean;
     onBack?: () => void;
-  }
->(
-  (
-    {
-      className,
-      value,
-      onValueChange,
-      area,
-      setArea,
-      isFetching,
-      onBack,
-      ...props
-    },
-    ref,
-  ) => {
-    const { t } = useTranslation();
-    const innerRef = useRef<HTMLInputElement>(null);
-    const direction = useDocumentDirection();
-    useImperativeHandle<HTMLInputElement | null, HTMLInputElement | null>(
-      ref,
-      () => innerRef.current,
-    );
+      }
+      >(
+      (
+        {
+          className,
+          value,
+          onValueChange,
+          area,
+          setArea,
+          isFetching,
+          onBack,
+          ...props
+        },
+        ref,
+      ) => {
+        const { t } = useTranslation();
+        const innerRef = useRef<HTMLInputElement>(null);
+        const direction = useDocumentDirection();
+        useImperativeHandle<HTMLInputElement | null, HTMLInputElement | null>(
+          ref,
+          () => innerRef.current,
+        );
 
-    return (
-      <div className="flex flex-col border-b">
-        <div className="px-4 pt-4">
-          <DropdownMenu dir={direction}>
-            <DropdownMenu.Trigger asChild>
-              <Badge
-                size="2xsmall"
-                className="hover:bg-ui-bg-base-pressed transition-fg cursor-pointer"
-              >
-                {t(`app.search.groups.${area}`)}
-                <TriangleDownMini className="text-ui-fg-muted" />
-              </Badge>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content
-              align="start"
-              className="h-full max-h-[360px] overflow-auto"
-              onCloseAutoFocus={(e) => {
-                e.preventDefault();
-                innerRef.current?.focus();
-              }}
-            >
-              <DropdownMenu.RadioGroup
-                value={area}
-                onValueChange={(v) => setArea(v as SearchArea)}
-              >
-                {SEARCH_AREAS.map((area) => (
-                  <Fragment key={area}>
-                    {area === "command" && <DropdownMenu.Separator />}
-                    <DropdownMenu.RadioItem value={area}>
-                      {t(`app.search.groups.${area}`)}
-                    </DropdownMenu.RadioItem>
-                    {area === "all" && <DropdownMenu.Separator />}
-                  </Fragment>
-                ))}
-              </DropdownMenu.RadioGroup>
-            </DropdownMenu.Content>
-          </DropdownMenu>
-        </div>
-        <div className="relative flex items-center gap-x-2 px-4 py-3">
-          {onBack && (
-            <IconButton
-              type="button"
-              size="small"
-              variant="transparent"
-              onClick={onBack}
-            >
-              <ArrowUturnLeft className="text-ui-fg-muted" />
-            </IconButton>
-          )}
-          <Command.Input
-            ref={innerRef}
-            value={value}
-            onValueChange={onValueChange}
-            className={clx(
-              "placeholder:text-ui-fg-muted flex !h-6 w-full rounded-md bg-transparent text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
-              className,
-            )}
-            {...props}
-          />
-          <div className="absolute end-4 top-1/2 flex -translate-y-1/2 items-center justify-end gap-x-2">
-            {isFetching && (
-              <Spinner className="text-ui-fg-muted animate-spin" />
-            )}
-            {value && (
-              <Button
-                variant="transparent"
-                size="small"
-                className="text-ui-fg-muted hover:text-ui-fg-subtle"
-                type="button"
-                onClick={() => {
-                  onValueChange?.("");
-                  innerRef.current?.focus();
-                }}
-              >
-                {t("actions.clear")}
-              </Button>
-            )}
+        return (
+          <div className="flex flex-col border-b">
+            <div className="px-4 pt-4">
+              <DropdownMenu dir={direction}>
+                <DropdownMenu.Trigger asChild>
+                  <Badge
+                    size="2xsmall"
+                    className="hover:bg-ui-bg-base-pressed transition-fg cursor-pointer"
+                  >
+                    {t(`app.search.groups.${area}`)}
+                    <TriangleDownMini className="text-ui-fg-muted" />
+                  </Badge>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content
+                  align="start"
+                  className="h-full max-h-[360px] overflow-auto"
+                  onCloseAutoFocus={(e) => {
+                    e.preventDefault();
+                    innerRef.current?.focus();
+                  }}
+                >
+                  <DropdownMenu.RadioGroup
+                    value={area}
+                    onValueChange={(v) => setArea(v as SearchArea)}
+                  >
+                    {SEARCH_AREAS.map((area) => (
+                      <Fragment key={area}>
+                        {area === "command" && <DropdownMenu.Separator />}
+                        <DropdownMenu.RadioItem value={area}>
+                          {t(`app.search.groups.${area}`)}
+                        </DropdownMenu.RadioItem>
+                        {area === "all" && <DropdownMenu.Separator />}
+                      </Fragment>
+                    ))}
+                  </DropdownMenu.RadioGroup>
+                </DropdownMenu.Content>
+              </DropdownMenu>
+            </div>
+            <div className="relative flex items-center gap-x-2 px-4 py-3">
+              {onBack && (
+                <IconButton
+                  type="button"
+                  size="small"
+                  variant="transparent"
+                  onClick={onBack}
+                >
+                  <ArrowUturnLeft className="text-ui-fg-muted" />
+                </IconButton>
+              )}
+              <Command.Input
+                ref={innerRef}
+                value={value}
+                onValueChange={onValueChange}
+                className={clx(
+                  "placeholder:text-ui-fg-muted flex !h-6 w-full rounded-md bg-transparent text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
+                  className,
+                )}
+                {...props}
+              />
+              <div className="absolute end-4 top-1/2 flex -translate-y-1/2 items-center justify-end gap-x-2">
+                {isFetching && (
+                  <Spinner className="text-ui-fg-muted animate-spin" />
+                )}
+                {value && (
+                  <Button
+                    variant="transparent"
+                    size="small"
+                    className="text-ui-fg-muted hover:text-ui-fg-subtle"
+                    type="button"
+                    onClick={() => {
+                      onValueChange?.("");
+                      innerRef.current?.focus();
+                    }}
+                  >
+                    {t("actions.clear")}
+                  </Button>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    );
-  },
-);
+        );
+      },
+      );
 
 CommandInput.displayName = Command.Input.displayName;
 

@@ -1,1 +1,1 @@
-export * from './order-list-page'
+export * from './order-list-page';

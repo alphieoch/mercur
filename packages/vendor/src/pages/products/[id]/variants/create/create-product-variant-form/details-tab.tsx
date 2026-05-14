@@ -1,13 +1,13 @@
-import { Heading, Input } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { Heading, Input } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { ExtendedAdminProduct } from "@custom-types/products"
+import { ExtendedAdminProduct } from "@custom-types/products";
 
-import { Form } from "@components/common/form"
-import { Combobox } from "@components/inputs/combobox"
-import { CreateProductVariantSchema } from "./constants"
+import { Form } from "@components/common/form";
+import { Combobox } from "@components/inputs/combobox";
+import { CreateProductVariantSchema } from "./constants";
 
 type DetailsTabProps = {
   product: ExtendedAdminProduct
@@ -15,7 +15,7 @@ type DetailsTabProps = {
 }
 
 function DetailsTab({ form, product }: DetailsTabProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-1 flex-col items-center overflow-y-auto">
@@ -35,7 +35,7 @@ function DetailsTab({ form, product }: DetailsTabProps) {
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
 
@@ -51,7 +51,7 @@ function DetailsTab({ form, product }: DetailsTabProps) {
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
 
@@ -68,7 +68,7 @@ function DetailsTab({ form, product }: DetailsTabProps) {
                       <Combobox
                         value={value}
                         onChange={(v) => {
-                          onChange(v)
+                          onChange(v);
                         }}
                         {...field}
                         options={option.values.map((v: any) => ({
@@ -78,7 +78,7 @@ function DetailsTab({ form, product }: DetailsTabProps) {
                       />
                     </Form.Control>
                   </Form.Item>
-                )
+                );
               }}
             />
           ))}
@@ -116,7 +116,7 @@ function DetailsTab({ form, product }: DetailsTabProps) {
         </div> */}
       </div>
     </div>
-  )
+  );
 }
 
-export default DetailsTab
+export default DetailsTab;

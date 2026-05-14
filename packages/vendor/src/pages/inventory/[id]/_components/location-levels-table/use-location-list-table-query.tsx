@@ -1,4 +1,4 @@
-import { useQueryParams } from "@hooks/use-query-params"
+import { useQueryParams } from "@hooks/use-query-params";
 
 export const useLocationLevelTableQuery = ({
   pageSize = 20,
@@ -18,10 +18,10 @@ export const useLocationLevelTableQuery = ({
       "*stock_locations",
     ],
     prefix
-  )
+  );
 
   const { reserved_quantity, stocked_quantity, available_quantity, ...params } =
-    raw
+    raw;
 
   const searchParams = {
     limit: pageSize,
@@ -35,10 +35,10 @@ export const useLocationLevelTableQuery = ({
       ? JSON.parse(available_quantity)
       : undefined,
     ...params,
-  }
+  };
 
   return {
     searchParams,
     raw,
-  }
-}
+  };
+};

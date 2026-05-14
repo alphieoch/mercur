@@ -1,4 +1,4 @@
-import { FieldValues } from "react-hook-form"
+import { FieldValues } from "react-hook-form";
 
 import {
   DataGridBooleanCell,
@@ -11,7 +11,7 @@ import {
   DataGridTextCell,
   DataGridExpandableTextCell,
   type DataGridRootProps,
-} from "./components"
+} from "./components";
 
 interface DataGridProps<TData, TFieldValues extends FieldValues = FieldValues>
   extends DataGridRootProps<TData, TFieldValues> {
@@ -42,8 +42,8 @@ const _DataGrid = <TData, TFieldValues extends FieldValues = FieldValues>({
       isFetchingMore={isFetchingMore}
       hasNextPage={hasNextPage}
     />
-  )
-}
+  );
+};
 
 export const DataGrid = Object.assign(_DataGrid, {
   BooleanCell: DataGridBooleanCell,
@@ -53,4 +53,4 @@ export const DataGrid = Object.assign(_DataGrid, {
   NumberCell: DataGridNumberCell,
   CurrencyCell: DataGridCurrencyCell,
   ReadonlyCell: DataGridReadOnlyCell,
-})
+});

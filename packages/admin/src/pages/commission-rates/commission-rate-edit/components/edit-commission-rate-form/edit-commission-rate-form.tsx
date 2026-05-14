@@ -223,12 +223,12 @@ export const EditCommissionRateForm = ({
 
   const getControls = (type: TaxRateRuleReferenceType) => {
     switch (type) {
-      case TaxRateRuleReferenceType.PRODUCT:
-        return products;
-      case TaxRateRuleReferenceType.PRODUCT_TYPE:
-        return productTypes;
-      case TaxRateRuleReferenceType.SHIPPING_OPTION:
-        return shippingOptions;
+    case TaxRateRuleReferenceType.PRODUCT:
+      return products;
+    case TaxRateRuleReferenceType.PRODUCT_TYPE:
+      return productTypes;
+    case TaxRateRuleReferenceType.SHIPPING_OPTION:
+      return shippingOptions;
     }
   };
 

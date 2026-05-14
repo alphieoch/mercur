@@ -1,6 +1,6 @@
-import { Checkbox, Text, clx } from "@medusajs/ui"
+import { Checkbox, Text, clx } from "@medusajs/ui";
 
-import { StockLocationDTO } from "@medusajs/types"
+import { StockLocationDTO } from "@medusajs/types";
 
 type LocationItemProps = {
   selected: boolean
@@ -26,8 +26,8 @@ export const LocationItem = ({
       <div className="h-5 w-5">
         <Checkbox
           onClick={(e) => {
-            e.stopPropagation()
-            onSelect(!selected)
+            e.stopPropagation();
+            onSelect(!selected);
           }}
           checked={selected}
         />
@@ -47,5 +47,5 @@ export const LocationItem = ({
         </Text>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,31 +1,31 @@
-import { json, useParams } from "react-router-dom"
+import { json, useParams } from "react-router-dom";
 
-import { RouteFocusModal } from "@components/modals"
-import { useStockLocation } from "@hooks/api/stock-locations"
-import { EditServiceZoneAreasForm } from "./_components/edit-service-zone-areas-form"
+import { RouteFocusModal } from "@components/modals";
+import { useStockLocation } from "@hooks/api/stock-locations";
+import { EditServiceZoneAreasForm } from "./_components/edit-service-zone-areas-form";
 
 const LocationServiceZoneManageAreas = () => {
-  const { location_id, fset_id, zone_id } = useParams()
+  const { location_id, fset_id, zone_id } = useParams();
 
   const { stock_location, isPending, isFetching, isError, error } =
     useStockLocation(location_id!, {
       fields:
         "*fulfillment_sets.service_zones.geo_zones,fulfillment_sets.service_zones.name",
-    })
+    });
 
   const zone = stock_location?.fulfillment_sets
     ?.find((f) => f.id === fset_id)
-    ?.service_zones.find((z) => z.id === zone_id)
+    ?.service_zones.find((z) => z.id === zone_id);
 
   if (!isPending && !isFetching && !zone) {
     throw json(
       { message: `Service zone with ID ${zone_id} was not found` },
       404
-    )
+    );
   }
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -38,7 +38,7 @@ const LocationServiceZoneManageAreas = () => {
         />
       )}
     </RouteFocusModal>
-  )
-}
+  );
+};
 
-export const Component = LocationServiceZoneManageAreas
+export const Component = LocationServiceZoneManageAreas;

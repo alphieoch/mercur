@@ -1,6 +1,6 @@
-import { Text } from "@medusajs/ui"
-import { AdminClaim, AdminReturn } from "@medusajs/types"
-import { useTranslation } from "react-i18next"
+import { Text } from "@medusajs/ui";
+import { AdminClaim, AdminReturn } from "@medusajs/types";
+import { useTranslation } from "react-i18next";
 
 type ClaimBodyProps = {
   claim: AdminClaim
@@ -11,17 +11,17 @@ export const ClaimBody = ({
   claim,
   claimReturn,
 }: ClaimBodyProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const outboundItems = (claim.additional_items || []).reduce(
     (acc, item) => (acc + item.quantity) as number,
     0
-  )
+  );
 
   const inboundItems = (claimReturn?.items || []).reduce(
     (acc, item) => acc + item.quantity,
     0
-  )
+  );
 
   return (
     <div>
@@ -41,5 +41,5 @@ export const ClaimBody = ({
         </Text>
       )}
     </div>
-  )
-}
+  );
+};

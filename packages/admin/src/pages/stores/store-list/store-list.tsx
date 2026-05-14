@@ -1,21 +1,21 @@
-import { ReactNode, Children } from "react"
+import { ReactNode, Children } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   StoreListTable,
   StoreListDataTable,
   StoreListHeader,
   StoreListActions,
   StoreListTitle,
-} from "./components/store-list-table"
+} from "./components/store-list-table";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage hasOutlet>
       {Children.count(children) > 0 ? children : <StoreListTable />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const StoreListPage = Object.assign(Root, {
   Table: StoreListTable,
@@ -23,4 +23,4 @@ export const StoreListPage = Object.assign(Root, {
   HeaderTitle: StoreListTitle,
   HeaderActions: StoreListActions,
   DataTable: StoreListDataTable,
-})
+});

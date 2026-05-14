@@ -1,1 +1,1 @@
-export * from './product-tag-list-page'
+export * from './product-tag-list-page';

@@ -1,12 +1,12 @@
-import { useRef, useState } from "react"
+import { useRef, useState } from "react";
 
-import { Button } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Button } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { StackedFocusModal } from "@components/modals"
-import { EditVariantMediaForm } from "../edit-variant-media-form/edit-variant-media-form"
-import { VariantMediaGallery } from "./components/variant-media-gallery/variant-media-gallery"
-import { VariantMediaViewContext } from "./variant-media-view-context"
+import { StackedFocusModal } from "@components/modals";
+import { EditVariantMediaForm } from "../edit-variant-media-form/edit-variant-media-form";
+import { VariantMediaGallery } from "./components/variant-media-gallery/variant-media-gallery";
+import { VariantMediaViewContext } from "./variant-media-view-context";
 
 type MediaItem = {
   file?: File
@@ -30,9 +30,9 @@ enum View {
 }
 
 const getView = (currentView: string | undefined) => {
-  if (currentView === View.EDIT) return View.EDIT
-  return View.GALLERY
-}
+  if (currentView === View.EDIT) return View.EDIT;
+  return View.GALLERY;
+};
 
 export const VariantMediaView = ({
   variantIndex,
@@ -42,23 +42,23 @@ export const VariantMediaView = ({
   initialMedia,
   productMedia,
 }: VariantMediaViewProps) => {
-  const [currentView, setCurrentView] = useState<string | undefined>(View.EDIT)
-  const view = getView(currentView)
-  const { t } = useTranslation()
-  const saveRef = useRef<(() => void) | null>(null)
+  const [currentView, setCurrentView] = useState<string | undefined>(View.EDIT);
+  const view = getView(currentView);
+  const { t } = useTranslation();
+  const saveRef = useRef<(() => void) | null>(null);
 
-  const handleGoToView = (v: View) => () => setCurrentView(v)
+  const handleGoToView = (v: View) => () => setCurrentView(v);
 
   const contextValue = {
     goToGallery: handleGoToView(View.GALLERY),
     goToEdit: handleGoToView(View.EDIT),
     onCancel: onClose,
     onClose,
-  }
+  };
 
   const handleFooterSave = () => {
-    saveRef.current?.()
-  }
+    saveRef.current?.();
+  };
 
   return (
     <VariantMediaViewContext.Provider value={contextValue}>
@@ -104,5 +104,5 @@ export const VariantMediaView = ({
         )}
       </StackedFocusModal.Content>
     </VariantMediaViewContext.Provider>
-  )
-}
+  );
+};

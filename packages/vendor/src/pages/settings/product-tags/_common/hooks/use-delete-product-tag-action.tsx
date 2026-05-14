@@ -1,8 +1,8 @@
-import { HttpTypes } from "@medusajs/types"
-import { toast, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import { useDeleteProductTag } from "@hooks/api"
+import { HttpTypes } from "@medusajs/types";
+import { toast, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useDeleteProductTag } from "@hooks/api";
 
 type UseDeleteProductTagActionProps = {
   productTag: HttpTypes.AdminProductTag
@@ -11,11 +11,11 @@ type UseDeleteProductTagActionProps = {
 export const useDeleteProductTagAction = ({
   productTag,
 }: UseDeleteProductTagActionProps) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
 
-  const { mutateAsync } = useDeleteProductTag(productTag.id)
+  const { mutateAsync } = useDeleteProductTag(productTag.id);
 
   const handleDelete = async () => {
     const confirmed = await prompt({
@@ -25,10 +25,10 @@ export const useDeleteProductTagAction = ({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!confirmed) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
@@ -37,16 +37,16 @@ export const useDeleteProductTagAction = ({
           t("productTags.delete.successToast", {
             value: productTag.value,
           })
-        )
+        );
         navigate("/settings/product-tags", {
           replace: true,
-        })
+        });
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  }
+    });
+  };
 
-  return handleDelete
-}
+  return handleDelete;
+};

@@ -1,25 +1,25 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Divider, Input, RadioGroup, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Divider, Input, RadioGroup, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Form } from "../../../../../components/common/form"
-import { SwitchBox } from "../../../../../components/common/switch-box"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateShippingOptions } from "../../../../../hooks/api/shipping-options"
-import { useComboboxData } from "../../../../../hooks/use-combobox-data"
-import { sdk } from "../../../../../lib/client"
-import { isOptionEnabledInStore } from "../../../../../lib/shipping-options"
+import { Form } from "../../../../../components/common/form";
+import { SwitchBox } from "../../../../../components/common/switch-box";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateShippingOptions } from "../../../../../hooks/api/shipping-options";
+import { useComboboxData } from "../../../../../hooks/use-combobox-data";
+import { sdk } from "../../../../../lib/client";
+import { isOptionEnabledInStore } from "../../../../../lib/shipping-options";
 import {
   FulfillmentSetType,
   ShippingOptionPriceType,
-} from "../../../common/constants"
-import { formatProvider } from "../../../../../lib/format-provider"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
+} from "../../../common/constants";
+import { formatProvider } from "../../../../../lib/format-provider";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
 
 type EditShippingOptionFormProps = {
   locationId: string
@@ -34,17 +34,17 @@ const EditShippingOptionSchema = zod.object({
   shipping_profile_id: zod.string(),
   shipping_option_type_id: zod.string(),
   provider_id: zod.string().optional(), // just for UI purposes
-})
+});
 
 export const EditShippingOptionForm = ({
   locationId,
   shippingOption,
   type,
 }: EditShippingOptionFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const direction = useDocumentDirection()
-  const isPickup = type === FulfillmentSetType.Pickup
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const direction = useDocumentDirection();
+  const isPickup = type === FulfillmentSetType.Pickup;
 
   const shippingProfiles = useComboboxData({
     queryFn: (params) => sdk.admin.shippingProfiles.query(params),
@@ -55,7 +55,7 @@ export const EditShippingOptionForm = ({
         value: profile.id,
       })),
     defaultValue: shippingOption.shipping_profile_id,
-  })
+  });
 
   const shippingOptionTypes = useComboboxData({
     queryFn: (params) => sdk.admin.shippingOptionTypes.query(params),
@@ -65,7 +65,7 @@ export const EditShippingOptionForm = ({
         label: type.label,
         value: type.id,
       })),
-  })
+  });
 
   const form = useForm<zod.infer<typeof EditShippingOptionSchema>>({
     defaultValues: {
@@ -77,11 +77,11 @@ export const EditShippingOptionForm = ({
       provider_id: shippingOption.provider_id,
     },
     resolver: zodResolver(EditShippingOptionSchema),
-  })
+  });
 
   const { mutateAsync, isPending: isLoading } = useUpdateShippingOptions(
     shippingOption.id
-  )
+  );
 
   const handleSubmit = form.handleSubmit(async (values) => {
     const rules: (HttpTypes.AdminUpdateShippingOptionRule | HttpTypes.AdminCreateShippingOptionRule)[] = shippingOption.rules.map((r) => ({
@@ -89,9 +89,9 @@ export const EditShippingOptionForm = ({
       attribute: r.attribute,
       operator: r.operator,
       value: r.value ?? "",
-    }))
+    }));
 
-    const storeRule = rules.find((r) => r.attribute === "enabled_in_store")
+    const storeRule = rules.find((r) => r.attribute === "enabled_in_store");
 
     if (!storeRule) {
       // NOTE: should always exist since we always create this rule when we create a shipping option
@@ -99,9 +99,9 @@ export const EditShippingOptionForm = ({
         value: values.enabled_in_store ? "true" : "false",
         attribute: "enabled_in_store",
         operator: "eq",
-      })
+      });
     } else {
-      storeRule.value = values.enabled_in_store ? "true" : "false"
+      storeRule.value = values.enabled_in_store ? "true" : "false";
     }
 
     await mutateAsync(
@@ -118,15 +118,15 @@ export const EditShippingOptionForm = ({
             t("stockLocations.shippingOptions.edit.successToast", {
               name: shipping_option.name,
             })
-          )
-          handleSuccess(`/settings/locations/${locationId}`)
+          );
+          handleSuccess(`/settings/locations/${locationId}`);
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="location-shipping-option-edit-form">
@@ -182,7 +182,7 @@ export const EditShippingOptionForm = ({
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-shipping-option-edit-form-price-type-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               )}
@@ -200,7 +200,7 @@ export const EditShippingOptionForm = ({
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-shipping-option-edit-form-name-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
 
@@ -227,7 +227,7 @@ export const EditShippingOptionForm = ({
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-shipping-option-edit-form-shipping-profile-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
 
@@ -254,7 +254,7 @@ export const EditShippingOptionForm = ({
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-shipping-option-edit-form-shipping-option-type-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
 
@@ -285,7 +285,7 @@ export const EditShippingOptionForm = ({
                         </Form.Control>
                         <Form.ErrorMessage data-testid="location-shipping-option-edit-form-provider-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -319,5 +319,5 @@ export const EditShippingOptionForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

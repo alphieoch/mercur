@@ -1,8 +1,8 @@
 import {
   DateComparisonOperator,
   NumericalComparisonOperator,
-} from "@medusajs/types"
-import { useQueryParams } from "../../../../../hooks/use-query-params"
+} from "@medusajs/types";
+import { useQueryParams } from "../../../../../hooks/use-query-params";
 
 export type ReturnItemTableQuery = {
   q?: string
@@ -24,9 +24,9 @@ export const useClaimOutboundItemTableQuery = ({
   const raw = useQueryParams(
     ["q", "offset", "order", "created_at", "updated_at"],
     prefix
-  )
+  );
 
-  const { offset, created_at, updated_at, ...rest } = raw
+  const { offset, created_at, updated_at, ...rest } = raw;
 
   const searchParams = {
     ...rest,
@@ -34,7 +34,7 @@ export const useClaimOutboundItemTableQuery = ({
     offset: offset ? Number(offset) : 0,
     created_at: created_at ? JSON.parse(created_at) : undefined,
     updated_at: updated_at ? JSON.parse(updated_at) : undefined,
-  }
+  };
 
-  return { searchParams, raw }
-}
+  return { searchParams, raw };
+};

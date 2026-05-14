@@ -1,31 +1,31 @@
-import { PencilSquare } from "@medusajs/icons"
-import { Button, Container, Heading } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { ReactNode, useMemo, Children } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { PencilSquare } from "@medusajs/icons";
+import { Button, Container, Heading } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { ReactNode, useMemo, Children } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { HttpTypes } from "@medusajs/types"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useCustomers } from "../../../../../hooks/api/customers"
-import { useCustomerTableColumns } from "../../../../../hooks/table/columns/use-customer-table-columns"
-import { useCustomerTableFilters } from "../../../../../hooks/table/filters/use-customer-table-filters"
-import { useCustomerTableQuery } from "../../../../../hooks/table/query/use-customer-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-const PAGE_SIZE = 20
+import { HttpTypes } from "@medusajs/types";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useCustomers } from "../../../../../hooks/api/customers";
+import { useCustomerTableColumns } from "../../../../../hooks/table/columns/use-customer-table-columns";
+import { useCustomerTableFilters } from "../../../../../hooks/table/filters/use-customer-table-filters";
+import { useCustomerTableQuery } from "../../../../../hooks/table/query/use-customer-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+const PAGE_SIZE = 20;
 
 export const CustomerListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Heading data-testid="customer-list-heading">{t("customers.domain")}</Heading>
-  )
-}
+  );
+};
 
 export const CustomerListCreateButton = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Link to="/customers/create" data-testid="customer-list-create-link">
@@ -33,8 +33,8 @@ export const CustomerListCreateButton = () => {
         {t("actions.create")}
       </Button>
     </Link>
-  )
-}
+  );
+};
 
 export const CustomerListActions = ({ children }: { children?: ReactNode }) => {
   return (
@@ -45,8 +45,8 @@ export const CustomerListActions = ({ children }: { children?: ReactNode }) => {
         <CustomerListCreateButton />
       )}
     </div>
-  )
-}
+  );
+};
 
 export const CustomerListHeader = ({ children }: { children?: ReactNode }) => {
   return (
@@ -63,13 +63,13 @@ export const CustomerListHeader = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const CustomerListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { searchParams, raw } = useCustomerTableQuery({ pageSize: PAGE_SIZE })
+  const { searchParams, raw } = useCustomerTableQuery({ pageSize: PAGE_SIZE });
   const { customers, count, isLoading, isError, error } = useCustomers(
     {
       ...searchParams,
@@ -77,10 +77,10 @@ export const CustomerListDataTable = () => {
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const filters = useCustomerTableFilters()
-  const columns = useColumns()
+  const filters = useCustomerTableFilters();
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: customers ?? [],
@@ -89,10 +89,10 @@ export const CustomerListDataTable = () => {
     enablePagination: true,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -118,8 +118,8 @@ export const CustomerListDataTable = () => {
         message: t("customers.list.noRecordsMessage"),
       }}
     />
-  )
-}
+  );
+};
 
 export const CustomerListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -133,15 +133,15 @@ export const CustomerListTable = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </Container>
-  )
-}
+  );
+};
 
 const CustomerActions = ({
   customer,
 }: {
   customer: HttpTypes.AdminCustomer
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <ActionMenu
@@ -158,13 +158,13 @@ const CustomerActions = ({
         },
       ]}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminCustomer>()
+const columnHelper = createColumnHelper<HttpTypes.AdminCustomer>();
 
 const useColumns = () => {
-  const columns = useCustomerTableColumns()
+  const columns = useCustomerTableColumns();
 
   return useMemo(
     () => [
@@ -175,5 +175,5 @@ const useColumns = () => {
       }),
     ],
     [columns]
-  )
-}
+  );
+};

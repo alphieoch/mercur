@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 /**
  * Hook to get the current document direction (ltr/rtl) and listen for changes
@@ -11,15 +11,15 @@ export const useDocumentDirection = (): "ltr" | "rtl" | undefined => {
       return (
         (document.documentElement.getAttribute("dir") as "ltr" | "rtl") ||
         undefined
-      )
+      );
     }
-    return undefined
-  })
+    return undefined;
+  });
 
   useEffect(() => {
     // Only run on client side
     if (typeof document === "undefined") {
-      return
+      return;
     }
 
     // Create a MutationObserver to watch for changes to the dir attribute
@@ -32,23 +32,23 @@ export const useDocumentDirection = (): "ltr" | "rtl" | undefined => {
         ) {
           const newDirection = document.documentElement.getAttribute("dir") as
             | "ltr"
-            | "rtl"
-          setDirection(newDirection || undefined)
+            | "rtl";
+          setDirection(newDirection || undefined);
         }
-      })
-    })
+      });
+    });
 
     // Start observing the document element for attribute changes
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["dir"],
-    })
+    });
 
     // Cleanup observer on unmount
     return () => {
-      observer.disconnect()
-    }
-  }, [])
+      observer.disconnect();
+    };
+  }, []);
 
-  return direction
-}
+  return direction;
+};

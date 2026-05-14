@@ -1,19 +1,19 @@
-import { ArrowDownRightMini } from "@medusajs/icons"
+import { ArrowDownRightMini } from "@medusajs/icons";
 import {
   Badge,
   Container,
   Heading,
   Text,
   Tooltip,
-} from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ClientError } from "@mercurjs/client"
-import { CommissionRateDTO } from "@mercurjs/types"
-import { useProductTypes } from "../../../../../hooks/api/product-types"
-import { useProducts } from "../../../../../hooks/api/products"
-import { useShippingOptions } from "../../../../../hooks/api"
-import { TaxRateRuleReferenceType } from "../../../../tax-regions/common/constants"
+import { ClientError } from "@mercurjs/client";
+import { CommissionRateDTO } from "@mercurjs/types";
+import { useProductTypes } from "../../../../../hooks/api/product-types";
+import { useProducts } from "../../../../../hooks/api/products";
+import { useShippingOptions } from "../../../../../hooks/api";
+import { TaxRateRuleReferenceType } from "../../../../tax-regions/common/constants";
 
 type CommissionRateRulesSectionProps = {
   commissionRate: CommissionRateDTO
@@ -22,21 +22,21 @@ type CommissionRateRulesSectionProps = {
 export const CommissionRateRulesSection = ({
   commissionRate,
 }: CommissionRateRulesSectionProps) => {
-  const { t } = useTranslation()
-  const rules = commissionRate.rules || []
+  const { t } = useTranslation();
+  const rules = commissionRate.rules || [];
 
   const groupedRules = rules.reduce(
     (acc, rule) => {
       if (!acc[rule.reference]) {
-        acc[rule.reference] = []
+        acc[rule.reference] = [];
       }
-      acc[rule.reference].push(rule.reference_id)
-      return acc
+      acc[rule.reference].push(rule.reference_id);
+      return acc;
     },
     {} as Record<string, string[]>
-  )
+  );
 
-  const entries = Object.entries(groupedRules)
+  const entries = Object.entries(groupedRules);
 
   return (
     <Container className="divide-y p-0">
@@ -85,15 +85,15 @@ export const CommissionRateRulesSection = ({
                       </Text>
                     )}
                   </div>
-                )
+                );
               })}
             </div>
           </div>
         </div>
       )}
     </Container>
-  )
-}
+  );
+};
 
 const Reference = ({
   reference,
@@ -107,35 +107,35 @@ const Reference = ({
       <ReferenceBadge reference={reference} />
       <ReferenceValues type={reference} ids={ids} />
     </div>
-  )
-}
+  );
+};
 
 const ReferenceBadge = ({
   reference,
 }: {
   reference: TaxRateRuleReferenceType
 }) => {
-  const { t } = useTranslation()
-  let label: string | null = null
+  const { t } = useTranslation();
+  let label: string | null = null;
 
   switch (reference) {
-    case TaxRateRuleReferenceType.PRODUCT:
-      label = t("taxRegions.fields.targets.tags.product")
-      break
-    case TaxRateRuleReferenceType.PRODUCT_TYPE:
-      label = t("taxRegions.fields.targets.tags.productType")
-      break
-    case TaxRateRuleReferenceType.SHIPPING_OPTION:
-      label = t("taxRegions.fields.targets.tags.shippingOption")
-      break
+  case TaxRateRuleReferenceType.PRODUCT:
+    label = t("taxRegions.fields.targets.tags.product");
+    break;
+  case TaxRateRuleReferenceType.PRODUCT_TYPE:
+    label = t("taxRegions.fields.targets.tags.productType");
+    break;
+  case TaxRateRuleReferenceType.SHIPPING_OPTION:
+    label = t("taxRegions.fields.targets.tags.shippingOption");
+    break;
   }
 
   if (!label) {
-    return null
+    return null;
   }
 
-  return <Badge size="2xsmall">{label}</Badge>
-}
+  return <Badge size="2xsmall">{label}</Badge>;
+};
 
 const ReferenceValues = ({
   type,
@@ -144,21 +144,21 @@ const ReferenceValues = ({
   type: TaxRateRuleReferenceType
   ids: string[]
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { isPending, additional, labels, isError, error } = useReferenceValues(
     type,
     ids
-  )
+  );
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   if (isPending) {
     return (
       <div className="bg-ui-tag-neutral-bg border-ui-tag-neutral-border h-5 w-14 animate-pulse rounded-md" />
-    )
+    );
   }
 
   return (
@@ -184,8 +184,8 @@ const ReferenceValues = ({
         })}
       </Badge>
     </Tooltip>
-  )
-}
+  );
+};
 
 const useReferenceValues = (
   type: TaxRateRuleReferenceType,
@@ -200,12 +200,12 @@ const useReferenceValues = (
   const products = useProducts(
     { id: ids, limit: 10 },
     { enabled: !!ids.length && type === TaxRateRuleReferenceType.PRODUCT }
-  )
+  );
 
   const productTypes = useProductTypes(
     { id: ids, limit: 10 },
     { enabled: !!ids.length && type === TaxRateRuleReferenceType.PRODUCT_TYPE }
-  )
+  );
 
   const shippingOptions = useShippingOptions(
     { id: ids, limit: 10 },
@@ -213,41 +213,41 @@ const useReferenceValues = (
       enabled:
         !!ids.length && type === TaxRateRuleReferenceType.SHIPPING_OPTION,
     }
-  )
+  );
 
   switch (type) {
-    case TaxRateRuleReferenceType.PRODUCT:
-      return {
-        labels: products.products?.map((product) => product.title),
-        isPending: products.isPending,
-        additional:
+  case TaxRateRuleReferenceType.PRODUCT:
+    return {
+      labels: products.products?.map((product) => product.title),
+      isPending: products.isPending,
+      additional:
           products.products && products.count
             ? products.count - products.products.length
             : 0,
-        isError: products.isError,
-        error: products.error,
-      }
-    case TaxRateRuleReferenceType.PRODUCT_TYPE:
-      return {
-        labels: productTypes.product_types?.map((type) => type.value),
-        isPending: productTypes.isPending,
-        additional:
+      isError: products.isError,
+      error: products.error,
+    };
+  case TaxRateRuleReferenceType.PRODUCT_TYPE:
+    return {
+      labels: productTypes.product_types?.map((type) => type.value),
+      isPending: productTypes.isPending,
+      additional:
           productTypes.product_types && productTypes.count
             ? productTypes.count - productTypes.product_types.length
             : 0,
-        isError: productTypes.isError,
-        error: productTypes.error,
-      }
-    case TaxRateRuleReferenceType.SHIPPING_OPTION:
-      return {
-        labels: shippingOptions.shipping_options?.map((option) => option.name),
-        isPending: shippingOptions.isPending,
-        additional: shippingOptions.count
-          ? shippingOptions.count -
+      isError: productTypes.isError,
+      error: productTypes.error,
+    };
+  case TaxRateRuleReferenceType.SHIPPING_OPTION:
+    return {
+      labels: shippingOptions.shipping_options?.map((option) => option.name),
+      isPending: shippingOptions.isPending,
+      additional: shippingOptions.count
+        ? shippingOptions.count -
             (shippingOptions.shipping_options?.length || 0)
-          : 0,
-        isError: shippingOptions.isError,
-        error: shippingOptions.error,
-      }
+        : 0,
+      isError: shippingOptions.isError,
+      error: shippingOptions.error,
+    };
   }
-}
+};

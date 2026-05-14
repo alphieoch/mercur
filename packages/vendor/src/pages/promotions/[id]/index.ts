@@ -1,2 +1,2 @@
-export * from './loader'
-export * from './promotion-detail-page'
+export * from './loader';
+export * from './promotion-detail-page';

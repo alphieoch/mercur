@@ -1,28 +1,28 @@
-import { keepPreviousData } from "@tanstack/react-query"
-import { useTranslation } from "react-i18next"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useShippingProfiles } from "../../../../../hooks/api/shipping-profiles"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useShippingProfileTableColumns } from "../shipping-profile-list-table/use-shipping-profile-table-columns"
-import { useShippingProfileTableFilters } from "../shipping-profile-list-table/use-shipping-profile-table-filters"
-import { useShippingProfileTableQuery } from "../shipping-profile-list-table/use-shipping-profile-table-query"
+import { keepPreviousData } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useShippingProfiles } from "../../../../../hooks/api/shipping-profiles";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useShippingProfileTableColumns } from "../shipping-profile-list-table/use-shipping-profile-table-columns";
+import { useShippingProfileTableFilters } from "../shipping-profile-list-table/use-shipping-profile-table-filters";
+import { useShippingProfileTableQuery } from "../shipping-profile-list-table/use-shipping-profile-table-query";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const ShippingProfileListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { raw, searchParams } = useShippingProfileTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
 
   const { shipping_profiles, count, isLoading, isError, error } =
     useShippingProfiles(searchParams, {
       placeholderData: keepPreviousData,
-    })
+    });
 
-  const columns = useShippingProfileTableColumns()
-  const filters = useShippingProfileTableFilters()
+  const columns = useShippingProfileTableColumns();
+  const filters = useShippingProfileTableFilters();
 
   const { table } = useDataTable({
     data: shipping_profiles,
@@ -31,10 +31,10 @@ export const ShippingProfileListDataTable = () => {
     enablePagination: true,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -57,5 +57,5 @@ export const ShippingProfileListDataTable = () => {
       pagination
       data-testid="shipping-profile-list-table"
     />
-  )
-}
+  );
+};

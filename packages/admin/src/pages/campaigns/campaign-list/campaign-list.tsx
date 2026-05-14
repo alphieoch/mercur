@@ -1,6 +1,6 @@
-import { Children, ReactNode } from "react"
+import { Children, ReactNode } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   CampaignListTable,
   CampaignListHeader,
@@ -8,15 +8,15 @@ import {
   CampaignListActions,
   CampaignListCreateButton,
   CampaignListDataTable,
-} from "./components/campaign-list-table"
+} from "./components/campaign-list-table";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage hasOutlet>
       {Children.count(children) > 0 ? children : <CampaignListTable />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const CampaignListPage = Object.assign(Root, {
   Table: CampaignListTable,
@@ -25,4 +25,4 @@ export const CampaignListPage = Object.assign(Root, {
   HeaderActions: CampaignListActions,
   HeaderCreateButton: CampaignListCreateButton,
   DataTable: CampaignListDataTable,
-})
+});

@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const ClaimCreateSchema = z.object({
   inbound_items: z.array(
@@ -19,6 +19,6 @@ export const ClaimCreateSchema = z.object({
   inbound_option_id: z.string().nullish(),
   outbound_option_id: z.string().nullish(),
   send_notification: z.boolean().optional(),
-})
+});
 
 export type CreateClaimSchemaType = z.infer<typeof ClaimCreateSchema>

@@ -1,8 +1,8 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useDeleteShippingOptionTypeAction } from "../../../common/hooks/use-delete-shipping-option-type-action"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useDeleteShippingOptionTypeAction } from "../../../common/hooks/use-delete-shipping-option-type-action";
 
 type ShippingOptionTypeRowActionsProps = {
   shippingOptionType: HttpTypes.AdminShippingOptionType
@@ -11,11 +11,11 @@ type ShippingOptionTypeRowActionsProps = {
 export const ShippingOptionTypeRowActions = ({
   shippingOptionType,
 }: ShippingOptionTypeRowActionsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const handleDelete = useDeleteShippingOptionTypeAction(
     shippingOptionType.id,
     shippingOptionType.label
-  )
+  );
 
   return (
     <ActionMenu
@@ -41,5 +41,5 @@ export const ShippingOptionTypeRowActions = ({
       ]}
       data-testid={`shipping-option-type-list-table-action-menu-${shippingOptionType.id}`}
     />
-  )
-}
+  );
+};

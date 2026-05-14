@@ -1,1 +1,1 @@
-export { EditCommissionRateForm } from "./edit-commission-rate-form"
+export { EditCommissionRateForm } from "./edit-commission-rate-form";

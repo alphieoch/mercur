@@ -1,4 +1,4 @@
-import { createContext } from "react"
+import { createContext } from "react";
 
 type StackedModalState = {
   getIsOpen: (id: string) => boolean
@@ -7,4 +7,4 @@ type StackedModalState = {
   unregister: (id: string) => void
 }
 
-export const StackedModalContext = createContext<StackedModalState | null>(null)
+export const StackedModalContext = createContext<StackedModalState | null>(null);

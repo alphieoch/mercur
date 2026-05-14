@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { ArrowUpCircleSolid } from "@medusajs/icons"
-import { IconButton } from "@medusajs/ui"
-import { useRef } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowUpCircleSolid } from "@medusajs/icons";
+import { IconButton } from "@medusajs/ui";
+import { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { AdminOrder } from "@medusajs/types"
-import { useTranslation } from "react-i18next"
-import { Form } from "../../../../../components/common/form"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
+import { AdminOrder } from "@medusajs/types";
+import { useTranslation } from "react-i18next";
+import { Form } from "../../../../../components/common/form";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
 
 type OrderNoteFormProps = {
   order: AdminOrder
@@ -16,20 +16,20 @@ type OrderNoteFormProps = {
 
 const OrderNoteSchema = z.object({
   value: z.string().min(1),
-})
+});
 
 export const OrderNoteForm = ({ order }: OrderNoteFormProps) => {
-  const { t } = useTranslation()
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const { t } = useTranslation();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const form = useForm<z.infer<typeof OrderNoteSchema>>({
     defaultValues: {
       value: "",
     },
     resolver: zodResolver(OrderNoteSchema),
-  })
+  });
 
-  const { mutateAsync, isLoading } = {}
+  const { mutateAsync, isLoading } = {};
 
   const handleSubmit = form.handleSubmit(async (values) => {
     mutateAsync(
@@ -40,27 +40,27 @@ export const OrderNoteForm = ({ order }: OrderNoteFormProps) => {
       },
       {
         onSuccess: () => {
-          form.reset()
-          handleResetSize()
+          form.reset();
+          handleResetSize();
         },
       }
-    )
-  })
+    );
+  });
 
   const handleResize = () => {
-    const textarea = textareaRef.current
+    const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = "auto"
-      textarea.style.height = textarea.scrollHeight + "px"
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
     }
-  }
+  };
 
   const handleResetSize = () => {
-    const textarea = textareaRef.current
+    const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = "auto"
+      textarea.style.height = "auto";
     }
-  }
+  };
 
   return (
     <div>
@@ -87,7 +87,7 @@ export const OrderNoteForm = ({ order }: OrderNoteFormProps) => {
                       />
                     </Form.Control>
                   </Form.Item>
-                )
+                );
               }}
             />
             <div className="flex items-center justify-end">
@@ -108,5 +108,5 @@ export const OrderNoteForm = ({ order }: OrderNoteFormProps) => {
         </KeyboundForm>
       </Form>
     </div>
-  )
-}
+  );
+};

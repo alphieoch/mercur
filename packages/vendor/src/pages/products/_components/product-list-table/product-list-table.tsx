@@ -1,9 +1,9 @@
-import { Children, ReactNode } from "react"
-import { Container } from "@medusajs/ui"
-import { Outlet } from "react-router-dom"
+import { Children, ReactNode } from "react";
+import { Container } from "@medusajs/ui";
+import { Outlet } from "react-router-dom";
 
-import { ProductListHeader } from "./product-list-header"
-import { ProductListDataTable } from "./product-list-data-table"
+import { ProductListHeader } from "./product-list-header";
+import { ProductListDataTable } from "./product-list-data-table";
 
 export const ProductListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -18,5 +18,5 @@ export const ProductListTable = ({ children }: { children?: ReactNode }) => {
       )}
       <Outlet />
     </Container>
-  )
-}
+  );
+};

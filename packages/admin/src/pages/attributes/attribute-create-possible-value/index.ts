@@ -1,1 +1,1 @@
-export { AttributeCreatePossibleValue as Component } from "./attribute-create-possible-value"
+export { AttributeCreatePossibleValue as Component } from "./attribute-create-possible-value";

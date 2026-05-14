@@ -1,1 +1,1 @@
-export * from "./avatar-box"
+export * from "./avatar-box";

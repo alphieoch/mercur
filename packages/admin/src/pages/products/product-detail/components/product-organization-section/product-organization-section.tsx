@@ -46,12 +46,12 @@ export const ProductOrganizationSection = ({
         value={
           product.tags?.length
             ? product.tags.map((tag) => (
-                <OrganizationTag
-                  key={tag.id}
-                  label={tag.value}
-                  to={`/settings/product-tags/${tag.id}`}
-                />
-              ))
+              <OrganizationTag
+                key={tag.id}
+                label={tag.value}
+                to={`/settings/product-tags/${tag.id}`}
+              />
+            ))
             : undefined
         }
         data-testid="product-tags-row"
@@ -87,12 +87,12 @@ export const ProductOrganizationSection = ({
         value={
           product.categories?.length
             ? product.categories.map((pcat) => (
-                <OrganizationTag
-                  key={pcat.id}
-                  label={pcat.name}
-                  to={`/categories/${pcat.id}`}
-                />
-              ))
+              <OrganizationTag
+                key={pcat.id}
+                label={pcat.name}
+                to={`/categories/${pcat.id}`}
+              />
+            ))
             : undefined
         }
         data-testid="product-categories-row"

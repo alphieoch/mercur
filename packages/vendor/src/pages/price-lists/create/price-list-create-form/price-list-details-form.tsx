@@ -1,4 +1,4 @@
-import { MagnifyingGlass, XMarkMini } from "@medusajs/icons"
+import { MagnifyingGlass, XMarkMini } from "@medusajs/icons";
 import {
   Button,
   DatePicker,
@@ -11,50 +11,50 @@ import {
   Text,
   Textarea,
   clx,
-} from "@medusajs/ui"
-import { useFieldArray, type UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { useFieldArray, type UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "@components/common/form"
-import { StackedFocusModal } from "@components/modals/stacked-focus-modal"
-import { useStackedModal } from "@components/modals/stacked-modal-provider"
-import { PriceListCustomerGroupRuleForm } from "@pages/price-lists/common/components/price-list-customer-group-rule-form"
+import { Form } from "@components/common/form";
+import { StackedFocusModal } from "@components/modals/stacked-focus-modal";
+import { useStackedModal } from "@components/modals/stacked-modal-provider";
+import { PriceListCustomerGroupRuleForm } from "@pages/price-lists/common/components/price-list-customer-group-rule-form";
 import type {
   PricingCreateSchemaType,
   PricingCustomerGroupsArrayType,
-} from "./schema"
+} from "./schema";
 
 type PriceListDetailsFormProps = {
   form: UseFormReturn<PricingCreateSchemaType>
 }
 
 export const PriceListDetailsForm = ({ form }: PriceListDetailsFormProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { fields, remove, append } = useFieldArray({
     control: form.control,
     name: "rules.customer_group_id",
     keyName: "cg_id",
-  })
+  });
 
-  const { setIsOpen } = useStackedModal()
+  const { setIsOpen } = useStackedModal();
 
   const handleAddCustomerGroup = (groups: PricingCustomerGroupsArrayType) => {
-    const newIds = groups.map((group) => group.id)
+    const newIds = groups.map((group) => group.id);
 
     const fieldsToAdd = groups.filter(
       (group) => !fields.some((field) => field.id === group.id)
-    )
+    );
 
     for (const field of fields) {
       if (!newIds.includes(field.id)) {
-        remove(fields.indexOf(field))
+        remove(fields.indexOf(field));
       }
     }
 
-    append(fieldsToAdd)
-    setIsOpen("cg", false)
-  }
+    append(fieldsToAdd);
+    setIsOpen("cg", false);
+  };
 
   return (
     <div className="flex flex-1 flex-col items-center overflow-y-auto">
@@ -103,7 +103,7 @@ export const PriceListDetailsForm = ({ form }: PriceListDetailsFormProps) => {
                 </div>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
         <div className="flex flex-col gap-y-4">
@@ -120,7 +120,7 @@ export const PriceListDetailsForm = ({ form }: PriceListDetailsFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -149,7 +149,7 @@ export const PriceListDetailsForm = ({ form }: PriceListDetailsFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -165,7 +165,7 @@ export const PriceListDetailsForm = ({ form }: PriceListDetailsFormProps) => {
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
@@ -195,7 +195,7 @@ export const PriceListDetailsForm = ({ form }: PriceListDetailsFormProps) => {
                 </div>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
         <Divider />
@@ -222,7 +222,7 @@ export const PriceListDetailsForm = ({ form }: PriceListDetailsFormProps) => {
                 </div>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
         {/* TODO: Customer group availability - vendor API does not support customer groups yet
@@ -323,5 +323,5 @@ export const PriceListDetailsForm = ({ form }: PriceListDetailsFormProps) => {
         */}
       </div>
     </div>
-  )
-}
+  );
+};

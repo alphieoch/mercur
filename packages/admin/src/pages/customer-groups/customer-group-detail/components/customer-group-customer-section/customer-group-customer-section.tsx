@@ -1,41 +1,41 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Checkbox, Container, Heading, usePrompt } from "@medusajs/ui"
-import { RowSelectionState, createColumnHelper } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Checkbox, Container, Heading, usePrompt } from "@medusajs/ui";
+import { RowSelectionState, createColumnHelper } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useRemoveCustomersFromGroup } from "../../../../../hooks/api/customer-groups"
-import { useCustomers } from "../../../../../hooks/api/customers"
-import { useCustomerTableColumns } from "../../../../../hooks/table/columns/use-customer-table-columns"
-import { useCustomerTableFilters } from "../../../../../hooks/table/filters/use-customer-table-filters"
-import { useCustomerTableQuery } from "../../../../../hooks/table/query/use-customer-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useRemoveCustomersFromGroup } from "../../../../../hooks/api/customer-groups";
+import { useCustomers } from "../../../../../hooks/api/customers";
+import { useCustomerTableColumns } from "../../../../../hooks/table/columns/use-customer-table-columns";
+import { useCustomerTableFilters } from "../../../../../hooks/table/filters/use-customer-table-filters";
+import { useCustomerTableQuery } from "../../../../../hooks/table/query/use-customer-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
 
 type CustomerGroupCustomerSectionProps = {
   group: HttpTypes.AdminCustomerGroup
 }
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const CustomerGroupCustomerSection = ({
   group,
 }: CustomerGroupCustomerSectionProps) => {
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const { t } = useTranslation();
+  const prompt = usePrompt();
 
-  const { searchParams, raw } = useCustomerTableQuery({ pageSize: PAGE_SIZE })
+  const { searchParams, raw } = useCustomerTableQuery({ pageSize: PAGE_SIZE });
   const { customers, count, isLoading, isError, error } = useCustomers({
     ...searchParams,
     groups: group.id,
-  })
+  });
 
-  const columns = useColumns()
-  const filters = useCustomerTableFilters(["groups"])
+  const columns = useColumns();
+  const filters = useCustomerTableFilters(["groups"]);
 
   const { table } = useDataTable({
     data: customers ?? [],
@@ -52,16 +52,16 @@ export const CustomerGroupCustomerSection = ({
     meta: {
       customerGroupId: group.id,
     },
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
-  const { mutateAsync } = useRemoveCustomersFromGroup(group.id)
+  const { mutateAsync } = useRemoveCustomersFromGroup(group.id);
 
   const handleRemove = async () => {
-    const keys = Object.keys(rowSelection)
+    const keys = Object.keys(rowSelection);
 
     const res = await prompt({
       title: t("customerGroups.customers.remove.title", {
@@ -72,18 +72,18 @@ export const CustomerGroupCustomerSection = ({
       }),
       confirmText: t("actions.continue"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(keys, {
       onSuccess: () => {
-        setRowSelection({})
+        setRowSelection({});
       },
-    })
-  }
+    });
+  };
 
   return (
     <Container className="divide-y p-0" data-testid="customer-group-customer-section">
@@ -126,8 +126,8 @@ export const CustomerGroupCustomerSection = ({
         }}
       />
     </Container>
-  )
-}
+  );
+};
 
 const CustomerActions = ({
   customer,
@@ -136,10 +136,10 @@ const CustomerActions = ({
   customer: HttpTypes.AdminCustomer
   customerGroupId: string
 }) => {
-  const { t } = useTranslation()
-  const { mutateAsync } = useRemoveCustomersFromGroup(customerGroupId)
+  const { t } = useTranslation();
+  const { mutateAsync } = useRemoveCustomersFromGroup(customerGroupId);
 
-  const prompt = usePrompt()
+  const prompt = usePrompt();
 
   const handleRemove = async () => {
     const res = await prompt({
@@ -151,14 +151,14 @@ const CustomerActions = ({
       }),
       confirmText: t("actions.continue"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
-    await mutateAsync([customer.id])
-  }
+    await mutateAsync([customer.id]);
+  };
 
   return (
     <ActionMenu
@@ -184,13 +184,13 @@ const CustomerActions = ({
         },
       ]}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminCustomer>()
+const columnHelper = createColumnHelper<HttpTypes.AdminCustomer>();
 
 const useColumns = () => {
-  const columns = useCustomerTableColumns()
+  const columns = useCustomerTableColumns();
 
   return useMemo(
     () => [
@@ -208,7 +208,7 @@ const useColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -216,10 +216,10 @@ const useColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       ...columns,
@@ -228,17 +228,17 @@ const useColumns = () => {
         cell: ({ row, table }) => {
           const { customerGroupId } = table.options.meta as {
             customerGroupId: string
-          }
+          };
 
           return (
             <CustomerActions
               customer={row.original}
               customerGroupId={customerGroupId}
             />
-          )
+          );
         },
       }),
     ],
     [columns]
-  )
-}
+  );
+};

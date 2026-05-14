@@ -1,40 +1,40 @@
-import { z } from "zod"
-import { useFieldArray } from "react-hook-form"
-import { Button, Heading, IconButton, Input, Label } from "@medusajs/ui"
+import { z } from "zod";
+import { useFieldArray } from "react-hook-form";
+import { Button, Heading, IconButton, Input, Label } from "@medusajs/ui";
 
-import { CreateProductVariantSchema } from "./constants"
-import { XMarkMini } from "@medusajs/icons"
-import { useTranslation } from "react-i18next"
+import { CreateProductVariantSchema } from "./constants";
+import { XMarkMini } from "@medusajs/icons";
+import { useTranslation } from "react-i18next";
 
-import { useComboboxData } from "../../../../../hooks/use-combobox-data"
-import { sdk } from "../../../../../lib/client"
-import { Form } from "../../../../../components/common/form"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
+import { useComboboxData } from "../../../../../hooks/use-combobox-data";
+import { sdk } from "../../../../../lib/client";
+import { Form } from "../../../../../components/common/form";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
 
 function InventoryKitTab() {
-  const form = useTabbedForm<z.infer<typeof CreateProductVariantSchema>>()
-  const { t } = useTranslation()
+  const form = useTabbedForm<z.infer<typeof CreateProductVariantSchema>>();
+  const { t } = useTranslation();
 
   const inventory = useFieldArray({
     control: form.control,
     name: `inventory`,
-  })
+  });
 
-  const inventoryFormData = inventory.fields
+  const inventoryFormData = inventory.fields;
 
   const items = useComboboxData({
     queryKey: ["inventory_items"],
     queryFn: (params) => sdk.admin.inventoryItems.query(params),
     getOptions: (data) => {
-      const items = (data as unknown as { inventory_items: Array<{ title: string; id: string }> }).inventory_items
+      const items = (data as unknown as { inventory_items: Array<{ title: string; id: string }> }).inventory_items;
       return items.map((item) => ({
         label: item.title,
         value: item.id,
-      }))
+      }));
     },
-  })
+  });
 
   /**
    * Will mark an option as disabled if another input already selected that option
@@ -48,8 +48,8 @@ function InventoryKitTab() {
     return inventoryFormData?.some(
       (i, index) =>
         index != inventoryIndex && i.inventory_item_id === option.value
-    )
-  }
+    );
+  };
 
   return (
     <div className="flex flex-col items-center p-16" data-testid="product-variant-create-form-inventory-kit-tab">
@@ -71,7 +71,7 @@ function InventoryKitTab() {
                   inventory.append({
                     inventory_item_id: "",
                     required_quantity: "",
-                  })
+                  });
                 }}
                 data-testid="product-variant-create-form-inventory-kit-add-button"
               >
@@ -125,7 +125,7 @@ function InventoryKitTab() {
                           </Form.Control>
                           <Form.ErrorMessage data-testid={`product-variant-create-form-inventory-kit-item-${inventoryIndex}-item-error`} />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
 
@@ -153,12 +153,12 @@ function InventoryKitTab() {
                               min={0}
                               value={value}
                               onChange={(e) => {
-                                const value = e.target.value
+                                const value = e.target.value;
 
                                 if (value === "") {
-                                  onChange(null)
+                                  onChange(null);
                                 } else {
-                                  onChange(Number(value))
+                                  onChange(Number(value));
                                 }
                               }}
                               {...field}
@@ -170,7 +170,7 @@ function InventoryKitTab() {
                           </Form.Control>
                           <Form.ErrorMessage data-testid={`product-variant-create-form-inventory-kit-item-${inventoryIndex}-quantity-error`} />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
                 </div>
@@ -190,13 +190,13 @@ function InventoryKitTab() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 InventoryKitTab._tabMeta = defineTabMeta<z.infer<typeof CreateProductVariantSchema>>({
   id: "inventory",
   labelKey: "products.create.tabs.inventory",
   validationFields: ["inventory"],
-})
+});
 
-export default InventoryKitTab
+export default InventoryKitTab;

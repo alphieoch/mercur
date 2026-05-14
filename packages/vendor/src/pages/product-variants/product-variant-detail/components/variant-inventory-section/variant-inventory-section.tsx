@@ -1,17 +1,17 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
 
-import { Container, Heading } from "@medusajs/ui"
+import { Container, Heading } from "@medusajs/ui";
 
-import { _DataTable } from "@components/table/data-table"
+import { _DataTable } from "@components/table/data-table";
 
-import { LinkButton } from "@components/common/link-button"
-import { useDataTable } from "@hooks/use-data-table"
+import { LinkButton } from "@components/common/link-button";
+import { useDataTable } from "@hooks/use-data-table";
 import {
   ExtendedInventoryItem,
   useInventoryTableColumns,
-} from "./use-inventory-table-columns"
+} from "./use-inventory-table-columns";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 type VariantInventorySectionProps = {
   inventoryItems: ExtendedInventoryItem[]
@@ -20,9 +20,9 @@ type VariantInventorySectionProps = {
 export function VariantInventorySection({
   inventoryItems,
 }: VariantInventorySectionProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const columns = useInventoryTableColumns()
+  const columns = useInventoryTableColumns();
 
   const { table } = useDataTable({
     data: inventoryItems ?? [],
@@ -31,7 +31,7 @@ export function VariantInventorySection({
     enablePagination: true,
     getRowId: (row) => row?.variant?.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   return (
     <Container className="divide-y p-0">
@@ -49,11 +49,11 @@ export function VariantInventorySection({
         navigateTo={(row) => `/inventory/${row.original.id}`}
       />
     </Container>
-  )
+  );
 }
 
 export function InventorySectionPlaceholder() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="divide-y p-0">
@@ -69,5 +69,5 @@ export function InventorySectionPlaceholder() {
         </div>
       </div>
     </Container>
-  )
+  );
 }

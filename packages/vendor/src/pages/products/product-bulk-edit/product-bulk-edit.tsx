@@ -1,20 +1,20 @@
-import { useTranslation } from "react-i18next"
-import { useLocation } from "react-router-dom"
-import { RouteFocusModal } from "@components/modals"
-import { ExtendedAdminProduct } from "../types"
-import { ProductBulkEditForm } from "./components/product-bulk-edit-form"
+import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
+import { RouteFocusModal } from "@components/modals";
+import { ExtendedAdminProduct } from "../types";
+import { ProductBulkEditForm } from "./components/product-bulk-edit-form";
 
 type LocationState = {
   products?: ExtendedAdminProduct[]
 }
 
 export const ProductBulkEdit = () => {
-  const { t } = useTranslation()
-  const location = useLocation()
-  const state = location.state as LocationState | null
-  const products = state?.products || []
+  const { t } = useTranslation();
+  const location = useLocation();
+  const state = location.state as LocationState | null;
+  const products = state?.products || [];
 
-  const ready = products.length > 0
+  const ready = products.length > 0;
 
   return (
     <RouteFocusModal>
@@ -30,5 +30,5 @@ export const ProductBulkEdit = () => {
       </RouteFocusModal.Description>
       {ready && <ProductBulkEditForm products={products} />}
     </RouteFocusModal>
-  )
-}
+  );
+};

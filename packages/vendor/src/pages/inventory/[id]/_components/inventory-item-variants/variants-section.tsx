@@ -1,10 +1,10 @@
-import { TriangleRightMini } from "@medusajs/icons"
-import { Container, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { TriangleRightMini } from "@medusajs/icons";
+import { Container, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { ProductVariantDTO } from "@medusajs/types"
-import { Thumbnail } from "@components/common/thumbnail"
+import { ProductVariantDTO } from "@medusajs/types";
+import { Thumbnail } from "@components/common/thumbnail";
 
 type InventoryItemVariantsSectionProps = {
   variants: ProductVariantDTO[]
@@ -13,10 +13,10 @@ type InventoryItemVariantsSectionProps = {
 export const InventoryItemVariantsSection = ({
   variants,
 }: InventoryItemVariantsSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (!variants?.length) {
-    return null
+    return null;
   }
 
   return (
@@ -29,7 +29,7 @@ export const InventoryItemVariantsSection = ({
         {variants.map((variant) => {
           const link = variant.product
             ? `/products/${variant.product.id}/variants/${variant.id}`
-            : null
+            : null;
 
           const Inner = (
             <div className="shadow-elevation-card-rest bg-ui-bg-component rounded-md px-4 py-2 transition-colors">
@@ -50,10 +50,10 @@ export const InventoryItemVariantsSection = ({
                 </div>
               </div>
             </div>
-          )
+          );
 
           if (!link) {
-            return <div key={variant.id}>{Inner}</div>
+            return <div key={variant.id}>{Inner}</div>;
           }
 
           return (
@@ -64,9 +64,9 @@ export const InventoryItemVariantsSection = ({
             >
               {Inner}
             </Link>
-          )
+          );
         })}
       </div>
     </Container>
-  )
-}
+  );
+};

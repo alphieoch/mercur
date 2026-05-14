@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { AttributeListDataTable } from "./attribute-list-data-table"
-import { AttributeListHeader } from "./attribute-list-header"
+import { AttributeListDataTable } from "./attribute-list-data-table";
+import { AttributeListHeader } from "./attribute-list-header";
 
-export { AttributeListDataTable } from "./attribute-list-data-table"
+export { AttributeListDataTable } from "./attribute-list-data-table";
 export {
   AttributeListHeader,
   AttributeListTitle,
   AttributeListActions,
-} from "./attribute-list-header"
+} from "./attribute-list-header";
 
 export const AttributeListView = ({
   children,
@@ -27,5 +27,5 @@ export const AttributeListView = ({
         </>
       )}
     </Container>
-  )
-}
+  );
+};

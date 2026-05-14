@@ -1,40 +1,40 @@
-import { Button, Container, Heading, Text } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useApiKeys } from "../../../../../hooks/api/api-keys"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useApiKeyManagementTableColumns } from "./use-api-key-management-table-columns"
-import { useApiKeyManagementTableFilters } from "./use-api-key-management-table-filters"
-import { useApiKeyManagementTableQuery } from "./use-api-key-management-table-query"
+import { Button, Container, Heading, Text } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useApiKeys } from "../../../../../hooks/api/api-keys";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useApiKeyManagementTableColumns } from "./use-api-key-management-table-columns";
+import { useApiKeyManagementTableFilters } from "./use-api-key-management-table-filters";
+import { useApiKeyManagementTableQuery } from "./use-api-key-management-table-query";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const ApiKeyManagementListTable = ({
   keyType,
 }: {
   keyType: "secret" | "publishable"
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { searchParams, raw } = useApiKeyManagementTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
 
   const query = {
     ...searchParams,
     type: keyType,
     fields:
       "id,title,redacted,token,type,created_at,updated_at,revoked_at,last_used_at,created_by,revoked_by",
-  }
+  };
 
   const { api_keys, count, isLoading, isError, error } = useApiKeys(query, {
     placeholderData: keepPreviousData,
-  })
+  });
 
-  const filters = useApiKeyManagementTableFilters()
-  const columns = useApiKeyManagementTableColumns()
+  const filters = useApiKeyManagementTableFilters();
+  const columns = useApiKeyManagementTableColumns();
 
   const { table } = useDataTable({
     data: api_keys || [],
@@ -43,10 +43,10 @@ export const ApiKeyManagementListTable = ({
     enablePagination: true,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -91,5 +91,5 @@ export const ApiKeyManagementListTable = ({
         />
       </div>
     </Container>
-  )
-}
+  );
+};

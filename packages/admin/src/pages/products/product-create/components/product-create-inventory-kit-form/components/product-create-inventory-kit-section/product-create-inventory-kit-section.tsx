@@ -1,14 +1,14 @@
-import { Button, Heading, IconButton, Input, Label } from "@medusajs/ui"
-import { useFieldArray, useWatch } from "react-hook-form"
-import { XMarkMini } from "@medusajs/icons"
-import { useTranslation } from "react-i18next"
+import { Button, Heading, IconButton, Input, Label } from "@medusajs/ui";
+import { useFieldArray, useWatch } from "react-hook-form";
+import { XMarkMini } from "@medusajs/icons";
+import { useTranslation } from "react-i18next";
 
-import { ProductCreateSchemaType } from "../../../../types"
-import { Form } from "../../../../../../../components/common/form"
-import { Combobox } from "../../../../../../../components/inputs/combobox"
-import { useTabbedForm } from "../../../../../../../components/tabbed-form/tabbed-form"
-import { useComboboxData } from "../../../../../../../hooks/use-combobox-data"
-import { sdk } from "../../../../../../../lib/client"
+import { ProductCreateSchemaType } from "../../../../types";
+import { Form } from "../../../../../../../components/common/form";
+import { Combobox } from "../../../../../../../components/inputs/combobox";
+import { useTabbedForm } from "../../../../../../../components/tabbed-form/tabbed-form";
+import { useComboboxData } from "../../../../../../../hooks/use-combobox-data";
+import { sdk } from "../../../../../../../lib/client";
 
 type InventoryItemRowProps = {
   variantIndex: number
@@ -28,13 +28,13 @@ function InventoryItemRow({
   isItemOptionDisabled,
   onRemove,
 }: InventoryItemRowProps) {
-  const form = useTabbedForm<ProductCreateSchemaType>()
-  const { t } = useTranslation()
+  const form = useTabbedForm<ProductCreateSchemaType>();
+  const { t } = useTranslation();
 
   const selectedInventoryItemId = useWatch({
     control: form.control,
     name: `variants.${variantIndex}.inventory.${inventoryIndex}.inventory_item_id`,
-  })
+  });
 
   const items = useComboboxData({
     queryKey: ["inventory_items"],
@@ -46,7 +46,7 @@ function InventoryItemRow({
         label: `${item.title} ${item.sku ? `(${item.sku})` : ""}`,
         value: item.id,
       })),
-  })
+  });
 
   return (
     <li
@@ -87,7 +87,7 @@ function InventoryItemRow({
                   />
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
 
@@ -114,12 +114,12 @@ function InventoryItemRow({
                     min={0}
                     value={value}
                     onChange={(e) => {
-                      const value = e.target.value
+                      const value = e.target.value;
 
                       if (value === "") {
-                        onChange(null)
+                        onChange(null);
                       } else {
-                        onChange(Number(value))
+                        onChange(Number(value));
                       }
                     }}
                     {...field}
@@ -130,7 +130,7 @@ function InventoryItemRow({
                 </Form.Control>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -144,7 +144,7 @@ function InventoryItemRow({
         <XMarkMini />
       </IconButton>
     </li>
-  )
+  );
 }
 
 type VariantSectionProps = {
@@ -153,18 +153,18 @@ type VariantSectionProps = {
 }
 
 function VariantSection({ variant, index }: VariantSectionProps) {
-  const form = useTabbedForm<ProductCreateSchemaType>()
-  const { t } = useTranslation()
+  const form = useTabbedForm<ProductCreateSchemaType>();
+  const { t } = useTranslation();
 
   const inventory = useFieldArray({
     control: form.control,
     name: `variants.${index}.inventory`,
-  })
+  });
 
   const inventoryFormData = useWatch({
     control: form.control,
     name: `variants.${index}.inventory`,
-  })
+  });
 
   /**
    * Will mark an option as disabled if another input already selected that option
@@ -176,8 +176,8 @@ function VariantSection({ variant, index }: VariantSectionProps) {
     return !!inventoryFormData?.some(
       (i, index) =>
         index != inventoryIndex && i.inventory_item_id === option.value
-    )
-  }
+    );
+  };
 
   return (
     <div className="grid gap-y-4">
@@ -194,7 +194,7 @@ function VariantSection({ variant, index }: VariantSectionProps) {
             inventory.append({
               inventory_item_id: "",
               required_quantity: "",
-            })
+            });
           }}
         >
           {t("actions.add")}
@@ -211,17 +211,17 @@ function VariantSection({ variant, index }: VariantSectionProps) {
         />
       ))}
     </div>
-  )
+  );
 }
 
 export const ProductCreateInventoryKitSection = () => {
-  const form = useTabbedForm<ProductCreateSchemaType>()
-  const { t } = useTranslation()
+  const form = useTabbedForm<ProductCreateSchemaType>();
+  const { t } = useTranslation();
 
   const variants = useFieldArray({
     control: form.control,
     name: "variants",
-  })
+  });
 
   return (
     <div id="organize" className="flex flex-col gap-y-8">
@@ -237,5 +237,5 @@ export const ProductCreateInventoryKitSection = () => {
           />
         ))}
     </div>
-  )
-}
+  );
+};

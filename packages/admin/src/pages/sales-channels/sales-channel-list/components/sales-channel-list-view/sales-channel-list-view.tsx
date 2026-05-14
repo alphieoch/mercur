@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { SalesChannelListDataTable } from "./sales-channel-list-data-table"
-import { SalesChannelListHeader } from "./sales-channel-list-header"
+import { SalesChannelListDataTable } from "./sales-channel-list-data-table";
+import { SalesChannelListHeader } from "./sales-channel-list-header";
 
-export { SalesChannelListDataTable } from "./sales-channel-list-data-table"
+export { SalesChannelListDataTable } from "./sales-channel-list-data-table";
 export {
   SalesChannelListHeader,
   SalesChannelListTitle,
   SalesChannelListActions,
-} from "./sales-channel-list-header"
+} from "./sales-channel-list-header";
 
 export const SalesChannelListView = ({
   children,
@@ -27,5 +27,5 @@ export const SalesChannelListView = ({
         </>
       )}
     </Container>
-  )
-}
+  );
+};

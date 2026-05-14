@@ -1,1 +1,1 @@
-export * from "./commission-rate-list-view"
+export * from "./commission-rate-list-view";

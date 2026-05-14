@@ -1,21 +1,21 @@
-import { HttpTypes } from "@medusajs/types"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useCollections } from "../../../../../hooks/api/collections"
-import { useCollectionTableColumns } from "../../../../../hooks/table/columns/use-collection-table-columns"
-import { useCollectionTableFilters } from "../../../../../hooks/table/filters"
-import { useCollectionTableQuery } from "../../../../../hooks/table/query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { CollectionRowActions } from "./collection-row-actions"
+import { HttpTypes } from "@medusajs/types";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useCollections } from "../../../../../hooks/api/collections";
+import { useCollectionTableColumns } from "../../../../../hooks/table/columns/use-collection-table-columns";
+import { useCollectionTableFilters } from "../../../../../hooks/table/filters";
+import { useCollectionTableQuery } from "../../../../../hooks/table/query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { CollectionRowActions } from "./collection-row-actions";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const CollectionListDataTable = () => {
-  const { t } = useTranslation()
-  const { searchParams, raw } = useCollectionTableQuery({ pageSize: PAGE_SIZE })
+  const { t } = useTranslation();
+  const { searchParams, raw } = useCollectionTableQuery({ pageSize: PAGE_SIZE });
   const { collections, count, isError, error, isLoading } = useCollections(
     {
       ...searchParams,
@@ -24,10 +24,10 @@ export const CollectionListDataTable = () => {
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const filters = useCollectionTableFilters()
-  const columns = useColumns()
+  const filters = useCollectionTableFilters();
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: collections ?? [],
@@ -36,10 +36,10 @@ export const CollectionListDataTable = () => {
     enablePagination: true,
     getRowId: (row, index) => row.id ?? `${index}`,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -60,13 +60,13 @@ export const CollectionListDataTable = () => {
       queryObject={raw}
       isLoading={isLoading}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminCollection>()
+const columnHelper = createColumnHelper<HttpTypes.AdminCollection>();
 
 const useColumns = () => {
-  const base = useCollectionTableColumns()
+  const base = useCollectionTableColumns();
 
   return useMemo(
     () => [
@@ -77,5 +77,5 @@ const useColumns = () => {
       }),
     ],
     [base]
-  )
-}
+  );
+};

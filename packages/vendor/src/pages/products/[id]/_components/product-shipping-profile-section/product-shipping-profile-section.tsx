@@ -1,16 +1,16 @@
-import { PencilSquare, ShoppingBag } from "@medusajs/icons"
-import { Container, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { PencilSquare, ShoppingBag } from "@medusajs/icons";
+import { Container, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { SidebarLink } from "@components/common/sidebar-link/sidebar-link"
-import { ActionMenu } from "@components/common/action-menu"
-import { useProductDetailContext } from "../../context"
+import { SidebarLink } from "@components/common/sidebar-link/sidebar-link";
+import { ActionMenu } from "@components/common/action-menu";
+import { useProductDetailContext } from "../../context";
 
 export const ProductShippingProfileSection = () => {
-  const { product } = useProductDetailContext()
-  const { t } = useTranslation()
+  const { product } = useProductDetailContext();
+  const { t } = useTranslation();
 
-  const shippingProfile = product.shipping_profile
+  const shippingProfile = product.shipping_profile;
 
   return (
     <Container className="p-0">
@@ -40,5 +40,5 @@ export const ProductShippingProfileSection = () => {
         />
       )}
     </Container>
-  )
-}
+  );
+};

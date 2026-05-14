@@ -1,21 +1,21 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, ProgressStatus, ProgressTabs, toast } from "@medusajs/ui"
-import { FieldPath, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, ProgressStatus, ProgressTabs, toast } from "@medusajs/ui";
+import { FieldPath, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { HttpTypes, PriceListStatus, PriceListType } from "@medusajs/types"
-import { useState } from "react"
-import { z } from "zod"
+import { HttpTypes, PriceListStatus, PriceListType } from "@medusajs/types";
+import { useState } from "react";
+import { z } from "zod";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCreatePriceList } from "@hooks/api/price-lists"
-import { exctractPricesFromProducts } from "@pages/price-lists/common/utils"
-import { PriceListDetailsForm } from "./price-list-details-form"
-import { PriceListPricesForm } from "./price-list-prices-form"
-import { PriceListProductsForm } from "./price-list-products-form"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCreatePriceList } from "@hooks/api/price-lists";
+import { exctractPricesFromProducts } from "@pages/price-lists/common/utils";
+import { PriceListDetailsForm } from "./price-list-details-form";
+import { PriceListPricesForm } from "./price-list-prices-form";
+import { PriceListProductsForm } from "./price-list-products-form";
 import {
   PricingCreateSchema,
   PricingCreateSchemaType,
@@ -24,7 +24,7 @@ import {
   PricingPricesFields,
   PricingProductsFields,
   PricingProductsSchema,
-} from "./schema"
+} from "./schema";
 
 enum Tab {
   DETAIL = "detail",
@@ -32,7 +32,7 @@ enum Tab {
   PRICE = "price",
 }
 
-const tabOrder = [Tab.DETAIL, Tab.PRODUCT, Tab.PRICE] as const
+const tabOrder = [Tab.DETAIL, Tab.PRODUCT, Tab.PRICE] as const;
 
 type TabState = Record<Tab, ProgressStatus>
 
@@ -40,7 +40,7 @@ const initialTabState: TabState = {
   [Tab.DETAIL]: "in-progress",
   [Tab.PRODUCT]: "not-started",
   [Tab.PRICE]: "not-started",
-}
+};
 
 type PriceListCreateFormProps = {
   regions: HttpTypes.AdminRegion[]
@@ -53,11 +53,11 @@ export const PriceListCreateForm = ({
   currencies,
   pricePreferences,
 }: PriceListCreateFormProps) => {
-  const [tab, setTab] = useState<Tab>(Tab.DETAIL)
-  const [tabState, setTabState] = useState<TabState>(initialTabState)
+  const [tab, setTab] = useState<Tab>(Tab.DETAIL);
+  const [tabState, setTabState] = useState<TabState>(initialTabState);
 
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<PricingCreateSchemaType>({
     defaultValues: {
@@ -74,18 +74,18 @@ export const PriceListCreateForm = ({
       },
     },
     resolver: zodResolver(PricingCreateSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreatePriceList()
+  const { mutateAsync, isPending } = useCreatePriceList();
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    const { rules, products } = data
+    const { rules, products } = data;
 
     const rulesPayload = rules?.customer_group_id?.length
       ? { "customer.groups.id": rules.customer_group_id.map((cg) => cg.id) }
-      : undefined
+      : undefined;
 
-    const prices = exctractPricesFromProducts(products, regions)
+    const prices = exctractPricesFromProducts(products, regions);
 
     await mutateAsync(
       {
@@ -104,92 +104,92 @@ export const PriceListCreateForm = ({
             t("priceLists.create.successToast", {
               title: price_list.title,
             })
-          )
-          handleSuccess(`../${price_list.id}`)
+          );
+          handleSuccess(`../${price_list.id}`);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   const partialFormValidation = (
     fields: FieldPath<PricingCreateSchemaType>[],
     schema: z.ZodSchema<any>
   ) => {
-    form.clearErrors(fields)
+    form.clearErrors(fields);
 
     const values = fields.reduce(
       (acc, key) => {
-        acc[key] = form.getValues(key)
-        return acc
+        acc[key] = form.getValues(key);
+        return acc;
       },
       {} as Record<string, unknown>
-    )
+    );
 
-    const validationResult = schema.safeParse(values)
+    const validationResult = schema.safeParse(values);
 
     if (!validationResult.success) {
       validationResult.error.errors.forEach(({ path, message, code }) => {
         form.setError(path.join(".") as keyof PricingCreateSchemaType, {
           type: code,
           message,
-        })
-      })
+        });
+      });
 
-      return false
+      return false;
     }
 
-    return true
-  }
+    return true;
+  };
 
   const isTabDirty = (tab: Tab) => {
     switch (tab) {
-      case Tab.DETAIL: {
-        const fields = PricingDetailsFields
+    case Tab.DETAIL: {
+      const fields = PricingDetailsFields;
 
-        return fields.some((field) => {
-          return form.getFieldState(field).isDirty
-        })
-      }
-      case Tab.PRODUCT: {
-        const fields = PricingProductsFields
-
-        return fields.some((field) => {
-          return form.getFieldState(field).isDirty
-        })
-      }
-      case Tab.PRICE: {
-        const fields = PricingPricesFields
-
-        return fields.some((field) => {
-          return form.getFieldState(field).isDirty
-        })
-      }
+      return fields.some((field) => {
+        return form.getFieldState(field).isDirty;
+      });
     }
-  }
+    case Tab.PRODUCT: {
+      const fields = PricingProductsFields;
+
+      return fields.some((field) => {
+        return form.getFieldState(field).isDirty;
+      });
+    }
+    case Tab.PRICE: {
+      const fields = PricingPricesFields;
+
+      return fields.some((field) => {
+        return form.getFieldState(field).isDirty;
+      });
+    }
+    }
+  };
 
   const handleChangeTab = (update: Tab) => {
     if (tab === update) {
-      return
+      return;
     }
 
     if (tabOrder.indexOf(update) < tabOrder.indexOf(tab)) {
-      const isCurrentTabDirty = isTabDirty(tab)
+      const isCurrentTabDirty = isTabDirty(tab);
 
       setTabState((prev) => ({
         ...prev,
         [tab]: isCurrentTabDirty ? prev[tab] : "not-started",
         [update]: "in-progress",
-      }))
+      }));
 
-      setTab(update)
-      return
+      setTab(update);
+      return;
     }
 
     // get the tabs from the current tab to the update tab including the current tab
-    const tabs = tabOrder.slice(0, tabOrder.indexOf(update))
+    const tabs = tabOrder.slice(0, tabOrder.indexOf(update));
 
     // validate all the tabs from the current tab to the update tab if it fails on any of tabs then set that tab as current tab
     for (const tab of tabs) {
@@ -200,33 +200,33 @@ export const PriceListCreateForm = ({
           setTabState((prev) => ({
             ...prev,
             [tab]: "in-progress",
-          }))
-          setTab(tab)
-          return
+          }));
+          setTab(tab);
+          return;
         }
 
         setTabState((prev) => ({
           ...prev,
           [tab]: "completed",
-        }))
+        }));
       } else if (tab === Tab.PRODUCT) {
         if (
           !partialFormValidation(PricingProductsFields, PricingProductsSchema)
         ) {
-          toast.error(t("priceLists.create.products.errors.noProducts"))
+          toast.error(t("priceLists.create.products.errors.noProducts"));
           setTabState((prev) => ({
             ...prev,
             [tab]: "in-progress",
-          }))
-          setTab(tab)
+          }));
+          setTab(tab);
 
-          return
+          return;
         }
 
         setTabState((prev) => ({
           ...prev,
           [tab]: "completed",
-        }))
+        }));
       }
     }
 
@@ -234,18 +234,18 @@ export const PriceListCreateForm = ({
       ...prev,
       [tab]: "completed",
       [update]: "in-progress",
-    }))
-    setTab(update)
-  }
+    }));
+    setTab(update);
+  };
 
   const handleNextTab = (tab: Tab) => {
     if (tabOrder.indexOf(tab) + 1 >= tabOrder.length) {
-      return
+      return;
     }
 
-    const nextTab = tabOrder[tabOrder.indexOf(tab) + 1]
-    handleChangeTab(nextTab)
-  }
+    const nextTab = tabOrder[tabOrder.indexOf(tab) + 1];
+    handleChangeTab(nextTab);
+  };
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -323,8 +323,8 @@ export const PriceListCreateForm = ({
         </KeyboundForm>
       </ProgressTabs>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};
 
 type PrimaryButtonProps = {
   tab: Tab
@@ -333,7 +333,7 @@ type PrimaryButtonProps = {
 }
 
 const PrimaryButton = ({ tab, next, isLoading }: PrimaryButtonProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (tab === Tab.PRICE) {
     return (
@@ -346,7 +346,7 @@ const PrimaryButton = ({ tab, next, isLoading }: PrimaryButtonProps) => {
       >
         {t("actions.save")}
       </Button>
-    )
+    );
   }
 
   return (
@@ -359,5 +359,5 @@ const PrimaryButton = ({ tab, next, isLoading }: PrimaryButtonProps) => {
     >
       {t("actions.continue")}
     </Button>
-  )
-}
+  );
+};

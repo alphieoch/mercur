@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react";
 
 import {
   ThumbnailBadge,
   TriangleLeftMini,
   TriangleRightMini,
-} from "@medusajs/icons"
-import { Button, clx, IconButton, Text, Tooltip } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/icons";
+import { Button, clx, IconButton, Text, Tooltip } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { VariantMediaViewContext } from "../../variant-media-view-context"
+import { VariantMediaViewContext } from "../../variant-media-view-context";
 
 type Media = {
   id: string
@@ -25,42 +25,42 @@ export const VariantMediaGallery = ({
   goToEdit,
   variantMedia = [],
 }: VariantMediaGalleryProps) => {
-  const [curr, setCurr] = useState<number>(0)
-  const { t } = useTranslation()
+  const [curr, setCurr] = useState<number>(0);
+  const { t } = useTranslation();
 
   const media: Media[] = (variantMedia || []).map(
     (m: any, idx: number) => ({
       ...m,
       id: m.id || `variant-${idx}-${m.url}`,
     })
-  )
+  );
 
   const next = useCallback(() => {
-    setCurr((prev) => (prev + 1) % media.length)
-  }, [media.length])
+    setCurr((prev) => (prev + 1) % media.length);
+  }, [media.length]);
 
   const prev = useCallback(() => {
-    setCurr((prev) => (prev - 1 + media.length) % media.length)
-  }, [media.length])
+    setCurr((prev) => (prev - 1 + media.length) % media.length);
+  }, [media.length]);
 
   const goTo = useCallback(
     (index: number) => {
-      if (index < 0 || index >= media.length) return
-      setCurr(index)
+      if (index < 0 || index >= media.length) return;
+      setCurr(index);
     },
     [media.length]
-  )
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") next()
-      else if (e.key === "ArrowLeft") prev()
-    }
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [next, prev])
+      if (e.key === "ArrowRight") next();
+      else if (e.key === "ArrowLeft") prev();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [next, prev]);
 
-  const noMedia = !media.length
+  const noMedia = !media.length;
 
   return (
     <VariantMediaViewContext.Consumer>
@@ -107,8 +107,8 @@ export const VariantMediaGallery = ({
                   </IconButton>
                   <div className="flex items-center gap-x-2">
                     {media.slice(0, 8).map((item, idx) => {
-                      const isCurrentImage = item.id === media[curr]?.id
-                      const originalIndex = media.findIndex((i) => i.id === item.id)
+                      const isCurrentImage = item.id === media[curr]?.id;
+                      const originalIndex = media.findIndex((i) => i.id === item.id);
                       return (
                         <button
                           type="button"
@@ -120,7 +120,7 @@ export const VariantMediaGallery = ({
                         >
                           <img src={item.url} alt="" className="size-full object-cover" />
                         </button>
-                      )
+                      );
                     })}
                   </div>
                   <IconButton size="small" variant="transparent" className="text-ui-fg-muted" type="button" onClick={next}>
@@ -133,5 +133,5 @@ export const VariantMediaGallery = ({
         </div>
       )}
     </VariantMediaViewContext.Consumer>
-  )
-}
+  );
+};

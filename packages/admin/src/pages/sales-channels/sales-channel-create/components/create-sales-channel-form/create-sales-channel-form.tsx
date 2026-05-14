@@ -1,4 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
   Heading,
@@ -7,28 +7,28 @@ import {
   Text,
   Textarea,
   toast,
-} from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+} from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Form } from "../../../../../components/common/form"
+import { Form } from "../../../../../components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateSalesChannel } from "../../../../../hooks/api/sales-channels"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateSalesChannel } from "../../../../../hooks/api/sales-channels";
 
 const CreateSalesChannelSchema = zod.object({
   name: zod.string().min(1),
   description: zod.string().min(1),
   enabled: zod.boolean(),
-})
+});
 
 export const CreateSalesChannelForm = () => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof CreateSalesChannelSchema>>({
     defaultValues: {
@@ -37,8 +37,8 @@ export const CreateSalesChannelForm = () => {
       enabled: true,
     },
     resolver: zodResolver(CreateSalesChannelSchema),
-  })
-  const { mutateAsync, isPending } = useCreateSalesChannel()
+  });
+  const { mutateAsync, isPending } = useCreateSalesChannel();
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(
@@ -49,13 +49,13 @@ export const CreateSalesChannelForm = () => {
       },
       {
         onSuccess: ({ sales_channel }) => {
-          toast.success(t("salesChannels.toast.create"))
-          handleSuccess(`../${sales_channel.id}`)
+          toast.success(t("salesChannels.toast.create"));
+          handleSuccess(`../${sales_channel.id}`);
         },
         onError: (error) => toast.error(error.message),
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="sales-channel-create-form">
@@ -89,7 +89,7 @@ export const CreateSalesChannelForm = () => {
                           </Form.Control>
                           <Form.ErrorMessage data-testid="sales-channel-create-form-name-error" />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
                 </div>
@@ -105,7 +105,7 @@ export const CreateSalesChannelForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="sales-channel-create-form-description-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -131,7 +131,7 @@ export const CreateSalesChannelForm = () => {
                       <Form.Hint data-testid="sales-channel-create-form-enabled-hint">{t("salesChannels.enabledHint")}</Form.Hint>
                       <Form.ErrorMessage data-testid="sales-channel-create-form-enabled-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -151,5 +151,5 @@ export const CreateSalesChannelForm = () => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

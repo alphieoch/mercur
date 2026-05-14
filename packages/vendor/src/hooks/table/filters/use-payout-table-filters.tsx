@@ -1,13 +1,13 @@
-import { useTranslation } from "react-i18next"
-import { useMemo } from "react"
+import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
 
-import type { Filter } from "../../../components/table/data-table"
+import type { Filter } from "../../../components/table/data-table";
 
 export const usePayoutTableFilters = (): Filter[] => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(() => {
-    const filters: Filter[] = []
+    const filters: Filter[] = [];
 
     const statusFilter: Filter = {
       key: "status",
@@ -21,9 +21,9 @@ export const usePayoutTableFilters = (): Filter[] => {
         { label: "Failed", value: "failed" },
         { label: "Canceled", value: "canceled" },
       ],
-    }
+    };
 
-    filters.push(statusFilter)
+    filters.push(statusFilter);
 
     const dateFilters: Filter[] = [
       { label: t("fields.createdAt"), key: "created_at" },
@@ -32,10 +32,10 @@ export const usePayoutTableFilters = (): Filter[] => {
       key: f.key,
       label: f.label,
       type: "date",
-    }))
+    }));
 
-    filters.push(...dateFilters)
+    filters.push(...dateFilters);
 
-    return filters
-  }, [t])
-}
+    return filters;
+  }, [t]);
+};

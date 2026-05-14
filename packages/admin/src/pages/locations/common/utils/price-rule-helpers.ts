@@ -1,5 +1,5 @@
-import { castNumber } from "../../../../lib/cast-number"
-import { ITEM_TOTAL_ATTRIBUTE } from "../constants"
+import { castNumber } from "../../../../lib/cast-number";
+import { ITEM_TOTAL_ATTRIBUTE } from "../constants";
 
 const createPriceRule = (
   attribute: string,
@@ -10,10 +10,10 @@ const createPriceRule = (
     attribute,
     operator,
     value: castNumber(value),
-  }
+  };
 
-  return rule
-}
+  return rule;
+};
 
 export const buildShippingOptionPriceRules = (rule: {
   gte?: string | number | null
@@ -28,14 +28,14 @@ export const buildShippingOptionPriceRules = (rule: {
     { value: rule.gt, operator: "gt" },
     { value: rule.lt, operator: "lt" },
     { value: rule.eq, operator: "eq" },
-  ]
+  ];
 
   const conditionsWithValues = conditions.filter(({ value }) => value) as {
     value: string | number
     operator: string
-  }[]
+  }[];
 
   return conditionsWithValues.map(({ operator, value }) =>
     createPriceRule(ITEM_TOTAL_ATTRIBUTE, operator, value)
-  )
-}
+  );
+};

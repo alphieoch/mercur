@@ -1,4 +1,4 @@
-import { createContext } from "react"
+import { createContext } from "react";
 
 type RouteModalProviderState = {
   handleSuccess: (path?: string) => void
@@ -9,4 +9,4 @@ type RouteModalProviderState = {
 }
 
 export const RouteModalProviderContext =
-  createContext<RouteModalProviderState | null>(null)
+  createContext<RouteModalProviderState | null>(null);

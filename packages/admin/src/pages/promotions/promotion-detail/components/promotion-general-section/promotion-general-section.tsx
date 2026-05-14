@@ -1,5 +1,5 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
 import {
   Badge,
   Container,
@@ -8,60 +8,60 @@ import {
   StatusBadge,
   Text,
   usePrompt,
-} from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+} from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useDeletePromotion, usePromotion } from "../../../../../hooks/api/promotions"
-import { formatCurrency } from "../../../../../lib/format-currency"
-import { formatPercentage } from "../../../../../lib/percentage-helpers"
-import { getPromotionStatus } from "../../../../../lib/promotions"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useDeletePromotion, usePromotion } from "../../../../../hooks/api/promotions";
+import { formatCurrency } from "../../../../../lib/format-currency";
+import { formatPercentage } from "../../../../../lib/percentage-helpers";
+import { getPromotionStatus } from "../../../../../lib/promotions";
 
 type PromotionGeneralSectionProps = {
   promotion?: HttpTypes.AdminPromotion
 }
 
 function getDisplayValue(promotion: HttpTypes.AdminPromotion) {
-  const value = promotion.application_method?.value
+  const value = promotion.application_method?.value;
 
   if (!value) {
-    return null
+    return null;
   }
 
   if (promotion.application_method?.type === "fixed") {
-    const currency = promotion.application_method?.currency_code
+    const currency = promotion.application_method?.currency_code;
 
     if (!currency) {
-      return null
+      return null;
     }
 
-    return formatCurrency(value, currency)
+    return formatCurrency(value, currency);
   } else if (promotion.application_method?.type === "percentage") {
-    return formatPercentage(value)
+    return formatPercentage(value);
   }
 
-  return null
+  return null;
 }
 
 export const PromotionGeneralSection = ({
   promotion: promotionProp,
 }: PromotionGeneralSectionProps) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
-  const { id } = useParams()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
+  const { id } = useParams();
   const { promotion: fetched } = usePromotion(id!, {
     enabled: !promotionProp,
-  })
-  const promotion = promotionProp ?? fetched
+  });
+  const promotion = promotionProp ?? fetched;
 
-  const { mutateAsync } = useDeletePromotion(promotion?.id!)
+  const { mutateAsync } = useDeletePromotion(promotion?.id!);
 
   if (!promotion) {
-    return null
+    return null;
   }
 
   const handleDelete = async () => {
@@ -74,21 +74,21 @@ export const PromotionGeneralSection = ({
       verificationText: promotion.code,
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!confirm) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
       onSuccess: () => {
-        navigate("/promotions", { replace: true })
+        navigate("/promotions", { replace: true });
       },
-    })
-  }
+    });
+  };
 
-  const [color, text] = getPromotionStatus(promotion)
-  const displayValue = getDisplayValue(promotion)
+  const [color, text] = getPromotionStatus(promotion);
+  const displayValue = getDisplayValue(promotion);
 
   return (
     <Container className="divide-y p-0" data-testid="promotion-general-section-container">
@@ -212,5 +212,5 @@ export const PromotionGeneralSection = ({
         </div>
       )}
     </Container>
-  )
-}
+  );
+};

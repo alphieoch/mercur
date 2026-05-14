@@ -1,8 +1,8 @@
-import { Tooltip } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Tooltip } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { SalesChannelDTO } from "@medusajs/types"
-import { PlaceholderCell } from "../../common/placeholder-cell"
+import { SalesChannelDTO } from "@medusajs/types";
+import { PlaceholderCell } from "../../common/placeholder-cell";
 
 type SalesChannelsCellProps = {
   salesChannels?: SalesChannelDTO[] | null
@@ -11,10 +11,10 @@ type SalesChannelsCellProps = {
 export const SalesChannelsCell = ({
   salesChannels,
 }: SalesChannelsCellProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (!salesChannels || !salesChannels.length) {
-    return <PlaceholderCell />
+    return <PlaceholderCell />;
   }
 
   if (salesChannels.length > 2) {
@@ -42,10 +42,10 @@ export const SalesChannelsCell = ({
           </span>
         </Tooltip>
       </div>
-    )
+    );
   }
 
-  const channels = salesChannels.map((sc) => sc.name).join(", ")
+  const channels = salesChannels.map((sc) => sc.name).join(", ");
 
   return (
     <div className="flex h-full w-full items-center overflow-hidden max-w-[250px]">
@@ -53,15 +53,15 @@ export const SalesChannelsCell = ({
         {channels}
       </span>
     </div>
-  )
-}
+  );
+};
 
 export const SalesChannelHeader = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex h-full w-full items-center">
       <span>{t("fields.salesChannels")}</span>
     </div>
-  )
-}
+  );
+};

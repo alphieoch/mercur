@@ -1,21 +1,21 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { toast } from "@medusajs/ui"
-import { Children, ReactNode, useMemo } from "react"
-import { DeepPartial, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "@medusajs/ui";
+import { Children, ReactNode, useMemo } from "react";
+import { DeepPartial, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { HttpTypes, PriceListStatus, PriceListType } from "@medusajs/types"
-import { useRouteModal } from "../../../../../components/modals"
-import { TabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { useCreatePriceList } from "../../../../../hooks/api/price-lists"
-import { exctractPricesFromProducts } from "../../../common/utils"
-import { PriceListDetailsForm } from "./price-list-details-form"
-import { PriceListPricesForm } from "./price-list-prices-form"
-import { PriceListProductsForm } from "./price-list-products-form"
-import { PricingCreateSchema, PricingCreateSchemaType } from "./schema"
+import { HttpTypes, PriceListStatus, PriceListType } from "@medusajs/types";
+import { useRouteModal } from "../../../../../components/modals";
+import { TabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { useCreatePriceList } from "../../../../../hooks/api/price-lists";
+import { exctractPricesFromProducts } from "../../../common/utils";
+import { PriceListDetailsForm } from "./price-list-details-form";
+import { PriceListPricesForm } from "./price-list-prices-form";
+import { PriceListProductsForm } from "./price-list-products-form";
+import { PricingCreateSchema, PricingCreateSchemaType } from "./schema";
 
-export type { PricingCreateSchemaType }
+export type { PricingCreateSchemaType };
 
 type PriceListCreateFormProps = {
   regions: HttpTypes.AdminRegion[]
@@ -34,8 +34,8 @@ export const PriceListCreateForm = ({
   schema,
   defaultValues: extraDefaults,
 }: PriceListCreateFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<PricingCreateSchemaType>({
     defaultValues: {
@@ -53,18 +53,18 @@ export const PriceListCreateForm = ({
       ...extraDefaults,
     } as PricingCreateSchemaType,
     resolver: zodResolver(schema ?? PricingCreateSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreatePriceList()
+  const { mutateAsync, isPending } = useCreatePriceList();
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    const { rules, products } = data
+    const { rules, products } = data;
 
     const rulesPayload = rules?.customer_group_id?.length
       ? { "customer.groups.id": rules.customer_group_id.map((cg) => cg.id) }
-      : undefined
+      : undefined;
 
-    const prices = exctractPricesFromProducts(products, regions)
+    const prices = exctractPricesFromProducts(products, regions);
 
     await mutateAsync(
       {
@@ -83,15 +83,15 @@ export const PriceListCreateForm = ({
             t("priceLists.create.successToast", {
               title: price_list.title,
             })
-          )
-          handleSuccess(`../${price_list.id}`)
+          );
+          handleSuccess(`../${price_list.id}`);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   const defaultTabs = useMemo(
     () => [
@@ -105,9 +105,9 @@ export const PriceListCreateForm = ({
       />,
     ],
     [currencies, regions, pricePreferences]
-  )
+  );
 
-  const hasCustomChildren = Children.count(children) > 0
+  const hasCustomChildren = Children.count(children) > 0;
 
   return (
     <TabbedForm
@@ -117,5 +117,5 @@ export const PriceListCreateForm = ({
     >
       {hasCustomChildren ? children : defaultTabs}
     </TabbedForm>
-  )
-}
+  );
+};

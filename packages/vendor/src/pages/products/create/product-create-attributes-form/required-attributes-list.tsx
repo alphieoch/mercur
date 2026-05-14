@@ -1,13 +1,13 @@
-import { Select, Textarea } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { Select, Textarea } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "@components/common/form"
-import { SwitchBox } from "@components/common/switch-box"
-import { Combobox } from "@components/inputs/combobox"
-import { MultiSelect } from "../../../../components/inputs/multi-select"
-import { NumericInput } from "../../../../components/inputs/numeric-input"
-import { ProductCreateSchemaType } from "../types"
+import { Form } from "@components/common/form";
+import { SwitchBox } from "@components/common/switch-box";
+import { Combobox } from "@components/inputs/combobox";
+import { MultiSelect } from "../../../../components/inputs/multi-select";
+import { NumericInput } from "../../../../components/inputs/numeric-input";
+import { ProductCreateSchemaType } from "../types";
 
 type RequiredAttributesListProps = {
   form: UseFormReturn<ProductCreateSchemaType>
@@ -20,7 +20,7 @@ export const RequiredAttributesList = ({
   fields,
   validationRules,
 }: RequiredAttributesListProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <>
@@ -209,5 +209,5 @@ export const RequiredAttributesList = ({
         </div>
       ))}
     </>
-  )
-}
+  );
+};

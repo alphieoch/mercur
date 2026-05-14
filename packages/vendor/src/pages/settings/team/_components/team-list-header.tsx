@@ -1,10 +1,10 @@
-import { Children, ReactNode } from "react"
-import { Button, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { Children, ReactNode } from "react";
+import { Button, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const TeamListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div>
       <Heading level="h2">{t("users.domain")}</Heading>
@@ -12,15 +12,15 @@ export const TeamListTitle = () => {
         {t("users.list.empty.description")}
       </Text>
     </div>
-  )
-}
+  );
+};
 
 export const TeamListActions = ({
   children,
 }: {
   children?: ReactNode
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-center gap-x-2">
       {Children.count(children) > 0 ? (
@@ -33,8 +33,8 @@ export const TeamListActions = ({
         </Link>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const TeamListHeader = ({
   children,
@@ -52,5 +52,5 @@ export const TeamListHeader = ({
         </>
       )}
     </div>
-  )
-}
+  );
+};

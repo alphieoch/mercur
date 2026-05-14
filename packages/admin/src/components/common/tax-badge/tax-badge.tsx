@@ -1,6 +1,6 @@
-import { TaxExclusive, TaxInclusive } from "@medusajs/icons"
-import { Tooltip } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { TaxExclusive, TaxInclusive } from "@medusajs/icons";
+import { Tooltip } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 type IncludesTaxTooltipProps = {
   includesTax?: boolean
@@ -9,7 +9,7 @@ type IncludesTaxTooltipProps = {
 export const IncludesTaxTooltip = ({
   includesTax,
 }: IncludesTaxTooltipProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Tooltip
@@ -26,5 +26,5 @@ export const IncludesTaxTooltip = ({
         <TaxExclusive className="text-ui-fg-muted shrink-0" />
       )}
     </Tooltip>
-  )
-}
+  );
+};

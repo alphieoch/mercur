@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { CategoryListHeader } from "./category-list-header"
-import { CategoryListDataTable } from "./category-list-data-table"
+import { CategoryListHeader } from "./category-list-header";
+import { CategoryListDataTable } from "./category-list-data-table";
 
-export { CategoryListDataTable } from "./category-list-data-table"
+export { CategoryListDataTable } from "./category-list-data-table";
 export {
   CategoryListHeader,
   CategoryListTitle,
   CategoryListActions,
-} from "./category-list-header"
+} from "./category-list-header";
 
 export const CategoryListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -23,5 +23,5 @@ export const CategoryListTable = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </Container>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { CurrencyInfo } from "../../../lib/data/currencies"
+import { CurrencyInfo } from "../../../lib/data/currencies";
 
 export type ConditionalShippingOptionPriceAccessor =
   | `conditional_region_prices.${string}`

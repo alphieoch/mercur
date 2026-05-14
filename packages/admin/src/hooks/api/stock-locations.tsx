@@ -2,23 +2,23 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
-import { fulfillmentProvidersQueryKeys } from "./fulfillment-providers"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
+import { fulfillmentProvidersQueryKeys } from "./fulfillment-providers";
 
-const STOCK_LOCATIONS_QUERY_KEY = "stock_locations" as const
+const STOCK_LOCATIONS_QUERY_KEY = "stock_locations" as const;
 export const stockLocationsQueryKeys = queryKeysFactory(
   STOCK_LOCATIONS_QUERY_KEY
-)
+);
 
 export const useStockLocation = (
   id: string,
@@ -40,10 +40,10 @@ export const useStockLocation = (
     queryFn: () => sdk.admin.stockLocations.$id.query({ $id: id, ...query }),
     queryKey: stockLocationsQueryKeys.detail(id, query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useStockLocations = (
   query?: InferClientInput<typeof sdk.admin.stockLocations.query>,
@@ -61,10 +61,10 @@ export const useStockLocations = (
     queryFn: () => sdk.admin.stockLocations.query({ ...query }),
     queryKey: stockLocationsQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateStockLocation = (
   options?: UseMutationOptions<
@@ -78,13 +78,13 @@ export const useCreateStockLocation = (
     onSuccess: async (data, variables, context) => {
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateStockLocation = (
   id: string,
@@ -103,16 +103,16 @@ export const useUpdateStockLocation = (
     onSuccess: async (data, variables, context) => {
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.details(),
-      })
+      });
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateStockLocationSalesChannels = (
   id: string,
@@ -134,16 +134,16 @@ export const useUpdateStockLocationSalesChannels = (
     onSuccess: async (data, variables, context) => {
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.details(),
-      })
+      });
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteStockLocation = (
   id: string,
@@ -158,16 +158,16 @@ export const useDeleteStockLocation = (
     onSuccess: async (data, variables, context) => {
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.lists(),
-      })
+      });
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.detail(id),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCreateStockLocationFulfillmentSet = (
   locationId: string,
@@ -193,13 +193,13 @@ export const useCreateStockLocationFulfillmentSet = (
     onSuccess: async (data, variables, context) => {
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.all,
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateStockLocationFulfillmentProviders = (
   id: string,
@@ -225,13 +225,13 @@ export const useUpdateStockLocationFulfillmentProviders = (
     onSuccess: async (data, variables, context) => {
       await queryClient.invalidateQueries({
         queryKey: stockLocationsQueryKeys.details(),
-      })
+      });
       await queryClient.invalidateQueries({
         queryKey: fulfillmentProvidersQueryKeys.all,
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

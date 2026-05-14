@@ -1,5 +1,5 @@
-import { z } from "zod"
-import { EditProductMediaSchema, ProductCreateSchema } from "./constants"
+import { z } from "zod";
+import { EditProductMediaSchema, ProductCreateSchema } from "./constants";
 
 export type ProductCreateSchemaType = z.infer<typeof ProductCreateSchema>
 

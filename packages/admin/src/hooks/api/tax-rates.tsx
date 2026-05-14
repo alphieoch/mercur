@@ -1,4 +1,4 @@
-import type { ClientError, InferClientInput, InferClientOutput } from "@mercurjs/client"
+import type { ClientError, InferClientInput, InferClientOutput } from "@mercurjs/client";
 import type {
   QueryKey,
   UseMutationOptions,
@@ -6,16 +6,16 @@ import type {
 import {
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
+} from "@tanstack/react-query";
 
-import { taxRegionsQueryKeys } from "./tax-regions"
-import type { ExtendedAdminTaxRateResponse } from "@custom-types/tax-rates"
+import { taxRegionsQueryKeys } from "./tax-regions";
+import type { ExtendedAdminTaxRateResponse } from "@custom-types/tax-rates";
 import { queryKeysFactory } from "@lib/query-key-factory";
 import { sdk } from "@lib/client";
 import { queryClient } from "@lib/query-client";
 
-const TAX_RATES_QUERY_KEY = "tax_rates" as const
-export const taxRatesQueryKeys = queryKeysFactory(TAX_RATES_QUERY_KEY)
+const TAX_RATES_QUERY_KEY = "tax_rates" as const;
+export const taxRatesQueryKeys = queryKeysFactory(TAX_RATES_QUERY_KEY);
 
 export const useTaxRate = (
   id: string,
@@ -34,10 +34,10 @@ export const useTaxRate = (
     queryKey: taxRatesQueryKeys.detail(id),
     queryFn: async () => sdk.admin.taxRates.$id.query({ $id: id, ...query }) as Promise<ExtendedAdminTaxRateResponse>,
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useTaxRates = (
   query?: InferClientInput<typeof sdk.admin.taxRates.query>,
@@ -55,10 +55,10 @@ export const useTaxRates = (
     queryFn: () => sdk.admin.taxRates.query({ ...query }),
     queryKey: taxRatesQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useUpdateTaxRate = (
   id: string,
@@ -75,18 +75,18 @@ export const useUpdateTaxRate = (
     mutationFn: (payload) =>
       sdk.admin.taxRates.$id.mutate({ $id: id, ...payload }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: taxRatesQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: taxRatesQueryKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: taxRatesQueryKeys.detail(id),
-      })
+      });
 
-      queryClient.invalidateQueries({ queryKey: taxRegionsQueryKeys.details() })
+      queryClient.invalidateQueries({ queryKey: taxRegionsQueryKeys.details() });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCreateTaxRate = (
   options?: UseMutationOptions<
@@ -98,15 +98,15 @@ export const useCreateTaxRate = (
   return useMutation({
     mutationFn: (payload) => sdk.admin.taxRates.mutate(payload),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: taxRatesQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: taxRatesQueryKeys.lists() });
 
-      queryClient.invalidateQueries({ queryKey: taxRegionsQueryKeys.details() })
+      queryClient.invalidateQueries({ queryKey: taxRegionsQueryKeys.details() });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteTaxRate = (
   id: string,
@@ -119,15 +119,15 @@ export const useDeleteTaxRate = (
   return useMutation({
     mutationFn: () => sdk.admin.taxRates.$id.delete({ $id: id }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: taxRatesQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: taxRatesQueryKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: taxRatesQueryKeys.detail(id),
-      })
+      });
 
-      queryClient.invalidateQueries({ queryKey: taxRegionsQueryKeys.details() })
+      queryClient.invalidateQueries({ queryKey: taxRegionsQueryKeys.details() });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

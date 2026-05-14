@@ -1,20 +1,20 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, InlineTip, Input, usePrompt } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, InlineTip, Input, usePrompt } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { Form } from "@components/common/form"
-import { SwitchBox } from "@components/common/switch-box"
-import { Combobox } from "@components/inputs/combobox"
-import { RouteDrawer, useRouteModal } from "@components/modals"
-import { i18n } from "@components/utilities/i18n"
-import { KeyboundForm } from "@components/utilities/keybound-form"
+import { Form } from "@components/common/form";
+import { SwitchBox } from "@components/common/switch-box";
+import { Combobox } from "@components/inputs/combobox";
+import { RouteDrawer, useRouteModal } from "@components/modals";
+import { i18n } from "@components/utilities/i18n";
+import { KeyboundForm } from "@components/utilities/keybound-form";
 import {
   useProductAttributes,
   useUpdateProductOption,
-} from "@hooks/api/products"
-import type { ExtendedAdminProductOption } from "@pages/products/types"
+} from "@hooks/api/products";
+import type { ExtendedAdminProductOption } from "@pages/products/types";
 
 type EditProductOptionFormProps = {
   option: ExtendedAdminProductOption
@@ -28,41 +28,41 @@ const EditProductOptionSchema = z.object({
     .array(z.string())
     .min(1, i18n.t("products.edit.attributes.valuesRequired")),
   use_for_variations: z.boolean(),
-})
+});
 
 export const EditProductOptionForm = ({
   option,
 }: EditProductOptionFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const prompt = usePrompt();
 
-  const isAdminOption = option.metadata?.author === "admin"
+  const isAdminOption = option.metadata?.author === "admin";
 
-  const { attributes } = useProductAttributes(option.product_id!)
+  const { attributes } = useProductAttributes(option.product_id!);
   const attributeDefinition = attributes?.find(
     (a: any) =>
       a.id === option.metadata?.attribute_id || a.name === option.title
-  )
+  );
   const predefinedValueOptions =
     attributeDefinition?.possible_values?.map((v: any) => ({
       value: v.value,
       label: v.value,
-    })) ?? []
+    })) ?? [];
 
   const currentValueOptions = (option?.values ?? []).map((v) => ({
     value: v.value,
     label: v.value,
-  }))
+  }));
 
-  const seenValues = new Set<string>()
+  const seenValues = new Set<string>();
   const allValueOptions = [...predefinedValueOptions, ...currentValueOptions].filter(
     (o) => {
-      if (seenValues.has(o.value)) return false
-      seenValues.add(o.value)
-      return true
+      if (seenValues.has(o.value)) return false;
+      seenValues.add(o.value);
+      return true;
     }
-  )
+  );
 
   const form = useForm<z.infer<typeof EditProductOptionSchema>>({
     defaultValues: {
@@ -71,14 +71,14 @@ export const EditProductOptionForm = ({
       use_for_variations: true,
     },
     resolver: zodResolver(EditProductOptionSchema),
-  })
+  });
 
-  const useForVariations = form.watch("use_for_variations")
+  const useForVariations = form.watch("use_for_variations");
 
   const { mutateAsync: updateOption, isPending } = useUpdateProductOption(
     option.product_id!,
     option.id
-  )
+  );
 
   const handleSubmit = form.handleSubmit(async (data) => {
     if (isAdminOption) {
@@ -92,9 +92,9 @@ export const EditProductOptionForm = ({
             "products.edit.attributes.editCustomValueDescription",
             "Replacing this attribute with a custom one will affect how your products appear in search and filters. Custom attributes are not searchable or filterable. Do you want to continue?"
           ),
-        })
+        });
 
-        if (!confirmed) return
+        if (!confirmed) return;
       }
 
       await updateOption(
@@ -106,23 +106,23 @@ export const EditProductOptionForm = ({
         {
           onSuccess: () => handleSuccess(),
         }
-      )
+      );
 
-      return
+      return;
     }
 
-    const { use_for_variations, ...rest } = data
+    const { use_for_variations, ...rest } = data;
 
     if (!use_for_variations) {
       await updateOption({ convert_to_attribute: true } as any, {
         onSuccess: () => handleSuccess(),
-      })
+      });
 
-      return
+      return;
     }
 
-    await updateOption(rest as any, { onSuccess: () => handleSuccess() })
-  })
+    await updateOption(rest as any, { onSuccess: () => handleSuccess() });
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -156,7 +156,7 @@ export const EditProductOptionForm = ({
                         </div>
                       </Form.Control>
                     </Form.Item>
-                  )
+                  );
                 }}
               />
               <Form.Field
@@ -184,7 +184,7 @@ export const EditProductOptionForm = ({
                         </div>
                       </Form.Control>
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -219,5 +219,5 @@ export const EditProductOptionForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

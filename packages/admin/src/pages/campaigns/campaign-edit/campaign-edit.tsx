@@ -1,19 +1,19 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
-import { RouteDrawer } from "../../../components/modals"
-import { VisuallyHidden } from "../../../components/utilities/visually-hidden"
-import { useCampaign } from "../../../hooks/api/campaigns"
-import { EditCampaignForm } from "./components/edit-campaign-form"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { RouteDrawer } from "../../../components/modals";
+import { VisuallyHidden } from "../../../components/utilities/visually-hidden";
+import { useCampaign } from "../../../hooks/api/campaigns";
+import { EditCampaignForm } from "./components/edit-campaign-form";
 
 export const CampaignEdit = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { id } = useParams()
-  const { campaign, isLoading, isError, error } = useCampaign(id!)
+  const { id } = useParams();
+  const { campaign, isLoading, isError, error } = useCampaign(id!);
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -29,5 +29,5 @@ export const CampaignEdit = () => {
 
       {!isLoading && campaign && <EditCampaignForm campaign={campaign} />}
     </RouteDrawer>
-  )
-}
+  );
+};

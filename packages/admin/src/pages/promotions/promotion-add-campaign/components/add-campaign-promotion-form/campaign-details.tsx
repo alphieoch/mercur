@@ -1,23 +1,23 @@
-import { AdminCampaign } from "@medusajs/types"
-import { Heading, Text } from "@medusajs/ui"
-import { Fragment } from "react"
-import { useTranslation } from "react-i18next"
+import { AdminCampaign } from "@medusajs/types";
+import { Heading, Text } from "@medusajs/ui";
+import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 
 const translationKeyMap = {
   spend: "spend",
   usage: "usage",
   use_by_attribute: "useByAttribute",
-}
+};
 
 type CampaignDetailsProps = {
   campaign?: AdminCampaign
 }
 
 export const CampaignDetails = ({ campaign }: CampaignDetailsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (!campaign) {
-    return
+    return;
   }
 
   return (
@@ -129,5 +129,5 @@ export const CampaignDetails = ({ campaign }: CampaignDetailsProps) => {
         </div>
       </div>
     </Fragment>
-  )
-}
+  );
+};

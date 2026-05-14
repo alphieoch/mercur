@@ -1,22 +1,22 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useEffect, useRef } from "react"
-import { useFieldArray, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useParams, useSearchParams } from "react-router-dom"
-import { Trash } from "@medusajs/icons"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useEffect, useRef } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useParams, useSearchParams } from "react-router-dom";
+import { Trash } from "@medusajs/icons";
 
-import { ActionMenu } from "../../../components/common/action-menu"
-import { Form } from "../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../components/modals"
-import { KeyboundForm } from "../../../components/utilities/keybound-form"
+import { ActionMenu } from "../../../components/common/action-menu";
+import { Form } from "../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../components/modals";
+import { KeyboundForm } from "../../../components/utilities/keybound-form";
 import {
   useAttribute,
   useUpdateAttributePossibleValue,
-} from "../../../hooks/api/attributes"
-import { ATTRIBUTE_DETAIL_FIELDS } from "../attribute-detail/constants"
-import { UpdatePossibleValueSchema } from "../attribute-edit/schema"
-import type { UpdatePossibleValueFormValues } from "../attribute-edit/types"
+} from "../../../hooks/api/attributes";
+import { ATTRIBUTE_DETAIL_FIELDS } from "../attribute-detail/constants";
+import { UpdatePossibleValueSchema } from "../attribute-edit/schema";
+import type { UpdatePossibleValueFormValues } from "../attribute-edit/types";
 
 type EditPossibleValueFormProps = {
   attributeId: string
@@ -27,13 +27,13 @@ const EditPossibleValueForm = ({
   attributeId,
   possibleValue,
 }: EditPossibleValueFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
-  const originalMetadataRef = useRef<Record<string, unknown>>({})
+  const originalMetadataRef = useRef<Record<string, unknown>>({});
 
   const { mutateAsync, isPending: isMutating } =
-    useUpdateAttributePossibleValue(attributeId, possibleValue.id)
+    useUpdateAttributePossibleValue(attributeId, possibleValue.id);
 
   const form = useForm<UpdatePossibleValueFormValues>({
     resolver: zodResolver(UpdatePossibleValueSchema),
@@ -42,52 +42,52 @@ const EditPossibleValueForm = ({
       rank: undefined,
       metadata: [],
     },
-  })
+  });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "metadata",
-  })
+  });
 
   useEffect(() => {
     if (possibleValue) {
-      const originalMetadata = possibleValue.metadata || {}
-      originalMetadataRef.current = originalMetadata
+      const originalMetadata = possibleValue.metadata || {};
+      originalMetadataRef.current = originalMetadata;
 
       const metadataArray = Object.entries(originalMetadata).map(
         ([key, value]) => ({ key, value: String(value) })
-      )
+      );
 
       form.reset({
         value: possibleValue.value,
         rank: possibleValue.rank,
         metadata:
           metadataArray.length > 0 ? metadataArray : [{ key: "", value: "" }],
-      })
+      });
     }
-  }, [possibleValue, form])
+  }, [possibleValue, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     const transformedMetadata = data.metadata.reduce(
       (acc, item) => {
         if (item.key.trim() !== "" && item.value.trim() !== "") {
-          acc[item.key] = item.value
+          acc[item.key] = item.value;
         }
-        return acc
+        return acc;
       },
       {} as Record<string, unknown>
-    )
+    );
 
-    const finalMetadata: Record<string, unknown> = { ...transformedMetadata }
+    const finalMetadata: Record<string, unknown> = { ...transformedMetadata };
 
-    const originalKeys = Object.keys(originalMetadataRef.current)
-    const newKeys = Object.keys(transformedMetadata)
+    const originalKeys = Object.keys(originalMetadataRef.current);
+    const newKeys = Object.keys(transformedMetadata);
 
     originalKeys.forEach((key) => {
       if (!newKeys.includes(key)) {
-        finalMetadata[key] = ""
+        finalMetadata[key] = "";
       }
-    })
+    });
 
     await mutateAsync(
       {
@@ -101,15 +101,15 @@ const EditPossibleValueForm = ({
             t("attributes.editPossibleValue.successToast", {
               value: data.value,
             })
-          )
-          handleSuccess()
+          );
+          handleSuccess();
         },
         onError: (err) => {
-          toast.error(err.message)
+          toast.error(err.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="attribute-edit-possible-value-form">
@@ -247,33 +247,33 @@ const EditPossibleValueForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};
 
 export const AttributeEditPossibleValue = () => {
-  const { id } = useParams()
-  const [searchParams] = useSearchParams()
-  const { t } = useTranslation()
-  const possibleValueId = searchParams.get("possible_value_id")
+  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
+  const possibleValueId = searchParams.get("possible_value_id");
 
   const { attribute, isPending, isError, error } = useAttribute(id!, {
     fields: ATTRIBUTE_DETAIL_FIELDS,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   if (isPending || !attribute) {
-    return null
+    return null;
   }
 
   const possibleValue = attribute.possible_values?.find(
     (pv: { id: string }) => pv.id === possibleValueId
-  )
+  );
 
   if (!possibleValue) {
-    return null
+    return null;
   }
 
   return (
@@ -291,5 +291,5 @@ export const AttributeEditPossibleValue = () => {
         possibleValue={possibleValue}
       />
     </RouteDrawer>
-  )
-}
+  );
+};

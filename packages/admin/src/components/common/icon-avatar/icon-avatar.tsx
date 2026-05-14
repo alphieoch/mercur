@@ -1,5 +1,5 @@
-import { clx } from "@medusajs/ui"
-import { PropsWithChildren } from "react"
+import { clx } from "@medusajs/ui";
+import { PropsWithChildren } from "react";
 
 type IconAvatarProps = PropsWithChildren<{
   className?: string
@@ -38,5 +38,5 @@ export const IconAvatar = ({
     >
       <div>{children}</div>
     </div>
-  )
-}
+  );
+};

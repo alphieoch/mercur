@@ -18,21 +18,21 @@ const Root = ({ children }: { children?: ReactNode }) => {
 
   const initialData = useLoaderData() as Awaited<
     ReturnType<typeof taxRegionLoader>
-  >
+  >;
 
   const {
     tax_region: taxRegion,
     isLoading,
     isError,
     error,
-  } = useTaxRegion(id!, undefined, { initialData })
+  } = useTaxRegion(id!, undefined, { initialData });
 
   if (isLoading || !taxRegion) {
-    return <SingleColumnPageSkeleton sections={4} showJSON />
+    return <SingleColumnPageSkeleton sections={4} showJSON />;
   }
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return Children.count(children) > 0 ? (

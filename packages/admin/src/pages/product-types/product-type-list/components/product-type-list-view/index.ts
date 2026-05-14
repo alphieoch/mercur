@@ -1,1 +1,1 @@
-export * from "./product-type-list-view"
+export * from "./product-type-list-view";

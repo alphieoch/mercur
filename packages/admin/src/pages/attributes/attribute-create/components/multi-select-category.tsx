@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 
 import {
   ArrowUturnLeft,
   TriangleRightMini,
   TrianglesMini,
   XMarkMini,
-} from "@medusajs/icons"
-import type { AdminProductCategory } from "@medusajs/types"
-import { Badge, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/icons";
+import type { AdminProductCategory } from "@medusajs/types";
+import { Badge, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 type MultiSelectCategoryProps = {
   categories: AdminProductCategory[]
@@ -21,12 +21,12 @@ export const MultiSelectCategory = ({
   value,
   onChange,
 }: MultiSelectCategoryProps) => {
-  const { t } = useTranslation()
-  const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  const triggerRef = useRef<HTMLDivElement>(null)
-  const [currentParentId, setCurrentParentId] = useState<string | null>(null)
-  const [pathHistory, setPathHistory] = useState<(string | null)[]>([])
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const [currentParentId, setCurrentParentId] = useState<string | null>(null);
+  const [pathHistory, setPathHistory] = useState<(string | null)[]>([]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -36,56 +36,56 @@ export const MultiSelectCategory = ({
         triggerRef.current &&
         !triggerRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
+    };
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleToggle = () => {
-    setIsOpen((prev) => !prev)
-  }
+    setIsOpen((prev) => !prev);
+  };
 
   const hasChildren = (categoryId: string) => {
-    return categories.some((cat) => cat.parent_category_id === categoryId)
-  }
+    return categories.some((cat) => cat.parent_category_id === categoryId);
+  };
 
   const handleDrillDown = (
     category: AdminProductCategory,
     event: React.MouseEvent
   ) => {
-    event.stopPropagation()
-    setPathHistory([...pathHistory, currentParentId])
-    setCurrentParentId(category.id)
-  }
+    event.stopPropagation();
+    setPathHistory([...pathHistory, currentParentId]);
+    setCurrentParentId(category.id);
+  };
 
   const handleGoBack = () => {
-    const newPathHistory = [...pathHistory]
-    const previousParentId = newPathHistory.pop()
-    setPathHistory(newPathHistory)
-    setCurrentParentId(previousParentId || null)
-  }
+    const newPathHistory = [...pathHistory];
+    const previousParentId = newPathHistory.pop();
+    setPathHistory(newPathHistory);
+    setCurrentParentId(previousParentId || null);
+  };
 
   const handleItemClick = (categoryId: string) => {
-    const isSelected = value.includes(categoryId)
+    const isSelected = value.includes(categoryId);
     if (isSelected) {
-      onChange(value.filter((id) => id !== categoryId))
+      onChange(value.filter((id) => id !== categoryId));
     } else {
-      onChange([...value, categoryId])
+      onChange([...value, categoryId]);
     }
-  }
+  };
 
   const currentCategories = categories.filter(
     (cat) => cat.parent_category_id === currentParentId
-  )
+  );
 
   const getBackButtonText = (): string => {
-    const parentCategory = categories.find((cat) => cat.id === currentParentId)
-    return parentCategory?.name || ""
-  }
+    const parentCategory = categories.find((cat) => cat.id === currentParentId);
+    return parentCategory?.name || "";
+  };
 
   return (
     <div
@@ -106,8 +106,8 @@ export const MultiSelectCategory = ({
             <button
               type="button"
               onClick={(e) => {
-                e.stopPropagation()
-                onChange([])
+                e.stopPropagation();
+                onChange([]);
               }}
               data-testid="attribute-form-category-multiselect-clear-button"
             >
@@ -164,8 +164,8 @@ export const MultiSelectCategory = ({
             </div>
           ) : (
             currentCategories.map((category) => {
-              const isSelected = value.includes(category.id)
-              const hasChildrenNode = hasChildren(category.id)
+              const isSelected = value.includes(category.id);
+              const hasChildrenNode = hasChildren(category.id);
               return (
                 <div
                   key={category.id}
@@ -200,11 +200,11 @@ export const MultiSelectCategory = ({
                     </div>
                   )}
                 </div>
-              )
+              );
             })
           )}
         </div>
       )}
     </div>
-  )
-}
+  );
+};

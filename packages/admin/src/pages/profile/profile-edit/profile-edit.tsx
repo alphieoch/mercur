@@ -1,16 +1,16 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { RouteDrawer } from "../../../components/modals"
-import { useMe } from "../../../hooks/api/users"
-import { EditProfileForm } from "./components/edit-profile-form/edit-profile-form"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { RouteDrawer } from "../../../components/modals";
+import { useMe } from "../../../hooks/api/users";
+import { EditProfileForm } from "./components/edit-profile-form/edit-profile-form";
 
 export const ProfileEdit = () => {
-  const { user, isPending: isLoading, isError, error } = useMe()
+  const { user, isPending: isLoading, isError, error } = useMe();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -22,5 +22,5 @@ export const ProfileEdit = () => {
       </RouteDrawer.Header>
       {!isLoading && user && <EditProfileForm user={user} />}
     </RouteDrawer>
-  )
-}
+  );
+};

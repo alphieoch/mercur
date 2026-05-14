@@ -1,1 +1,1 @@
-export { MarketplaceEdit as Component } from "./marketplace-edit"
+export { MarketplaceEdit as Component } from "./marketplace-edit";

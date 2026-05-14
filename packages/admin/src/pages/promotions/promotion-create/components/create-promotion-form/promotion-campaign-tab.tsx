@@ -1,17 +1,17 @@
-import { useWatch } from "react-hook-form"
+import { useWatch } from "react-hook-form";
 
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
-import { AddCampaignPromotionFields } from "../../../promotion-add-campaign/components/add-campaign-promotion-form"
-import { CreatePromotionSchemaType } from "./form-schema"
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
+import { AddCampaignPromotionFields } from "../../../promotion-add-campaign/components/add-campaign-promotion-form";
+import { CreatePromotionSchemaType } from "./form-schema";
 
 const Root = () => {
-  const form = useTabbedForm<CreatePromotionSchemaType>()
+  const form = useTabbedForm<CreatePromotionSchemaType>();
 
   const currencyCode = useWatch({
     control: form.control,
     name: "application_method.currency_code",
-  })
+  });
 
   return (
     <div className="flex flex-col items-center">
@@ -22,13 +22,13 @@ const Root = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 Root._tabMeta = defineTabMeta<CreatePromotionSchemaType>({
   id: "campaign",
   labelKey: "promotions.tabs.campaign",
   validationFields: ["campaign_id", "campaign_choice", "campaign"],
-})
+});
 
-export const PromotionCampaignTab = Root
+export const PromotionCampaignTab = Root;

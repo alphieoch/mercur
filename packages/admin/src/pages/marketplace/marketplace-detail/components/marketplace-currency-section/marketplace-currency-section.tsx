@@ -1,5 +1,5 @@
-import { CheckCircle, Plus, Trash, XCircle } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import { CheckCircle, Plus, Trash, XCircle } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
 import {
   Checkbox,
   CommandBar,
@@ -7,32 +7,32 @@ import {
   Heading,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { RowSelectionState, createColumnHelper } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { RowSelectionState, createColumnHelper } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { StatusCell } from "../../../../../components/table/table-cells/common/status-cell"
-import { useCurrencies } from "../../../../../hooks/api/currencies"
-import { usePricePreferences } from "../../../../../hooks/api/price-preferences"
-import { useUpdateStore } from "../../../../../hooks/api/store"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useCurrenciesTableColumns } from "../../../common/hooks/use-currencies-table-columns"
-import { useCurrenciesTableQuery } from "../../../common/hooks/use-currencies-table-query"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { StatusCell } from "../../../../../components/table/table-cells/common/status-cell";
+import { useCurrencies } from "../../../../../hooks/api/currencies";
+import { usePricePreferences } from "../../../../../hooks/api/price-preferences";
+import { useUpdateStore } from "../../../../../hooks/api/store";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useCurrenciesTableColumns } from "../../../common/hooks/use-currencies-table-columns";
+import { useCurrenciesTableQuery } from "../../../common/hooks/use-currencies-table-query";
 
 type MarketplaceCurrencySectionProps = {
   store: HttpTypes.AdminStore
 }
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const MarketplaceCurrencySection = ({ store }: MarketplaceCurrencySectionProps) => {
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const { searchParams, raw } = useCurrenciesTableQuery({ pageSize: PAGE_SIZE })
+  const { searchParams, raw } = useCurrenciesTableQuery({ pageSize: PAGE_SIZE });
 
   const {
     currencies,
@@ -49,7 +49,7 @@ export const MarketplaceCurrencySection = ({ store }: MarketplaceCurrencySection
       placeholderData: keepPreviousData,
       enabled: !!store.supported_currencies?.length,
     }
-  )
+  );
 
   const {
     price_preferences: pricePreferences,
@@ -64,17 +64,17 @@ export const MarketplaceCurrencySection = ({ store }: MarketplaceCurrencySection
     {
       enabled: !!store.supported_currencies?.length,
     }
-  )
+  );
 
-  const columns = useColumns()
+  const columns = useColumns();
   const prefMap = useMemo(() => {
-    return new Map(pricePreferences?.map((pref) => [pref.value!, pref]))
-  }, [pricePreferences])
+    return new Map(pricePreferences?.map((pref) => [pref.value!, pref]));
+  }, [pricePreferences]);
 
   const withTaxInclusivity = currencies?.map((c) => ({
     ...c,
     is_tax_inclusive: prefMap.get(c.code)?.is_tax_inclusive,
-  }))
+  }));
 
   const { table } = useDataTable({
     data: withTaxInclusivity ?? [],
@@ -95,14 +95,14 @@ export const MarketplaceCurrencySection = ({ store }: MarketplaceCurrencySection
         ?.currency_code,
       preferencesMap: prefMap,
     },
-  })
+  });
 
-  const { mutateAsync } = useUpdateStore(store.id)
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const { mutateAsync } = useUpdateStore(store.id);
+  const { t } = useTranslation();
+  const prompt = usePrompt();
 
   const handleDeleteCurrencies = async () => {
-    const ids = Object.keys(rowSelection)
+    const ids = Object.keys(rowSelection);
 
     const result = await prompt({
       title: t("general.areYouSure"),
@@ -111,10 +111,10 @@ export const MarketplaceCurrencySection = ({ store }: MarketplaceCurrencySection
       }),
       confirmText: t("actions.remove"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!result) {
-      return
+      return;
     }
 
     await mutateAsync(
@@ -126,25 +126,25 @@ export const MarketplaceCurrencySection = ({ store }: MarketplaceCurrencySection
       },
       {
         onSuccess: () => {
-          setRowSelection({})
-          toast.success(t("store.toast.currenciesRemoved"))
+          setRowSelection({});
+          toast.success(t("store.toast.currenciesRemoved"));
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  }
+    );
+  };
 
   if (isCurrenciesError) {
-    throw currenciesError
+    throw currenciesError;
   }
 
   if (isPricePreferencesError) {
-    throw pricePreferencesError
+    throw pricePreferencesError;
   }
 
-  const isLoading = isCurrenciesPending || isPricePreferencesPending
+  const isLoading = isCurrenciesPending || isPricePreferencesPending;
 
   return (
     <Container className="divide-y p-0" data-testid="store-currency-section-container">
@@ -197,8 +197,8 @@ export const MarketplaceCurrencySection = ({ store }: MarketplaceCurrencySection
         </CommandBar.Bar>
       </CommandBar>
     </Container>
-  )
-}
+  );
+};
 
 const CurrencyActions = ({
   storeId,
@@ -213,9 +213,9 @@ const CurrencyActions = ({
   defaultCurrencyCode: string
   preferencesMap: Map<string, HttpTypes.AdminPricePreference>
 }) => {
-  const { mutateAsync } = useUpdateStore(storeId)
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const { mutateAsync } = useUpdateStore(storeId);
+  const { t } = useTranslation();
+  const prompt = usePrompt();
 
   const handleRemove = async () => {
     const result = await prompt({
@@ -227,10 +227,10 @@ const CurrencyActions = ({
       verificationText: currency.name,
       confirmText: t("actions.remove"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!result) {
-      return
+      return;
     }
 
     await mutateAsync(
@@ -241,39 +241,39 @@ const CurrencyActions = ({
       },
       {
         onSuccess: () => {
-          toast.success(t("store.toast.currenciesRemoved"))
+          toast.success(t("store.toast.currenciesRemoved"));
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  }
+    );
+  };
 
   const handleToggleTaxInclusivity = async () => {
     await mutateAsync(
       {
         supported_currencies: supportedCurrencies.map((c) => {
-          const pref = preferencesMap.get(c.currency_code)
+          const pref = preferencesMap.get(c.currency_code);
           return {
             ...c,
             is_tax_inclusive:
               c.currency_code === currency.code
                 ? !pref?.is_tax_inclusive
                 : undefined,
-          }
+          };
         }),
       },
       {
         onSuccess: () => {
-          toast.success(t("store.toast.updatedTaxInclusivitySuccessfully"))
+          toast.success(t("store.toast.updatedTaxInclusivitySuccessfully"));
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  }
+    );
+  };
 
   return (
     <ActionMenu
@@ -306,16 +306,16 @@ const CurrencyActions = ({
       ]}
       data-testid={`store-currency-section-action-menu-${currency.code}`}
     />
-  )
-}
+  );
+};
 
 const columnHelper = createColumnHelper<
   HttpTypes.AdminCurrency & { is_tax_inclusive?: boolean }
->()
+>();
 
 const useColumns = () => {
-  const base = useCurrenciesTableColumns()
-  const { t } = useTranslation()
+  const base = useCurrenciesTableColumns();
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -334,7 +334,7 @@ const useColumns = () => {
               }
               data-testid="store-currency-section-select-all-checkbox"
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -342,23 +342,23 @@ const useColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
               data-testid={`store-currency-section-select-checkbox-${row.original.code}`}
             />
-          )
+          );
         },
       }),
       ...base,
       columnHelper.accessor("is_tax_inclusive", {
         header: t("fields.taxInclusivePricing"),
         cell: ({ getValue }) => {
-          const isTaxInclusive = getValue()
+          const isTaxInclusive = getValue();
           return (
             <StatusCell color={isTaxInclusive ? "green" : "grey"}>
               {isTaxInclusive ? t("fields.true") : t("fields.false")}
             </StatusCell>
-          )
+          );
         },
       }),
       columnHelper.display({
@@ -374,7 +374,7 @@ const useColumns = () => {
             storeId: string
             defaultCurrencyCode: string
             preferencesMap: Map<string, HttpTypes.AdminPricePreference>
-          }
+          };
 
           return (
             <CurrencyActions
@@ -384,10 +384,10 @@ const useColumns = () => {
               defaultCurrencyCode={defaultCurrencyCode}
               preferencesMap={preferencesMap}
             />
-          )
+          );
         },
       }),
     ],
     [base, t]
-  )
-}
+  );
+};

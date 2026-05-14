@@ -1,5 +1,5 @@
-import { HttpTypes } from "@medusajs/types"
-import { useQueryParams } from "../../../../../hooks/use-query-params"
+import { HttpTypes } from "@medusajs/types";
+import { useQueryParams } from "../../../../../hooks/use-query-params";
 
 type UseApiKeyManagementTableQueryProps = {
   prefix?: string
@@ -13,9 +13,9 @@ export const useApiKeyManagementTableQuery = ({
   const queryObject = useQueryParams(
     ["offset", "q", "created_at", "updated_at", "revoked_at", "order"],
     prefix
-  )
+  );
 
-  const { offset, created_at, updated_at, revoked_at, q, order } = queryObject
+  const { offset, created_at, updated_at, revoked_at, q, order } = queryObject;
 
   const searchParams: HttpTypes.AdminGetApiKeysParams = {
     limit: pageSize,
@@ -25,10 +25,10 @@ export const useApiKeyManagementTableQuery = ({
     revoked_at: revoked_at ? JSON.parse(revoked_at) : undefined,
     order,
     q,
-  }
+  };
 
   return {
     searchParams,
     raw: queryObject,
-  }
-}
+  };
+};

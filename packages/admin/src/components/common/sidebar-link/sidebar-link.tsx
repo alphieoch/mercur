@@ -1,9 +1,9 @@
-import { ReactNode } from "react"
-import { Link } from "react-router-dom"
+import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
-import { TriangleRightMini } from "@medusajs/icons"
-import { Text } from "@medusajs/ui"
-import { IconAvatar } from "../icon-avatar"
+import { TriangleRightMini } from "@medusajs/icons";
+import { Text } from "@medusajs/ui";
+import { IconAvatar } from "../icon-avatar";
 
 export interface SidebarLinkProps {
   to: string
@@ -43,5 +43,5 @@ export const SidebarLink = ({
         </div>
       </div>
     </Link>
-  )
-}
+  );
+};

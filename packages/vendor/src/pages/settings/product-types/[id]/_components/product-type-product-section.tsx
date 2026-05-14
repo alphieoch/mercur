@@ -1,36 +1,36 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { _DataTable } from "@components/table/data-table"
-import { useProducts } from "@hooks/api/products"
-import { useProductTableColumns } from "@hooks/table/columns/use-product-table-columns"
-import { useProductTableFilters } from "@hooks/table/filters/use-product-table-filters"
-import { useProductTableQuery } from "@hooks/table/query/use-product-table-query"
-import { useDataTable } from "@hooks/use-data-table"
+import { _DataTable } from "@components/table/data-table";
+import { useProducts } from "@hooks/api/products";
+import { useProductTableColumns } from "@hooks/table/columns/use-product-table-columns";
+import { useProductTableFilters } from "@hooks/table/filters/use-product-table-filters";
+import { useProductTableQuery } from "@hooks/table/query/use-product-table-query";
+import { useDataTable } from "@hooks/use-data-table";
 
 type ProductTypeProductSectionProps = {
   productType: HttpTypes.AdminProductType
 }
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const ProductTypeProductSection = ({
   productType,
 }: ProductTypeProductSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { searchParams, raw } = useProductTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
   const { products, count, isPending, isError, error } = useProducts({
     ...searchParams,
     fields: "+type_id",
     type_id: productType.id,
-  })
+  });
 
-  const filters = useProductTableFilters(["product_types"])
-  const columns = useProductTableColumns()
+  const filters = useProductTableFilters(["product_types"]);
+  const columns = useProductTableColumns();
 
   const { table } = useDataTable({
     columns,
@@ -38,10 +38,10 @@ export const ProductTypeProductSection = ({
     count: products?.length || 0,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -67,5 +67,5 @@ export const ProductTypeProductSection = ({
         pagination
       />
     </Container>
-  )
-}
+  );
+};

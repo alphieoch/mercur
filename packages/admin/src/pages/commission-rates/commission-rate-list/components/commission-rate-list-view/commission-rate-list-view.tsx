@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { CommissionRateListDataTable } from "./commission-rate-list-data-table"
-import { CommissionRateListHeader } from "./commission-rate-list-header"
+import { CommissionRateListDataTable } from "./commission-rate-list-data-table";
+import { CommissionRateListHeader } from "./commission-rate-list-header";
 
-export { CommissionRateListDataTable } from "./commission-rate-list-data-table"
+export { CommissionRateListDataTable } from "./commission-rate-list-data-table";
 export {
   CommissionRateListHeader,
   CommissionRateListTitle,
   CommissionRateListActions,
-} from "./commission-rate-list-header"
+} from "./commission-rate-list-header";
 
 export const CommissionRateListView = ({
   children,
@@ -27,5 +27,5 @@ export const CommissionRateListView = ({
         </>
       )}
     </Container>
-  )
-}
+  );
+};

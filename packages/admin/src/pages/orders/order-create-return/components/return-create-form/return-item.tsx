@@ -1,16 +1,16 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
 
-import { IconButton, Input, Text } from "@medusajs/ui"
-import { UseFormReturn } from "react-hook-form"
-import { HttpTypes, AdminOrderLineItem } from "@medusajs/types"
-import { ChatBubble, DocumentText, XCircle, XMark } from "@medusajs/icons"
+import { IconButton, Input, Text } from "@medusajs/ui";
+import { UseFormReturn } from "react-hook-form";
+import { HttpTypes, AdminOrderLineItem } from "@medusajs/types";
+import { ChatBubble, DocumentText, XCircle, XMark } from "@medusajs/icons";
 
-import { Thumbnail } from "../../../../../components/common/thumbnail"
-import { MoneyAmountCell } from "../../../../../components/table/table-cells/common/money-amount-cell"
-import { Form } from "../../../../../components/common/form"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { useReturnReasons } from "../../../../../hooks/api/return-reasons"
+import { Thumbnail } from "../../../../../components/common/thumbnail";
+import { MoneyAmountCell } from "../../../../../components/table/table-cells/common/money-amount-cell";
+import { Form } from "../../../../../components/common/form";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { useReturnReasons } from "../../../../../hooks/api/return-reasons";
 
 type OrderEditItemProps = {
   item: AdminOrderLineItem
@@ -33,14 +33,14 @@ function ReturnItem({
   onUpdate,
   index,
 }: OrderEditItemProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { return_reasons = [] } = useReturnReasons({ fields: "+label" })
+  const { return_reasons = [] } = useReturnReasons({ fields: "+label" });
 
-  const formItem = form.watch(`items.${index}`)
+  const formItem = form.watch(`items.${index}`);
 
-  const showReturnReason = typeof formItem.reason_id === "string"
-  const showNote = typeof formItem.note === "string"
+  const showReturnReason = typeof formItem.reason_id === "string";
+  const showNote = typeof formItem.note === "string";
 
   return (
     <div className="bg-ui-bg-subtle shadow-elevation-card-rest my-2 rounded-xl ">
@@ -76,21 +76,21 @@ function ReturnItem({
                         type="number"
                         {...field}
                         onChange={(e) => {
-                          const val = e.target.value
-                          const payload = val === "" ? null : Number(val)
+                          const val = e.target.value;
+                          const payload = val === "" ? null : Number(val);
 
-                          field.onChange(payload)
+                          field.onChange(payload);
 
                           if (payload) {
                             // todo: move on blur
-                            onUpdate({ quantity: payload })
+                            onUpdate({ quantity: payload });
                           }
                         }}
                       />
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Text className="txt-small text-ui-fg-subtle">
@@ -155,8 +155,8 @@ function ReturnItem({
                             className="bg-ui-bg-field-component hover:bg-ui-bg-field-component-hover"
                             value={value}
                             onChange={(v) => {
-                              onUpdate({ reason_id: v })
-                              onChange(v)
+                              onUpdate({ reason_id: v });
+                              onChange(v);
                             }}
                             {...field}
                             options={return_reasons.map((reason) => ({
@@ -167,7 +167,7 @@ function ReturnItem({
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -176,8 +176,8 @@ function ReturnItem({
                 className="flex-shrink"
                 variant="transparent"
                 onClick={() => {
-                  onUpdate({ reason_id: null })
-                  form.setValue(`items.${index}.reason_id`, null)
+                  onUpdate({ reason_id: null });
+                  form.setValue(`items.${index}.reason_id`, null);
                 }}
               >
                 <XMark className="text-ui-fg-muted" />
@@ -216,7 +216,7 @@ function ReturnItem({
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -228,8 +228,8 @@ function ReturnItem({
                   form.setValue(`items.${index}.note`, {
                     shouldDirty: true,
                     shouldTouch: true,
-                  })
-                  onUpdate({ internal_note: null })
+                  });
+                  onUpdate({ internal_note: null });
                 }}
               >
                 <XMark className="text-ui-fg-muted" />
@@ -239,7 +239,7 @@ function ReturnItem({
         )}
       </>
     </div>
-  )
+  );
 }
 
-export { ReturnItem }
+export { ReturnItem };

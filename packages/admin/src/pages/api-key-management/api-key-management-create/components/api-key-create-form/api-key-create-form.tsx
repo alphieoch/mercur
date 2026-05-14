@@ -59,12 +59,12 @@ export const ApiKeyCreateForm = ({ keyType }: ApiKeyCreateFormProps) => {
           toast.success(t('apiKeyManagement.create.successToast'));
 
           switch (keyType) {
-            case ApiKeyType.PUBLISHABLE:
-              handleSuccess(`/settings/publishable-api-keys/${api_key.id}`);
-              break;
-            case ApiKeyType.SECRET:
-              setCreatedKey(api_key);
-              break;
+          case ApiKeyType.PUBLISHABLE:
+            handleSuccess(`/settings/publishable-api-keys/${api_key.id}`);
+            break;
+          case ApiKeyType.SECRET:
+            setCreatedKey(api_key);
+            break;
           }
         },
         onError: err => {

@@ -1,26 +1,26 @@
-import { useMemo } from "react"
+import { useMemo } from "react";
 
-import { PencilSquare } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { PencilSquare } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table/data-table"
-import { DateCell } from "../../../../../components/table/table-cells/common/date-cell"
-import { useUsers } from "../../../../../hooks/api/users"
-import { useUserTableQuery } from "../../../../../hooks/table/query/use-user-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { useUserTableFilters } from "./use-user-table-filters"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table/data-table";
+import { DateCell } from "../../../../../components/table/table-cells/common/date-cell";
+import { useUsers } from "../../../../../hooks/api/users";
+import { useUserTableQuery } from "../../../../../hooks/table/query/use-user-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { useUserTableFilters } from "./use-user-table-filters";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const UserListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { searchParams, raw } = useUserTableQuery({ pageSize: PAGE_SIZE } as { pageSize: number })
+  const { searchParams, raw } = useUserTableQuery({ pageSize: PAGE_SIZE } as { pageSize: number });
   const { users, count, isPending, isError, error } = useUsers(
     {
       ...searchParams,
@@ -28,10 +28,10 @@ export const UserListDataTable = () => {
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const filters = useUserTableFilters()
-  const columns = useColumns()
+  const filters = useUserTableFilters();
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: users ?? [],
@@ -40,10 +40,10 @@ export const UserListDataTable = () => {
     count,
     pageSize: PAGE_SIZE,
     getRowId: (row) => row.id,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -69,14 +69,14 @@ export const UserListDataTable = () => {
         message: t("users.list.empty.description"),
       }}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminUser>()
+const columnHelper = createColumnHelper<HttpTypes.AdminUser>();
 
 const useColumns = () => {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return useMemo(
     () => [
@@ -91,7 +91,7 @@ const useColumns = () => {
             <div className="flex size-full items-center overflow-hidden">
               <span className="truncate">{row.original.email}</span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("first_name", {
@@ -105,7 +105,7 @@ const useColumns = () => {
             <div className="flex size-full items-center overflow-hidden">
               <span className="truncate">{row.original.first_name || "-"}</span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("last_name", {
@@ -119,7 +119,7 @@ const useColumns = () => {
             <div className="flex size-full items-center overflow-hidden">
               <span className="truncate">{row.original.last_name || "-"}</span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("created_at", {
@@ -129,8 +129,8 @@ const useColumns = () => {
           </div>
         ),
         cell: ({ getValue }) => {
-          const date = getValue()
-          return <DateCell date={date ? new Date(date) : null} />
+          const date = getValue();
+          return <DateCell date={date ? new Date(date) : null} />;
         },
       }),
       columnHelper.accessor("updated_at", {
@@ -140,24 +140,24 @@ const useColumns = () => {
           </div>
         ),
         cell: ({ getValue }) => {
-          const date = getValue()
-          return <DateCell date={date ? new Date(date) : null} />
+          const date = getValue();
+          return <DateCell date={date ? new Date(date) : null} />;
         },
       }),
       columnHelper.display({
         id: "actions",
         cell: ({ row }) => {
-          return <UserActions user={row.original} />
+          return <UserActions user={row.original} />;
         },
       }),
     ],
     [t, navigate]
-  )
-}
+  );
+};
 
 const UserActions = ({ user }: { user: HttpTypes.AdminUser }) => {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <ActionMenu
@@ -168,12 +168,12 @@ const UserActions = ({ user }: { user: HttpTypes.AdminUser }) => {
               icon: <PencilSquare />,
               label: t("actions.edit"),
               onClick: () => {
-                navigate(`${user.id}/edit`)
+                navigate(`${user.id}/edit`);
               },
             },
           ],
         },
       ]}
     />
-  )
-}
+  );
+};

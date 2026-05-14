@@ -1,26 +1,26 @@
-import { DropCap, PencilSquare, Plus, Swatch, Trash } from "@medusajs/icons"
-import { Badge, Container, Heading, Text, toast, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { DropCap, PencilSquare, Plus, Swatch, Trash } from "@medusajs/icons";
+import { Badge, Container, Heading, Text, toast, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { SectionRow } from "@components/common/section"
-import { useDeleteProductOption, useRemoveProductAttribute } from "@hooks/api/products"
+import { ActionMenu } from "@components/common/action-menu";
+import { SectionRow } from "@components/common/section";
+import { useDeleteProductOption, useRemoveProductAttribute } from "@hooks/api/products";
 import {
   ExtendedAdminProduct,
   ExtendedAdminProductOption,
   ProductInformationalAttribute,
   ProductInformationalAttributeValue,
-} from "../../../types"
+} from "../../../types";
 
 type ProductAttributeSectionProps = {
   product: ExtendedAdminProduct
 }
 
 const OptionRowActions = ({ productId, option }: { productId: string; option: ExtendedAdminProductOption }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync, isPending } = useDeleteProductOption(productId, option.id)
-  const canDelete = option.metadata?.author !== "admin"
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync, isPending } = useDeleteProductOption(productId, option.id);
+  const canDelete = option.metadata?.author !== "admin";
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -28,10 +28,10 @@ const OptionRowActions = ({ productId, option }: { productId: string; option: Ex
       description: t("products.options.deleteWarning", { title: option.title }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
-    if (!res) return
-    await mutateAsync(undefined, { onError: (err) => toast.error(err.message) })
-  }
+    });
+    if (!res) return;
+    await mutateAsync(undefined, { onError: (err) => toast.error(err.message) });
+  };
 
   return (
     <ActionMenu
@@ -42,14 +42,14 @@ const OptionRowActions = ({ productId, option }: { productId: string; option: Ex
           : []),
       ]}
     />
-  )
-}
+  );
+};
 
 const InformationalAttributeRowActions = ({ productId, attribute }: { productId: string; attribute: ProductInformationalAttribute }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync, isPending } = useRemoveProductAttribute(productId, attribute.attribute_id)
-  const isVendorSource = attribute.attribute_source === "vendor"
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync, isPending } = useRemoveProductAttribute(productId, attribute.attribute_id);
+  const isVendorSource = attribute.attribute_source === "vendor";
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -57,10 +57,10 @@ const InformationalAttributeRowActions = ({ productId, attribute }: { productId:
       description: "You are about to remove this attribute from the product. This action cannot be undone.",
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
-    if (!res) return
-    await mutateAsync(undefined, { onError: (err) => toast.error(err.message) })
-  }
+    });
+    if (!res) return;
+    await mutateAsync(undefined, { onError: (err) => toast.error(err.message) });
+  };
 
   return (
     <ActionMenu
@@ -71,15 +71,15 @@ const InformationalAttributeRowActions = ({ productId, attribute }: { productId:
           : []),
       ]}
     />
-  )
-}
+  );
+};
 
 export const ProductAdditionalAttributesSection = ({ product }: ProductAttributeSectionProps) => {
-  const { t } = useTranslation()
-  const informationalAttributes = product.informational_attributes?.filter(Boolean) ?? []
-  const options = product.options?.filter(Boolean) ?? []
+  const { t } = useTranslation();
+  const informationalAttributes = product.informational_attributes?.filter(Boolean) ?? [];
+  const options = product.options?.filter(Boolean) ?? [];
 
-  if (!informationalAttributes.length && !options.length) return null
+  if (!informationalAttributes.length && !options.length) return null;
 
   return (
     <Container className="p-0">
@@ -152,5 +152,5 @@ export const ProductAdditionalAttributesSection = ({ product }: ProductAttribute
         </div>
       )}
     </Container>
-  )
-}
+  );
+};

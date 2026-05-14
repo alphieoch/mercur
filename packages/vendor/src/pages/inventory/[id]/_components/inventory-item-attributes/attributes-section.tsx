@@ -1,11 +1,11 @@
-import { Container, Heading } from "@medusajs/ui"
+import { Container, Heading } from "@medusajs/ui";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { InventoryTypes } from "@medusajs/types"
-import { PencilSquare } from "@medusajs/icons"
-import { SectionRow } from "@components/common/section"
-import { getFormattedCountry } from "@lib/addresses"
-import { useTranslation } from "react-i18next"
+import { ActionMenu } from "@components/common/action-menu";
+import { InventoryTypes } from "@medusajs/types";
+import { PencilSquare } from "@medusajs/icons";
+import { SectionRow } from "@components/common/section";
+import { getFormattedCountry } from "@lib/addresses";
+import { useTranslation } from "react-i18next";
 
 type InventoryItemAttributeSectionProps = {
   inventoryItem: InventoryTypes.InventoryItemDTO
@@ -14,7 +14,7 @@ type InventoryItemAttributeSectionProps = {
 export const InventoryItemAttributeSection = ({
   inventoryItem,
 }: InventoryItemAttributeSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="divide-y p-0">
@@ -45,5 +45,5 @@ export const InventoryItemAttributeSection = ({
         value={getFormattedCountry(inventoryItem.origin_country)}
       />
     </Container>
-  )
-}
+  );
+};

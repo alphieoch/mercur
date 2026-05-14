@@ -1,6 +1,6 @@
-import { Children, ReactNode } from "react"
+import { Children, ReactNode } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   InventoryListTable,
   InventoryListHeader,
@@ -8,7 +8,7 @@ import {
   InventoryListActions,
   InventoryListCreateButton,
   InventoryListDataTable,
-} from "./components/inventory-list-table"
+} from "./components/inventory-list-table";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
@@ -17,8 +17,8 @@ const Root = ({ children }: { children?: ReactNode }) => {
         {Children.count(children) > 0 ? children : <InventoryListTable />}
       </SingleColumnPage>
     </div>
-  )
-}
+  );
+};
 
 export const InventoryListPage = Object.assign(Root, {
   Table: InventoryListTable,
@@ -27,4 +27,4 @@ export const InventoryListPage = Object.assign(Root, {
   HeaderActions: InventoryListActions,
   HeaderCreateButton: InventoryListCreateButton,
   DataTable: InventoryListDataTable,
-})
+});

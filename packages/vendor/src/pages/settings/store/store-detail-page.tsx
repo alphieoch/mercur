@@ -42,15 +42,15 @@ const Root = ({ children }: { children?: ReactNode }) => {
 
   const statusAlert = (() => {
     switch (seller.status) {
-      case SellerStatus.TERMINATED:
-        return {
-          variant: "error" as const,
-          title: t("store.alert.terminated.title"),
-          description:
+    case SellerStatus.TERMINATED:
+      return {
+        variant: "error" as const,
+        title: t("store.alert.terminated.title"),
+        description:
             seller.status_reason || t("store.alert.terminated.description"),
-        };
-      default:
-        return null;
+      };
+    default:
+      return null;
     }
   })();
 

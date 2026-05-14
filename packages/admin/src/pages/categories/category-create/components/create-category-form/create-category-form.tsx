@@ -1,17 +1,17 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { toast } from "@medusajs/ui"
-import { Children, ReactNode, useMemo } from "react"
-import { DeepPartial, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "@medusajs/ui";
+import { Children, ReactNode, useMemo } from "react";
+import { DeepPartial, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { useRouteModal } from "../../../../../components/modals"
-import { TabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { useCreateProductCategory } from "../../../../../hooks/api/categories"
-import { transformNullableFormData } from "../../../../../lib/form-helpers"
-import { CreateCategoryDetails } from "./create-category-details"
-import { CreateCategoryNesting } from "./create-category-nesting"
-import { CreateCategorySchema } from "./schema"
+import { useRouteModal } from "../../../../../components/modals";
+import { TabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { useCreateProductCategory } from "../../../../../hooks/api/categories";
+import { transformNullableFormData } from "../../../../../lib/form-helpers";
+import { CreateCategoryDetails } from "./create-category-details";
+import { CreateCategoryNesting } from "./create-category-nesting";
+import { CreateCategorySchema } from "./schema";
 
 export type CreateCategorySchemaType = z.infer<typeof CreateCategorySchema>
 
@@ -28,8 +28,8 @@ export const CreateCategoryForm = ({
   schema,
   defaultValues: extraDefaults,
 }: CreateCategoryFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<CreateCategorySchemaType>({
     defaultValues: {
@@ -43,13 +43,13 @@ export const CreateCategoryForm = ({
       ...extraDefaults,
     } as CreateCategorySchemaType,
     resolver: zodResolver(schema ?? CreateCategorySchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateProductCategory()
+  const { mutateAsync, isPending } = useCreateProductCategory();
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    const { visibility, status, parent_category_id, rank, name, ...rest } = data
-    const parsedData = transformNullableFormData(rest, false)
+    const { visibility, status, parent_category_id, rank, name, ...rest } = data;
+    const parsedData = transformNullableFormData(rest, false);
 
     await mutateAsync(
       {
@@ -66,16 +66,16 @@ export const CreateCategoryForm = ({
             t("categories.create.successToast", {
               name: product_category.name,
             })
-          )
+          );
 
-          handleSuccess(`/categories/${product_category.id}`)
+          handleSuccess(`/categories/${product_category.id}`);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   const defaultTabs = useMemo(
     () => [
@@ -83,9 +83,9 @@ export const CreateCategoryForm = ({
       <CreateCategoryNesting key="organize" />,
     ],
     []
-  )
+  );
 
-  const hasCustomChildren = Children.count(children) > 0
+  const hasCustomChildren = Children.count(children) > 0;
 
   return (
     <TabbedForm
@@ -95,5 +95,5 @@ export const CreateCategoryForm = ({
     >
       {hasCustomChildren ? children : defaultTabs}
     </TabbedForm>
-  )
-}
+  );
+};

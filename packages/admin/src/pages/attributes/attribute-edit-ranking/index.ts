@@ -1,1 +1,1 @@
-export { AttributeEditRanking as Component } from "./attribute-edit-ranking"
+export { AttributeEditRanking as Component } from "./attribute-edit-ranking";

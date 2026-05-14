@@ -1,31 +1,31 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Checkbox, Hint, Tooltip, toast } from "@medusajs/ui"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Checkbox, Hint, Tooltip, toast } from "@medusajs/ui";
 import {
   OnChangeFn,
   RowSelectionState,
   createColumnHelper,
-} from "@tanstack/react-table"
-import { useEffect, useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+} from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { _DataTable } from "@components/table/data-table"
+} from "@components/modals";
+import { _DataTable } from "@components/table/data-table";
 import {
   TextCell,
   TextHeader,
-} from "@components/table/table-cells/common/text-cell"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useBatchCustomerCustomerGroups } from "@hooks/api"
-import { useCustomerGroups } from "@hooks/api/customer-groups"
-import { useCustomerGroupTableFilters } from "@hooks/table/filters/use-customer-group-table-filters"
-import { useCustomerGroupTableQuery } from "@hooks/table/query/use-customer-group-table-query"
-import { useDataTable } from "@hooks/use-data-table"
-import { HttpTypes } from "@medusajs/types"
+} from "@components/table/table-cells/common/text-cell";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useBatchCustomerCustomerGroups } from "@hooks/api";
+import { useCustomerGroups } from "@hooks/api/customer-groups";
+import { useCustomerGroupTableFilters } from "@hooks/table/filters/use-customer-group-table-filters";
+import { useCustomerGroupTableQuery } from "@hooks/table/query/use-customer-group-table-query";
+import { useDataTable } from "@hooks/use-data-table";
+import { HttpTypes } from "@medusajs/types";
 
 type AddCustomerGroupsFormProps = {
   customerId: string
@@ -33,30 +33,30 @@ type AddCustomerGroupsFormProps = {
 
 export const AddCustomerGroupsSchema = zod.object({
   customer_group_ids: zod.array(zod.string()).min(1),
-})
+});
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const AddCustomerGroupsForm = ({
   customerId,
 }: AddCustomerGroupsFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const [isPending, setIsPending] = useState(false)
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const [isPending, setIsPending] = useState(false);
 
   const { mutateAsync: batchCustomerCustomerGroups } =
-    useBatchCustomerCustomerGroups(customerId)
+    useBatchCustomerCustomerGroups(customerId);
 
   const form = useForm<zod.infer<typeof AddCustomerGroupsSchema>>({
     defaultValues: {
       customer_group_ids: [],
     },
     resolver: zodResolver(AddCustomerGroupsSchema),
-  })
+  });
 
-  const { setValue } = form
+  const { setValue } = form;
 
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   useEffect(() => {
     setValue(
       "customer_group_ids", 
@@ -65,13 +65,13 @@ export const AddCustomerGroupsForm = ({
         shouldDirty: true,
         shouldTouch: true,
       }
-    )
-  }, [rowSelection, setValue])
+    );
+  }, [rowSelection, setValue]);
 
   const { searchParams, raw } = useCustomerGroupTableQuery({
     pageSize: PAGE_SIZE,
-  })
-  const filters = useCustomerGroupTableFilters()
+  });
+  const filters = useCustomerGroupTableFilters();
 
   const {
     customer_groups,
@@ -82,27 +82,27 @@ export const AddCustomerGroupsForm = ({
   } = useCustomerGroups({
     fields: "*customers",
     ...searchParams,
-  })
+  });
 
   const updater: OnChangeFn<RowSelectionState> = (fn) => {
-    const state = typeof fn === "function" ? fn(rowSelection) : fn
+    const state = typeof fn === "function" ? fn(rowSelection) : fn;
 
-    const ids = Object.keys(state)
+    const ids = Object.keys(state);
 
     setValue("customer_group_ids", ids, {
       shouldDirty: true,
       shouldTouch: true,
-    })
+    });
 
-    setRowSelection(state)
-  }
+    setRowSelection(state);
+  };
 
-  const columns = useColumns()
+  const columns = useColumns();
 
 
   const flatCustomerGroups = customer_groups?.map((cg) => ({
     ...cg.customer_group
-  }))
+  }));
 
   const { table } = useDataTable({
     data: flatCustomerGroups ?? [],
@@ -110,7 +110,7 @@ export const AddCustomerGroupsForm = ({
     count,
     enablePagination: true,
     enableRowSelection: (row) => {
-      return !row.original.customers?.some((c) => c.id === customerId)
+      return !row.original.customers?.some((c) => c.id === customerId);
     },
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
@@ -118,28 +118,28 @@ export const AddCustomerGroupsForm = ({
       state: rowSelection,
       updater,
     },
-  })
+  });
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    setIsPending(true)
+    setIsPending(true);
     try {
       await batchCustomerCustomerGroups({
         add: data.customer_group_ids,
         remove: [],
-      })
+      });
 
-      toast.success("Customer groups added successfully")
+      toast.success("Customer groups added successfully");
 
-      handleSuccess(`/customers/${customerId}`)
+      handleSuccess(`/customers/${customerId}`);
     } catch (e: any) {
-      toast.error(e.message)
+      toast.error(e.message);
     } finally {
-      setIsPending(false)
+      setIsPending(false);
     }
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -195,13 +195,13 @@ export const AddCustomerGroupsForm = ({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminCustomerGroup>()
+const columnHelper = createColumnHelper<HttpTypes.AdminCustomerGroup>();
 
 const useColumns = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const columns = useMemo(
     () => [
@@ -219,11 +219,11 @@ const useColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
-          const isPreSelected = !row.getCanSelect()
-          const isSelected = row.getIsSelected() || isPreSelected
+          const isPreSelected = !row.getCanSelect();
+          const isSelected = row.getIsSelected() || isPreSelected;
 
           const Component = (
             <Checkbox
@@ -231,10 +231,10 @@ const useColumns = () => {
               disabled={isPreSelected}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
 
           if (isPreSelected) {
             return (
@@ -244,21 +244,21 @@ const useColumns = () => {
               >
                 {Component}
               </Tooltip>
-            )
+            );
           }
 
-          return Component
+          return Component;
         },
       }),
       columnHelper.accessor("name", {
         header: () => <TextHeader text={t("fields.name")} />,
         cell: ({ row }) => {
-          return <TextCell text={row.original?.name || "-"} />
+          return <TextCell text={row.original?.name || "-"} />;
         },
       }),
     ],
     [t]
-  )
+  );
 
-  return columns
-}
+  return columns;
+};

@@ -1,5 +1,5 @@
-import { z } from "zod"
-import { CreateCampaignSchema } from "../../../../campaigns/campaign-create/components/create-campaign-form"
+import { z } from "zod";
+import { CreateCampaignSchema } from "../../../../campaigns/campaign-create/components/create-campaign-form";
 
 const RuleSchema = z.array(
   z.object({
@@ -15,7 +15,7 @@ const RuleSchema = z.array(
     disguised: z.boolean().optional(),
     field_type: z.string().optional(),
   })
-)
+);
 
 export const CreatePromotionSchema = z
   .object({
@@ -43,15 +43,15 @@ export const CreatePromotionSchema = z
   .refine(
     (data) => {
       if (data.application_method.allocation === "across") {
-        return true
+        return true;
       }
 
-      return typeof data.application_method.max_quantity === "number"
+      return typeof data.application_method.max_quantity === "number";
     },
     {
       path: ["application_method.max_quantity"],
       message: `required field`,
     }
-  )
+  );
 
 export type CreatePromotionSchemaType = z.infer<typeof CreatePromotionSchema>

@@ -1,8 +1,8 @@
 import {
   DateComparisonOperator,
   NumericalComparisonOperator,
-} from "@medusajs/types"
-import { useQueryParams } from "../../../../../hooks/use-query-params"
+} from "@medusajs/types";
+import { useQueryParams } from "../../../../../hooks/use-query-params";
 
 export type ReturnItemTableQuery = {
   q?: string
@@ -32,7 +32,7 @@ export const useReturnItemTableQuery = ({
       "refundable_amount",
     ],
     prefix
-  )
+  );
 
   const {
     offset,
@@ -41,7 +41,7 @@ export const useReturnItemTableQuery = ({
     refundable_amount,
     returnable_quantity,
     ...rest
-  } = raw
+  } = raw;
 
   const searchParams = {
     ...rest,
@@ -55,7 +55,7 @@ export const useReturnItemTableQuery = ({
     returnable_quantity: returnable_quantity
       ? JSON.parse(returnable_quantity)
       : undefined,
-  }
+  };
 
-  return { searchParams, raw }
-}
+  return { searchParams, raw };
+};

@@ -8,4 +8,4 @@ export const requiredProductRule = {
   required: true,
   field_type: "select",
   disguised: false,
-}
+};

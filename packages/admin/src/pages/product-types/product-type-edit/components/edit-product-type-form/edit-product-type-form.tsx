@@ -1,17 +1,17 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateProductType } from "../../../../../hooks/api/product-types"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateProductType } from "../../../../../hooks/api/product-types";
 
 const EditProductTypeSchema = z.object({
   value: z.string().min(1),
-})
+});
 
 type EditProductTypeFormProps = {
   productType: HttpTypes.AdminProductType
@@ -20,17 +20,17 @@ type EditProductTypeFormProps = {
 export const EditProductTypeForm = ({
   productType,
 }: EditProductTypeFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof EditProductTypeSchema>>({
     defaultValues: {
       value: productType.value,
     },
     resolver: zodResolver(EditProductTypeSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateProductType(productType.id)
+  const { mutateAsync, isPending } = useUpdateProductType(productType.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -43,15 +43,15 @@ export const EditProductTypeForm = ({
             t("productTypes.edit.successToast", {
               value: product_type.value,
             })
-          )
-          handleSuccess()
+          );
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="product-type-edit-form">
@@ -72,7 +72,7 @@ export const EditProductTypeForm = ({
                   </Form.Control>
                   <Form.ErrorMessage data-testid="product-type-edit-form-value-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </RouteDrawer.Body>
@@ -90,5 +90,5 @@ export const EditProductTypeForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

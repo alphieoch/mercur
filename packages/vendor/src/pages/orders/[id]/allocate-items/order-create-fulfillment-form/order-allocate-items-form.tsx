@@ -1,38 +1,38 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { Alert, Button, Heading, Input, Select, toast } from "@medusajs/ui"
-import { useForm, useWatch } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { Alert, Button, Heading, Input, Select, toast } from "@medusajs/ui";
+import { useForm, useWatch } from "react-hook-form";
 
-import { Form } from "@components/common/form"
+import { Form } from "@components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { ordersQueryKeys } from "@hooks/api/orders"
-import { useCreateReservationItem } from "@hooks/api/reservations"
-import { useStockLocations } from "@hooks/api/stock-locations"
-import { queryClient } from "@lib/query-client"
-import { AllocateItemsSchema } from "./constants"
-import { OrderAllocateItemsItem } from "./order-allocate-items-item"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { ordersQueryKeys } from "@hooks/api/orders";
+import { useCreateReservationItem } from "@hooks/api/reservations";
+import { useStockLocations } from "@hooks/api/stock-locations";
+import { queryClient } from "@lib/query-client";
+import { AllocateItemsSchema } from "./constants";
+import { OrderAllocateItemsItem } from "./order-allocate-items-item";
 type FetchError = Error & { status?: number }
-import { ExtendedAdminOrder, ExtendedAdminOrderLineItemWithInventory, ExtendedAdminProductVariantInventory } from "@custom-types/order"
+import { ExtendedAdminOrder, ExtendedAdminOrderLineItemWithInventory, ExtendedAdminProductVariantInventory } from "@custom-types/order";
 
 type OrderAllocateItemsFormProps = {
   order: ExtendedAdminOrder
 }
 
 export function OrderAllocateItemsForm({ order }: OrderAllocateItemsFormProps) {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
-  const [disableSubmit, setDisableSubmit] = useState(false)
-  const [filterTerm, setFilterTerm] = useState("")
+  const [disableSubmit, setDisableSubmit] = useState(false);
+  const [filterTerm, setFilterTerm] = useState("");
 
   const { mutateAsync: allocateItems, isPending: isMutating } =
-    useCreateReservationItem()
+    useCreateReservationItem();
 
   const itemsToAllocate = useMemo(
     () =>
@@ -43,15 +43,15 @@ export function OrderAllocateItemsForm({ order }: OrderAllocateItemsFormProps) {
           item?.quantity - item.detail?.fulfilled_quantity > 0
       ),
     [order.items]
-  )
+  );
 
   const filteredItems = useMemo(() => {
     return itemsToAllocate.filter(
       (i) =>
         i.variant_title?.toLowerCase().includes(filterTerm) ||
         i.product_title?.toLowerCase().includes(filterTerm)
-    )
-  }, [itemsToAllocate, filterTerm])
+    );
+  }, [itemsToAllocate, filterTerm]);
 
   // TODO - empty state UI
 
@@ -61,23 +61,23 @@ export function OrderAllocateItemsForm({ order }: OrderAllocateItemsFormProps) {
       quantity: defaultAllocations(itemsToAllocate),
     },
     resolver: zodResolver(AllocateItemsSchema),
-  })
+  });
 
-  const { stock_locations = [] } = useStockLocations()
+  const { stock_locations = [] } = useStockLocations();
 
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
       const payload = Object.entries(data.quantity)
         .filter(([key]) => !key.endsWith("-"))
-        .map(([key, quantity]) => [...key.split("-"), quantity])
+        .map(([key, quantity]) => [...key.split("-"), quantity]);
 
       if (payload.some((d) => d[2] === "")) {
         form.setError("root.quantityNotAllocated", {
           type: "manual",
           message: t("orders.allocateItems.error.quantityNotAllocated"),
-        })
+        });
 
-        return
+        return;
       }
 
       const promises = payload.map(([itemId, inventoryId, quantity]) =>
@@ -87,29 +87,29 @@ export function OrderAllocateItemsForm({ order }: OrderAllocateItemsFormProps) {
           line_item_id: String(itemId),
           quantity: typeof quantity === 'string' ? Number(quantity) : quantity,
         })
-      )
+      );
 
       /**
        * TODO: we should have bulk endpoint for this so this is executed in a workflow and can be reverted
        */
-      await Promise.all(promises)
+      await Promise.all(promises);
 
       // invalidate order details so we get new item.variant.inventory items
       await queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
-      handleSuccess(`/orders/${order.id}`)
+      handleSuccess(`/orders/${order.id}`);
 
       toast.success(t("general.success"), {
         description: t("orders.allocateItems.toast.created"),
-      })
+      });
     } catch (e) {
       toast.error(t("general.error"), {
         description: e instanceof FetchError ? e.message : "An unknown error occurred",
-      })
+      });
     }
-  })
+  });
 
   const onQuantityChange = (
     inventoryItem: ExtendedAdminProductVariantInventory,
@@ -118,79 +118,79 @@ export function OrderAllocateItemsForm({ order }: OrderAllocateItemsFormProps) {
     value: number | null,
     isRoot?: boolean
   ) => {
-    let shouldDisableSubmit = false
+    let shouldDisableSubmit = false;
 
     const key =
       isRoot && hasInventoryKit
         ? `quantity.${lineItem.id}-`
-        : `quantity.${lineItem.id}-${inventoryItem.id}`
+        : `quantity.${lineItem.id}-${inventoryItem.id}`;
 
-    form.setValue(key as `quantity.${string}`, value ?? "")
+    form.setValue(key as `quantity.${string}`, value ?? "");
 
     if (value && inventoryItem.location_levels) {
       const location = inventoryItem.location_levels.find(
         (l) => l.location_id === selectedLocationId
-      )
+      );
       if (location) {
         if (location.available_quantity < value) {
-          shouldDisableSubmit = true
+          shouldDisableSubmit = true;
         }
       }
     }
 
     if (hasInventoryKit && !isRoot) {
       // changed subitem in the kit -> we need to set parent to "-"
-      form.resetField(`quantity.${lineItem.id}-` as `quantity.${string}`, { defaultValue: "" })
+      form.resetField(`quantity.${lineItem.id}-` as `quantity.${string}`, { defaultValue: "" });
     }
 
     if (hasInventoryKit && isRoot) {
       // changed root -> we need to set items to parent quantity x required_quantity
 
-      const item = itemsToAllocate.find((i) => i.id === lineItem.id)
+      const item = itemsToAllocate.find((i) => i.id === lineItem.id);
 
-      if (!item || !item.variant) return
+      if (!item || !item.variant) return;
 
       item.variant.inventory_items?.forEach((ii, ind) => {
-        const num = value || 0
-        const inventory = item.variant?.inventory?.[ind]
+        const num = value || 0;
+        const inventory = item.variant?.inventory?.[ind];
 
-        if (!inventory) return
+        if (!inventory) return;
 
         form.setValue(
           `quantity.${lineItem.id}-${inventory.id}` as `quantity.${string}`,
           num * ii.required_quantity
-        )
+        );
 
         if (value && inventory.location_levels) {
           const location = inventory.location_levels.find(
             (l) => l.location_id === selectedLocationId
-          )
+          );
           if (location) {
             if (location.available_quantity < value) {
-              shouldDisableSubmit = true
+              shouldDisableSubmit = true;
             }
           }
         }
-      })
+      });
     }
 
-    form.clearErrors("root.quantityNotAllocated")
-    setDisableSubmit(shouldDisableSubmit)
-  }
+    form.clearErrors("root.quantityNotAllocated");
+    setDisableSubmit(shouldDisableSubmit);
+  };
 
   const selectedLocationId = useWatch({
     name: "location_id",
     control: form.control,
-  })
+  });
 
   useEffect(() => {
     if (selectedLocationId) {
-      form.setValue("quantity", defaultAllocations(itemsToAllocate))
+      form.setValue("quantity", defaultAllocations(itemsToAllocate));
     }
-  }, [selectedLocationId])
+  }, [selectedLocationId]);
 
   const allocationError =
-    form.formState.errors?.root?.quantityNotAllocated?.message
+    form.formState.errors?.root?.quantityNotAllocated?.message;
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -240,7 +240,7 @@ export function OrderAllocateItemsForm({ order }: OrderAllocateItemsFormProps) {
                           </div>
                           <Form.ErrorMessage />
                         </Form.Item>
-                      )
+                      );
                     }}
                   />
 
@@ -307,27 +307,27 @@ export function OrderAllocateItemsForm({ order }: OrderAllocateItemsFormProps) {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }
 
 function defaultAllocations(items: ExtendedAdminOrderLineItemWithInventory[]) {
-  const ret: Record<string, string | number> = {}
+  const ret: Record<string, string | number> = {};
 
   items.forEach((item) => {
-    const hasInventoryKit = (item.variant?.inventory_items?.length || 0) > 1
+    const hasInventoryKit = (item.variant?.inventory_items?.length || 0) > 1;
 
     ret[
       hasInventoryKit
         ? `${item.id}-`
         : `${item.id}-${item.variant?.inventory?.[0]?.id || ''}`
-    ] = ""
+    ] = "";
 
     if (hasInventoryKit && item.variant?.inventory) {
       item.variant.inventory.forEach((i) => {
-        ret[`${item.id}-${i.id}`] = ""
-      })
+        ret[`${item.id}-${i.id}`] = "";
+      });
     }
-  })
+  });
 
-  return ret
+  return ret;
 }

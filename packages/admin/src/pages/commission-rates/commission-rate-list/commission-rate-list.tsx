@@ -1,21 +1,21 @@
-import { ReactNode, Children } from "react"
+import { ReactNode, Children } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   CommissionRateListView,
   CommissionRateListDataTable,
   CommissionRateListHeader,
   CommissionRateListActions,
   CommissionRateListTitle,
-} from "./components/commission-rate-list-view"
+} from "./components/commission-rate-list-view";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage>
       {Children.count(children) > 0 ? children : <CommissionRateListView />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const CommissionRateListPage = Object.assign(Root, {
   Table: CommissionRateListView,
@@ -23,4 +23,4 @@ export const CommissionRateListPage = Object.assign(Root, {
   HeaderTitle: CommissionRateListTitle,
   HeaderActions: CommissionRateListActions,
   DataTable: CommissionRateListDataTable,
-})
+});

@@ -1,4 +1,4 @@
-import { createContext } from "react"
+import { createContext } from "react";
 
 type VariantMediaViewContextValue = {
   goToGallery: () => void
@@ -9,4 +9,4 @@ type VariantMediaViewContextValue = {
 }
 
 export const VariantMediaViewContext =
-  createContext<VariantMediaViewContextValue | null>(null)
+  createContext<VariantMediaViewContextValue | null>(null);

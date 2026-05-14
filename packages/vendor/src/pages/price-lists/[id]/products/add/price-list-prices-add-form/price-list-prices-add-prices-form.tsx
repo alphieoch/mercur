@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 import { HttpTypes } from '@medusajs/types';
 import { UseFormReturn, useWatch } from 'react-hook-form';
 
-import { DataGrid } from "@components/data-grid"
-import { useRouteModal } from "@components/modals"
-import { useProducts } from "@hooks/api/products"
-import { usePriceListGridColumns } from "../../../../common/hooks/use-price-list-grid-columns"
-import { PriceListCreateProductVariantsSchema } from "../../../../common/schemas"
-import { isProductRow } from "../../../../common/utils"
+import { DataGrid } from "@components/data-grid";
+import { useRouteModal } from "@components/modals";
+import { useProducts } from "@hooks/api/products";
+import { usePriceListGridColumns } from "../../../../common/hooks/use-price-list-grid-columns";
+import { PriceListCreateProductVariantsSchema } from "../../../../common/schemas";
+import { isProductRow } from "../../../../common/utils";
 import { PriceListPricesAddSchema } from './schema';
 
 type PriceListPricesAddPricesFormProps = {

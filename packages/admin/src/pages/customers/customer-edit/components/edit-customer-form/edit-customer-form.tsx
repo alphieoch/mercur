@@ -1,17 +1,17 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { ConditionalTooltip } from "../../../../../components/common/conditional-tooltip/index.ts"
-import { Form } from "../../../../../components/common/form/index.ts"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { ConditionalTooltip } from "../../../../../components/common/conditional-tooltip/index.ts";
+import { Form } from "../../../../../components/common/form/index.ts";
 import {
   RouteDrawer,
   useRouteModal,
-} from "../../../../../components/modals/index.ts"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form/keybound-form.tsx"
-import { useUpdateCustomer } from "../../../../../hooks/api/customers.tsx"
+} from "../../../../../components/modals/index.ts";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form/keybound-form.tsx";
+import { useUpdateCustomer } from "../../../../../hooks/api/customers.tsx";
 
 type EditCustomerFormProps = {
   customer: HttpTypes.AdminCustomer
@@ -23,11 +23,11 @@ const EditCustomerSchema = zod.object({
   last_name: zod.string().optional(),
   company_name: zod.string().optional(),
   phone: zod.string().optional(),
-})
+});
 
 export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
   
   const form = useForm<zod.infer<typeof EditCustomerSchema>>({
     defaultValues: {
@@ -38,9 +38,9 @@ export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
       phone: customer.phone || "",
     },
     resolver: zodResolver(EditCustomerSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateCustomer(customer.id)
+  const { mutateAsync, isPending } = useUpdateCustomer(customer.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -57,16 +57,16 @@ export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
             t("customers.edit.successToast", {
               email: customer.email,
             })
-          )
+          );
 
-          handleSuccess()
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="edit-customer-form">
@@ -90,7 +90,7 @@ export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="edit-customer-form-email-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -105,7 +105,7 @@ export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="edit-customer-form-first-name-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -120,7 +120,7 @@ export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="edit-customer-form-last-name-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -135,7 +135,7 @@ export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="edit-customer-form-company-name-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -150,7 +150,7 @@ export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="edit-customer-form-phone-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -175,5 +175,5 @@ export const EditCustomerForm = ({ customer }: EditCustomerFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

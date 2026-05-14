@@ -38,17 +38,17 @@ const Root = ({ children }: { children?: ReactNode }) => {
   // TODO: Retrieve endpoints don't have an order ability, so a JS sort until this is available
   const order = rawOrder
     ? {
-        ...rawOrder,
-        items: [...rawOrder.items].sort((itemA, itemB) => {
-          if (itemA.created_at > itemB.created_at) {
-            return 1;
-          }
-          if (itemA.created_at < itemB.created_at) {
-            return -1;
-          }
-          return 0;
-        }),
-      }
+      ...rawOrder,
+      items: [...rawOrder.items].sort((itemA, itemB) => {
+        if (itemA.created_at > itemB.created_at) {
+          return 1;
+        }
+        if (itemA.created_at < itemB.created_at) {
+          return -1;
+        }
+        return 0;
+      }),
+    }
     : rawOrder;
 
   const { order: orderPreview, isLoading: isPreviewLoading } = useOrderPreview(

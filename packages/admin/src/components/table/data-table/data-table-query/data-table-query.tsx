@@ -1,7 +1,7 @@
-import { Filter } from ".."
-import { DataTableFilter } from "../data-table-filter"
-import { DataTableOrderBy, DataTableOrderByKey } from "../data-table-order-by"
-import { DataTableSearch } from "../data-table-search"
+import { Filter } from "..";
+import { DataTableFilter } from "../data-table-filter";
+import { DataTableOrderBy, DataTableOrderByKey } from "../data-table-order-by";
+import { DataTableSearch } from "../data-table-search";
 
 export interface DataTableQueryProps<TData> {
   search?: boolean | "autofocus"
@@ -35,5 +35,5 @@ export const DataTableQuery = <TData,>({
         </div>
       </div>
     )
-  )
-}
+  );
+};

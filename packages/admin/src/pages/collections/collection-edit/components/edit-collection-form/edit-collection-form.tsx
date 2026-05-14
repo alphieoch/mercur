@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Input, Text } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input, Text } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { HttpTypes } from "@medusajs/types"
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateCollection } from "../../../../../hooks/api/collections"
+import { HttpTypes } from "@medusajs/types";
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateCollection } from "../../../../../hooks/api/collections";
 
 type EditCollectionFormProps = {
   collection: HttpTypes.AdminCollection
@@ -17,11 +17,11 @@ type EditCollectionFormProps = {
 const EditCollectionSchema = zod.object({
   title: zod.string().min(1),
   handle: zod.string().min(1),
-})
+});
 
 export const EditCollectionForm = ({ collection }: EditCollectionFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof EditCollectionSchema>>({
     defaultValues: {
@@ -29,17 +29,17 @@ export const EditCollectionForm = ({ collection }: EditCollectionFormProps) => {
       handle: collection.handle,
     },
     resolver: zodResolver(EditCollectionSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateCollection(collection.id)
+  const { mutateAsync, isPending } = useUpdateCollection(collection.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(data, {
       onSuccess: () => {
-        handleSuccess()
+        handleSuccess();
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -58,7 +58,7 @@ export const EditCollectionForm = ({ collection }: EditCollectionFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -87,7 +87,7 @@ export const EditCollectionForm = ({ collection }: EditCollectionFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -106,5 +106,5 @@ export const EditCollectionForm = ({ collection }: EditCollectionFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

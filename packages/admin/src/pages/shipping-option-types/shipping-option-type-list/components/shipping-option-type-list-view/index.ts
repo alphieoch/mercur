@@ -1,1 +1,1 @@
-export * from "./shipping-option-type-list-view"
+export * from "./shipping-option-type-list-view";

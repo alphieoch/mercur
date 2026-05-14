@@ -1,27 +1,27 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { json, useParams } from "react-router-dom"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { json, useParams } from "react-router-dom";
 
-import { RouteDrawer } from "@components/modals"
-import { useProduct, useProductAttributes } from "@hooks/api/products"
-import { EditProductAttributeForm } from "./components/edit-product-attribute-form"
+import { RouteDrawer } from "@components/modals";
+import { useProduct, useProductAttributes } from "@hooks/api/products";
+import { EditProductAttributeForm } from "./components/edit-product-attribute-form";
 
 export const ProductEditAttribute = () => {
-  const { id, attribute_id } = useParams()
-  const { t } = useTranslation()
+  const { id, attribute_id } = useParams();
+  const { t } = useTranslation();
 
   const { product, isPending, isFetching, isError, error } =
-    useProduct(id!)
+    useProduct(id!);
 
-  const { attributes } = useProductAttributes(id!)
+  const { attributes } = useProductAttributes(id!);
 
   const attribute = (product as any)?.informational_attributes?.find(
     (a: any) => a.attribute_id === attribute_id
-  )
+  );
 
   const attributeDefinition = attributes?.find(
     (a: any) => a.id === attribute_id
-  )
+  );
 
   if (!isPending && !isFetching && !attribute) {
     throw json(
@@ -29,11 +29,11 @@ export const ProductEditAttribute = () => {
         message: `An attribute with ID ${attribute_id} was not found`,
       },
       404
-    )
+    );
   }
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -51,5 +51,5 @@ export const ProductEditAttribute = () => {
         />
       )}
     </RouteDrawer>
-  )
-}
+  );
+};

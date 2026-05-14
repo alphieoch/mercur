@@ -1,4 +1,4 @@
-import { ProductCreateVariantSchema } from "./constants"
+import { ProductCreateVariantSchema } from "./constants";
 
 export const decorateVariantsWithDefaultValues = (
   variants: ProductCreateVariantSchema[]
@@ -10,5 +10,5 @@ export const decorateVariantsWithDefaultValues = (
     manage_inventory: variant.manage_inventory || false,
     allow_backorder: variant.allow_backorder || false,
     inventory_kit: variant.inventory_kit || false,
-  }))
-}
+  }));
+};

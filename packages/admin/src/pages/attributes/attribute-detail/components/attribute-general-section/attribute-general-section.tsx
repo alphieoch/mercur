@@ -1,12 +1,12 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { Badge, Container, Heading, toast, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { Badge, Container, Heading, toast, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { AttributeDTO } from "@mercurjs/types"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { SectionRow } from "../../../../../components/common/section/section-row"
-import { useDeleteAttribute } from "../../../../../hooks/api"
+import { AttributeDTO } from "@mercurjs/types";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { SectionRow } from "../../../../../components/common/section/section-row";
+import { useDeleteAttribute } from "../../../../../hooks/api";
 
 type AttributeGeneralSectionProps = {
   attribute: AttributeDTO & {
@@ -17,10 +17,10 @@ type AttributeGeneralSectionProps = {
 export const AttributeGeneralSection = ({
   attribute,
 }: AttributeGeneralSectionProps) => {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
-  const prompt = usePrompt()
-  const { mutateAsync } = useDeleteAttribute(attribute.id)
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const prompt = usePrompt();
+  const { mutateAsync } = useDeleteAttribute(attribute.id);
 
   const handleDelete = async () => {
     const confirmed = await prompt({
@@ -30,28 +30,28 @@ export const AttributeGeneralSection = ({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!confirmed) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
       onSuccess: () => {
         toast.success(
           t("attributes.delete.successToast", { name: attribute.name })
-        )
-        navigate("/settings/attributes", { replace: true })
+        );
+        navigate("/settings/attributes", { replace: true });
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  }
+    });
+  };
 
   const typeLabel =
     t(`attributes.type.${attribute.ui_component}`, attribute.ui_component) ??
-    attribute.ui_component
+    attribute.ui_component;
 
   return (
     <Container
@@ -155,5 +155,5 @@ export const AttributeGeneralSection = ({
         data-testid="attribute-general-section-categories-row"
       />
     </Container>
-  )
-}
+  );
+};

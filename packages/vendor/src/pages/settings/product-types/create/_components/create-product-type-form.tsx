@@ -1,47 +1,47 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { Form } from "@components/common/form"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { Form } from "@components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useCreateProductType } from "@hooks/api/product-types"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useCreateProductType } from "@hooks/api/product-types";
 
 const CreateProductTypeSchema = z.object({
   value: z.string().min(1),
-})
+});
 
 export const CreateProductTypeForm = () => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof CreateProductTypeSchema>>({
     defaultValues: {
       value: "",
     },
     resolver: zodResolver(CreateProductTypeSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateProductType()
+  const { mutateAsync, isPending } = useCreateProductType();
 
   const handleSubmit = form.handleSubmit(
     async (values: z.infer<typeof CreateProductTypeSchema>) => {
       await mutateAsync(values, {
         onSuccess: () => {
-          toast.success("Product type requested successfully")
+          toast.success("Product type requested successfully");
 
-          handleSuccess()
+          handleSuccess();
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
-      })
+      });
     }
-  )
+  );
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -87,7 +87,7 @@ export const CreateProductTypeForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -95,5 +95,5 @@ export const CreateProductTypeForm = () => {
         </RouteFocusModal.Body>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

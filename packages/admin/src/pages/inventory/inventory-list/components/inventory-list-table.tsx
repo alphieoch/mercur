@@ -1,17 +1,17 @@
-import { InventoryTypes, ProductVariantDTO } from "@medusajs/types"
-import { Button, Container, Heading, Text } from "@medusajs/ui"
+import { InventoryTypes, ProductVariantDTO } from "@medusajs/types";
+import { Button, Container, Heading, Text } from "@medusajs/ui";
 
-import { RowSelectionState } from "@tanstack/react-table"
-import { Children, ReactNode, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Link, useNavigate } from "react-router-dom"
-import { _DataTable } from "../../../../components/table/data-table"
-import { useInventoryItems } from "../../../../hooks/api/inventory"
-import { useDataTable } from "../../../../hooks/use-data-table"
-import { INVENTORY_ITEM_IDS_KEY } from "../../common/constants"
-import { useInventoryTableColumns } from "./use-inventory-table-columns"
-import { useInventoryTableFilters } from "./use-inventory-table-filters"
-import { useInventoryTableQuery } from "./use-inventory-table-query"
+import { RowSelectionState } from "@tanstack/react-table";
+import { Children, ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
+import { _DataTable } from "../../../../components/table/data-table";
+import { useInventoryItems } from "../../../../hooks/api/inventory";
+import { useDataTable } from "../../../../hooks/use-data-table";
+import { INVENTORY_ITEM_IDS_KEY } from "../../common/constants";
+import { useInventoryTableColumns } from "./use-inventory-table-columns";
+import { useInventoryTableFilters } from "./use-inventory-table-filters";
+import { useInventoryTableQuery } from "./use-inventory-table-query";
 
 /**
  * Extended type matching the columns definition — API returns these fields
@@ -23,10 +23,10 @@ interface ExtendedInventoryItem extends InventoryTypes.InventoryItemDTO {
   reserved_quantity?: number
 }
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const InventoryListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div>
       <Heading data-testid="inventory-list-title">{t("inventory.domain")}</Heading>
@@ -34,25 +34,25 @@ export const InventoryListTitle = () => {
         {t("inventory.subtitle")}
       </Text>
     </div>
-  )
-}
+  );
+};
 
 export const InventoryListCreateButton = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Button size="small" variant="secondary" asChild data-testid="inventory-create-button">
       <Link to="create" data-testid="inventory-create-link">{t("actions.create")}</Link>
     </Button>
-  )
-}
+  );
+};
 
 export const InventoryListActions = ({ children }: { children?: ReactNode }) => {
   return (
     <div className="flex items-center gap-x-2">
       {Children.count(children) > 0 ? children : <InventoryListCreateButton />}
     </div>
-  )
-}
+  );
+};
 
 export const InventoryListHeader = ({ children }: { children?: ReactNode }) => {
   return (
@@ -69,18 +69,18 @@ export const InventoryListHeader = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const InventoryListDataTable = () => {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  const [selection, setSelection] = useState<RowSelectionState>({})
+  const [selection, setSelection] = useState<RowSelectionState>({});
 
   const { searchParams, raw } = useInventoryTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
 
   const {
     inventory_items,
@@ -90,10 +90,10 @@ export const InventoryListDataTable = () => {
     error,
   } = useInventoryItems({
     ...searchParams,
-  })
+  });
 
-  const filters = useInventoryTableFilters()
-  const columns = useInventoryTableColumns()
+  const filters = useInventoryTableFilters();
+  const columns = useInventoryTableColumns();
 
   const { table } = useDataTable({
     data: (inventory_items ?? []) as ExtendedInventoryItem[],
@@ -107,10 +107,10 @@ export const InventoryListDataTable = () => {
       state: selection,
       updater: setSelection,
     },
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -139,7 +139,7 @@ export const InventoryListDataTable = () => {
                 `stock?${INVENTORY_ITEM_IDS_KEY}=${Object.keys(selection).join(
                   ","
                 )}`
-              )
+              );
             },
             label: t("inventory.stock.action"),
             shortcut: "i",
@@ -147,8 +147,8 @@ export const InventoryListDataTable = () => {
         ]}
       />
     </div>
-  )
-}
+  );
+};
 
 export const InventoryListTable = ({ children }: { children?: ReactNode }) => {
   return (
@@ -162,5 +162,5 @@ export const InventoryListTable = ({ children }: { children?: ReactNode }) => {
         </>
       )}
     </Container>
-  )
-}
+  );
+};

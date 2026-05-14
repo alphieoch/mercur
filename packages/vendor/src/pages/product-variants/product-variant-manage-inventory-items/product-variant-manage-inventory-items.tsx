@@ -1,13 +1,13 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
-import { RouteFocusModal } from "@components/modals"
-import { useProductVariant } from "@hooks/api/products"
-import { ExtendedAdminProductVariant } from "@custom-types/products"
-import { VARIANT_DETAIL_FIELDS } from "../product-variant-detail/constants.ts"
-import { ManageVariantInventoryItemsForm } from "./components/manage-variant-inventory-items-form/index.ts"
+import { RouteFocusModal } from "@components/modals";
+import { useProductVariant } from "@hooks/api/products";
+import { ExtendedAdminProductVariant } from "@custom-types/products";
+import { VARIANT_DETAIL_FIELDS } from "../product-variant-detail/constants.ts";
+import { ManageVariantInventoryItemsForm } from "./components/manage-variant-inventory-items-form/index.ts";
 
 export function ProductVariantManageInventoryItems() {
-  const { id, variant_id } = useParams()
+  const { id, variant_id } = useParams();
 
   const {
     variant,
@@ -16,13 +16,13 @@ export function ProductVariantManageInventoryItems() {
     error,
   } = useProductVariant(id!, variant_id!, {
     fields: VARIANT_DETAIL_FIELDS,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
-  const extendedVariant = variant as ExtendedAdminProductVariant
+  const extendedVariant = variant as ExtendedAdminProductVariant;
 
   return (
     <RouteFocusModal>
@@ -30,5 +30,5 @@ export function ProductVariantManageInventoryItems() {
         <ManageVariantInventoryItemsForm variant={extendedVariant} />
       )}
     </RouteFocusModal>
-  )
+  );
 }

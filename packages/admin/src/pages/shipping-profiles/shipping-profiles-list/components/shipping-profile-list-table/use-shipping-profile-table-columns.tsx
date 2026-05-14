@@ -1,15 +1,15 @@
-import { AdminShippingProfileResponse } from "@medusajs/types"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { AdminShippingProfileResponse } from "@medusajs/types";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-import { ShippingOptionsRowActions } from "./shipping-options-row-actions"
+import { ShippingOptionsRowActions } from "./shipping-options-row-actions";
 
 const columnHelper =
-  createColumnHelper<AdminShippingProfileResponse["shipping_profile"]>()
+  createColumnHelper<AdminShippingProfileResponse["shipping_profile"]>();
 
 export const useShippingProfileTableColumns = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -27,5 +27,5 @@ export const useShippingProfileTableColumns = () => {
       }),
     ],
     [t]
-  )
-}
+  );
+};

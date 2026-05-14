@@ -1,9 +1,9 @@
-import { HttpTypes } from "@medusajs/types"
-import { Badge } from "@medusajs/ui"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
+import { HttpTypes } from "@medusajs/types";
+import { Badge } from "@medusajs/ui";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
 
-const columnHelper = createColumnHelper<HttpTypes.AdminReturnReason>()
+const columnHelper = createColumnHelper<HttpTypes.AdminReturnReason>();
 
 export const useReturnReasonTableColumns = () => {
   return useMemo(
@@ -13,7 +13,7 @@ export const useReturnReasonTableColumns = () => {
       }),
       columnHelper.accessor("label", {
         cell: ({ row }) => {
-          const { label, description } = row.original
+          const { label, description } = row.original;
           return (
             <div className=" py-4">
               <div className="flex h-full w-full flex-col justify-center">
@@ -23,10 +23,10 @@ export const useReturnReasonTableColumns = () => {
                 </span>
               </div>
             </div>
-          )
+          );
         },
       }),
     ],
     []
-  )
-}
+  );
+};

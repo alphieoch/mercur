@@ -1,1 +1,1 @@
-export { ShippingOptionTypeListPage as Component } from "./shipping-option-type-list"
+export { ShippingOptionTypeListPage as Component } from "./shipping-option-type-list";

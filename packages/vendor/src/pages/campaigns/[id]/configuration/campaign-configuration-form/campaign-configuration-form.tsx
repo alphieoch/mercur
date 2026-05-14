@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AdminCampaign } from "@medusajs/types"
-import { Button, DatePicker, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AdminCampaign } from "@medusajs/types";
+import { Button, DatePicker, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { Form } from "@components/common/form"
-import { RouteDrawer, useRouteModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdateCampaign } from "@hooks/api/campaigns"
+import { Form } from "@components/common/form";
+import { RouteDrawer, useRouteModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdateCampaign } from "@hooks/api/campaigns";
 
 type CampaignConfigurationFormProps = {
   campaign: AdminCampaign
@@ -17,13 +17,13 @@ type CampaignConfigurationFormProps = {
 const CampaignConfigurationSchema = z.object({
   starts_at: z.date().nullable(),
   ends_at: z.date().nullable(),
-})
+});
 
 export const CampaignConfigurationForm = ({
   campaign,
 }: CampaignConfigurationFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof CampaignConfigurationSchema>>({
     defaultValues: {
@@ -31,9 +31,9 @@ export const CampaignConfigurationForm = ({
       ends_at: campaign.ends_at ? new Date(campaign.ends_at) : undefined,
     },
     resolver: zodResolver(CampaignConfigurationSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateCampaign(campaign.id)
+  const { mutateAsync, isPending } = useUpdateCampaign(campaign.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -47,16 +47,16 @@ export const CampaignConfigurationForm = ({
             t("campaigns.configuration.edit.successToast", {
               name: campaign.name,
             })
-          )
+          );
 
-          handleSuccess()
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -82,7 +82,7 @@ export const CampaignConfigurationForm = ({
 
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
 
@@ -104,7 +104,7 @@ export const CampaignConfigurationForm = ({
 
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -130,5 +130,5 @@ export const CampaignConfigurationForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

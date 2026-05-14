@@ -3,34 +3,34 @@ import {
   AdminOrder,
   AdminOrderPreview,
   InventoryLevelDTO,
-} from "@medusajs/types"
-import { Alert, Button, Heading, Text, toast } from "@medusajs/ui"
-import { useEffect, useMemo, useState } from "react"
-import { useFieldArray, UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/types";
+import { Alert, Button, Heading, Text, toast } from "@medusajs/ui";
+import { useEffect, useMemo, useState } from "react";
+import { useFieldArray, UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "../../../../../components/common/form"
-import { Combobox } from "../../../../../components/inputs/combobox"
+import { Form } from "../../../../../components/common/form";
+import { Combobox } from "../../../../../components/inputs/combobox";
 import {
   RouteFocusModal,
   StackedFocusModal,
   useStackedModal,
-} from "../../../../../components/modals"
+} from "../../../../../components/modals";
 import {
   useAddExchangeOutboundItems,
   useAddExchangeOutboundShipping,
   useDeleteExchangeOutboundShipping,
   useRemoveExchangeOutboundItem,
   useUpdateExchangeOutboundItems,
-} from "../../../../../hooks/api/exchanges"
-import { sdk } from "../../../../../lib/client"
-import { OutboundShippingPlaceholder } from "../../../common/placeholders"
-import { ItemPlaceholder } from "../../../order-create-claim/components/claim-create-form/item-placeholder"
-import { AddExchangeOutboundItemsTable } from "../add-exchange-outbound-items-table"
-import { ExchangeOutboundItem } from "./exchange-outbound-item"
-import { useOrderShippingOptions } from "../../../../../hooks/api/orders"
-import { CreateExchangeSchemaType } from "./schema"
-import { getFormattedShippingOptionLocationName } from "../../../../../lib/shipping-options"
+} from "../../../../../hooks/api/exchanges";
+import { sdk } from "../../../../../lib/client";
+import { OutboundShippingPlaceholder } from "../../../common/placeholders";
+import { ItemPlaceholder } from "../../../order-create-claim/components/claim-create-form/item-placeholder";
+import { AddExchangeOutboundItemsTable } from "../add-exchange-outbound-items-table";
+import { ExchangeOutboundItem } from "./exchange-outbound-item";
+import { useOrderShippingOptions } from "../../../../../hooks/api/orders";
+import { CreateExchangeSchemaType } from "./schema";
+import { getFormattedShippingOptionLocationName } from "../../../../../lib/shipping-options";
 
 type ExchangeOutboundSectionProps = {
   order: AdminOrder
@@ -39,8 +39,8 @@ type ExchangeOutboundSectionProps = {
   form: UseFormReturn<CreateExchangeSchemaType>
 }
 
-let itemsToAdd: string[] = []
-let itemsToRemove: string[] = []
+let itemsToAdd: string[] = [];
+let itemsToRemove: string[] = [];
 
 export const ExchangeOutboundSection = ({
   order,
@@ -48,46 +48,46 @@ export const ExchangeOutboundSection = ({
   exchange,
   form,
 }: ExchangeOutboundSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { setIsOpen } = useStackedModal()
+  const { setIsOpen } = useStackedModal();
   const [inventoryMap, setInventoryMap] = useState<
     Record<string, InventoryLevelDTO[]>
-  >({})
+  >({});
 
   /**
    * HOOKS
    */
-  const { shipping_options = [] } = useOrderShippingOptions(order.id)
+  const { shipping_options = [] } = useOrderShippingOptions(order.id);
 
   // TODO: filter in the API when boolean filter is supported and fulfillment module support partial rule SO filtering
   const outboundShippingOptions = shipping_options.filter(
     (so) =>
       !so.rules?.find((r) => r.attribute === "is_return" && r.value === "true")
-  )
+  );
 
   const { mutateAsync: addOutboundShipping } = useAddExchangeOutboundShipping(
     exchange.id,
     order.id
-  )
+  );
 
   const { mutateAsync: deleteOutboundShipping } =
-    useDeleteExchangeOutboundShipping(exchange.id, order.id)
+    useDeleteExchangeOutboundShipping(exchange.id, order.id);
 
   const { mutateAsync: addOutboundItem } = useAddExchangeOutboundItems(
     exchange.id,
     order.id
-  )
+  );
 
   const { mutateAsync: updateOutboundItem } = useUpdateExchangeOutboundItems(
     exchange.id,
     order.id
-  )
+  );
 
   const { mutateAsync: removeOutboundItem } = useRemoveExchangeOutboundItem(
     exchange.id,
     order.id
-  )
+  );
 
   /**
    * Only consider items that belong to this exchange and is an outbound item
@@ -101,12 +101,12 @@ export const ExchangeOutboundSection = ({
           )
       ),
     [preview.items]
-  )
+  );
 
   const variantItemMap = useMemo(
     () => new Map(order?.items?.map((i) => [i.variant_id, i])),
     [order.items]
-  )
+  );
 
   const {
     fields: outboundItems,
@@ -116,27 +116,27 @@ export const ExchangeOutboundSection = ({
   } = useFieldArray({
     name: "outbound_items",
     control: form.control,
-  })
+  });
 
   const variantOutboundMap = useMemo(
     () => new Map(previewOutboundItems.map((i) => [i.variant_id, i])),
     [previewOutboundItems, outboundItems]
-  )
+  );
 
   useEffect(() => {
-    const existingItemsMap: Record<string, boolean> = {}
+    const existingItemsMap: Record<string, boolean> = {};
 
     previewOutboundItems.forEach((i) => {
-      const ind = outboundItems.findIndex((field) => field.item_id === i.id)
+      const ind = outboundItems.findIndex((field) => field.item_id === i.id);
 
-      existingItemsMap[i.id] = true
+      existingItemsMap[i.id] = true;
 
       if (ind > -1) {
         if (outboundItems[ind].quantity !== i.detail.quantity) {
           update(ind, {
             ...outboundItems[ind],
             quantity: i.detail.quantity,
-          })
+          });
         }
       } else {
         append(
@@ -146,19 +146,19 @@ export const ExchangeOutboundSection = ({
             variant_id: i.variant_id,
           },
           { shouldFocus: false }
-        )
+        );
       }
-    })
+    });
 
     outboundItems.forEach((i, ind) => {
       if (!(i.item_id in existingItemsMap)) {
-        remove(ind)
+        remove(ind);
       }
-    })
-  }, [previewOutboundItems])
+    });
+  }, [previewOutboundItems]);
 
-  const locationId = form.watch("location_id")
-  const showOutboundItemsPlaceholder = !outboundItems.length
+  const locationId = form.watch("location_id");
+  const showOutboundItemsPlaceholder = !outboundItems.length;
 
   const onItemsSelected = async () => {
     itemsToAdd.length &&
@@ -171,40 +171,40 @@ export const ExchangeOutboundSection = ({
         },
         {
           onError: (error) => {
-            toast.error(error.message)
+            toast.error(error.message);
           },
         }
-      ))
+      ));
 
     for (const itemToRemove of itemsToRemove) {
       const action = previewOutboundItems
         .find((i) => i.variant_id === itemToRemove)
-        ?.actions?.find((a) => a.action === "ITEM_ADD")
+        ?.actions?.find((a) => a.action === "ITEM_ADD");
 
       if (action?.id) {
         await removeOutboundItem(action?.id, {
           onError: (error) => {
-            toast.error(error.message)
+            toast.error(error.message);
           },
-        })
+        });
       }
     }
 
-    setIsOpen("outbound-items", false)
-  }
+    setIsOpen("outbound-items", false);
+  };
 
   useEffect(() => {
     const outboundShipping = preview.shipping_methods.find(
       (s) =>
         !!s.actions?.find((a) => a.action === "SHIPPING_ADD" && !a.return_id)
-    )
+    );
 
     if (outboundShipping) {
-      form.setValue("outbound_option_id", outboundShipping.shipping_option_id)
+      form.setValue("outbound_option_id", outboundShipping.shipping_option_id);
     } else {
-      form.setValue("outbound_option_id", "")
+      form.setValue("outbound_option_id", "");
     }
-  }, [preview.shipping_methods])
+  }, [preview.shipping_methods]);
 
   const onShippingOptionChange = async (
     selectedOptionId: string | undefined
@@ -212,89 +212,89 @@ export const ExchangeOutboundSection = ({
     const outboundShippingMethods = preview.shipping_methods.filter(
       (s) =>
         !!s.actions?.find((a) => a.action === "SHIPPING_ADD" && !a.return_id)
-    )
+    );
 
     const promises = outboundShippingMethods
       .filter(Boolean)
       .map((outboundShippingMethod) => {
         const action = outboundShippingMethod.actions?.find(
           (a) => a.action === "SHIPPING_ADD" && !a.return_id
-        )
+        );
 
         if (action) {
-          return deleteOutboundShipping(action.id)
+          return deleteOutboundShipping(action.id);
         }
-      })
+      });
 
-    await Promise.all(promises)
+    await Promise.all(promises);
 
     if (selectedOptionId) {
       await addOutboundShipping(
         { shipping_option_id: selectedOptionId },
         {
           onError: (error) => {
-            toast.error(error.message)
+            toast.error(error.message);
           },
         }
-      )
+      );
     }
-  }
+  };
 
   const showLevelsWarning = useMemo(() => {
     if (!locationId) {
-      return false
+      return false;
     }
 
     const allItemsHaveLocation = outboundItems
       .map((i) => {
-        const item = variantItemMap.get(i.variant_id)
+        const item = variantItemMap.get(i.variant_id);
         if (!item?.variant_id || !item?.variant) {
-          return true
+          return true;
         }
 
         if (!item.variant?.manage_inventory) {
-          return true
+          return true;
         }
 
         return inventoryMap[item.variant_id]?.find(
           (l) => l.location_id === locationId
-        )
+        );
       })
-      .every(Boolean)
+      .every(Boolean);
 
-    return !allItemsHaveLocation
-  }, [outboundItems, inventoryMap, locationId])
+    return !allItemsHaveLocation;
+  }, [outboundItems, inventoryMap, locationId]);
 
   useEffect(() => {
     const getInventoryMap = async () => {
-      const ret: Record<string, InventoryLevelDTO[]> = {}
+      const ret: Record<string, InventoryLevelDTO[]> = {};
 
       if (!outboundItems.length) {
-        return ret
+        return ret;
       }
 
       const variantIds = outboundItems
         .map((item) => item?.variant_id)
-        .filter(Boolean)
+        .filter(Boolean);
 
       const variants = (
         await sdk.admin.productVariants.query({
           id: variantIds,
           fields: "*inventory.location_levels",
         })
-      ).variants
+      ).variants;
 
       variants.forEach((variant) => {
-        ret[variant.id] = variant.inventory?.[0]?.location_levels || []
-      })
+        ret[variant.id] = variant.inventory?.[0]?.location_levels || [];
+      });
 
-      return ret
-    }
+      return ret;
+    };
 
     getInventoryMap().then((map) => {
-      setInventoryMap(map)
-    })
-  }, [outboundItems])
+      setInventoryMap(map);
+    });
+  }, [outboundItems]);
 
   return (
     <div>
@@ -314,14 +314,14 @@ export const ExchangeOutboundSection = ({
               selectedItems={outboundItems.map((i) => i.variant_id)}
               currencyCode={order.currency_code}
               onSelectionChange={(finalSelection) => {
-                const alreadySelected = outboundItems.map((i) => i.variant_id)
+                const alreadySelected = outboundItems.map((i) => i.variant_id);
 
                 itemsToAdd = finalSelection.filter(
                   (selection) => !alreadySelected.includes(selection)
-                )
+                );
                 itemsToRemove = alreadySelected.filter(
                   (selection) => !finalSelection.includes(selection)
-                )
+                );
               }}
             />
 
@@ -363,30 +363,30 @@ export const ExchangeOutboundSection = ({
               onRemove={() => {
                 const actionId = previewOutboundItems
                   .find((i) => i.id === item.item_id)
-                  ?.actions?.find((a) => a.action === "ITEM_ADD")?.id
+                  ?.actions?.find((a) => a.action === "ITEM_ADD")?.id;
 
                 if (actionId) {
                   removeOutboundItem(actionId, {
                     onError: (error) => {
-                      toast.error(error.message)
+                      toast.error(error.message);
                     },
-                  })
+                  });
                 }
               }}
               onUpdate={(payload) => {
                 const actionId = previewOutboundItems
                   .find((i) => i.id === item.item_id)
-                  ?.actions?.find((a) => a.action === "ITEM_ADD")?.id
+                  ?.actions?.find((a) => a.action === "ITEM_ADD")?.id;
 
                 if (actionId) {
                   updateOutboundItem(
                     { ...payload, actionId },
                     {
                       onError: (error) => {
-                        toast.error(error.message)
+                        toast.error(error.message);
                       },
                     }
-                  )
+                  );
                 }
               }}
               index={index}
@@ -416,8 +416,8 @@ export const ExchangeOutboundSection = ({
                         noResultsPlaceholder={<OutboundShippingPlaceholder />}
                         value={value ?? undefined}
                         onChange={(val) => {
-                          onChange(val)
-                          onShippingOptionChange(val)
+                          onChange(val);
+                          onShippingOptionChange(val);
                         }}
                         {...field}
                         options={outboundShippingOptions.map((so) => ({
@@ -428,7 +428,7 @@ export const ExchangeOutboundSection = ({
                       />
                     </Form.Control>
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -446,5 +446,5 @@ export const ExchangeOutboundSection = ({
         </Alert>
       )}
     </div>
-  )
-}
+  );
+};

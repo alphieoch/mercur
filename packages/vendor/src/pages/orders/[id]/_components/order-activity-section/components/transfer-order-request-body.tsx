@@ -1,7 +1,7 @@
-import { Text } from "@medusajs/ui"
-import { AdminOrderChange } from "@medusajs/types"
-import { useTranslation } from "react-i18next"
-import { useCustomer } from "@hooks/api"
+import { Text } from "@medusajs/ui";
+import { AdminOrderChange } from "@medusajs/types";
+import { useTranslation } from "react-i18next";
+import { useCustomer } from "@hooks/api";
 
 type TransferOrderRequestBodyProps = {
   transfer: AdminOrderChange
@@ -10,10 +10,10 @@ type TransferOrderRequestBodyProps = {
 export const TransferOrderRequestBody = ({
   transfer,
 }: TransferOrderRequestBodyProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const action = transfer.actions[0]
-  const { customer } = useCustomer(action.reference_id)
+  const action = transfer.actions[0];
+  const { customer } = useCustomer(action.reference_id);
 
   return (
     <div>
@@ -28,5 +28,5 @@ export const TransferOrderRequestBody = ({
           : customer?.email}
       </Text>
     </div>
-  )
-}
+  );
+};

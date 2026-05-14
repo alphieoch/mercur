@@ -1,13 +1,13 @@
-import { clx, Textarea } from "@medusajs/ui"
-import { Popover as RadixPopover } from "radix-ui"
-import { useCallback, useEffect, useRef, useState } from "react"
-import { Controller, ControllerRenderProps } from "react-hook-form"
+import { clx, Textarea } from "@medusajs/ui";
+import { Popover as RadixPopover } from "radix-ui";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Controller, ControllerRenderProps } from "react-hook-form";
 
-import { useCombinedRefs } from "../../../hooks/use-combined-refs"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { useDataGridContext } from "../context"
-import { DataGridCellProps, InputProps, DataGridCellContext } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { useCombinedRefs } from "../../../hooks/use-combined-refs";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { useDataGridContext } from "../context";
+import { DataGridCellProps, InputProps, DataGridCellContext } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 type DataGridExpandableTextCellProps<TData, TValue = any> = DataGridCellProps<
   TData,
@@ -22,10 +22,10 @@ export const DataGridExpandableTextCell = <TData, TValue = any>({
 }: DataGridExpandableTextCellProps<TData, TValue>) => {
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
-  const errorProps = useDataGridCellError({ context })
+  });
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
+  const { container, input } = renderProps;
 
   return (
     <Controller
@@ -40,11 +40,11 @@ export const DataGridExpandableTextCell = <TData, TValue = any>({
             container={container}
             errorProps={errorProps}
           />
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -59,37 +59,37 @@ const Inner = ({
   container: any
   errorProps: any
 }) => {
-  const { onChange: _, onBlur, ref, value, ...rest } = field
-  const { ref: inputRef, onBlur: onInputBlur, onChange, ...input } = inputProps
-  const { setSingleRange, anchor } = useDataGridContext()
-  const { row, col } = anchor || { row: 0, col: 0 }
+  const { onChange: _, onBlur, ref, value, ...rest } = field;
+  const { ref: inputRef, onBlur: onInputBlur, onChange, ...input } = inputProps;
+  const { setSingleRange, anchor } = useDataGridContext();
+  const { row, col } = anchor || { row: 0, col: 0 };
 
-  const [localValue, setLocalValue] = useState(value || "")
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
-  const [popoverValue, setPopoverValue] = useState(value || "")
-  const popoverContentRef = useRef<HTMLDivElement>(null)
+  const [localValue, setLocalValue] = useState(value || "");
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [popoverValue, setPopoverValue] = useState(value || "");
+  const popoverContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setLocalValue(value || "")
-  }, [value])
+    setLocalValue(value || "");
+  }, [value]);
 
   useEffect(() => {
     if (isPopoverOpen) {
-      setPopoverValue(value || "")
+      setPopoverValue(value || "");
     }
-  }, [isPopoverOpen, value])
+  }, [isPopoverOpen, value]);
 
   // Prevent DataGrid keyboard handlers from intercepting keys when popover is open
   useEffect(() => {
     if (!isPopoverOpen || !popoverContentRef.current) {
-      return
+      return;
     }
 
     const handleKeyDownCapture = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement
-      const isTextarea = target.tagName === "TEXTAREA"
+      const target = e.target as HTMLElement;
+      const isTextarea = target.tagName === "TEXTAREA";
       const isInPopover =
-        popoverContentRef.current && popoverContentRef.current.contains(target)
+        popoverContentRef.current && popoverContentRef.current.contains(target);
 
       if (isTextarea || isInPopover) {
         const dataGridKeys = [
@@ -102,38 +102,38 @@ const Inner = ({
           "ArrowRight",
           "Tab",
           " ",
-        ]
+        ];
 
         // Stop the keys from reaching DataGrid, so the textarea can handle them
         if (dataGridKeys.includes(e.key) && e.key !== "Escape") {
-          e.stopImmediatePropagation()
+          e.stopImmediatePropagation();
         }
       }
-    }
+    };
 
-    window.addEventListener("keydown", handleKeyDownCapture, true)
+    window.addEventListener("keydown", handleKeyDownCapture, true);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDownCapture, true)
-    }
-  }, [isPopoverOpen])
+      window.removeEventListener("keydown", handleKeyDownCapture, true);
+    };
+  }, [isPopoverOpen]);
 
-  const combinedRefs = useCombinedRefs(inputRef, ref)
+  const combinedRefs = useCombinedRefs(inputRef, ref);
 
   const handleOverlayMouseDown = useCallback(
     (e: React.MouseEvent) => {
       if (e.detail === 2) {
-        e.preventDefault()
-        e.stopPropagation()
-        setSingleRange({ row, col })
-        setIsPopoverOpen(true)
-        return
+        e.preventDefault();
+        e.stopPropagation();
+        setSingleRange({ row, col });
+        setIsPopoverOpen(true);
+        return;
       }
       // For single clicks, use the normal handler which sets anchor and focuses container
-      container.overlayProps.onMouseDown?.(e)
+      container.overlayProps.onMouseDown?.(e);
     },
     [container.overlayProps, setSingleRange, row, col]
-  )
+  );
 
   const customContainer = {
     ...container,
@@ -141,36 +141,36 @@ const Inner = ({
       ...container.overlayProps,
       onMouseDown: handleOverlayMouseDown,
     },
-  }
+  };
 
   const handlePopoverSave = () => {
-    onChange(popoverValue, value)
-    setLocalValue(popoverValue)
-    setIsPopoverOpen(false)
-    onBlur()
-    onInputBlur()
-  }
+    onChange(popoverValue, value);
+    setLocalValue(popoverValue);
+    setIsPopoverOpen(false);
+    onBlur();
+    onInputBlur();
+  };
 
   const handlePopoverKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key !== "Escape") {
-      e.stopPropagation()
+      e.stopPropagation();
     }
-  }, [])
+  }, []);
 
-  const displayValue = localValue || ""
+  const displayValue = localValue || "";
   const truncatedValue =
     displayValue.length > 50
       ? `${displayValue.substring(0, 50)}...`
-      : displayValue
+      : displayValue;
 
   return (
     <RadixPopover.Root
       open={isPopoverOpen}
       onOpenChange={(open) => {
         if (!open) {
-          handlePopoverSave()
+          handlePopoverSave();
         } else {
-          setIsPopoverOpen(true)
+          setIsPopoverOpen(true);
         }
       }}
     >
@@ -195,9 +195,9 @@ const Inner = ({
           onChange={(e) => setLocalValue(e.target.value)}
           ref={combinedRefs}
           onBlur={() => {
-            onBlur()
-            onInputBlur()
-            onChange(localValue, value)
+            onBlur();
+            onInputBlur();
+            onChange(localValue, value);
           }}
           {...input}
           {...rest}
@@ -221,7 +221,7 @@ const Inner = ({
               value={popoverValue}
               onChange={(e) => setPopoverValue(e.target.value)}
               onKeyDown={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
               className="!bg-ui-bg-base h-full min-h-[300px] w-full resize-none border-0 p-4 !shadow-none focus-visible:!shadow-none"
             />
@@ -229,5 +229,5 @@ const Inner = ({
         </RadixPopover.Content>
       </RadixPopover.Portal>
     </RadixPopover.Root>
-  )
-}
+  );
+};

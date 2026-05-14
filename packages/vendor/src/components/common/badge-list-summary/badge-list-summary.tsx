@@ -1,5 +1,5 @@
-import { Badge, Tooltip, clx } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Badge, Tooltip, clx } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 type BadgeListSummaryProps = {
   /**
@@ -30,11 +30,11 @@ export const BadgeListSummary = ({
   rounded = false,
   n = 2,
 }: BadgeListSummaryProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const title = t("general.plusCount", {
     count: list.length - n,
-  })
+  });
 
   return (
     <div
@@ -52,7 +52,7 @@ export const BadgeListSummary = ({
           <Badge rounded={rounded ? "full" : "base"} key={item} size="2xsmall">
             {item}
           </Badge>
-        )
+        );
       })}
 
       {list.length > n && (
@@ -77,5 +77,5 @@ export const BadgeListSummary = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};

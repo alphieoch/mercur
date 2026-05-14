@@ -1,10 +1,10 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
 
-import { PencilSquare } from "@medusajs/icons"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "@components/common/action-menu"
-import { DateRangeDisplay } from "@components/common/date-range-display"
+import { PencilSquare } from "@medusajs/icons";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "@components/common/action-menu";
+import { DateRangeDisplay } from "@components/common/date-range-display";
 
 type CampaignConfigurationSectionProps = {
   campaign: HttpTypes.AdminCampaign
@@ -13,7 +13,7 @@ type CampaignConfigurationSectionProps = {
 export const CampaignConfigurationSection = ({
   campaign,
 }: CampaignConfigurationSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="flex flex-col gap-y-4">
@@ -39,5 +39,5 @@ export const CampaignConfigurationSection = ({
         showTime
       />
     </Container>
-  )
-}
+  );
+};

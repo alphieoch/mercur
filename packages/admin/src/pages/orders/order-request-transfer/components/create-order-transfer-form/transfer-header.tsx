@@ -295,5 +295,5 @@ export function TransferHeader() {
         </clipPath>
       </defs>
     </svg>
-  )
+  );
 }

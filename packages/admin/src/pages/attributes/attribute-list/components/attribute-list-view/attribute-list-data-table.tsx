@@ -1,28 +1,28 @@
-import { keepPreviousData } from "@tanstack/react-query"
-import { useTranslation } from "react-i18next"
+import { keepPreviousData } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useAttributes } from "../../../../../hooks/api"
-import { useAttributeTableColumns } from "../../../../../hooks/table/columns/use-attribute-table-columns"
-import { useAttributeTableFilters } from "../../../../../hooks/table/filters/use-attribute-table-filters"
-import { useAttributeTableQuery } from "../../../../../hooks/table/query/use-attribute-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useAttributes } from "../../../../../hooks/api";
+import { useAttributeTableColumns } from "../../../../../hooks/table/columns/use-attribute-table-columns";
+import { useAttributeTableFilters } from "../../../../../hooks/table/filters/use-attribute-table-filters";
+import { useAttributeTableQuery } from "../../../../../hooks/table/query/use-attribute-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const AttributeListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { searchParams, raw } = useAttributeTableQuery({ pageSize: PAGE_SIZE })
+  const { searchParams, raw } = useAttributeTableQuery({ pageSize: PAGE_SIZE });
   const { attributes, count, isPending, isError, error } = useAttributes(
     searchParams,
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const filters = useAttributeTableFilters()
-  const columns = useAttributeTableColumns()
+  const filters = useAttributeTableFilters();
+  const columns = useAttributeTableColumns();
 
   const { table } = useDataTable({
     data: attributes ?? [],
@@ -31,10 +31,10 @@ export const AttributeListDataTable = () => {
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
     enablePagination: true,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -59,5 +59,5 @@ export const AttributeListDataTable = () => {
       }}
       data-testid="attribute-list-table"
     />
-  )
-}
+  );
+};

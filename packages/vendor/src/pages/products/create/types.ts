@@ -1,9 +1,9 @@
-import { ReactNode } from "react"
-import { z } from "zod"
+import { ReactNode } from "react";
+import { z } from "zod";
 
-import { TabDefinition as GenericTabDefinition } from "@components/tabbed-form"
+import { TabDefinition as GenericTabDefinition } from "@components/tabbed-form";
 
-import { ProductCreateSchema } from "./constants"
+import { ProductCreateSchema } from "./constants";
 
 export type ProductCreateSchemaType = z.infer<typeof ProductCreateSchema>
 

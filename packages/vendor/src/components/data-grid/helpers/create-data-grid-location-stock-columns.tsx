@@ -1,11 +1,11 @@
-import { HttpTypes } from "@medusajs/types"
-import { ColumnDef } from "@tanstack/react-table"
-import { TFunction } from "i18next"
-import { FieldPath, FieldValues } from "react-hook-form"
-import { DataGridReadonlyCell } from "../components/data-grid-readonly-cell"
-import { DataGridTogglableNumberCell } from "../components/data-grid-toggleable-number-cell"
-import { FieldContext } from "../types"
-import { createDataGridHelper } from "./create-data-grid-column-helper"
+import { HttpTypes } from "@medusajs/types";
+import { ColumnDef } from "@tanstack/react-table";
+import { TFunction } from "i18next";
+import { FieldPath, FieldValues } from "react-hook-form";
+import { DataGridReadonlyCell } from "../components/data-grid-readonly-cell";
+import { DataGridTogglableNumberCell } from "../components/data-grid-toggleable-number-cell";
+import { FieldContext } from "../types";
+import { createDataGridHelper } from "./create-data-grid-column-helper";
 
 type CreateDataGridLocationStockColumnsProps<
   TData,
@@ -24,15 +24,15 @@ export const createDataGridLocationStockColumns = <
   TData,
   TFieldValues extends FieldValues,
 >({
-  stockLocations,
-  isReadyOnly,
-  getFieldName,
-  t,
-}: CreateDataGridLocationStockColumnsProps<TData, TFieldValues>): ColumnDef<
+    stockLocations,
+    isReadyOnly,
+    getFieldName,
+    t,
+  }: CreateDataGridLocationStockColumnsProps<TData, TFieldValues>): ColumnDef<
   TData,
   unknown
 >[] => {
-  const columnHelper = createDataGridHelper<TData, TFieldValues>()
+  const columnHelper = createDataGridHelper<TData, TFieldValues>();
 
   return [
     ...(stockLocations.map((stockLocation, index) => {
@@ -40,11 +40,11 @@ export const createDataGridLocationStockColumns = <
         id: `stock_locations.${stockLocation.id}`,
         name: stockLocation.name,
         field: (context) => {
-          const isReadyOnlyValue = isReadyOnly?.(context)
+          const isReadyOnlyValue = isReadyOnly?.(context);
           if (isReadyOnlyValue) {
-            return null
+            return null;
           }
-          return getFieldName(context, index)
+          return getFieldName(context, index);
         },
         type: "togglable-number",
         header: () => (
@@ -56,7 +56,7 @@ export const createDataGridLocationStockColumns = <
         ),
         cell: (context) => {
           if (isReadyOnly?.(context)) {
-            return <DataGridReadonlyCell context={context} />
+            return <DataGridReadonlyCell context={context} />;
           }
 
           return (
@@ -64,9 +64,9 @@ export const createDataGridLocationStockColumns = <
               context={context}
               disabledToggleTooltip={t("inventory.stock.disabledToggleTooltip")}
             />
-          )
+          );
         },
-      })
+      });
     }) ?? []),
-  ]
-}
+  ];
+};

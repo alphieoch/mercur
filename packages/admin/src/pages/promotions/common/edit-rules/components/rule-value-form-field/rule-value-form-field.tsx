@@ -159,31 +159,31 @@ export const RuleValueFormField = ({
               <Form.ErrorMessage data-testid={`${testIdBase}-text-error`} />
             </Form.Item>
           );
-        } else {
-          return (
-            <Form.Item
-              className="basis-1/2"
-              data-testid={`${testIdBase}-combobox-item`}
-            >
-              <Form.Control data-testid={`${testIdBase}-combobox-control`}>
-                <Combobox
-                  {...field}
-                  {...comboboxData}
-                  ref={ref}
-                  placeholder={
-                    watchOperator === "eq"
-                      ? t("labels.selectValue")
-                      : t("labels.selectValues")
-                  }
-                  disabled={!watchOperator}
-                  onChange={onChange}
-                  data-testid={`${testIdBase}-combobox`}
-                />
-              </Form.Control>
-              <Form.ErrorMessage data-testid={`${testIdBase}-combobox-error`} />
-            </Form.Item>
-          );
-        }
+        } 
+        return (
+          <Form.Item
+            className="basis-1/2"
+            data-testid={`${testIdBase}-combobox-item`}
+          >
+            <Form.Control data-testid={`${testIdBase}-combobox-control`}>
+              <Combobox
+                {...field}
+                {...comboboxData}
+                ref={ref}
+                placeholder={
+                  watchOperator === "eq"
+                    ? t("labels.selectValue")
+                    : t("labels.selectValues")
+                }
+                disabled={!watchOperator}
+                onChange={onChange}
+                data-testid={`${testIdBase}-combobox`}
+              />
+            </Form.Control>
+            <Form.ErrorMessage data-testid={`${testIdBase}-combobox-error`} />
+          </Form.Item>
+        );
+        
       }}
     />
   );

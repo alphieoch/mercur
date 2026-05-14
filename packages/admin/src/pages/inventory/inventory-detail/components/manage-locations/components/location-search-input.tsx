@@ -1,6 +1,6 @@
-import { Input } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useState, useEffect } from "react"
+import { Input } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
 
 type LocationSearchInputProps = {
   onSearchChange: (search: string) => void
@@ -11,16 +11,16 @@ export const LocationSearchInput = ({
   onSearchChange,
   placeholder,
 }: LocationSearchInputProps) => {
-  const { t } = useTranslation()
-  const [searchValue, setSearchValue] = useState("")
+  const { t } = useTranslation();
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      onSearchChange(searchValue)
-    }, 300)
+      onSearchChange(searchValue);
+    }, 300);
 
-    return () => clearTimeout(timer)
-  }, [searchValue, onSearchChange])
+    return () => clearTimeout(timer);
+  }, [searchValue, onSearchChange]);
 
   return (
     <div data-testid="inventory-manage-locations-form-search-input-wrapper">
@@ -33,5 +33,5 @@ export const LocationSearchInput = ({
         data-testid="inventory-manage-locations-form-search-input"
       />
     </div>
-  )
-}
+  );
+};

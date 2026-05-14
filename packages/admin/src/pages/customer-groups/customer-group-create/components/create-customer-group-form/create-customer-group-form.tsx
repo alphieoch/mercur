@@ -1,33 +1,33 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Form } from "../../../../../components/common/form"
+import { Form } from "../../../../../components/common/form";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateCustomerGroup } from "../../../../../hooks/api/customer-groups"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateCustomerGroup } from "../../../../../hooks/api/customer-groups";
 
 export const CreateCustomerGroupSchema = zod.object({
   name: zod.string().min(1),
-})
+});
 
 export const CreateCustomerGroupForm = () => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof CreateCustomerGroupSchema>>({
     defaultValues: {
       name: "",
     },
     resolver: zodResolver(CreateCustomerGroupSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateCustomerGroup()
+  const { mutateAsync, isPending } = useCreateCustomerGroup();
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -40,16 +40,16 @@ export const CreateCustomerGroupForm = () => {
             t("customerGroups.create.successToast", {
               name: customer_group.name,
             })
-          )
+          );
 
-          handleSuccess(`/customer-groups/${customer_group.id}`)
+          handleSuccess(`/customer-groups/${customer_group.id}`);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="create-customer-group-form">
@@ -84,7 +84,7 @@ export const CreateCustomerGroupForm = () => {
                       </Form.Control>
                       <Form.ErrorMessage data-testid="create-customer-group-form-name-error" />
                     </Form.Item>
-                  )
+                  );
                 }}
               />
             </div>
@@ -110,5 +110,5 @@ export const CreateCustomerGroupForm = () => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

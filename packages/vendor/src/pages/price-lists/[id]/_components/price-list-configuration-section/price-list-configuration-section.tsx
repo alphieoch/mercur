@@ -1,12 +1,12 @@
-import { PencilSquare } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "@components/common/action-menu"
-import { DateRangeDisplay } from "@components/common/date-range-display"
-import { ListSummary } from "@components/common/list-summary"
-import { Skeleton } from "@components/common/skeleton"
-import { useCustomerGroups } from "@hooks/api/customer-groups"
+import { PencilSquare } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "@components/common/action-menu";
+import { DateRangeDisplay } from "@components/common/date-range-display";
+import { ListSummary } from "@components/common/list-summary";
+import { Skeleton } from "@components/common/skeleton";
+import { useCustomerGroups } from "@hooks/api/customer-groups";
 
 type PriceListConfigurationSectionProps = {
   priceList: HttpTypes.AdminPriceList
@@ -15,7 +15,7 @@ type PriceListConfigurationSectionProps = {
 export const PriceListConfigurationSection = ({
   priceList,
 }: PriceListConfigurationSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="flex flex-col gap-y-4">
@@ -46,44 +46,44 @@ export const PriceListConfigurationSection = ({
         showTime
       />
     </Container>
-  )
-}
+  );
+};
 
 const CustomerGroupDisplay = ({
   priceList,
 }: {
   priceList: HttpTypes.AdminPriceList & { price_list_rules: any[] }
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const customerGroupIds =
     priceList.price_list_rules?.find(
       (rule) => rule.attribute === "customer.groups.id"
-    )?.value || ([] as string[])
+    )?.value || ([] as string[]);
 
   const { customer_groups: customerGroupsData, isPending, isError, error } = useCustomerGroups(
     undefined,
     {
       enabled: !!customerGroupIds?.length,
     }
-  )
+  );
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   if (!customerGroupIds?.length) {
-    return null
+    return null;
   }
 
   if (isPending || !customerGroupsData) {
-    return <Skeleton className="h-5 w-full max-w-48" />
+    return <Skeleton className="h-5 w-full max-w-48" />;
   }
 
-  const flatCustomerGroups = customerGroupsData.map((item) => item.customer_group)
+  const flatCustomerGroups = customerGroupsData.map((item) => item.customer_group);
 
   const filteredCustomerGroups = flatCustomerGroups
-    .filter((group) => customerGroupIds.includes(group.id))
+    .filter((group) => customerGroupIds.includes(group.id));
 
   return (
     <div className="txt-small-plus text-ui-fg-muted flex items-center gap-x-1.5">
@@ -97,5 +97,5 @@ const CustomerGroupDisplay = ({
         className="txt-small-plus text-ui-fg-muted"
       />
     </div>
-  )
-}
+  );
+};

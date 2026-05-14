@@ -1,30 +1,30 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { useParams } from "react-router-dom"
-import { RouteDrawer } from "../../../../../components/modals"
-import { useInventoryItem } from "../../../../../hooks/api/inventory"
-import { useStockLocations } from "../../../../../hooks/api/stock-locations"
-import { ManageLocationsForm } from "./components/manage-locations-form"
+import { useParams } from "react-router-dom";
+import { RouteDrawer } from "../../../../../components/modals";
+import { useInventoryItem } from "../../../../../hooks/api/inventory";
+import { useStockLocations } from "../../../../../hooks/api/stock-locations";
+import { ManageLocationsForm } from "./components/manage-locations-form";
 
 export const ManageLocationsDrawer = () => {
-  const { id } = useParams()
-  const { t } = useTranslation()
+  const { id } = useParams();
+  const { t } = useTranslation();
 
   const {
     inventory_item: inventoryItem,
     isPending: isLoading,
     isError,
     error,
-  } = useInventoryItem(id!)
+  } = useInventoryItem(id!);
 
-  const { stock_locations, isLoading: loadingLocations } = useStockLocations()
+  const { stock_locations, isLoading: loadingLocations } = useStockLocations();
 
   const ready =
-    !isLoading && !loadingLocations && inventoryItem && stock_locations
+    !isLoading && !loadingLocations && inventoryItem && stock_locations;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -36,5 +36,5 @@ export const ManageLocationsDrawer = () => {
         <ManageLocationsForm item={inventoryItem} locations={stock_locations} />
       )}
     </RouteDrawer>
-  )
-}
+  );
+};

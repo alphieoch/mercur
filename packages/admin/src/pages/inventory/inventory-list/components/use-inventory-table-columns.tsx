@@ -1,11 +1,11 @@
-import { InventoryTypes, ProductVariantDTO } from "@medusajs/types"
+import { InventoryTypes, ProductVariantDTO } from "@medusajs/types";
 
-import { Checkbox } from "@medusajs/ui"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { PlaceholderCell } from "../../../../components/table/table-cells/common/placeholder-cell"
-import { InventoryActions } from "./inventory-actions"
+import { Checkbox } from "@medusajs/ui";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { PlaceholderCell } from "../../../../components/table/table-cells/common/placeholder-cell";
+import { InventoryActions } from "./inventory-actions";
 
 /**
  * Adds missing properties to the InventoryItemDTO type.
@@ -16,10 +16,10 @@ interface ExtendedInventoryItem extends InventoryTypes.InventoryItemDTO {
   reserved_quantity?: number
 }
 
-const columnHelper = createColumnHelper<ExtendedInventoryItem>()
+const columnHelper = createColumnHelper<ExtendedInventoryItem>();
 
 export const useInventoryTableColumns = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -38,7 +38,7 @@ export const useInventoryTableColumns = () => {
               }
               data-testid="inventory-table-header-select-checkbox"
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -46,11 +46,11 @@ export const useInventoryTableColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
               data-testid={`inventory-table-cell-${row.id}-select-checkbox`}
             />
-          )
+          );
         },
       }),
       columnHelper.accessor("title", {
@@ -60,10 +60,10 @@ export const useInventoryTableColumns = () => {
           </div>
         ),
         cell: ({ getValue, row }) => {
-          const title = getValue()
+          const title = getValue();
 
           if (!title) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
           return (
@@ -75,7 +75,7 @@ export const useInventoryTableColumns = () => {
                 {title}
               </span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("sku", {
@@ -85,10 +85,10 @@ export const useInventoryTableColumns = () => {
           </div>
         ),
         cell: ({ getValue, row }) => {
-          const sku = getValue() as string
+          const sku = getValue() as string;
 
           if (!sku) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
           return (
@@ -100,7 +100,7 @@ export const useInventoryTableColumns = () => {
                 {sku}
               </span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("reserved_quantity", {
@@ -110,10 +110,10 @@ export const useInventoryTableColumns = () => {
           </div>
         ),
         cell: ({ getValue, row }) => {
-          const quantity = getValue()
+          const quantity = getValue();
 
           if (Number.isNaN(quantity)) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
           return (
@@ -125,7 +125,7 @@ export const useInventoryTableColumns = () => {
                 {quantity}
               </span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("stocked_quantity", {
@@ -135,10 +135,10 @@ export const useInventoryTableColumns = () => {
           </div>
         ),
         cell: ({ getValue, row }) => {
-          const quantity = getValue()
+          const quantity = getValue();
 
           if (Number.isNaN(quantity)) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
           return (
@@ -150,7 +150,7 @@ export const useInventoryTableColumns = () => {
                 {quantity}
               </span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.display({
@@ -164,5 +164,5 @@ export const useInventoryTableColumns = () => {
       }),
     ],
     [t]
-  )
-}
+  );
+};

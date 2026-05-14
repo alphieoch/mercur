@@ -1,5 +1,5 @@
-import { forwardRef, useEffect, useMemo, useImperativeHandle, useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { forwardRef, useEffect, useMemo, useImperativeHandle, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   InlineTip,
   Input,
@@ -7,24 +7,24 @@ import {
   Switch,
   Text,
   Textarea,
-} from "@medusajs/ui"
-import { FormProvider, useForm, useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import type { AdminProductCategory } from "@medusajs/types"
-import { AttributeDTO } from "@mercurjs/types"
-import { Form } from "../../../../components/common/form"
+import type { AdminProductCategory } from "@medusajs/types";
+import { AttributeDTO } from "@mercurjs/types";
+import { Form } from "../../../../components/common/form";
 import {
   AttributeUIComponent,
   CreateAttributeSchema,
   UpdateAttributeSchema,
-} from "../schema"
+} from "../schema";
 import type {
   CreateAttributeFormValues,
   UpdateAttributeFormValues,
-} from "../types"
-import { MultiSelectCategory } from "../../attribute-create/components/multi-select-category"
-import { PossibleValuesList } from "../../attribute-create/components/possible-values-list"
+} from "../types";
+import { MultiSelectCategory } from "../../attribute-create/components/multi-select-category";
+import { PossibleValuesList } from "../../attribute-create/components/possible-values-list";
 
 export interface AttributeFormRef {
   validateFields: (fields: string[]) => Promise<boolean>
@@ -50,7 +50,7 @@ const UI_COMPONENT_LABELS: Record<string, string> = {
   unit: "Unit",
   toggle: "Toggle",
   text_area: "Text",
-}
+};
 
 export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
   (
@@ -64,11 +64,11 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
     },
     ref
   ) => {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
     const [showCategorySection, setShowCategorySection] = useState(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ((initialData as any)?.product_categories?.length || 0) > 0
-    )
+    );
 
     const form = useForm<CreateAttributeFormValues | UpdateAttributeFormValues>({
       resolver: zodResolver(
@@ -96,15 +96,15 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
         product_category_ids: [],
         metadata: {},
       },
-    })
+    });
 
     const handleSubmit = form.handleSubmit(async (data) => {
       try {
-        await onSubmit(data)
+        await onSubmit(data);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-    })
+    });
 
     useImperativeHandle(ref, () => ({
       validateFields: async (fields: string[]) => {
@@ -113,10 +113,10 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
             | CreateAttributeFormValues
             | UpdateAttributeFormValues
           ))[]
-        )
-        return result
+        );
+        return result;
       },
-    }))
+    }));
 
     const [name, description, handle, uiComponent, possibleValues] = useWatch({
       control: form.control,
@@ -127,7 +127,7 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
         "ui_component",
         "possible_values",
       ],
-    })
+    });
 
     const formStateKey = useMemo(() => {
       return JSON.stringify({
@@ -136,23 +136,23 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
         handle,
         uiComponent,
         valuesCount: possibleValues?.length ?? 0,
-      })
-    }, [name, description, handle, uiComponent, possibleValues])
+      });
+    }, [name, description, handle, uiComponent, possibleValues]);
 
     useEffect(() => {
-      if (!onFormStateChange) return
+      if (!onFormStateChange) return;
 
-      const hasName = name?.trim()
-      const hasDetailsData = description?.trim() || handle?.trim()
+      const hasName = name?.trim();
+      const hasDetailsData = description?.trim() || handle?.trim();
       const detailsStatus = hasName
         ? "completed"
         : hasDetailsData
           ? "in-progress"
-          : "not-started"
+          : "not-started";
 
       const hasTypeData =
-        uiComponent && (possibleValues?.length ?? 0) > 0
-      const typeStatus = hasTypeData ? "completed" : "not-started"
+        uiComponent && (possibleValues?.length ?? 0) > 0;
+      const typeStatus = hasTypeData ? "completed" : "not-started";
 
       onFormStateChange({
         detailsStatus: detailsStatus as
@@ -160,8 +160,8 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
           | "in-progress"
           | "completed",
         typeStatus: typeStatus as "not-started" | "in-progress" | "completed",
-      })
-    }, [formStateKey, onFormStateChange])
+      });
+    }, [formStateKey, onFormStateChange]);
 
     const renderDetailsTab = () => (
       <div className="grid gap-6" data-testid="attribute-form-details-tab">
@@ -310,8 +310,8 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
             control={form.control}
             name="product_category_ids"
             render={({ field }) => {
-              const categoryIds = (field.value as string[]) ?? []
-              const isGlobal = categoryIds.length === 0 && !showCategorySection
+              const categoryIds = (field.value as string[]) ?? [];
+              const isGlobal = categoryIds.length === 0 && !showCategorySection;
               return (
                 <Form.Item data-testid="attribute-form-global-field">
                   <div className="rounded-lg bg-ui-bg-component p-4 shadow-elevation-card-rest">
@@ -321,10 +321,10 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
                           checked={isGlobal}
                           onCheckedChange={(checked) => {
                             if (checked) {
-                              field.onChange([])
-                              setShowCategorySection(false)
+                              field.onChange([]);
+                              setShowCategorySection(false);
                             } else {
-                              setShowCategorySection(true)
+                              setShowCategorySection(true);
                             }
                           }}
                           className="mt-1"
@@ -375,12 +375,12 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
                     </div>
                   )}
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
       </div>
-    )
+    );
 
     const renderTypeTab = () => (
       <div
@@ -435,13 +435,13 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
           <InlineTip label="Tip" variant="info">
             {uiComponent === AttributeUIComponent.SELECT
               ? t(
-                  "attributes.tips.singleSelect",
-                  "When creating Single Select vendor will be able to choose only one value. This type of attribute will be good for product specifications."
-                )
+                "attributes.tips.singleSelect",
+                "When creating Single Select vendor will be able to choose only one value. This type of attribute will be good for product specifications."
+              )
               : t(
-                  "attributes.tips.multiSelect",
-                  "When creating Multi Select vendor will be able to choose multiple values."
-                )}
+                "attributes.tips.multiSelect",
+                "When creating Multi Select vendor will be able to choose multiple values."
+              )}
           </InlineTip>
         )}
 
@@ -452,7 +452,7 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
           </div>
         )}
       </div>
-    )
+    );
 
     return (
       <FormProvider {...form}>
@@ -465,8 +465,8 @@ export const AttributeForm = forwardRef<AttributeFormRef, AttributeFormProps>(
           {activeTab === "type" && renderTypeTab()}
         </form>
       </FormProvider>
-    )
+    );
   }
-)
+);
 
-AttributeForm.displayName = "AttributeForm"
+AttributeForm.displayName = "AttributeForm";

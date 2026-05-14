@@ -116,8 +116,8 @@ const Root = ({ children }: { children?: ReactNode }) => {
         {seller.status === SellerStatus.PENDING_APPROVAL &&
           !seller.approved_at &&
           !seller.rejected_at && (
-            <StoreRequestSection seller={seller} />
-          )}
+          <StoreRequestSection seller={seller} />
+        )}
         <StoreGeneralSection seller={seller} />
         <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
         {activeTab === "orders" && (

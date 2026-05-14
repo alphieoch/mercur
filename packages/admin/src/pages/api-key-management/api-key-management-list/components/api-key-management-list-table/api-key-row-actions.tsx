@@ -1,23 +1,23 @@
-import { PencilSquare, SquareTwoStack, Trash, XCircle } from "@medusajs/icons"
-import { AdminApiKeyResponse } from "@medusajs/types"
-import { toast, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
+import { PencilSquare, SquareTwoStack, Trash, XCircle } from "@medusajs/icons";
+import { AdminApiKeyResponse } from "@medusajs/types";
+import { toast, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
 import {
   useDeleteApiKey,
   useRevokeApiKey,
-} from "../../../../../hooks/api/api-keys"
+} from "../../../../../hooks/api/api-keys";
 
 export const ApiKeyRowActions = ({
   apiKey,
 }: {
   apiKey: AdminApiKeyResponse["api_key"]
 }) => {
-  const { mutateAsync: revokeAsync } = useRevokeApiKey(apiKey.id)
-  const { mutateAsync: deleteAsync } = useDeleteApiKey(apiKey.id)
+  const { mutateAsync: revokeAsync } = useRevokeApiKey(apiKey.id);
+  const { mutateAsync: deleteAsync } = useDeleteApiKey(apiKey.id);
 
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -27,10 +27,10 @@ export const ApiKeyRowActions = ({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await deleteAsync(undefined, {
@@ -39,13 +39,13 @@ export const ApiKeyRowActions = ({
           t("apiKeyManagement.delete.successToast", {
             title: apiKey.title,
           })
-        )
+        );
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  }
+    });
+  };
 
   const handleRevoke = async () => {
     const res = await prompt({
@@ -55,10 +55,10 @@ export const ApiKeyRowActions = ({
       }),
       confirmText: t("apiKeyManagement.actions.revoke"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await revokeAsync(undefined, {
@@ -67,18 +67,18 @@ export const ApiKeyRowActions = ({
           t("apiKeyManagement.revoke.successToast", {
             title: apiKey.title,
           })
-        )
+        );
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  }
+    });
+  };
 
   const handleCopyToken = () => {
-    navigator.clipboard.writeText(apiKey.token)
-    toast.success(t("apiKeyManagement.actions.copySuccessToast"))
-  }
+    navigator.clipboard.writeText(apiKey.token);
+    toast.success(t("apiKeyManagement.actions.copySuccessToast"));
+  };
 
   return (
     <ActionMenu
@@ -92,12 +92,12 @@ export const ApiKeyRowActions = ({
             },
             ...(apiKey.type !== "secret"
               ? [
-                  {
-                    label: t("apiKeyManagement.actions.copy"),
-                    onClick: handleCopyToken,
-                    icon: <SquareTwoStack />,
-                  },
-                ]
+                {
+                  label: t("apiKeyManagement.actions.copy"),
+                  onClick: handleCopyToken,
+                  icon: <SquareTwoStack />,
+                },
+              ]
               : []),
           ],
         },
@@ -120,5 +120,5 @@ export const ApiKeyRowActions = ({
       ]}
       data-testid={`api-key-row-action-menu-${apiKey.id}`}
     />
-  )
-}
+  );
+};

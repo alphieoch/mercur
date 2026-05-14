@@ -1,38 +1,38 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as zod from "zod";
 
-import { HttpTypes } from "@medusajs/types"
-import { Button, toast } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { Button, toast } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { DataGrid } from "@components/data-grid"
+import { DataGrid } from "@components/data-grid";
 import {
   RouteFocusModal,
   StackedFocusModal,
   useRouteModal,
   useStackedModal,
-} from "@components/modals/index"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { usePricePreferences } from "@hooks/api/price-preferences"
-import { useUpdateShippingOptions } from "@hooks/api/shipping-options"
-import { useStore } from "@hooks/api/store"
-import { castNumber } from "@lib/cast-number"
-import { ConditionalPriceForm } from "@pages/settings/locations/_common/components/conditional-price-form"
-import { ShippingOptionPriceProvider } from "@pages/settings/locations/_common/components/shipping-option-price-provider"
+} from "@components/modals/index";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { usePricePreferences } from "@hooks/api/price-preferences";
+import { useUpdateShippingOptions } from "@hooks/api/shipping-options";
+import { useStore } from "@hooks/api/store";
+import { castNumber } from "@lib/cast-number";
+import { ConditionalPriceForm } from "@pages/settings/locations/_common/components/conditional-price-form";
+import { ShippingOptionPriceProvider } from "@pages/settings/locations/_common/components/shipping-option-price-provider";
 import {
   CONDITIONAL_PRICES_STACKED_MODAL_ID,
   ITEM_TOTAL_ATTRIBUTE,
   REGION_ID_ATTRIBUTE,
-} from "@pages/settings/locations/_common/constants"
-import { useShippingOptionPriceColumns } from "@pages/settings/locations/_common/hooks/use-shipping-option-price-columns"
+} from "@pages/settings/locations/_common/constants";
+import { useShippingOptionPriceColumns } from "@pages/settings/locations/_common/hooks/use-shipping-option-price-columns";
 import {
   UpdateConditionalPrice,
   UpdateConditionalPriceSchema,
-} from "@pages/settings/locations/_common/schema"
-import { ConditionalPriceInfo } from "@pages/settings/locations/_common/types"
-import { useRegions } from "@hooks/api"
+} from "@pages/settings/locations/_common/schema";
+import { ConditionalPriceInfo } from "@pages/settings/locations/_common/types";
+import { useRegions } from "@hooks/api";
 
 type PriceRecord = {
   id?: string
@@ -58,7 +58,7 @@ const EditShippingOptionPricingSchema = zod.object({
     zod.string(),
     zod.array(UpdateConditionalPriceSchema)
   ),
-})
+});
 
 type EditShippingOptionPricingFormProps = {
   shippingOption: HttpTypes.AdminShippingOption
@@ -67,58 +67,58 @@ type EditShippingOptionPricingFormProps = {
 export function EditShippingOptionsPricingForm({
   shippingOption,
 }: EditShippingOptionPricingFormProps) {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const { getIsOpen, setIsOpen } = useStackedModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const { getIsOpen, setIsOpen } = useStackedModal();
   const [selectedPrice, setSelectedPrice] =
-    useState<ConditionalPriceInfo | null>(null)
+    useState<ConditionalPriceInfo | null>(null);
 
   const onOpenConditionalPricesModal = (info: ConditionalPriceInfo) => {
-    setIsOpen(CONDITIONAL_PRICES_STACKED_MODAL_ID, true)
-    setSelectedPrice(info)
-  }
+    setIsOpen(CONDITIONAL_PRICES_STACKED_MODAL_ID, true);
+    setSelectedPrice(info);
+  };
 
   const onCloseConditionalPricesModal = () => {
-    setIsOpen(CONDITIONAL_PRICES_STACKED_MODAL_ID, false)
-    setSelectedPrice(null)
-  }
+    setIsOpen(CONDITIONAL_PRICES_STACKED_MODAL_ID, false);
+    setSelectedPrice(null);
+  };
 
   const form = useForm<zod.infer<typeof EditShippingOptionPricingSchema>>({
     defaultValues: getDefaultValues(shippingOption.prices),
     resolver: zodResolver(EditShippingOptionPricingSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateShippingOptions(shippingOption.id)
+  const { mutateAsync, isPending } = useUpdateShippingOptions(shippingOption.id);
 
   const {
     store,
     isLoading: isStoreLoading,
     isError: isStoreError,
     error: storeError,
-  } = useStore()
+  } = useStore();
 
   const currencies = useMemo(
     () => store?.supported_currencies?.map((c) => c.currency_code) || [],
     [store]
-  )
+  );
 
-  const { price_preferences: pricePreferences } = usePricePreferences({})
+  const { price_preferences: pricePreferences } = usePricePreferences({});
 
   const { regions } = useRegions({
     fields: "id,name,currency_code",
     limit: 999,
-  })
+  });
 
-  const { setCloseOnEscape } = useRouteModal()
+  const { setCloseOnEscape } = useRouteModal();
 
   const columns = useShippingOptionPriceColumns({
     name: shippingOption.name,
     currencies,
     regions,
     pricePreferences,
-  })
+  });
 
-  const data = useMemo(() => [[...(currencies || [])]], [currencies])
+  const data = useMemo(() => [[...(currencies || [])]], [currencies]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     // const currencyPrices = Object.entries(data.currency_prices)
@@ -169,11 +169,11 @@ export function EditShippingOptionsPricingForm({
           amount: castNumber(value || 0),
           // currency_code: regions?.find((r) => r.id === region_id)
           //   ?.currency_code,
-        }
+        };
 
-        return priceRecord
+        return priceRecord;
       })
-      .filter((p): p is PriceRecord => !!p)
+      .filter((p): p is PriceRecord => !!p);
 
     // const conditionalRegionPrices = Object.entries(
     //   data.conditional_region_prices
@@ -191,26 +191,26 @@ export function EditShippingOptionsPricingForm({
       // ...conditionalCurrencyPrices,
       ...regionPrices,
       // ...conditionalRegionPrices,
-    ]
+    ];
 
     await mutateAsync(
       { prices: allPrices },
       {
         onSuccess: () => {
-          toast.success(t("general.success"))
-          handleSuccess()
+          toast.success(t("general.success"));
+          handleSuccess();
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
-  const isLoading = isStoreLoading || !currencies
+  const isLoading = isStoreLoading || !currencies;
 
   if (isStoreError) {
-    throw storeError
+    throw storeError;
   }
 
   return (
@@ -226,7 +226,7 @@ export function EditShippingOptionsPricingForm({
             id={CONDITIONAL_PRICES_STACKED_MODAL_ID}
             onOpenChangeCallback={(open) => {
               if (!open) {
-                setSelectedPrice(null)
+                setSelectedPrice(null);
               }
             }}
           >
@@ -272,26 +272,26 @@ export function EditShippingOptionsPricingForm({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }
 
 const findRuleValue = (
   rules: HttpTypes.AdminShippingOptionPriceRule[],
   operator: string
 ) => {
-  const fallbackValue = ["eq", "gt", "lt"].includes(operator) ? undefined : null
+  const fallbackValue = ["eq", "gt", "lt"].includes(operator) ? undefined : null;
 
   return (
     rules?.find(
       (r) => r.attribute === ITEM_TOTAL_ATTRIBUTE && r.operator === operator
     )?.value || fallbackValue
-  )
-}
+  );
+};
 
 const mapToConditionalPrice = (
   price: HttpTypes.AdminShippingOptionPrice
 ): UpdateConditionalPrice => {
-  const rules = price.price_rules || []
+  const rules = price.price_rules || [];
 
   return {
     id: price.id,
@@ -301,8 +301,8 @@ const mapToConditionalPrice = (
     gt: findRuleValue(rules, "gt") as undefined | null,
     lt: findRuleValue(rules, "lt") as undefined | null,
     eq: findRuleValue(rules, "eq") as undefined | null,
-  }
-}
+  };
+};
 
 const getDefaultValues = (prices: HttpTypes.AdminShippingOptionPrice[]) => {
   const hasAttributes = (
@@ -310,48 +310,48 @@ const getDefaultValues = (prices: HttpTypes.AdminShippingOptionPrice[]) => {
     required: string[],
     forbidden: string[] = []
   ) => {
-    const attributes = price.price_rules?.map((r) => r.attribute) || []
+    const attributes = price.price_rules?.map((r) => r.attribute) || [];
     return (
       required.every((attr) => attributes.includes(attr)) &&
       !forbidden.some((attr) => attributes.includes(attr))
-    )
-  }
+    );
+  };
 
-  const currency_prices: Record<string, number> = {}
+  const currency_prices: Record<string, number> = {};
   const conditional_currency_prices: Record<string, UpdateConditionalPrice[]> =
-    {}
-  const region_prices: Record<string, number> = {}
-  const conditional_region_prices: Record<string, UpdateConditionalPrice[]> = {}
+    {};
+  const region_prices: Record<string, number> = {};
+  const conditional_region_prices: Record<string, UpdateConditionalPrice[]> = {};
 
   prices.forEach((price) => {
     if (!price.price_rules?.length) {
-      currency_prices[price.currency_code!] = price.amount
-      return
+      currency_prices[price.currency_code!] = price.amount;
+      return;
     }
 
     const region_id = price.price_rules?.find(
       (r) => r.attribute === REGION_ID_ATTRIBUTE
-    )?.value
+    )?.value;
 
     if (region_id) {
-      region_prices[region_id] = price.amount
-      return
+      region_prices[region_id] = price.amount;
+      return;
     }
 
     if (hasAttributes(price, [ITEM_TOTAL_ATTRIBUTE], [REGION_ID_ATTRIBUTE])) {
-      const code = price.currency_code!
+      const code = price.currency_code!;
       if (!conditional_currency_prices[code]) {
-        conditional_currency_prices[code] = []
+        conditional_currency_prices[code] = [];
       }
-      conditional_currency_prices[code].push(mapToConditionalPrice(price))
-      return
+      conditional_currency_prices[code].push(mapToConditionalPrice(price));
+      return;
     }
-  })
+  });
 
   return {
     currency_prices,
     conditional_currency_prices,
     region_prices,
     conditional_region_prices,
-  }
-}
+  };
+};

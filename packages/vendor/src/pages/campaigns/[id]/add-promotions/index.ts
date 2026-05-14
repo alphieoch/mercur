@@ -1,1 +1,1 @@
-export * from "./add-promotions-page"
+export * from "./add-promotions-page";

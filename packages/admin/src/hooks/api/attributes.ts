@@ -1,16 +1,16 @@
-import { ClientError } from "@mercurjs/client"
+import { ClientError } from "@mercurjs/client";
 import {
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const ATTRIBUTES_QUERY_KEY = "attributes" as const
-export const attributesQueryKeys = queryKeysFactory(ATTRIBUTES_QUERY_KEY)
+const ATTRIBUTES_QUERY_KEY = "attributes" as const;
+export const attributesQueryKeys = queryKeysFactory(ATTRIBUTES_QUERY_KEY);
 
 export const useAttribute = (
   id: string,
@@ -30,10 +30,10 @@ export const useAttribute = (
         attribute: Record<string, any>
       }>,
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useAttributes = (
   query?: Record<string, any>,
@@ -53,10 +53,10 @@ export const useAttributes = (
         count: number
       }>,
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateAttribute = (
   options?: UseMutationOptions<any, ClientError, Record<string, any>>
@@ -67,13 +67,13 @@ export const useCreateAttribute = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateAttribute = (
   id: string,
@@ -85,16 +85,16 @@ export const useUpdateAttribute = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.lists(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.detail(id),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteAttribute = (
   id: string,
@@ -105,16 +105,16 @@ export const useDeleteAttribute = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.lists(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.detail(id),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCreateAttributePossibleValue = (
   attributeId: string,
@@ -129,16 +129,16 @@ export const useCreateAttributePossibleValue = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.detail(attributeId),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateAttributePossibleValue = (
   attributeId: string,
@@ -155,10 +155,10 @@ export const useUpdateAttributePossibleValue = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: attributesQueryKeys.detail(attributeId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

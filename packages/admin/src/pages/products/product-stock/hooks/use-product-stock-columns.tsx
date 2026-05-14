@@ -1,22 +1,22 @@
-import { InformationCircle } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Switch, Tooltip } from "@medusajs/ui"
-import { useCallback, useMemo } from "react"
+import { InformationCircle } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Switch, Tooltip } from "@medusajs/ui";
+import { useCallback, useMemo } from "react";
 
-import { useTranslation } from "react-i18next"
-import { Thumbnail } from "../../../../components/common/thumbnail"
-import { createDataGridHelper } from "../../../../components/data-grid"
-import { DataGridReadOnlyCell } from "../../../../components/data-grid/components"
-import { DataGridDuplicateCell } from "../../../../components/data-grid/components/data-grid-duplicate-cell"
-import { DataGridTogglableNumberCell } from "../../../../components/data-grid/components/data-grid-toggleable-number-cell"
-import { ProductStockSchema } from "../schema"
-import { isProductVariant } from "../utils"
+import { useTranslation } from "react-i18next";
+import { Thumbnail } from "../../../../components/common/thumbnail";
+import { createDataGridHelper } from "../../../../components/data-grid";
+import { DataGridReadOnlyCell } from "../../../../components/data-grid/components";
+import { DataGridDuplicateCell } from "../../../../components/data-grid/components/data-grid-duplicate-cell";
+import { DataGridTogglableNumberCell } from "../../../../components/data-grid/components/data-grid-toggleable-number-cell";
+import { ProductStockSchema } from "../schema";
+import { isProductVariant } from "../utils";
 
 const helper = createDataGridHelper<
   | HttpTypes.AdminProductVariant
   | HttpTypes.AdminProductVariantInventoryItemLink,
   ProductStockSchema
->()
+>();
 
 type DisabledItem = { id: string; title: string; sku: string }
 type DisabledResult =
@@ -33,26 +33,26 @@ export const useProductStockColumns = (
   locations: HttpTypes.AdminStockLocation[] = [],
   disabled: Record<string, DisabledItem> = {}
 ) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const getIsDisabled = useCallback(
     (item: HttpTypes.AdminProductVariantInventoryItemLink): DisabledResult => {
-      const disabledItem = disabled[item.inventory_item_id]
-      const isDisabled = !!disabledItem && disabledItem.id !== item.variant_id
+      const disabledItem = disabled[item.inventory_item_id];
+      const isDisabled = !!disabledItem && disabledItem.id !== item.variant_id;
 
       if (!isDisabled) {
         return {
           isDisabled: false,
           item: undefined,
-        }
+        };
       }
 
       return {
         isDisabled,
         item: disabledItem,
-      }
+      };
     },
     [disabled]
-  )
+  );
 
   return useMemo(
     () => [
@@ -61,7 +61,7 @@ export const useProductStockColumns = (
         name: "Title",
         header: "Title",
         cell: (context) => {
-          const item = context.row.original
+          const item = context.row.original;
 
           if (isProductVariant(item)) {
             return (
@@ -71,10 +71,10 @@ export const useProductStockColumns = (
                   <span>{item.title || "-"}</span>
                 </div>
               </DataGridReadOnlyCell>
-            )
+            );
           }
 
-          const { isDisabled, item: disabledItem } = getIsDisabled(item)
+          const { isDisabled, item: disabledItem } = getIsDisabled(item);
 
           if (isDisabled) {
             return (
@@ -90,26 +90,26 @@ export const useProductStockColumns = (
                     content={
                       disabledItem.sku
                         ? t("products.stock.tooltips.alreadyManagedWithSku", {
-                            title: disabledItem.title,
-                            sku: disabledItem.sku,
-                          })
+                          title: disabledItem.title,
+                          sku: disabledItem.sku,
+                        })
                         : t("products.stock.tooltips.alreadyManaged", {
-                            title: disabledItem.title,
-                          })
+                          title: disabledItem.title,
+                        })
                     }
                   >
                     <InformationCircle />
                   </Tooltip>
                 </div>
               </DataGridReadOnlyCell>
-            )
+            );
           }
 
           return (
             <DataGridReadOnlyCell context={context} color="normal">
               {item.inventory?.title || "-"}
             </DataGridReadOnlyCell>
-          )
+          );
         },
         disableHiding: true,
       }),
@@ -118,17 +118,17 @@ export const useProductStockColumns = (
         name: "SKU",
         header: "SKU",
         cell: (context) => {
-          const item = context.row.original
+          const item = context.row.original;
 
           if (isProductVariant(item)) {
             return (
               <DataGridReadOnlyCell context={context}>
                 {item.sku || "-"}
               </DataGridReadOnlyCell>
-            )
+            );
           }
 
-          const { isDisabled } = getIsDisabled(item)
+          const { isDisabled } = getIsDisabled(item);
 
           if (isDisabled) {
             return (
@@ -137,14 +137,14 @@ export const useProductStockColumns = (
                   {item.inventory?.sku || "-"}
                 </span>
               </DataGridReadOnlyCell>
-            )
+            );
           }
 
           return (
             <DataGridReadOnlyCell context={context} color="normal">
               {item.inventory?.sku || "-"}
             </DataGridReadOnlyCell>
-          )
+          );
         },
         disableHiding: true,
       }),
@@ -154,29 +154,29 @@ export const useProductStockColumns = (
           name: location.name,
           header: location.name,
           field: (context) => {
-            const item = context.row.original
+            const item = context.row.original;
 
             if (isProductVariant(item)) {
-              return null
+              return null;
             }
 
-            const { isDisabled } = getIsDisabled(item)
+            const { isDisabled } = getIsDisabled(item);
 
             if (isDisabled) {
-              return null
+              return null;
             }
 
-            return `variants.${item.variant_id}.inventory_items.${item.inventory_item_id}.locations.${location.id}` as const
+            return `variants.${item.variant_id}.inventory_items.${item.inventory_item_id}.locations.${location.id}` as const;
           },
           type: "togglable-number",
           cell: (context) => {
-            const item = context.row.original
+            const item = context.row.original;
 
             if (isProductVariant(item)) {
-              return <DataGridReadOnlyCell context={context} />
+              return <DataGridReadOnlyCell context={context} />;
             }
 
-            const { isDisabled, item: disabledItem } = getIsDisabled(item)
+            const { isDisabled, item: disabledItem } = getIsDisabled(item);
 
             if (isDisabled) {
               return (
@@ -187,7 +187,7 @@ export const useProductStockColumns = (
                     const { checked, quantity } = value as {
                       checked: boolean
                       quantity: number | string
-                    }
+                    };
 
                     return (
                       <div className="flex size-full items-center gap-x-2">
@@ -203,10 +203,10 @@ export const useProductStockColumns = (
                           {quantity}
                         </span>
                       </div>
-                    )
+                    );
                   }}
                 </DataGridDuplicateCell>
-              )
+              );
             }
 
             return (
@@ -217,11 +217,11 @@ export const useProductStockColumns = (
                 )}
                 placeholder={t("inventory.stock.placeholder")}
               />
-            )
+            );
           },
         })
       ),
     ],
     [locations, getIsDisabled, t]
-  )
-}
+  );
+};

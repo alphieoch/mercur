@@ -1,1 +1,1 @@
-export * from "./sales-channel-list-view"
+export * from "./sales-channel-list-view";

@@ -1,18 +1,18 @@
-import { HttpTypes } from "@medusajs/types"
-import { ClientError } from "@mercurjs/client"
+import { HttpTypes } from "@medusajs/types";
+import { ClientError } from "@mercurjs/client";
 import {
   QueryKey,
   useMutation,
   UseMutationOptions,
   useQuery,
   UseQueryOptions,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
-import { campaignsQueryKeys } from "./campaigns"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
+import { campaignsQueryKeys } from "./campaigns";
 
-const PROMOTIONS_QUERY_KEY = "promotions" as const
+const PROMOTIONS_QUERY_KEY = "promotions" as const;
 export const promotionsQueryKeys = {
   ...queryKeysFactory(PROMOTIONS_QUERY_KEY),
   // TODO: handle invalidations properly
@@ -36,7 +36,7 @@ export const promotionsQueryKeys = {
     ruleValue: string,
     query: HttpTypes.AdminGetPromotionsRuleValueParams
   ) => [PROMOTIONS_QUERY_KEY, ruleType, ruleValue, query],
-}
+};
 
 export const usePromotion = (
   id: string,
@@ -54,10 +54,10 @@ export const usePromotion = (
     queryKey: promotionsQueryKeys.detail(id),
     queryFn: async () => sdk.admin.promotions.$id.query({ $id: id }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const usePromotionRules = (
   id: string | null,
@@ -82,10 +82,10 @@ export const usePromotionRules = (
         ...query,
       }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const usePromotions = (
   query?: HttpTypes.AdminGetPromotionsParams,
@@ -103,10 +103,10 @@ export const usePromotions = (
     queryKey: promotionsQueryKeys.list(query),
     queryFn: async () => sdk.admin.promotions.query({ ...query }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const usePromotionRuleAttributes = (
   ruleType: string,
@@ -135,10 +135,10 @@ export const usePromotionRuleAttributes = (
         application_method_target_type: applicationMethodTargetType,
       }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const usePromotionRuleValues = (
   ruleType: string,
@@ -167,10 +167,10 @@ export const usePromotionRuleValues = (
         ...query,
       }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useDeletePromotion = (
   id: string,
@@ -183,16 +183,16 @@ export const useDeletePromotion = (
   return useMutation({
     mutationFn: () => sdk.admin.promotions.$id.delete({ $id: id }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: promotionsQueryKeys.detail(id),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCreatePromotion = (
   options?: UseMutationOptions<
@@ -204,13 +204,13 @@ export const useCreatePromotion = (
   return useMutation({
     mutationFn: (payload) => sdk.admin.promotions.mutate(payload),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: campaignsQueryKeys.lists() })
-      options?.onSuccess?.(data, variables, context)
+      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: campaignsQueryKeys.lists() });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdatePromotion = (
   id: string,
@@ -224,13 +224,13 @@ export const useUpdatePromotion = (
     mutationFn: (payload) =>
       sdk.admin.promotions.$id.mutate({ $id: id, ...payload }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.all })
+      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.all });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const usePromotionAddRules = (
   id: string,
@@ -249,13 +249,13 @@ export const usePromotionAddRules = (
         create: payload.rules,
       }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.all })
+      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.all });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const usePromotionRemoveRules = (
   id: string,
@@ -274,13 +274,13 @@ export const usePromotionRemoveRules = (
         delete: payload.rule_ids,
       }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.all })
+      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.all });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const usePromotionUpdateRules = (
   id: string,
@@ -299,10 +299,10 @@ export const usePromotionUpdateRules = (
         update: payload.rules,
       }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.all })
+      queryClient.invalidateQueries({ queryKey: promotionsQueryKeys.all });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

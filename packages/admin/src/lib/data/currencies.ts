@@ -745,8 +745,8 @@ export const currencies: Record<string, CurrencyInfo> = {
     symbol_native: "ZWL$",
     decimal_digits: 0,
   },
-}
+};
 
 export function getCurrencySymbol(code: string) {
-  return currencies[code.toUpperCase()].symbol_native
+  return currencies[code.toUpperCase()].symbol_native;
 }

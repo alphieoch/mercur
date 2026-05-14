@@ -1,4 +1,4 @@
-import type { HttpTypes } from "@medusajs/types"
+import type { HttpTypes } from "@medusajs/types";
 
 export interface StaticCountry
   extends Required<Omit<HttpTypes.AdminRegionCountry, "id">> {}
@@ -7,10 +7,10 @@ export function getCountryByIso2(
   iso2: string | null
 ): StaticCountry | undefined {
   if (!iso2) {
-    return
+    return;
   }
 
-  return countries.find((c) => c.iso_2.toLowerCase() === iso2.toLowerCase())
+  return countries.find((c) => c.iso_2.toLowerCase() === iso2.toLowerCase());
 }
 
 export const countries: StaticCountry[] = [
@@ -1764,4 +1764,4 @@ export const countries: StaticCountry[] = [
     name: "ÅLAND ISLANDS",
     display_name: "Åland Islands",
   },
-]
+];

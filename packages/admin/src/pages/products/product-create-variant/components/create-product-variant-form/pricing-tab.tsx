@@ -1,38 +1,38 @@
-import { useMemo } from "react"
-import { useWatch } from "react-hook-form"
-import { HttpTypes } from "@medusajs/types"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { useMemo } from "react";
+import { useWatch } from "react-hook-form";
+import { HttpTypes } from "@medusajs/types";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { CreateProductVariantSchema } from "./constants"
-import { useRegions, useStore } from "../../../../../hooks/api"
-import { usePricePreferences } from "../../../../../hooks/api/price-preferences"
-import { useRouteModal } from "../../../../../components/modals"
+import { CreateProductVariantSchema } from "./constants";
+import { useRegions, useStore } from "../../../../../hooks/api";
+import { usePricePreferences } from "../../../../../hooks/api/price-preferences";
+import { useRouteModal } from "../../../../../components/modals";
 import {
   createDataGridHelper,
   createDataGridPriceColumns,
   DataGrid,
-} from "../../../../../components/data-grid"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
+} from "../../../../../components/data-grid";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
 
 function PricingTab() {
-  const form = useTabbedForm<z.infer<typeof CreateProductVariantSchema>>()
-  const { store } = useStore()
-  const { regions } = useRegions({ limit: 9999 })
-  const { price_preferences: pricePreferences } = usePricePreferences({})
+  const form = useTabbedForm<z.infer<typeof CreateProductVariantSchema>>();
+  const { store } = useStore();
+  const { regions } = useRegions({ limit: 9999 });
+  const { price_preferences: pricePreferences } = usePricePreferences({});
 
-  const { setCloseOnEscape } = useRouteModal()
+  const { setCloseOnEscape } = useRouteModal();
 
   const columns = useVariantPriceGridColumns({
     currencies: store?.supported_currencies,
     regions,
     pricePreferences,
-  })
+  });
 
   const variant = useWatch({
     control: form.control,
-  }) as any
+  }) as any;
 
   return (
     <div data-testid="product-variant-create-form-pricing-tab">
@@ -43,13 +43,13 @@ function PricingTab() {
         onEditingChange={(editing) => setCloseOnEscape(!editing)}
       />
     </div>
-  )
+  );
 }
 
 const columnHelper = createDataGridHelper<
   HttpTypes.AdminProductVariant,
   z.infer<typeof CreateProductVariantSchema>
->()
+>();
 
 const useVariantPriceGridColumns = ({
   currencies = [],
@@ -60,7 +60,7 @@ const useVariantPriceGridColumns = ({
   regions?: HttpTypes.AdminRegion[]
   pricePreferences?: HttpTypes.AdminPricePreference[]
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(() => {
     return [
@@ -68,14 +68,14 @@ const useVariantPriceGridColumns = ({
         id: t("fields.title"),
         header: t("fields.title"),
         cell: (context) => {
-          const entity = context.row.original
+          const entity = context.row.original;
           return (
             <DataGrid.ReadonlyCell context={context}>
               <div className="flex h-full w-full items-center gap-x-2 overflow-hidden">
                 <span className="truncate">{entity.title}</span>
               </div>
             </DataGrid.ReadonlyCell>
-          )
+          );
         },
         disableHiding: true,
       }),
@@ -88,20 +88,20 @@ const useVariantPriceGridColumns = ({
         pricePreferences,
         getFieldName: (context, value) => {
           if (context.column.id?.startsWith("currency_prices")) {
-            return `prices.${value}`
+            return `prices.${value}`;
           }
-          return `prices.${value}`
+          return `prices.${value}`;
         },
         t,
       }),
-    ]
-  }, [t, currencies, regions, pricePreferences])
-}
+    ];
+  }, [t, currencies, regions, pricePreferences]);
+};
 
 PricingTab._tabMeta = defineTabMeta<z.infer<typeof CreateProductVariantSchema>>({
   id: "price",
   labelKey: "priceLists.create.tabs.prices",
   validationFields: ["prices"],
-})
+});
 
-export default PricingTab
+export default PricingTab;

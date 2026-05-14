@@ -1,5 +1,5 @@
-import { clx } from "@medusajs/ui"
-import { PropsWithChildren } from "react"
+import { clx } from "@medusajs/ui";
+import { PropsWithChildren } from "react";
 
 type StatusCellProps = PropsWithChildren<{
   color?: "green" | "red" | "blue" | "orange" | "grey" | "purple"
@@ -31,5 +31,5 @@ export const StatusCell = ({ color, children }: StatusCellProps) => {
       </div>
       <span className="truncate">{children}</span>
     </div>
-  )
-}
+  );
+};

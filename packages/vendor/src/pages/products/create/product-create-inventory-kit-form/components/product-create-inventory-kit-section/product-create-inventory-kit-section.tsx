@@ -1,14 +1,14 @@
-import { Button, Heading, IconButton, Input, Label } from "@medusajs/ui"
-import { useFieldArray, useWatch } from "react-hook-form"
-import { XMarkMini } from "@medusajs/icons"
-import { useTranslation } from "react-i18next"
+import { Button, Heading, IconButton, Input, Label } from "@medusajs/ui";
+import { useFieldArray, useWatch } from "react-hook-form";
+import { XMarkMini } from "@medusajs/icons";
+import { useTranslation } from "react-i18next";
 
-import { ProductCreateSchemaType } from "../../../types"
-import { Form } from "@components/common/form"
-import { Combobox } from "@components/inputs/combobox"
-import { useComboboxData } from "@hooks/use-combobox-data"
-import { fetchQuery } from "@lib/client"
-import { useTabbedForm } from "@components/tabbed-form"
+import { ProductCreateSchemaType } from "../../../types";
+import { Form } from "@components/common/form";
+import { Combobox } from "@components/inputs/combobox";
+import { useComboboxData } from "@hooks/use-combobox-data";
+import { fetchQuery } from "@lib/client";
+import { useTabbedForm } from "@components/tabbed-form";
 
 type VariantSectionProps = {
   variant: ProductCreateSchemaType["variants"][0]
@@ -16,18 +16,18 @@ type VariantSectionProps = {
 }
 
 function VariantSection({ variant, index }: VariantSectionProps) {
-  const { t } = useTranslation()
-  const form = useTabbedForm<ProductCreateSchemaType>()
+  const { t } = useTranslation();
+  const form = useTabbedForm<ProductCreateSchemaType>();
 
   const inventory = useFieldArray({
     control: form.control,
     name: `variants.${index}.inventory`,
-  })
+  });
 
   const inventoryFormData = useWatch({
     control: form.control,
     name: `variants.${index}.inventory`,
-  })
+  });
 
   const items = useComboboxData({
     queryKey: ["inventory_items"],
@@ -41,7 +41,7 @@ function VariantSection({ variant, index }: VariantSectionProps) {
         label: item.title || item.sku || item.id,
         value: item.id,
       })),
-  })
+  });
 
   const isItemOptionDisabled = (
     option: (typeof items.options)[0],
@@ -50,8 +50,8 @@ function VariantSection({ variant, index }: VariantSectionProps) {
     return inventoryFormData?.some(
       (i, index) =>
         index != inventoryIndex && i.inventory_item_id === option.value
-    )
-  }
+    );
+  };
 
   return (
     <div className="grid gap-y-4">
@@ -68,7 +68,7 @@ function VariantSection({ variant, index }: VariantSectionProps) {
             inventory.append({
               inventory_item_id: "",
               required_quantity: "",
-            })
+            });
           }}
         >
           {t("actions.add")}
@@ -114,7 +114,7 @@ function VariantSection({ variant, index }: VariantSectionProps) {
                       />
                     </Form.Control>
                   </Form.Item>
-                )
+                );
               }}
             />
 
@@ -141,12 +141,12 @@ function VariantSection({ variant, index }: VariantSectionProps) {
                         min={0}
                         value={value}
                         onChange={(e) => {
-                          const value = e.target.value
+                          const value = e.target.value;
 
                           if (value === "") {
-                            onChange(null)
+                            onChange(null);
                           } else {
-                            onChange(Number(value))
+                            onChange(Number(value));
                           }
                         }}
                         {...field}
@@ -157,7 +157,7 @@ function VariantSection({ variant, index }: VariantSectionProps) {
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -173,17 +173,17 @@ function VariantSection({ variant, index }: VariantSectionProps) {
         </li>
       ))}
     </div>
-  )
+  );
 }
 
 export const ProductCreateInventoryKitSection = () => {
-  const { t } = useTranslation()
-  const form = useTabbedForm<ProductCreateSchemaType>()
+  const { t } = useTranslation();
+  const form = useTabbedForm<ProductCreateSchemaType>();
 
   const variants = useFieldArray({
     control: form.control,
     name: "variants",
-  })
+  });
 
   return (
     <div id="organize" className="flex flex-col gap-y-8">
@@ -199,5 +199,5 @@ export const ProductCreateInventoryKitSection = () => {
           />
         ))}
     </div>
-  )
-}
+  );
+};

@@ -1,23 +1,23 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Alert, Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import * as z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert, Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { Trans, useTranslation } from "react-i18next";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import * as z from "zod";
 
-import { useState } from "react"
-import { decodeToken } from "react-jwt"
-import { Form } from "@components/common/form"
-import AvatarBox from "@components/common/logo-box/avatar-box"
-import { i18n } from "@components/utilities/i18n"
+import { useState } from "react";
+import { decodeToken } from "react-jwt";
+import { Form } from "@components/common/form";
+import AvatarBox from "@components/common/logo-box/avatar-box";
+import { i18n } from "@components/utilities/i18n";
 import {
   useResetPasswordForEmailPass,
   useUpdateProviderForEmailPass,
-} from "@hooks/api/auth"
+} from "@hooks/api/auth";
 
 const ResetPasswordInstructionsSchema = z.object({
   email: z.string().email(),
-})
+});
 
 const ResetPasswordSchema = z
   .object({
@@ -30,16 +30,16 @@ const ResetPasswordSchema = z
         code: z.ZodIssueCode.custom,
         message: i18n.t("resetPassword.passwordMismatch"),
         path: ["repeat_password"],
-      })
+      });
     }
-  })
+  });
 
 const ResetPasswordTokenSchema = z.object({
   entity_id: z.string(),
   provider: z.string(),
   exp: z.number(),
   iat: z.number(),
-})
+});
 
 type DecodedResetPasswordToken = {
   entity_id: string // -> email in here
@@ -51,12 +51,12 @@ type DecodedResetPasswordToken = {
 const validateDecodedResetPasswordToken = (
   decoded: any
 ): decoded is DecodedResetPasswordToken => {
-  return ResetPasswordTokenSchema.safeParse(decoded).success
-}
+  return ResetPasswordTokenSchema.safeParse(decoded).success;
+};
 
 const InvalidResetToken = () => {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <div className="bg-ui-bg-base flex min-h-dvh w-dvw items-center justify-center">
@@ -91,20 +91,20 @@ const InvalidResetToken = () => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const ChooseNewPassword = ({ token }: { token: string }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const [showAlert, setShowAlert] = useState(false)
+  const [showAlert, setShowAlert] = useState(false);
 
   const invite: DecodedResetPasswordToken | null = token
     ? decodeToken(token)
-    : null
+    : null;
 
   const isValidResetPasswordToken =
-    invite && validateDecodedResetPasswordToken(invite)
+    invite && validateDecodedResetPasswordToken(invite);
 
   const form = useForm<z.infer<typeof ResetPasswordSchema>>({
     resolver: zodResolver(ResetPasswordSchema),
@@ -112,13 +112,13 @@ const ChooseNewPassword = ({ token }: { token: string }) => {
       password: "",
       repeat_password: "",
     },
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateProviderForEmailPass(token)
+  const { mutateAsync, isPending } = useUpdateProviderForEmailPass(token);
 
   const handleSubmit = form.handleSubmit(async ({ password }) => {
     if (!invite) {
-      return
+      return;
     }
 
     await mutateAsync(
@@ -127,19 +127,19 @@ const ChooseNewPassword = ({ token }: { token: string }) => {
       },
       {
         onSuccess: () => {
-          form.setValue("password", "")
-          form.setValue("repeat_password", "")
-          setShowAlert(true)
+          form.setValue("password", "");
+          form.setValue("repeat_password", "");
+          setShowAlert(true);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   if (!isValidResetPasswordToken) {
-    return <InvalidResetToken />
+    return <InvalidResetToken />;
   }
 
   return (
@@ -176,7 +176,7 @@ const ChooseNewPassword = ({ token }: { token: string }) => {
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -195,7 +195,7 @@ const ChooseNewPassword = ({ token }: { token: string }) => {
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -231,24 +231,24 @@ const ChooseNewPassword = ({ token }: { token: string }) => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const ResetPassword = () => {
-  const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const [showAlert, setShowAlert] = useState(false)
+  const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const [showAlert, setShowAlert] = useState(false);
 
-  const token = searchParams.get("token")
+  const token = searchParams.get("token");
 
   const form = useForm<z.infer<typeof ResetPasswordInstructionsSchema>>({
     resolver: zodResolver(ResetPasswordInstructionsSchema),
     defaultValues: {
       email: "",
     },
-  })
+  });
 
-  const { mutateAsync, isPending } = useResetPasswordForEmailPass()
+  const { mutateAsync, isPending } = useResetPasswordForEmailPass();
 
   const handleSubmit = form.handleSubmit(async ({ email }) => {
     await mutateAsync(
@@ -257,18 +257,18 @@ export const ResetPassword = () => {
       },
       {
         onSuccess: () => {
-          form.setValue("email", "")
-          setShowAlert(true)
+          form.setValue("email", "");
+          setShowAlert(true);
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   if (token) {
-    return <ChooseNewPassword token={token} />
+    return <ChooseNewPassword token={token} />;
   }
 
   return (
@@ -303,7 +303,7 @@ export const ResetPassword = () => {
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -337,5 +337,5 @@ export const ResetPassword = () => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};

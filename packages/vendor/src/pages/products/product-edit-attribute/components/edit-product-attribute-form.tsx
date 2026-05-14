@@ -1,7 +1,7 @@
-import { useRef } from "react"
+import { useRef } from "react";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { CircleInfoSolid } from "@medusajs/icons"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CircleInfoSolid } from "@medusajs/icons";
 import {
   Button,
   InlineTip,
@@ -11,24 +11,24 @@ import {
   Textarea,
   Tooltip,
   usePrompt,
-} from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+} from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { Form } from "@components/common/form"
-import { SwitchBox } from "@components/common/switch-box"
-import { ChipInput } from "@components/inputs/chip-input"
-import { Combobox } from "@components/inputs/combobox"
-import { NumericInput } from "../../../../components/inputs/numeric-input"
-import { RouteDrawer, useRouteModal } from "@components/modals"
-import { i18n } from "@components/utilities/i18n"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdateProductAttribute } from "@hooks/api/products"
+import { Form } from "@components/common/form";
+import { SwitchBox } from "@components/common/switch-box";
+import { ChipInput } from "@components/inputs/chip-input";
+import { Combobox } from "@components/inputs/combobox";
+import { NumericInput } from "../../../../components/inputs/numeric-input";
+import { RouteDrawer, useRouteModal } from "@components/modals";
+import { i18n } from "@components/utilities/i18n";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdateProductAttribute } from "@hooks/api/products";
 import {
   ProductAttribute,
   ProductInformationalAttribute,
-} from "../../types"
+} from "../../types";
 
 type EditProductAttributeFormProps = {
   productId: string
@@ -41,19 +41,19 @@ const EditProductAttributeSchema = z.object({
     .array(z.string())
     .min(1, i18n.t("products.edit.attributes.valuesRequired")),
   use_for_variations: z.boolean(),
-})
+});
 
 export const EditProductAttributeForm = ({
   productId,
   attribute,
   attributeDefinition,
 }: EditProductAttributeFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const prompt = usePrompt();
 
   const currentValues =
-    attribute.values?.map((v) => v.value) ?? []
+    attribute.values?.map((v) => v.value) ?? [];
 
   const form = useForm<
     z.infer<typeof EditProductAttributeSchema>
@@ -63,15 +63,15 @@ export const EditProductAttributeForm = ({
       use_for_variations: false,
     },
     resolver: zodResolver(EditProductAttributeSchema),
-  })
+  });
 
-  const useForVariations = form.watch("use_for_variations")
+  const useForVariations = form.watch("use_for_variations");
 
   const { mutateAsync, isPending } =
     useUpdateProductAttribute(
       productId,
       attribute.attribute_id
-    )
+    );
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -81,23 +81,23 @@ export const EditProductAttributeForm = ({
       },
       {
         onSuccess: () => {
-          handleSuccess()
+          handleSuccess();
         },
       }
-    )
-  })
+    );
+  });
 
   const uiComponent =
-    attributeDefinition?.ui_component ?? attribute.ui_component
+    attributeDefinition?.ui_component ?? attribute.ui_component;
   const possibleValueOptions =
     attributeDefinition?.possible_values?.map((pv) => ({
       value: pv.value,
       label: pv.value,
-    })) ?? []
+    })) ?? [];
 
   const isAdminAttribute =
-    attribute.attribute_source === "admin"
-  const customValueCreatedRef = useRef(false)
+    attribute.attribute_source === "admin";
+  const customValueCreatedRef = useRef(false);
 
   const confirmCustomValue = async () => {
     return prompt({
@@ -105,8 +105,8 @@ export const EditProductAttributeForm = ({
       description: t(
         "products.edit.attributes.editCustomValueDescription"
       ),
-    })
-  }
+    });
+  };
 
   return (
     <RouteDrawer.Form form={form}>
@@ -144,30 +144,30 @@ export const EditProductAttributeForm = ({
                       <Combobox
                         value={field.value[0] ?? ""}
                         onChange={async (val) => {
-                          const strVal = val as string
+                          const strVal = val as string;
                           if (
                             isAdminAttribute &&
                             customValueCreatedRef.current
                           ) {
-                            customValueCreatedRef.current = false
+                            customValueCreatedRef.current = false;
                             const confirmed =
-                              await confirmCustomValue()
-                            if (!confirmed) return
+                              await confirmCustomValue();
+                            if (!confirmed) return;
                           }
                           field.onChange(
                             val ? [strVal] : []
-                          )
+                          );
                         }}
                         options={possibleValueOptions}
                         onCreateOption={() => {
-                          customValueCreatedRef.current = true
+                          customValueCreatedRef.current = true;
                         }}
                         multiple={false}
                         placeholder={t(
                           "products.edit.attributes.valuesPlaceholder"
                         )}
                       />
-                    )
+                    );
                   }
 
                   if (uiComponent === "multivalue") {
@@ -175,27 +175,27 @@ export const EditProductAttributeForm = ({
                       <Combobox
                         value={field.value}
                         onChange={async (val) => {
-                          const arrVal = (val ?? []) as string[]
+                          const arrVal = (val ?? []) as string[];
                           if (
                             isAdminAttribute &&
                             customValueCreatedRef.current
                           ) {
-                            customValueCreatedRef.current = false
+                            customValueCreatedRef.current = false;
                             const confirmed =
-                              await confirmCustomValue()
-                            if (!confirmed) return
+                              await confirmCustomValue();
+                            if (!confirmed) return;
                           }
-                          field.onChange(arrVal)
+                          field.onChange(arrVal);
                         }}
                         options={possibleValueOptions}
                         onCreateOption={() => {
-                          customValueCreatedRef.current = true
+                          customValueCreatedRef.current = true;
                         }}
                         placeholder={t(
                           "products.edit.attributes.valuesPlaceholder"
                         )}
                       />
-                    )
+                    );
                   }
 
                   if (uiComponent === "text") {
@@ -209,7 +209,7 @@ export const EditProductAttributeForm = ({
                           "products.edit.attributes.valuesPlaceholder"
                         )}
                       />
-                    )
+                    );
                   }
 
                   if (uiComponent === "text_area") {
@@ -223,7 +223,7 @@ export const EditProductAttributeForm = ({
                           "products.edit.attributes.valuesPlaceholder"
                         )}
                       />
-                    )
+                    );
                   }
 
                   if (uiComponent === "toggle") {
@@ -250,7 +250,7 @@ export const EditProductAttributeForm = ({
                           </Select.Item>
                         </Select.Content>
                       </Select>
-                    )
+                    );
                   }
 
                   if (uiComponent === "unit") {
@@ -271,7 +271,7 @@ export const EditProductAttributeForm = ({
                         )}
                         hideControls
                       />
-                    )
+                    );
                   }
 
                   return (
@@ -282,8 +282,8 @@ export const EditProductAttributeForm = ({
                         "products.edit.attributes.valuesPlaceholder"
                       )}
                     />
-                  )
-                }
+                  );
+                };
 
                 return (
                   <Form.Item>
@@ -292,7 +292,7 @@ export const EditProductAttributeForm = ({
                     </Form.Control>
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -342,5 +342,5 @@ export const EditProductAttributeForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export { VariantMediaSection } from "./variant-media-section"
+export { VariantMediaSection } from "./variant-media-section";

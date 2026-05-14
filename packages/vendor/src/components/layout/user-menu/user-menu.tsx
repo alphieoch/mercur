@@ -282,10 +282,10 @@ const GlobalKeybindsModal = (props: {
 
   const searchResults = searchValue
     ? globalShortcuts.filter((shortcut) => {
-        return shortcut.label
-          .toLowerCase()
-          .includes(searchValue?.toLowerCase());
-      })
+      return shortcut.label
+        .toLowerCase()
+        .includes(searchValue?.toLowerCase());
+    })
     : globalShortcuts;
 
   return (

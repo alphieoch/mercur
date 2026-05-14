@@ -1,11 +1,11 @@
-import { ErrorMessage } from "@hookform/error-message"
-import { ExclamationCircle } from "@medusajs/icons"
-import { Tooltip, clx } from "@medusajs/ui"
-import { PropsWithChildren } from "react"
-import { get } from "react-hook-form"
+import { ErrorMessage } from "@hookform/error-message";
+import { ExclamationCircle } from "@medusajs/icons";
+import { Tooltip, clx } from "@medusajs/ui";
+import { PropsWithChildren } from "react";
+import { get } from "react-hook-form";
 
-import { DataGridCellContainerProps, DataGridErrorRenderProps } from "../types"
-import { DataGridRowErrorIndicator } from "./data-grid-row-error-indicator"
+import { DataGridCellContainerProps, DataGridErrorRenderProps } from "../types";
+import { DataGridRowErrorIndicator } from "./data-grid-row-error-indicator";
 
 export const DataGridCellContainer = ({
   isAnchor,
@@ -23,8 +23,8 @@ export const DataGridCellContainer = ({
   isMultiLine,
 }: DataGridCellContainerProps &
   DataGridErrorRenderProps<any> & { isMultiLine?: boolean }) => {
-  const error = get(errors, field)
-  const hasError = !!error
+  const error = get(errors, field);
+  const hasError = !!error;
 
   return (
     <div className={clx("group/container relative h-full w-full")}>
@@ -55,7 +55,7 @@ export const DataGridCellContainer = ({
                   <ExclamationCircle className="text-ui-tag-red-icon z-[3]" />
                 </Tooltip>
               </div>
-            )
+            );
           }}
         />
         <div
@@ -79,8 +79,8 @@ export const DataGridCellContainer = ({
       </div>
       {outerComponent}
     </div>
-  )
-}
+  );
+};
 
 const RenderChildren = ({
   isAnchor,
@@ -90,8 +90,8 @@ const RenderChildren = ({
   Pick<DataGridCellContainerProps, "isAnchor" | "placeholder">
 >) => {
   if (!isAnchor && placeholder) {
-    return placeholder
+    return placeholder;
   }
 
-  return children
-}
+  return children;
+};

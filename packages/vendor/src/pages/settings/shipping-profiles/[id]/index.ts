@@ -1,2 +1,2 @@
-export * from './loader'
-export * from './shipping-profile-detail-page'
+export * from './loader';
+export * from './shipping-profile-detail-page';

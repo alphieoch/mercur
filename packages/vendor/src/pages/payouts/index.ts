@@ -1,1 +1,1 @@
-export * from './payout-list-page'
+export * from './payout-list-page';

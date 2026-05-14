@@ -1,19 +1,19 @@
-import { HttpTypes } from "@medusajs/types"
-import { Heading, Text, Tooltip, clx } from "@medusajs/ui"
-import ReactCountryFlag from "react-country-flag"
+import { HttpTypes } from "@medusajs/types";
+import { Heading, Text, Tooltip, clx } from "@medusajs/ui";
+import ReactCountryFlag from "react-country-flag";
 
-import { ExclamationCircle, MapPin, Plus, Trash } from "@medusajs/icons"
-import { ComponentPropsWithoutRef, ReactNode } from "react"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
-import { ActionMenu } from "@components/common/action-menu"
-import { IconAvatar } from "@components/common/icon-avatar"
-import { getCountryByIso2 } from "@lib/data/countries"
+import { ExclamationCircle, MapPin, Plus, Trash } from "@medusajs/icons";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { ActionMenu } from "@components/common/action-menu";
+import { IconAvatar } from "@components/common/icon-avatar";
+import { getCountryByIso2 } from "@lib/data/countries";
 import {
   getProvinceByIso2,
   isProvinceInCountry,
-} from "@lib/data/country-states"
-import { useDeleteTaxRegionAction } from "../hooks"
+} from "@lib/data/country-states";
+import { useDeleteTaxRegionAction } from "../hooks";
 
 interface TaxRegionCardProps extends ComponentPropsWithoutRef<"div"> {
   taxRegion: HttpTypes.AdminTaxRegion
@@ -30,19 +30,19 @@ export const TaxRegionCard = ({
   asLink = true,
   badge,
 }: TaxRegionCardProps) => {
-  const { t } = useTranslation()
-  const { id, country_code, province_code } = taxRegion
+  const { t } = useTranslation();
+  const { id, country_code, province_code } = taxRegion;
 
-  const country = getCountryByIso2(country_code)
-  const province = getProvinceByIso2(province_code)
+  const country = getCountryByIso2(country_code);
+  const province = getProvinceByIso2(province_code);
 
-  let name = "N/A"
-  let misconfiguredSublevelTooltip: string | null = null
+  let name = "N/A";
+  let misconfiguredSublevelTooltip: string | null = null;
 
   if (province || province_code) {
-    name = province ? province : province_code!.toUpperCase()
+    name = province ? province : province_code!.toUpperCase();
   } else if (country || country_code) {
-    name = country ? country.display_name : country_code!.toUpperCase()
+    name = country ? country.display_name : country_code!.toUpperCase();
   }
 
   if (
@@ -50,19 +50,19 @@ export const TaxRegionCard = ({
     province_code &&
     !isProvinceInCountry(country_code, province_code)
   ) {
-    name = province_code.toUpperCase()
+    name = province_code.toUpperCase();
     misconfiguredSublevelTooltip = t(
       "taxRegions.fields.sublevels.tooltips.notPartOfCountry",
       {
         country: country?.display_name,
         province: province_code.toUpperCase(),
       }
-    )
+    );
   }
 
   const showCreateDefaultTaxRate =
     !taxRegion.tax_rates.filter((tr) => tr.is_default).length &&
-    type === "header"
+    type === "header";
 
   const Component = (
     <div
@@ -138,7 +138,7 @@ export const TaxRegionCard = ({
         />
       </div>
     </div>
-  )
+  );
 
   if (asLink) {
     return (
@@ -149,11 +149,11 @@ export const TaxRegionCard = ({
       >
         {Component}
       </Link>
-    )
+    );
   }
 
-  return Component
-}
+  return Component;
+};
 
 const TaxRegionCardActions = ({
   taxRegion,
@@ -162,28 +162,28 @@ const TaxRegionCardActions = ({
   taxRegion: HttpTypes.AdminTaxRegion
   showCreateDefaultTaxRate?: boolean
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const to = taxRegion.parent_id
     ? `/settings/tax-regions/${taxRegion.parent_id}`
-    : undefined
-  const handleDelete = useDeleteTaxRegionAction({ taxRegion, to })
+    : undefined;
+  const handleDelete = useDeleteTaxRegionAction({ taxRegion, to });
 
   return (
     <ActionMenu
       groups={[
         ...(showCreateDefaultTaxRate
           ? [
-              {
-                actions: [
-                  {
-                    icon: <Plus />,
-                    label: t("taxRegions.fields.defaultTaxRate.action"),
-                    to: `tax-rates/create`,
-                  },
-                ],
-              },
-            ]
+            {
+              actions: [
+                {
+                  icon: <Plus />,
+                  label: t("taxRegions.fields.defaultTaxRate.action"),
+                  to: `tax-rates/create`,
+                },
+              ],
+            },
+          ]
           : []),
         {
           actions: [
@@ -196,5 +196,5 @@ const TaxRegionCardActions = ({
         },
       ]}
     />
-  )
-}
+  );
+};

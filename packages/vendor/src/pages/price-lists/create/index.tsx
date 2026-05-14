@@ -1,11 +1,11 @@
 // Route: /price-lists/create
-import { RouteFocusModal } from "@components/modals"
-import { usePriceListCurrencyData } from "../common/hooks/use-price-list-currency-data"
-import { PriceListCreateForm } from "./price-list-create-form"
+import { RouteFocusModal } from "@components/modals";
+import { usePriceListCurrencyData } from "../common/hooks/use-price-list-currency-data";
+import { PriceListCreateForm } from "./price-list-create-form";
 
 export const Component = () => {
   const { isReady, regions, currencies, pricePreferences } =
-    usePriceListCurrencyData()
+    usePriceListCurrencyData();
 
   return (
     <RouteFocusModal>
@@ -23,5 +23,5 @@ export const Component = () => {
         />
       )}
     </RouteFocusModal>
-  )
-}
+  );
+};

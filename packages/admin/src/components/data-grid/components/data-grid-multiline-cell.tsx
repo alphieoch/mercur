@@ -1,21 +1,21 @@
-import { clx } from "@medusajs/ui"
-import { useCallback, useEffect, useRef, useState } from "react"
-import { Controller, ControllerRenderProps } from "react-hook-form"
+import { clx } from "@medusajs/ui";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Controller, ControllerRenderProps } from "react-hook-form";
 
-import { useCombinedRefs } from "../../../hooks/use-combined-refs"
-import { useDataGridCell, useDataGridCellError } from "../hooks"
-import { DataGridCellProps, InputProps } from "../types"
-import { DataGridCellContainer } from "./data-grid-cell-container"
+import { useCombinedRefs } from "../../../hooks/use-combined-refs";
+import { useDataGridCell, useDataGridCellError } from "../hooks";
+import { DataGridCellProps, InputProps } from "../types";
+import { DataGridCellContainer } from "./data-grid-cell-container";
 
 export const DataGridMultilineCell = <TData, TValue = any>({
   context,
 }: DataGridCellProps<TData, TValue>) => {
   const { field, control, renderProps } = useDataGridCell({
     context,
-  })
-  const errorProps = useDataGridCellError({ context })
+  });
+  const errorProps = useDataGridCellError({ context });
 
-  const { container, input } = renderProps
+  const { container, input } = renderProps;
 
   return (
     <Controller
@@ -26,11 +26,11 @@ export const DataGridMultilineCell = <TData, TValue = any>({
           <DataGridCellContainer {...container} {...errorProps} isMultiLine>
             <Inner field={field} inputProps={input} />
           </DataGridCellContainer>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
 const Inner = ({
   field,
@@ -39,41 +39,41 @@ const Inner = ({
   field: ControllerRenderProps<any, string>
   inputProps: InputProps
 }) => {
-  const { onChange: _, onBlur, ref, value, ...rest } = field
-  const { ref: inputRef, onBlur: onInputBlur, onChange, ...input } = inputProps
+  const { onChange: _, onBlur, ref, value, ...rest } = field;
+  const { ref: inputRef, onBlur: onInputBlur, onChange, ...input } = inputProps;
 
-  const [localValue, setLocalValue] = useState(value)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const [localValue, setLocalValue] = useState(value);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    setLocalValue(value)
-  }, [value])
+    setLocalValue(value);
+  }, [value]);
 
-  const combinedRefs = useCombinedRefs(inputRef, ref, textareaRef)
+  const combinedRefs = useCombinedRefs(inputRef, ref, textareaRef);
 
   const adjustTextareaHeight = useCallback(() => {
-    const textarea = textareaRef.current
+    const textarea = textareaRef.current;
     if (textarea) {
       // Reset height to 0 to get accurate scrollHeight
-      textarea.style.height = "0px"
+      textarea.style.height = "0px";
       // Set the height to match content (minimum 24px for min visible height)
-      const newHeight = Math.max(textarea.scrollHeight, 24)
-      textarea.style.height = `${newHeight}px`
+      const newHeight = Math.max(textarea.scrollHeight, 24);
+      textarea.style.height = `${newHeight}px`;
     }
-  }, [])
+  }, []);
 
   // Adjust height when value changes
   useEffect(() => {
-    adjustTextareaHeight()
-  }, [localValue, adjustTextareaHeight])
+    adjustTextareaHeight();
+  }, [localValue, adjustTextareaHeight]);
 
   useEffect(() => {
     // Immediate adjustment
-    adjustTextareaHeight()
+    adjustTextareaHeight();
     // Delayed adjustment to handle any layout shifts
-    const timeoutId = setTimeout(adjustTextareaHeight, 50)
-    return () => clearTimeout(timeoutId)
-  }, [adjustTextareaHeight])
+    const timeoutId = setTimeout(adjustTextareaHeight, 50);
+    return () => clearTimeout(timeoutId);
+  }, [adjustTextareaHeight]);
 
   return (
     <textarea
@@ -86,18 +86,18 @@ const Inner = ({
       tabIndex={-1}
       value={localValue ?? ""}
       onChange={(e) => {
-        setLocalValue(e.target.value)
-        adjustTextareaHeight()
+        setLocalValue(e.target.value);
+        adjustTextareaHeight();
       }}
       ref={combinedRefs}
       onBlur={() => {
-        onBlur()
-        onInputBlur()
-        onChange(localValue, value)
+        onBlur();
+        onInputBlur();
+        onChange(localValue, value);
       }}
       {...input}
       {...rest}
     />
-  )
-}
+  );
+};
 

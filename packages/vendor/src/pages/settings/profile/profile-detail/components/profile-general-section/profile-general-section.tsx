@@ -1,14 +1,14 @@
-import { PencilSquare } from "@medusajs/icons"
-import { Container, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../../components/common/action-menu"
-import { useMe } from "../../../../../../hooks/api"
-import { languages } from "../../../../../../i18n/languages"
+import { PencilSquare } from "@medusajs/icons";
+import { Container, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../../components/common/action-menu";
+import { useMe } from "../../../../../../hooks/api";
+import { languages } from "../../../../../../i18n/languages";
 
 export const ProfileGeneralSection = () => {
-  const { i18n, t } = useTranslation()
-  const { seller_member } = useMe()
-  const member = seller_member?.member
+  const { i18n, t } = useTranslation();
+  const { seller_member } = useMe();
+  const member = seller_member?.member;
 
   return (
     <Container className="divide-y p-0">
@@ -59,5 +59,5 @@ export const ProfileGeneralSection = () => {
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

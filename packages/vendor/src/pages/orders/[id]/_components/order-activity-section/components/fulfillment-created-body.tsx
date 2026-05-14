@@ -1,6 +1,6 @@
-import { Text } from "@medusajs/ui"
-import { AdminFulfillment } from "@medusajs/types"
-import { useTranslation } from "react-i18next"
+import { Text } from "@medusajs/ui";
+import { AdminFulfillment } from "@medusajs/types";
+import { useTranslation } from "react-i18next";
 
 type FulfillmentCreatedBodyProps = {
   fulfillment: AdminFulfillment
@@ -10,11 +10,11 @@ type FulfillmentCreatedBodyProps = {
 export const FulfillmentCreatedBody = ({
   fulfillment,
 }: FulfillmentCreatedBodyProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const numberOfItems = (fulfillment.items || []).reduce((acc, item) => {
-    return acc + (item.quantity || 0)
-  }, 0)
+    return acc + (item.quantity || 0);
+  }, 0);
 
   return (
     <div>
@@ -24,6 +24,6 @@ export const FulfillmentCreatedBody = ({
         })}
       </Text>
     </div>
-  )
-}
+  );
+};
 

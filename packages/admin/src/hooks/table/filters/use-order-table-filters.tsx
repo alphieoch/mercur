@@ -1,23 +1,23 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
 
-import type { Filter } from "../../../components/table/data-table"
-import { useRegions } from "../../api/regions"
-import { useSalesChannels } from "../../api/sales-channels"
+import type { Filter } from "../../../components/table/data-table";
+import { useRegions } from "../../api/regions";
+import { useSalesChannels } from "../../api/sales-channels";
 
 export const useOrderTableFilters = (): Filter[] => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { regions } = useRegions({
     limit: 1000,
     fields: "id,name",
-  })
+  });
 
   const { sales_channels } = useSalesChannels({
     limit: 1000,
     fields: "id,name",
-  })
+  });
 
-  let filters: Filter[] = []
+  let filters: Filter[] = [];
 
   if (regions) {
     const regionFilter: Filter = {
@@ -30,9 +30,9 @@ export const useOrderTableFilters = (): Filter[] => {
       })),
       multiple: true,
       searchable: true,
-    }
+    };
 
-    filters = [...filters, regionFilter]
+    filters = [...filters, regionFilter];
   }
 
   if (sales_channels) {
@@ -46,9 +46,9 @@ export const useOrderTableFilters = (): Filter[] => {
         label: s.name,
         value: s.id,
       })),
-    }
+    };
 
-    filters = [...filters, salesChannelFilter]
+    filters = [...filters, salesChannelFilter];
   }
 
   // Commented out as it's not used yet. Seems it might be helpful in future
@@ -141,7 +141,7 @@ export const useOrderTableFilters = (): Filter[] => {
     key: f.key,
     label: f.label,
     type: "date",
-  }))
+  }));
 
   filters = [
     ...filters,
@@ -149,7 +149,7 @@ export const useOrderTableFilters = (): Filter[] => {
     // paymentStatusFilter,
     // fulfillmentStatusFilter,
     ...dateFilters,
-  ]
+  ];
 
-  return filters
-}
+  return filters;
+};

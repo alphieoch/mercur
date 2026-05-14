@@ -1,1 +1,1 @@
-export { MarketplaceMetadata as Component } from "./marketplace-metadata"
+export { MarketplaceMetadata as Component } from "./marketplace-metadata";

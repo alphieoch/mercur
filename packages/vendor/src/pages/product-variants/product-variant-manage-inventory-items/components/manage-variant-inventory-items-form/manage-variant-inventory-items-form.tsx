@@ -1,26 +1,26 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { XMarkMini } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Heading, IconButton, Input, Label, toast } from "@medusajs/ui"
-import i18next from "i18next"
-import { useFieldArray, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { XMarkMini } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Heading, IconButton, Input, Label, toast } from "@medusajs/ui";
+import i18next from "i18next";
+import { useFieldArray, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Form } from "@components/common/form"
-import { Combobox } from "@components/inputs/combobox"
+import { Form } from "@components/common/form";
+import { Combobox } from "@components/inputs/combobox";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { productsQueryKeys, variantsQueryKeys } from "@hooks/api/products"
-import { useComboboxData } from "@hooks/use-combobox-data"
-import { useMutation } from "@tanstack/react-query"
-import { castNumber } from "@lib/cast-number"
-import { sdk, fetchQuery } from "@lib/client"
-import { queryClient } from "@lib/query-client"
-import { ExtendedAdminProductVariant } from "@custom-types/products"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { productsQueryKeys, variantsQueryKeys } from "@hooks/api/products";
+import { useComboboxData } from "@hooks/use-combobox-data";
+import { useMutation } from "@tanstack/react-query";
+import { castNumber } from "@lib/cast-number";
+import { sdk, fetchQuery } from "@lib/client";
+import { queryClient } from "@lib/query-client";
+import { ExtendedAdminProductVariant } from "@custom-types/products";
 
 type ManageVariantInventoryItemsFormProps = {
   variant: ExtendedAdminProductVariant
@@ -38,7 +38,7 @@ const ManageVariantInventoryItemsSchema = zod.object({
       .superRefine((data, ctx) => {
         const quantity = data.required_quantity
           ? castNumber(data.required_quantity)
-          : 0
+          : 0;
 
         if (quantity < 1) {
           ctx.addIssue({
@@ -47,41 +47,41 @@ const ManageVariantInventoryItemsSchema = zod.object({
               "products.variant.inventory.validation.quantity"
             ),
             path: ["required_quantity"],
-          })
+          });
         }
       })
   ),
-})
+});
 
 export function ManageVariantInventoryItemsForm({
   variant,
 }: ManageVariantInventoryItemsFormProps) {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof ManageVariantInventoryItemsSchema>>({
     defaultValues: {
       inventory: variant.inventory_items?.length
         ? variant.inventory_items!.map((i) => ({
-            required_quantity: i.required_quantity,
-            inventory_item_id: i.inventory?.id || i.inventory_item_id,
-          }))
+          required_quantity: i.required_quantity,
+          inventory_item_id: i.inventory?.id || i.inventory_item_id,
+        }))
         : [
-            {
-              inventory_item_id: "",
-              required_quantity: "",
-            },
-          ],
+          {
+            inventory_item_id: "",
+            required_quantity: "",
+          },
+        ],
     },
     resolver: zodResolver(ManageVariantInventoryItemsSchema),
-  })
+  });
 
   const inventory = useFieldArray({
     control: form.control,
     name: `inventory`,
-  })
+  });
 
-  const hasKit = inventory.fields.length > 1
+  const hasKit = inventory.fields.length > 1;
 
   const items = useComboboxData({
     queryKey: ["inventory_items"],
@@ -92,7 +92,7 @@ export function ManageVariantInventoryItemsForm({
         value: item.id!,
       })),
     defaultValue: variant.inventory_items?.[0]?.inventory_item_id,
-  })
+  });
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (payload: any) =>
@@ -101,71 +101,71 @@ export function ManageVariantInventoryItemsForm({
         body: payload,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: variantsQueryKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: variantsQueryKeys.details() })
+      queryClient.invalidateQueries({ queryKey: variantsQueryKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: variantsQueryKeys.details() });
       queryClient.invalidateQueries({
         queryKey: productsQueryKeys.detail(variant?.product_id!),
-      })
+      });
     },
-  })
+  });
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    const existingItems: Record<string, number> = {}
-    const selectedItems: Record<string, boolean> = {}
+    const existingItems: Record<string, number> = {};
+    const selectedItems: Record<string, boolean> = {};
 
     variant.inventory_items?.forEach((i) => {
       if (i.inventory?.id) {
-        existingItems[i.inventory.id] = i.required_quantity
+        existingItems[i.inventory.id] = i.required_quantity;
       }
-    })
+    });
 
-    values.inventory.forEach((i) => (selectedItems[i.inventory_item_id] = true))
+    values.inventory.forEach((i) => (selectedItems[i.inventory_item_id] = true));
 
-    const payload: HttpTypes.AdminBatchProductVariantInventoryItemRequest = {}
+    const payload: HttpTypes.AdminBatchProductVariantInventoryItemRequest = {};
 
     values.inventory.forEach((v) => {
       if (v.inventory_item_id in existingItems) {
         if (v.required_quantity !== existingItems[v.inventory_item_id]) {
-          payload.update = payload.update || []
+          payload.update = payload.update || [];
 
           payload.update.push({
             required_quantity: castNumber(v.required_quantity),
             inventory_item_id: v.inventory_item_id,
             variant_id: variant.id,
-          })
+          });
         }
       } else {
-        payload.create = payload.create || []
+        payload.create = payload.create || [];
 
         payload.create.push({
           required_quantity: castNumber(v.required_quantity),
           inventory_item_id: v.inventory_item_id,
           variant_id: variant.id,
-        })
+        });
       }
-    })
+    });
 
     variant.inventory_items?.forEach((i) => {
       if (i.inventory?.id && !(i.inventory.id in selectedItems)) {
-        payload.delete = payload.delete || []
+        payload.delete = payload.delete || [];
 
         payload.delete.push({
           inventory_item_id: i.inventory.id,
           variant_id: variant.id,
-        })
+        });
       }
-    })
+    });
 
     await mutateAsync(payload, {
       onSuccess: () => {
-        toast.success(t("products.variant.inventory.toast.itemsManageSuccess"))
-        handleSuccess()
+        toast.success(t("products.variant.inventory.toast.itemsManageSuccess"));
+        handleSuccess();
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -215,7 +215,7 @@ export function ManageVariantInventoryItemsForm({
                     inventory.append({
                       inventory_item_id: "",
                       required_quantity: "",
-                    })
+                    });
                   }}
                 >
                   {t("actions.add")}
@@ -259,7 +259,7 @@ export function ManageVariantInventoryItemsForm({
                             </Form.Control>
                             <Form.ErrorMessage />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
 
@@ -294,7 +294,7 @@ export function ManageVariantInventoryItemsForm({
                             </Form.Control>
                             <Form.ErrorMessage />
                           </Form.Item>
-                        )
+                        );
                       }}
                     />
                   </div>
@@ -314,5 +314,5 @@ export function ManageVariantInventoryItemsForm({
         </RouteFocusModal.Body>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }

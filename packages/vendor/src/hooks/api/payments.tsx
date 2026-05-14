@@ -1,4 +1,4 @@
-import { ClientError } from "@mercurjs/client"
+import { ClientError } from "@mercurjs/client";
 import { HttpTypes } from "@medusajs/types";
 import {
   useMutation,

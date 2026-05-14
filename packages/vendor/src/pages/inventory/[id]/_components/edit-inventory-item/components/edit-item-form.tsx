@@ -1,16 +1,16 @@
-import * as zod from "zod"
+import * as zod from "zod";
 
-import { Button, Input, toast } from "@medusajs/ui"
-import { RouteDrawer, useRouteModal } from "@components/modals"
+import { Button, Input, toast } from "@medusajs/ui";
+import { RouteDrawer, useRouteModal } from "@components/modals";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { Form } from "@components/common/form"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdateInventoryItem } from "@hooks/api/inventory"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { Form } from "@components/common/form";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdateInventoryItem } from "@hooks/api/inventory";
 
 type EditInventoryItemFormProps = {
   item: HttpTypes.AdminInventoryItem
@@ -19,34 +19,34 @@ type EditInventoryItemFormProps = {
 const EditInventoryItemSchema = z.object({
   title: z.string().optional(),
   sku: z.string().min(1),
-})
+});
 
 const getDefaultValues = (item: HttpTypes.AdminInventoryItem) => {
   return {
     title: item.title ?? undefined,
     sku: item.sku ?? undefined,
-  }
-}
+  };
+};
 
 export const EditInventoryItemForm = ({ item }: EditInventoryItemFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
   const form = useForm<zod.infer<typeof EditInventoryItemSchema>>({
     defaultValues: getDefaultValues(item),
     resolver: zodResolver(EditInventoryItemSchema),
-  })
+  });
 
-  const { mutateAsync, isPending: isLoading } = useUpdateInventoryItem(item.id)
+  const { mutateAsync, isPending: isLoading } = useUpdateInventoryItem(item.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     mutateAsync(values as any, {
       onSuccess: () => {
-        toast.success(t("inventory.toast.updateItem"))
-        handleSuccess()
+        toast.success(t("inventory.toast.updateItem"));
+        handleSuccess();
       },
       onError: (e) => toast.error(e.message),
-    })
-  })
+    });
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -67,7 +67,7 @@ export const EditInventoryItemForm = ({ item }: EditInventoryItemFormProps) => {
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -82,7 +82,7 @@ export const EditInventoryItemForm = ({ item }: EditInventoryItemFormProps) => {
                   </Form.Control>
                   <Form.ErrorMessage />
                 </Form.Item>
-              )
+              );
             }}
           />
         </RouteDrawer.Body>
@@ -100,5 +100,5 @@ export const EditInventoryItemForm = ({ item }: EditInventoryItemFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

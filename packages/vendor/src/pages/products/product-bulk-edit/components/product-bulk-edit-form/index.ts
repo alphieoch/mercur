@@ -1,1 +1,1 @@
-export { ProductBulkEditForm } from "./product-bulk-edit-form"
+export { ProductBulkEditForm } from "./product-bulk-edit-form";

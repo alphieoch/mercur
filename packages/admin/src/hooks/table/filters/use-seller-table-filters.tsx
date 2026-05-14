@@ -1,8 +1,8 @@
-import { useTranslation } from "react-i18next"
-import { Filter } from "../../../components/table/data-table"
+import { useTranslation } from "react-i18next";
+import { Filter } from "../../../components/table/data-table";
 
 export const useSellerTableFilters = (): Filter[] => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const statusFilter: Filter = {
     key: "status",
@@ -23,7 +23,7 @@ export const useSellerTableFilters = (): Filter[] => {
         value: "suspended",
       },
     ],
-  }
+  };
 
   const premiumFilter: Filter = {
     key: "is_premium",
@@ -39,7 +39,7 @@ export const useSellerTableFilters = (): Filter[] => {
         value: "false",
       },
     ],
-  }
+  };
 
   const dateFilters: Filter[] = [
     { label: t("fields.createdAt"), key: "created_at" },
@@ -48,7 +48,7 @@ export const useSellerTableFilters = (): Filter[] => {
     key: f.key,
     label: f.label,
     type: "date",
-  }))
+  }));
 
-  return [statusFilter, premiumFilter, ...dateFilters]
-}
+  return [statusFilter, premiumFilter, ...dateFilters];
+};

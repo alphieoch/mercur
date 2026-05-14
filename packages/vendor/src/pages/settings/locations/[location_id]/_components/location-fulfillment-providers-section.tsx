@@ -1,20 +1,20 @@
-import { HandTruck, PencilSquare } from "@medusajs/icons"
-import { Container, Heading } from "@medusajs/ui"
-import { Fragment } from "react"
-import { useTranslation } from "react-i18next"
+import { HandTruck, PencilSquare } from "@medusajs/icons";
+import { Container, Heading } from "@medusajs/ui";
+import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { NoRecords } from "@components/common/empty-table-content"
-import { IconAvatar } from "@components/common/icon-avatar"
-import { formatProvider } from "@lib/format-provider"
-import { VendorExtendedAdminStockLocation } from "@custom-types/stock-location"
+import { ActionMenu } from "@components/common/action-menu";
+import { NoRecords } from "@components/common/empty-table-content";
+import { IconAvatar } from "@components/common/icon-avatar";
+import { formatProvider } from "@lib/format-provider";
+import { VendorExtendedAdminStockLocation } from "@custom-types/stock-location";
 
 function LocationsFulfillmentProvidersSection({
   location,
 }: {
   location: VendorExtendedAdminStockLocation
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="flex flex-col px-6 py-4">
@@ -52,7 +52,7 @@ function LocationsFulfillmentProvidersSection({
                     {formatProvider(fulfillmentProvider.id)}
                   </div>
                 </Fragment>
-              )
+              );
             })}
           </div>
         </div>
@@ -67,7 +67,7 @@ function LocationsFulfillmentProvidersSection({
         />
       )}
     </Container>
-  )
+  );
 }
 
-export default LocationsFulfillmentProvidersSection
+export default LocationsFulfillmentProvidersSection;

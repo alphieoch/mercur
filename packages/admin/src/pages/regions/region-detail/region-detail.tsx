@@ -14,9 +14,9 @@ import { REGION_DETAIL_FIELDS } from "./constants";
 const Root = ({ children }: { children?: ReactNode }) => {
   const initialData = useLoaderData() as Awaited<
     ReturnType<typeof regionLoader>
-  >
+  >;
 
-  const { id } = useParams()
+  const { id } = useParams();
   const {
     region,
     isPending: isLoading,
@@ -28,7 +28,7 @@ const Root = ({ children }: { children?: ReactNode }) => {
     {
       initialData,
     }
-  )
+  );
 
   const {
     price_preferences: pricePreferences,
@@ -41,18 +41,18 @@ const Root = ({ children }: { children?: ReactNode }) => {
       value: id,
     },
     { enabled: !!region }
-  )
+  );
 
   if (isLoading || isLoadingPreferences || !region) {
-    return <SingleColumnPageSkeleton sections={2} showJSON showMetadata />
+    return <SingleColumnPageSkeleton sections={2} showJSON showMetadata />;
   }
 
   if (isRegionError) {
-    throw regionError
+    throw regionError;
   }
 
   if (isPreferencesError) {
-    throw preferencesError
+    throw preferencesError;
   }
 
   return Children.count(children) > 0 ? (

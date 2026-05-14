@@ -1,1 +1,1 @@
-export * from './inventory-list-page'
+export * from './inventory-list-page';

@@ -1,33 +1,33 @@
-import { useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import { Checkbox } from "@medusajs/ui"
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { Checkbox } from "@medusajs/ui";
 
-import { PencilSquare } from "@medusajs/icons"
+import { PencilSquare } from "@medusajs/icons";
 
-import { keepPreviousData } from "@tanstack/react-query"
-import { RowSelectionState, createColumnHelper } from "@tanstack/react-table"
+import { keepPreviousData } from "@tanstack/react-query";
+import { RowSelectionState, createColumnHelper } from "@tanstack/react-table";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
 
-import { useSellers } from "../../../../../hooks/api/sellers"
-import { useSellersTableColumns } from "../../../../../hooks/table/columns/use-seller-table-columns"
-import { useSellerTableFilters } from "../../../../../hooks/table/filters"
-import { useSellersTableQuery } from "../../../../../hooks/table/query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { SellerDTO } from "@mercurjs/types"
+import { useSellers } from "../../../../../hooks/api/sellers";
+import { useSellersTableColumns } from "../../../../../hooks/table/columns/use-seller-table-columns";
+import { useSellerTableFilters } from "../../../../../hooks/table/filters";
+import { useSellersTableQuery } from "../../../../../hooks/table/query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { SellerDTO } from "@mercurjs/types";
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const StoreListDataTable = () => {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
-  const [selection, setSelection] = useState<RowSelectionState>({})
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [selection, setSelection] = useState<RowSelectionState>({});
 
   const { searchParams, raw } = useSellersTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
 
   const { sellers, count, isLoading } = useSellers(
     {
@@ -36,10 +36,10 @@ export const StoreListDataTable = () => {
     {
       placeholderData: keepPreviousData,
     },
-  )
+  );
 
-  const columns = useColumns()
-  const filters = useSellerTableFilters()
+  const columns = useColumns();
+  const filters = useSellerTableFilters();
 
   const { table } = useDataTable({
     data: sellers ?? [],
@@ -53,7 +53,7 @@ export const StoreListDataTable = () => {
       state: selection,
       updater: setSelection,
     },
-  })
+  });
 
   return (
     <_DataTable
@@ -75,22 +75,22 @@ export const StoreListDataTable = () => {
       commands={[
         {
           action: async (selection) => {
-            const ids = Object.keys(selection)
-            if (!ids.length) return
-            navigate(`bulk-edit?ids=${ids.join(",")}`)
+            const ids = Object.keys(selection);
+            if (!ids.length) return;
+            navigate(`bulk-edit?ids=${ids.join(",")}`);
           },
           label: t("stores.actions.edit.label"),
           shortcut: "e",
         },
       ]}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<SellerDTO>()
+const columnHelper = createColumnHelper<SellerDTO>();
 
 const StoreActions = ({ seller }: { seller: SellerDTO }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <ActionMenu
@@ -106,11 +106,11 @@ const StoreActions = ({ seller }: { seller: SellerDTO }) => {
         },
       ]}
     />
-  )
-}
+  );
+};
 
 const useColumns = () => {
-  const base = useSellersTableColumns()
+  const base = useSellersTableColumns();
 
   return useMemo(
     () => [
@@ -128,7 +128,7 @@ const useColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -136,10 +136,10 @@ const useColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       ...base,
@@ -149,5 +149,5 @@ const useColumns = () => {
       }),
     ],
     [base],
-  )
-}
+  );
+};

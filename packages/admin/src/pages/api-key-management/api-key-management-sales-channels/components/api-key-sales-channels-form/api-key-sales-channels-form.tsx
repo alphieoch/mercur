@@ -1,5 +1,5 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
 import {
   Button,
   Checkbox,
@@ -7,25 +7,25 @@ import {
   Hint,
   createDataTableColumnHelper,
   toast,
-} from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { RowSelectionState } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+} from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { RowSelectionState } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { ConditionalTooltip } from "../../../../../components/common/conditional-tooltip"
-import { DataTable } from "../../../../../components/data-table"
-import * as hooks from "../../../../../components/data-table/helpers/sales-channels"
+import { ConditionalTooltip } from "../../../../../components/common/conditional-tooltip";
+import { DataTable } from "../../../../../components/data-table";
+import * as hooks from "../../../../../components/data-table/helpers/sales-channels";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { VisuallyHidden } from "../../../../../components/utilities/visually-hidden"
-import { useBatchAddSalesChannelsToApiKey } from "../../../../../hooks/api/api-keys"
-import { useSalesChannels } from "../../../../../hooks/api/sales-channels"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { VisuallyHidden } from "../../../../../components/utilities/visually-hidden";
+import { useBatchAddSalesChannelsToApiKey } from "../../../../../hooks/api/api-keys";
+import { useSalesChannels } from "../../../../../hooks/api/sales-channels";
 
 type ApiKeySalesChannelFormProps = {
   apiKey: string
@@ -34,58 +34,58 @@ type ApiKeySalesChannelFormProps = {
 
 const AddSalesChannelsToApiKeySchema = zod.object({
   sales_channel_ids: zod.array(zod.string()).min(1),
-})
+});
 
-const PAGE_SIZE = 50
-const PREFIX = "sc_add"
+const PAGE_SIZE = 50;
+const PREFIX = "sc_add";
 
 export const ApiKeySalesChannelsForm = ({
   apiKey,
   preSelected = [],
 }: ApiKeySalesChannelFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof AddSalesChannelsToApiKeySchema>>({
     defaultValues: {
       sales_channel_ids: [],
     },
     resolver: zodResolver(AddSalesChannelsToApiKeySchema),
-  })
+  });
 
-  const { setValue } = form
+  const { setValue } = form;
 
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const { mutateAsync, isPending: isMutating } =
-    useBatchAddSalesChannelsToApiKey(apiKey)
+    useBatchAddSalesChannelsToApiKey(apiKey);
 
   const searchParams = hooks.useSalesChannelTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
 
-  const columns = useColumns()
-  const filters = hooks.useSalesChannelTableFilters()
-  const emptyState = hooks.useSalesChannelTableEmptyState()
+  const columns = useColumns();
+  const filters = hooks.useSalesChannelTableFilters();
+  const emptyState = hooks.useSalesChannelTableEmptyState();
 
   const { sales_channels, count, isPending } = useSalesChannels(
     { ...searchParams },
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const updater = (selection: DataTableRowSelectionState) => {
-    const ids = Object.keys(selection)
+    const ids = Object.keys(selection);
 
     setValue("sales_channel_ids", ids, {
       shouldDirty: true,
       shouldTouch: true,
-    })
+    });
 
-    setRowSelection(selection)
-  }
+    setRowSelection(selection);
+  };
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(values.sales_channel_ids, {
@@ -94,15 +94,15 @@ export const ApiKeySalesChannelsForm = ({
           t("apiKeyManagement.salesChannels.successToast", {
             count: values.sales_channel_ids.length,
           })
-        )
+        );
 
-        handleSuccess()
+        handleSuccess();
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="publishable-api-key-sales-channels-form">
@@ -161,21 +161,21 @@ export const ApiKeySalesChannelsForm = ({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};
 
-const columnHelper = createDataTableColumnHelper<HttpTypes.AdminSalesChannel>()
+const columnHelper = createDataTableColumnHelper<HttpTypes.AdminSalesChannel>();
 
 const useColumns = () => {
-  const { t } = useTranslation()
-  const base = hooks.useSalesChannelTableColumns()
+  const { t } = useTranslation();
+  const base = hooks.useSalesChannelTableColumns();
 
   return useMemo(
     () => [
       columnHelper.select({
         cell: ({ row }) => {
-          const isPreSelected = !row.getCanSelect()
-          const isSelected = row.getIsSelected() || isPreSelected
+          const isPreSelected = !row.getCanSelect();
+          const isSelected = row.getIsSelected() || isPreSelected;
 
           return (
             <ConditionalTooltip
@@ -188,16 +188,16 @@ const useColumns = () => {
                   disabled={isPreSelected}
                   onCheckedChange={(value) => row.toggleSelected(!!value)}
                   onClick={(e) => {
-                    e.stopPropagation()
+                    e.stopPropagation();
                   }}
                 />
               </div>
             </ConditionalTooltip>
-          )
+          );
         },
       }),
       ...base,
     ],
     [t, base]
-  )
-}
+  );
+};

@@ -1,9 +1,9 @@
-import { Button, Container, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { Button, Container, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const LocationListHeader = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="flex h-fit items-center justify-between gap-x-4 px-6 py-4">
@@ -17,5 +17,5 @@ export const LocationListHeader = () => {
         <Link to="create">{t("actions.create")}</Link>
       </Button>
     </Container>
-  )
-}
+  );
+};

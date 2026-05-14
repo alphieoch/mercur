@@ -1,1 +1,1 @@
-export * from "./marketplace-currency-section"
+export * from "./marketplace-currency-section";

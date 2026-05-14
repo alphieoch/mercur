@@ -321,16 +321,16 @@ export const useMultipleInventoryItemLevels = (
         }),
       enabled: Boolean(id),
     })),
-  })
+  });
 
-  const isPending = queries.some((q) => q.isPending)
-  const isRefetching = queries.some((q) => q.isRefetching)
-  const isError = queries.some((q) => q.isError)
-  const error = queries.find((q) => q.error)?.error
+  const isPending = queries.some((q) => q.isPending);
+  const isRefetching = queries.some((q) => q.isRefetching);
+  const isError = queries.some((q) => q.isError);
+  const error = queries.find((q) => q.error)?.error;
 
   const allLocationLevels: InventoryItemLocationLevel[] = queries
     .filter((q) => q.data?.inventory_levels)
-    .flatMap((q) => q.data?.inventory_levels || [])
+    .flatMap((q) => q.data?.inventory_levels || []);
 
   const inventoryItemsWithLevels: InventoryItemWithLevels[] = queries
     .map((query, index) => {
@@ -338,15 +338,15 @@ export const useMultipleInventoryItemLevels = (
         return {
           inventory_item_id: inventoryItemIds[index],
           location_levels: query.data.inventory_levels as InventoryItemLocationLevel[],
-        }
+        };
       }
-      return null
+      return null;
     })
-    .filter((item): item is InventoryItemWithLevels => item !== null)
+    .filter((item): item is InventoryItemWithLevels => item !== null);
 
   const refetch = async () => {
-    await Promise.all(queries.map((q) => q.refetch()))
-  }
+    await Promise.all(queries.map((q) => q.refetch()));
+  };
 
   return {
     inventoryItemsWithLevels,
@@ -356,8 +356,8 @@ export const useMultipleInventoryItemLevels = (
     isError,
     error,
     refetch,
-  }
-}
+  };
+};
 
 export const useBatchInventoryItemsLocationLevels = (
   options?: UseMutationOptions<

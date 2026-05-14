@@ -1,13 +1,13 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AdminCampaign } from "@medusajs/types"
-import { Button, DatePicker, Input, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
-import { Form } from "@components/common/form"
-import { RouteDrawer, useRouteModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdateCampaign } from "@hooks/api/campaigns"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AdminCampaign } from "@medusajs/types";
+import { Button, DatePicker, Input, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
+import { Form } from "@components/common/form";
+import { RouteDrawer, useRouteModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdateCampaign } from "@hooks/api/campaigns";
 
 type EditCampaignFormProps = {
   campaign: AdminCampaign
@@ -19,11 +19,11 @@ const EditCampaignSchema = zod.object({
   campaign_identifier: zod.string().optional(),
   starts_at: zod.date().optional(),
   ends_at: zod.date().optional(),
-})
+});
 
 export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof EditCampaignSchema>>({
     defaultValues: {
@@ -34,9 +34,9 @@ export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
       ends_at: campaign.ends_at ? new Date(campaign.ends_at) : undefined,
     },
     resolver: zodResolver(EditCampaignSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateCampaign(campaign.id)
+  const { mutateAsync, isPending } = useUpdateCampaign(campaign.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await mutateAsync(
@@ -53,16 +53,16 @@ export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
             t("campaigns.edit.successToast", {
               name: campaign.name,
             })
-          )
+          );
 
-          handleSuccess()
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -83,7 +83,7 @@ export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
 
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
 
@@ -101,7 +101,7 @@ export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
 
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
 
@@ -119,7 +119,7 @@ export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
 
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
 
@@ -142,7 +142,7 @@ export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
 
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
 
@@ -164,7 +164,7 @@ export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
 
                     <Form.ErrorMessage />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -190,5 +190,5 @@ export const EditCampaignForm = ({ campaign }: EditCampaignFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

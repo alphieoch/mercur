@@ -1,14 +1,14 @@
-import { CurrencyDollar } from "@medusajs/icons"
-import { AdminCampaign } from "@medusajs/types"
-import { Container, Heading, Text } from "@medusajs/ui"
-import { Trans, useTranslation } from "react-i18next"
+import { CurrencyDollar } from "@medusajs/icons";
+import { AdminCampaign } from "@medusajs/types";
+import { Container, Heading, Text } from "@medusajs/ui";
+import { Trans, useTranslation } from "react-i18next";
 
 type CampaignSpendProps = {
   campaign: AdminCampaign
 }
 
 export const CampaignSpend = ({ campaign }: CampaignSpendProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="flex flex-col gap-y-4 px-6 py-4">
@@ -55,5 +55,5 @@ export const CampaignSpend = ({ campaign }: CampaignSpendProps) => {
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const ReceiveReturnSchema = z.object({
   items: z.array(
@@ -9,4 +9,4 @@ export const ReceiveReturnSchema = z.object({
     })
   ),
   send_notification: z.boolean().optional(),
-})
+});

@@ -1,8 +1,8 @@
-import { Children, ReactNode } from "react"
-import { UseFormReturn } from "react-hook-form"
+import { Children, ReactNode } from "react";
+import { UseFormReturn } from "react-hook-form";
 
-import { ProductCreateSchemaType, TabDefinition } from "../types"
-import { ProductCreateInventoryKitSection } from "./components/product-create-inventory-kit-section/product-create-inventory-kit-section"
+import { ProductCreateSchemaType, TabDefinition } from "../types";
+import { ProductCreateInventoryKitSection } from "./components/product-create-inventory-kit-section/product-create-inventory-kit-section";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   if (Children.count(children) > 0) {
@@ -12,7 +12,7 @@ const Root = ({ children }: { children?: ReactNode }) => {
           {children}
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -21,17 +21,17 @@ const Root = ({ children }: { children?: ReactNode }) => {
         <ProductCreateInventoryKitSection />
       </div>
     </div>
-  )
-}
+  );
+};
 
 Root._tabMeta = {
   id: "inventory",
   labelKey: "products.create.tabs.inventory",
   isVisible: (form: UseFormReturn<ProductCreateSchemaType>) =>
     form.getValues("variants").some((v) => v.manage_inventory && v.inventory_kit),
-} satisfies TabDefinition
+} satisfies TabDefinition;
 
 export const ProductCreateInventoryKitForm = Object.assign(Root, {
   _tabMeta: Root._tabMeta,
   InventoryKitSection: ProductCreateInventoryKitSection,
-})
+});

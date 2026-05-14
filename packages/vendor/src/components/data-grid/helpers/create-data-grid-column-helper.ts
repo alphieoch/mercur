@@ -3,10 +3,10 @@ import {
   ColumnDefTemplate,
   createColumnHelper,
   HeaderContext,
-} from "@tanstack/react-table"
-import { FieldValues } from "react-hook-form"
+} from "@tanstack/react-table";
+import { FieldValues } from "react-hook-form";
 
-import { DataGridColumnType, FieldFunction } from "../types"
+import { DataGridColumnType, FieldFunction } from "../types";
 
 type DataGridHelperColumnsProps<TData, TFieldValues extends FieldValues> = {
   /**
@@ -60,7 +60,7 @@ export function createDataGridHelper<
   TData,
   TFieldValues extends FieldValues
 >() {
-  const columnHelper = createColumnHelper<TData>()
+  const columnHelper = createColumnHelper<TData>();
 
   return {
     column: ({
@@ -89,5 +89,5 @@ export function createDataGridHelper<
           type,
         },
       }),
-  }
+  };
 }

@@ -1,9 +1,9 @@
-import { Input, clx } from "@medusajs/ui"
-import { Control } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { EmailSchema } from "../../../lib/schemas"
-import { Form } from "../../common/form"
+import { Input, clx } from "@medusajs/ui";
+import { Control } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { EmailSchema } from "../../../lib/schemas";
+import { Form } from "../../common/form";
 
 type EmailFieldValues = z.infer<typeof EmailSchema>
 
@@ -13,7 +13,7 @@ type EmailFormProps = {
 }
 
 export const EmailForm = ({ control, layout = "stack" }: EmailFormProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div
@@ -34,9 +34,9 @@ export const EmailForm = ({ control, layout = "stack" }: EmailFormProps) => {
               </Form.Control>
               <Form.ErrorMessage />
             </Form.Item>
-          )
+          );
         }}
       />
     </div>
-  )
-}
+  );
+};

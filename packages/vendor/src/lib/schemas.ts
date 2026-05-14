@@ -1,5 +1,5 @@
-import i18n from "i18next"
-import { z } from "zod"
+import i18n from "i18next";
+import { z } from "zod";
 
 export const AddressSchema = z.object({
   first_name: z.string().min(1),
@@ -12,11 +12,11 @@ export const AddressSchema = z.object({
   province: z.string().optional(),
   country_code: z.string().min(1),
   phone: z.string().optional(),
-})
+});
 
 export const EmailSchema = z.object({
   email: z.string().email(),
-})
+});
 
 export const TransferOwnershipSchema = z
   .object({
@@ -31,6 +31,6 @@ export const TransferOwnershipSchema = z
         code: z.ZodIssueCode.custom,
         path: ["new_owner_id"],
         message: i18n.t("transferOwnership.validation.mustBeDifferent"),
-      })
+      });
     }
-  })
+  });

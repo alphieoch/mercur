@@ -1,1 +1,1 @@
-export * from './shipping-profile-list-page'
+export * from './shipping-profile-list-page';

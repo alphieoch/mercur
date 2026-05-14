@@ -1,11 +1,11 @@
-import { InventoryTypes, ProductVariantDTO } from "@medusajs/types"
+import { InventoryTypes, ProductVariantDTO } from "@medusajs/types";
 
-import { Checkbox } from "@medusajs/ui"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { PlaceholderCell } from "@components/table/table-cells/common/placeholder-cell"
-import { InventoryActions } from "./inventory-actions"
+import { Checkbox } from "@medusajs/ui";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { PlaceholderCell } from "@components/table/table-cells/common/placeholder-cell";
+import { InventoryActions } from "./inventory-actions";
 
 
 interface ExtendedInventoryItem extends InventoryTypes.InventoryItemDTO {
@@ -20,10 +20,10 @@ interface ExtendedInventoryItem extends InventoryTypes.InventoryItemDTO {
   }[]
 }
 
-const columnHelper = createColumnHelper<ExtendedInventoryItem>()
+const columnHelper = createColumnHelper<ExtendedInventoryItem>();
 
 export const useInventoryTableColumns = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -41,7 +41,7 @@ export const useInventoryTableColumns = () => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
           return (
@@ -49,83 +49,83 @@ export const useInventoryTableColumns = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       columnHelper.accessor("title", {
         header: t("fields.title"),
         cell: ({ getValue }) => {
-          const title = getValue()
+          const title = getValue();
 
           if (!title) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
           return (
             <div className="flex size-full items-center overflow-hidden">
               <span className="truncate">{title}</span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("sku", {
         header: t("fields.sku"),
         cell: ({ getValue }) => {
-          const sku = getValue() as string
+          const sku = getValue() as string;
 
           if (!sku) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
           return (
             <div className="flex size-full items-center overflow-hidden">
               <span className="truncate">{sku}</span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("location_levels", {
         header: t("inventory.reserved"),
         cell: ({ getValue }) => {
-          const locations = getValue() as any[]
+          const locations = getValue() as any[];
 
           const totalReserved = locations.reduce(
             (sum: number, level: any) => sum + level.reserved_quantity,
             0
-          )
+          );
 
           if (Number.isNaN(totalReserved)) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
           return (
             <div className="flex size-full items-center overflow-hidden">
               <span className="truncate">{totalReserved}</span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.accessor("location_levels", {
         header: t("fields.inStock"),
         cell: ({ getValue }) => {
-          const locations = getValue() as any[]
+          const locations = getValue() as any[];
           const totalAvailable = locations.reduce(
             (sum: number, level: any) => sum + level.available_quantity,
             0
-          )
+          );
 
           if (Number.isNaN(totalAvailable)) {
-            return <PlaceholderCell />
+            return <PlaceholderCell />;
           }
 
           return (
             <div className="flex size-full items-center overflow-hidden">
               <span className="truncate">{totalAvailable}</span>
             </div>
-          )
+          );
         },
       }),
       columnHelper.display({
@@ -134,5 +134,5 @@ export const useInventoryTableColumns = () => {
       }),
     ],
     [t]
-  )
-}
+  );
+};

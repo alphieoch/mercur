@@ -1,22 +1,22 @@
-import { Button, createDataTableColumnHelper } from "@medusajs/ui"
-import { HttpTypes } from "@medusajs/types"
-import { RowSelectionState } from "@tanstack/react-table"
-import { useEffect, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { Button, createDataTableColumnHelper } from "@medusajs/ui";
+import { HttpTypes } from "@medusajs/types";
+import { RowSelectionState } from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { ExtendedAdminProduct } from "@custom-types/products"
-import { keepPreviousData } from "@tanstack/react-query"
-import { useForm } from "react-hook-form"
-import { DataTable } from "@components/data-table"
-import * as hooks from "@components/data-table/helpers/sales-channels"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ExtendedAdminProduct } from "@custom-types/products";
+import { keepPreviousData } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { DataTable } from "@components/data-table";
+import * as hooks from "@components/data-table/helpers/sales-channels";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { useUpdateProduct } from "@hooks/api/products"
-import { useSalesChannels } from "@hooks/api/sales-channels"
+} from "@components/modals";
+import { useUpdateProduct } from "@hooks/api/products";
+import { useSalesChannels } from "@hooks/api/sales-channels";
 
 type EditSalesChannelsFormProps = {
   product: ExtendedAdminProduct
@@ -24,47 +24,47 @@ type EditSalesChannelsFormProps = {
 
 const EditSalesChannelsSchema = zod.object({
   sales_channels: zod.array(zod.string()).optional(),
-})
+});
 
-const PAGE_SIZE = 50
-const PREFIX = "sc"
+const PAGE_SIZE = 50;
+const PREFIX = "sc";
 
 export const EditSalesChannelsForm = ({
   product,
 }: EditSalesChannelsFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof EditSalesChannelsSchema>>({
     defaultValues: {
       sales_channels: product.sales_channels?.map((sc) => sc.id) ?? [],
     },
     resolver: zodResolver(EditSalesChannelsSchema),
-  })
+  });
 
-  const { setValue } = form
+  const { setValue } = form;
 
   const initialState =
     product.sales_channels?.reduce((acc, curr) => {
-      acc[curr.id] = true
-      return acc
-    }, {} as RowSelectionState) ?? {}
+      acc[curr.id] = true;
+      return acc;
+    }, {} as RowSelectionState) ?? {};
 
   const [rowSelection, setRowSelection] =
-    useState<RowSelectionState>(initialState)
+    useState<RowSelectionState>(initialState);
 
   useEffect(() => {
-    const ids = Object.keys(rowSelection)
+    const ids = Object.keys(rowSelection);
     setValue("sales_channels", ids, {
       shouldDirty: true,
       shouldTouch: true,
-    })
-  }, [rowSelection, setValue])
+    });
+  }, [rowSelection, setValue]);
 
   const searchParams = hooks.useSalesChannelTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
   const { sales_channels, count, isLoading, isError, error } = useSalesChannels(
     {
       ...searchParams,
@@ -72,22 +72,22 @@ export const EditSalesChannelsForm = ({
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const filters = hooks.useSalesChannelTableFilters()
-  const emptyState = hooks.useSalesChannelTableEmptyState()
-  const columns = useColumns()
+  const filters = hooks.useSalesChannelTableFilters();
+  const emptyState = hooks.useSalesChannelTableEmptyState();
+  const columns = useColumns();
 
-  const { mutateAsync, isPending: isMutating } = useUpdateProduct(product.id)
+  const { mutateAsync, isPending: isMutating } = useUpdateProduct(product.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    const arr = data.sales_channels ?? []
+    const arr = data.sales_channels ?? [];
 
     const sales_channels = arr.map((id) => {
       return {
         id,
-      }
-    })
+      };
+    });
 
     await mutateAsync(
       {
@@ -95,14 +95,14 @@ export const EditSalesChannelsForm = ({
       },
       {
         onSuccess: () => {
-          handleSuccess()
+          handleSuccess();
         },
       }
-    )
-  })
+    );
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -141,16 +141,16 @@ export const EditSalesChannelsForm = ({
         </RouteFocusModal.Footer>
       </div>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};
 
 const columnHelper =
   createDataTableColumnHelper<
     HttpTypes.AdminSalesChannelResponse["sales_channel"]
-  >()
+  >();
 
 const useColumns = () => {
-  const columns = hooks.useSalesChannelTableColumns()
+  const columns = hooks.useSalesChannelTableColumns();
 
-  return useMemo(() => [columnHelper.select(), ...columns], [columns])
-}
+  return useMemo(() => [columnHelper.select(), ...columns], [columns]);
+};

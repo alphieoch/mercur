@@ -5,11 +5,11 @@ import { useForm } from 'react-hook-form';
 import { Trans, useTranslation } from 'react-i18next';
 import * as zod from 'zod';
 
-import { Form } from "@components/common/form"
-import { DeprecatedPercentageInput } from "@components/inputs/percentage-input"
-import { RouteDrawer, useRouteModal } from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdatePromotion } from "@hooks/api/promotions"
+import { Form } from "@components/common/form";
+import { DeprecatedPercentageInput } from "@components/inputs/percentage-input";
+import { RouteDrawer, useRouteModal } from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdatePromotion } from "@hooks/api/promotions";
 
 type EditPromotionFormProps = {
   promotion: AdminPromotion;

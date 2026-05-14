@@ -1,8 +1,8 @@
-import React, { useMemo } from "react"
-import { createDataTableColumnHelper } from "@medusajs/ui"
-import { HttpTypes } from "@medusajs/types"
-import { useTranslation } from "react-i18next"
-import { getCellRenderer, getColumnValue } from "../../../lib/table/cell-renderers"
+import React, { useMemo } from "react";
+import { createDataTableColumnHelper } from "@medusajs/ui";
+import { HttpTypes } from "@medusajs/types";
+import { useTranslation } from "react-i18next";
+import { getCellRenderer, getColumnValue } from "../../../lib/table/cell-renderers";
 
 export interface ColumnAdapter<TData> {
   getColumnAlignment?: (column: HttpTypes.AdminColumn) => "left" | "center" | "right"
@@ -15,54 +15,54 @@ export function useConfigurableTableColumns<TData = any>(
   apiColumns: HttpTypes.AdminColumn[] | undefined,
   adapter?: ColumnAdapter<TData>
 ) {
-  const columnHelper = createDataTableColumnHelper<TData>()
-  const { t } = useTranslation()
+  const columnHelper = createDataTableColumnHelper<TData>();
+  const { t } = useTranslation();
 
   return useMemo(() => {
     if (!apiColumns?.length) {
-      return []
+      return [];
     }
 
     return apiColumns.map(apiColumn => {
-      let renderType = apiColumn.computed?.type
+      let renderType = apiColumn.computed?.type;
 
       if (!renderType) {
         if (apiColumn.semantic_type === 'timestamp') {
-          renderType = 'timestamp'
+          renderType = 'timestamp';
         } else if (apiColumn.field === 'display_id') {
-          renderType = 'display_id'
+          renderType = 'display_id';
         } else if (apiColumn.field === 'total') {
-          renderType = 'total'
+          renderType = 'total';
         } else if (apiColumn.semantic_type === 'currency') {
-          renderType = 'currency'
+          renderType = 'currency';
         }
       }
 
       const renderer = getCellRenderer(
         renderType,
         apiColumn.data_type
-      )
+      );
 
       const headerAlign = adapter?.getColumnAlignment
         ? adapter.getColumnAlignment(apiColumn)
-        : getDefaultColumnAlignment(apiColumn)
+        : getDefaultColumnAlignment(apiColumn);
 
-      const accessor = (row: TData) => getColumnValue(row, apiColumn)
+      const accessor = (row: TData) => getColumnValue(row, apiColumn);
 
       return columnHelper.accessor(accessor, {
         id: apiColumn.field,
         header: () => apiColumn.name,
         cell: ({ getValue, row }: { getValue: any, row: any }) => {
-          const value = getValue()
+          const value = getValue();
 
           if (adapter?.transformCellValue) {
-            const transformed = adapter.transformCellValue(value, row.original, apiColumn)
+            const transformed = adapter.transformCellValue(value, row.original, apiColumn);
             if (transformed !== null) {
-              return transformed
+              return transformed;
             }
           }
 
-          return renderer(value, row.original, apiColumn, t)
+          return renderer(value, row.original, apiColumn, t);
         },
         meta: {
           name: apiColumn.name,
@@ -71,18 +71,18 @@ export function useConfigurableTableColumns<TData = any>(
         enableHiding: apiColumn.hideable,
         enableSorting: apiColumn.sortable,
         headerAlign, // Pass the header alignment to the DataTable
-      } as any)
-    })
-  }, [entity, apiColumns, adapter, t])
+      } as any);
+    });
+  }, [entity, apiColumns, adapter, t]);
 }
 
 function getDefaultColumnAlignment(column: HttpTypes.AdminColumn): "left" | "center" | "right" {
   if (column.semantic_type === "currency" || column.data_type === "currency") {
-    return "right"
+    return "right";
   }
 
   if (column.data_type === "number" && column.context !== "identifier") {
-    return "right"
+    return "right";
   }
 
   if (
@@ -92,18 +92,18 @@ function getDefaultColumnAlignment(column: HttpTypes.AdminColumn): "left" | "cen
     column.field.includes("quantity") ||
     column.field.includes("count")
   ) {
-    return "right"
+    return "right";
   }
 
   if (column.semantic_type === "status") {
-    return "center"
+    return "center";
   }
 
   if (column.computed?.type === "country_code" ||
     column.field === "country" ||
     column.field.includes("country_code")) {
-    return "center"
+    return "center";
   }
 
-  return "left"
+  return "left";
 }

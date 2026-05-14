@@ -10,10 +10,10 @@
  */
 export function getNumberOfDecimalPlaces(num: number): number {
   // Convert to string and check if it contains a decimal point
-  const str = num.toString()
+  const str = num.toString();
   if (str.indexOf(".") === -1) {
-    return 0
+    return 0;
   }
   // Return the length of the part after the decimal point
-  return str.split(".")[1].length
+  return str.split(".")[1].length;
 }

@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes, ReactNode } from "react"
+import React, { forwardRef, HTMLAttributes, ReactNode } from "react";
 
 import {
   DotsSix,
@@ -6,9 +6,9 @@ import {
   FolderOpenIllustration,
   TagIllustration,
   TriangleRightMini,
-} from "@medusajs/icons"
-import { Badge, clx, IconButton } from "@medusajs/ui"
-import { HandleProps } from "./types"
+} from "@medusajs/icons";
+import { Badge, clx, IconButton } from "@medusajs/ui";
+import { HandleProps } from "./types";
 
 export interface TreeItemProps
   extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
@@ -92,10 +92,10 @@ export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(
           <ChildrenCount clone={clone} childrenCount={childCount} />
         </div>
       </li>
-    )
+    );
   }
-)
-TreeItem.displayName = "TreeItem"
+);
+TreeItem.displayName = "TreeItem";
 
 const Handle = ({
   listeners,
@@ -114,8 +114,8 @@ const Handle = ({
     >
       <DotsSix />
     </IconButton>
-  )
-}
+  );
+};
 
 type IconProps = {
   childrenCount?: number
@@ -124,8 +124,8 @@ type IconProps = {
 }
 
 const Icon = ({ childrenCount, collapsed, clone }: IconProps) => {
-  const isBranch = clone ? childrenCount && childrenCount > 1 : childrenCount
-  const isOpen = clone ? false : !collapsed
+  const isBranch = clone ? childrenCount && childrenCount > 1 : childrenCount;
+  const isOpen = clone ? false : !collapsed;
 
   return (
     <div className="flex size-7 items-center justify-center">
@@ -139,8 +139,8 @@ const Icon = ({ childrenCount, collapsed, clone }: IconProps) => {
         <TagIllustration />
       )}
     </div>
-  )
-}
+  );
+};
 
 type CollapseProps = {
   collapsed?: boolean
@@ -150,11 +150,11 @@ type CollapseProps = {
 
 const Collapse = ({ collapsed, onCollapse, clone }: CollapseProps) => {
   if (clone) {
-    return null
+    return null;
   }
 
   if (!onCollapse) {
-    return <div className="size-7" role="presentation" />
+    return <div className="size-7" role="presentation" />;
   }
 
   return (
@@ -170,8 +170,8 @@ const Collapse = ({ collapsed, onCollapse, clone }: CollapseProps) => {
         })}
       />
     </IconButton>
-  )
-}
+  );
+};
 
 type ValueProps = {
   value: ReactNode
@@ -182,8 +182,8 @@ const Value = ({ value }: ValueProps) => {
     <div className="txt-compact-small text-ui-fg-subtle flex-grow truncate">
       {value}
     </div>
-  )
-}
+  );
+};
 
 type ChildrenCountProps = {
   clone?: boolean
@@ -192,16 +192,16 @@ type ChildrenCountProps = {
 
 const ChildrenCount = ({ clone, childrenCount }: ChildrenCountProps) => {
   if (!clone || !childrenCount) {
-    return null
+    return null;
   }
 
   if (clone && childrenCount <= 1) {
-    return null
+    return null;
   }
 
   return (
     <Badge size="2xsmall" color="blue" className="absolute -right-2 -top-2">
       {childrenCount}
     </Badge>
-  )
-}
+  );
+};

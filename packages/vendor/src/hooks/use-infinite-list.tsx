@@ -1,11 +1,11 @@
-import { ClientError } from "@mercurjs/client"
-import { PaginatedResponse } from "@medusajs/types"
+import { ClientError } from "@mercurjs/client";
+import { PaginatedResponse } from "@medusajs/types";
 import {
   QueryKey,
   UseInfiniteQueryOptions,
   InfiniteData,
   useInfiniteQuery,
-} from "@tanstack/react-query"
+} from "@tanstack/react-query";
 
 /**
  * Generic hook for infinite queries with pagination support.
@@ -39,11 +39,11 @@ export const useInfiniteList = <
   TError = ClientError,
   TQueryKey extends QueryKey = QueryKey
 >({
-  queryKey,
-  queryFn,
-  query,
-  options,
-}: {
+    queryKey,
+    queryFn,
+    query,
+    options,
+  }: {
   queryKey: ((params: Omit<TParams, "limit">) => TQueryKey) | TQueryKey
   queryFn: (params: TParams) => Promise<TResponse>
   query?: TParams
@@ -59,15 +59,15 @@ export const useInfiniteList = <
     "queryKey" | "queryFn" | "initialPageParam" | "getNextPageParam"
   >
 }) => {
-  const { limit = 50, offset: _, ..._query } = query ?? {}
+  const { limit = 50, offset: _, ..._query } = query ?? {};
   const resolvedQueryKey =
     typeof queryKey === "function"
       ? queryKey(_query as Omit<TParams, "limit">)
-      : queryKey
+      : queryKey;
   const infiniteQueryKey =
     resolvedQueryKey[resolvedQueryKey.length - 1] === "__infinite"
       ? resolvedQueryKey
-      : ([...resolvedQueryKey, "__infinite"] as unknown as TQueryKey)
+      : ([...resolvedQueryKey, "__infinite"] as unknown as TQueryKey);
 
   return useInfiniteQuery<
     TResponse,
@@ -80,13 +80,13 @@ export const useInfiniteList = <
     // since the cached data shape differs (InfiniteData<T> vs T).
     queryKey: infiniteQueryKey,
     queryFn: ({ pageParam = 0 }) => {
-      return queryFn({ ..._query, limit, offset: pageParam } as TParams)
+      return queryFn({ ..._query, limit, offset: pageParam } as TParams);
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      const moreItemsExist = lastPage.count > lastPage.offset + lastPage.limit
-      return moreItemsExist ? lastPage.offset + lastPage.limit : undefined
+      const moreItemsExist = lastPage.count > lastPage.offset + lastPage.limit;
+      return moreItemsExist ? lastPage.offset + lastPage.limit : undefined;
     },
     ...options,
-  })
-}
+  });
+};

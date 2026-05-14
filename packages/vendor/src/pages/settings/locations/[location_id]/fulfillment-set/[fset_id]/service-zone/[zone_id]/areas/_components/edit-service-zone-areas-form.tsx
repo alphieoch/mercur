@@ -1,26 +1,26 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { VendorExtendedAdminServiceZone } from "@custom-types/stock-location"
-import { Button, Heading, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { VendorExtendedAdminServiceZone } from "@custom-types/stock-location";
+import { Button, Heading, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
 import {
   RouteFocusModal,
   StackedFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useUpdateFulfillmentSetServiceZone } from "@hooks/api/fulfillment-sets"
-import { countries } from "@lib/data/countries"
-import { GeoZoneForm } from "@pages/settings/locations/_common/components/geo-zone-form"
-import { GEO_ZONE_STACKED_MODAL_ID } from "@pages/settings/locations/_common/constants"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useUpdateFulfillmentSetServiceZone } from "@hooks/api/fulfillment-sets";
+import { countries } from "@lib/data/countries";
+import { GeoZoneForm } from "@pages/settings/locations/_common/components/geo-zone-form";
+import { GEO_ZONE_STACKED_MODAL_ID } from "@pages/settings/locations/_common/constants";
 
 const EditeServiceZoneSchema = z.object({
   countries: z
     .array(z.object({ iso_2: z.string().min(2), display_name: z.string() }))
     .min(1),
-})
+});
 
 type EditServiceZoneAreasFormProps = {
   fulfillmentSetId: string
@@ -33,25 +33,25 @@ export function EditServiceZoneAreasForm({
   locationId,
   zone,
 }: EditServiceZoneAreasFormProps) {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof EditeServiceZoneSchema>>({
     defaultValues: {
       countries: zone.geo_zones.map((z) => {
-        const country = countries.find((c) => c.iso_2 === z.country_code)
+        const country = countries.find((c) => c.iso_2 === z.country_code);
 
         return {
           iso_2: z.country_code,
           display_name: country?.display_name || z.country_code.toUpperCase(),
-        }
+        };
       }),
     },
     resolver: zodResolver(EditeServiceZoneSchema),
-  })
+  });
 
   const { mutateAsync: editServiceZone, isPending: isLoading } =
-    useUpdateFulfillmentSetServiceZone(fulfillmentSetId, zone.id)
+    useUpdateFulfillmentSetServiceZone(fulfillmentSetId, zone.id);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     await editServiceZone(
@@ -67,16 +67,16 @@ export function EditServiceZoneAreasForm({
             t("stockLocations.serviceZones.manageAreas.successToast", {
               name: zone.name,
             })
-          )
+          );
 
-          handleSuccess(`/settings/locations/${locationId}`)
+          handleSuccess(`/settings/locations/${locationId}`);
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -116,5 +116,5 @@ export function EditServiceZoneAreasForm({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
+  );
 }

@@ -46,26 +46,26 @@ export const processAttributes = (
         global: [],
         all: [],
       },
-    }
+    };
   }
 
   const globalAttributes = allAttributes.filter(
     (attr) =>
       !attr.product_categories ||
       attr.product_categories.length === 0
-  )
+  );
 
   const categorySpecificAttributes = allAttributes.filter(
     (attr) =>
       attr.product_categories && attr.product_categories.length > 0
-  )
+  );
 
   const applicableCategoryAttributes =
     categorySpecificAttributes.filter((attr) =>
       attr.product_categories?.some(
         (cat) => cat.id === primaryCategoryId
       )
-    )
+    );
 
   const mapToFormField = (attr: (typeof allAttributes)[number]): FormField => ({
     key: attr.id,
@@ -80,16 +80,16 @@ export const processAttributes = (
         value: value.id,
         label: value.value,
       })) || [],
-  })
+  });
 
   const requiredCategorySpecificFormFields: FormField[] =
     applicableCategoryAttributes
       .filter((attr) => attr.is_required)
-      .map(mapToFormField)
+      .map(mapToFormField);
 
   const requiredGlobalFormFields: FormField[] = globalAttributes
     .filter((attr) => attr.is_required)
-    .map(mapToFormField)
+    .map(mapToFormField);
 
   return {
     required: {
@@ -100,5 +100,5 @@ export const processAttributes = (
         ...requiredGlobalFormFields,
       ],
     },
-  }
-}
+  };
+};

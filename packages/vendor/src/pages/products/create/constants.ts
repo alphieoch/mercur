@@ -1,14 +1,14 @@
-import { z } from "zod"
-import { i18n } from "@components/utilities/i18n/i18n"
-import { optionalFloat, optionalInt } from "@lib/validation"
-import { decorateVariantsWithDefaultValues } from "./utils"
+import { z } from "zod";
+import { i18n } from "@components/utilities/i18n/i18n";
+import { optionalFloat, optionalInt } from "@lib/validation";
+import { decorateVariantsWithDefaultValues } from "./utils";
 
 export const MediaSchema = z.object({
   id: z.string().optional(),
   url: z.string(),
   isThumbnail: z.boolean(),
   file: z.any().nullable(), // File
-})
+});
 
 const ProductCreateVariantSchema = z.object({
   should_create: z.boolean(),
@@ -41,7 +41,7 @@ const ProductCreateVariantSchema = z.object({
     )
     .optional(),
   media: z.array(MediaSchema).optional(),
-})
+});
 
 export type ProductCreateVariantSchema = z.infer<
   typeof ProductCreateVariantSchema
@@ -53,7 +53,7 @@ export const ProductCreateOptionSchema = z.object({
   metadata: z.record(z.unknown()).optional(),
   useForVariants: z.boolean().optional(),
   attributeId: z.string().optional(),
-})
+});
 
 export type ProductCreateOptionSchemaType = z.infer<
   typeof ProductCreateOptionSchema
@@ -91,7 +91,7 @@ export const ProductCreateBaseSchema = z.object({
   enable_variants: z.boolean(),
   variants: z.array(ProductCreateVariantSchema).min(1),
   media: z.array(MediaSchema).optional(),
-})
+});
 
 export const ProductCreateSchema = ProductCreateBaseSchema
   .superRefine((data, ctx) => {
@@ -100,10 +100,10 @@ export const ProductCreateSchema = ProductCreateBaseSchema
         code: z.ZodIssueCode.custom,
         path: ["variants"],
         message: "invalid_length",
-      })
+      });
     }
 
-    const skus = new Set<string>()
+    const skus = new Set<string>();
 
     data.variants.forEach((v, index) => {
       if (v.sku) {
@@ -112,17 +112,17 @@ export const ProductCreateSchema = ProductCreateBaseSchema
             code: z.ZodIssueCode.custom,
             path: [`variants.${index}.sku`],
             message: i18n.t("products.create.errors.uniqueSku"),
-          })
+          });
         }
 
-        skus.add(v.sku)
+        skus.add(v.sku);
       }
-    })
-  })
+    });
+  });
 
 export const EditProductMediaSchema = z.object({
   media: z.array(MediaSchema),
-})
+});
 
 export const PRODUCT_CREATE_FORM_DEFAULTS: Partial<
   z.infer<typeof ProductCreateSchema>
@@ -162,4 +162,4 @@ export const PRODUCT_CREATE_FORM_DEFAULTS: Partial<
   type_id: "",
   weight: "",
   width: "",
-}
+};

@@ -1,5 +1,5 @@
-import { Button, clx } from "@medusajs/ui"
-import { ReactNode } from "react"
+import { Button, clx } from "@medusajs/ui";
+import { ReactNode } from "react";
 
 export type SegmentedControlOption = {
   value: string
@@ -30,7 +30,7 @@ export const SegmentedControl = ({
       }}
     >
       {options.map((option) => {
-        const isSelected = value === option.value
+        const isSelected = value === option.value;
 
         return (
           <Button
@@ -46,8 +46,8 @@ export const SegmentedControl = ({
           >
             {option.label}
           </Button>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};

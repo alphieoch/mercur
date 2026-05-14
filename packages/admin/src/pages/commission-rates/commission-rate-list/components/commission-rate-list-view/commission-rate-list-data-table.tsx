@@ -1,32 +1,32 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
+import { PencilSquare, Trash } from "@medusajs/icons";
 import {
   Badge,
   StatusBadge,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+} from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
+import { ActionMenu } from "../../../../../components/common/action-menu";
 import {
   TextCell,
   TextHeader,
-} from "../../../../../components/table/table-cells/common/text-cell"
-import { _DataTable } from "../../../../../components/table/data-table"
+} from "../../../../../components/table/table-cells/common/text-cell";
+import { _DataTable } from "../../../../../components/table/data-table";
 import {
   useCommissionRates,
   useDeleteCommissionRate,
-} from "../../../../../hooks/api/commission-rates"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { CommissionRateDTO } from "@mercurjs/types"
+} from "../../../../../hooks/api/commission-rates";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { CommissionRateDTO } from "@mercurjs/types";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const CommissionRateListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { commission_rates, count, isPending: isLoading, isError, error } =
     useCommissionRates(
@@ -38,9 +38,9 @@ export const CommissionRateListDataTable = () => {
       {
         placeholderData: keepPreviousData,
       }
-    )
+    );
 
-  const columns = useColumns()
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: (commission_rates ?? []) as CommissionRateDTO[],
@@ -49,10 +49,10 @@ export const CommissionRateListDataTable = () => {
     enablePagination: true,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -71,17 +71,17 @@ export const CommissionRateListDataTable = () => {
         { key: "updated_at", label: t("fields.updatedAt") },
       ]}
     />
-  )
-}
+  );
+};
 
 const CommissionRateActions = ({
   commissionRate,
 }: {
   commissionRate: CommissionRateDTO
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync } = useDeleteCommissionRate(commissionRate.id)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync } = useDeleteCommissionRate(commissionRate.id);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -89,21 +89,21 @@ const CommissionRateActions = ({
       description: `Are you sure you want to delete the commission rate "${commissionRate.name}"?`,
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
       onSuccess: () => {
-        toast.success("Commission rate deleted successfully")
+        toast.success("Commission rate deleted successfully");
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <ActionMenu
@@ -128,10 +128,10 @@ const CommissionRateActions = ({
         },
       ]}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<CommissionRateDTO>()
+const columnHelper = createColumnHelper<CommissionRateDTO>();
 
 const useColumns = () => {
   return useMemo(
@@ -147,19 +147,19 @@ const useColumns = () => {
       columnHelper.accessor("type", {
         header: () => <TextHeader text="Type" />,
         cell: ({ getValue }) => {
-          const type = getValue()
-          return <TextCell text={type === "percentage" ? "Percentage" : "Fixed"} />
+          const type = getValue();
+          return <TextCell text={type === "percentage" ? "Percentage" : "Fixed"} />;
         },
       }),
       columnHelper.accessor("is_enabled", {
         header: "Status",
         cell: ({ getValue }) => {
-          const enabled = getValue()
+          const enabled = getValue();
           return (
             <StatusBadge color={enabled ? "green" : "grey"}>
               {enabled ? "Enabled" : "Disabled"}
             </StatusBadge>
-          )
+          );
         },
       }),
       columnHelper.display({
@@ -170,5 +170,5 @@ const useColumns = () => {
       }),
     ],
     []
-  )
-}
+  );
+};

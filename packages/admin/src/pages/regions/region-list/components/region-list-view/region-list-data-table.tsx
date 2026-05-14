@@ -1,25 +1,25 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import type { HttpTypes } from "@medusajs/types"
-import { toast, usePrompt } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import type { HttpTypes } from "@medusajs/types";
+import { toast, usePrompt } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useDeleteRegion, useRegions } from "../../../../../hooks/api/regions"
-import { useRegionTableColumns } from "../../../../../hooks/table/columns/use-region-table-columns"
-import { useRegionTableFilters } from "../../../../../hooks/table/filters/use-region-table-filters"
-import { useRegionTableQuery } from "../../../../../hooks/table/query/use-region-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useDeleteRegion, useRegions } from "../../../../../hooks/api/regions";
+import { useRegionTableColumns } from "../../../../../hooks/table/columns/use-region-table-columns";
+import { useRegionTableFilters } from "../../../../../hooks/table/filters/use-region-table-filters";
+import { useRegionTableQuery } from "../../../../../hooks/table/query/use-region-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const RegionListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { searchParams, raw } = useRegionTableQuery({ pageSize: PAGE_SIZE })
+  const { searchParams, raw } = useRegionTableQuery({ pageSize: PAGE_SIZE });
   const {
     regions,
     count,
@@ -34,10 +34,10 @@ export const RegionListDataTable = () => {
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const filters = useRegionTableFilters()
-  const columns = useColumns()
+  const filters = useRegionTableFilters();
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: (regions ?? []) as HttpTypes.AdminRegion[],
@@ -46,10 +46,10 @@ export const RegionListDataTable = () => {
     enablePagination: true,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -74,14 +74,14 @@ export const RegionListDataTable = () => {
       }}
       data-testid="region-list-table"
     />
-  )
-}
+  );
+};
 
 const RegionActions = ({ region }: { region: HttpTypes.AdminRegion }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
 
-  const { mutateAsync } = useDeleteRegion(region.id)
+  const { mutateAsync } = useDeleteRegion(region.id);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -93,21 +93,21 @@ const RegionActions = ({ region }: { region: HttpTypes.AdminRegion }) => {
       verificationInstruction: t("general.typeToConfirm"),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
       onSuccess: () => {
-        toast.success(t("regions.toast.delete"))
+        toast.success(t("regions.toast.delete"));
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <ActionMenu
@@ -133,13 +133,13 @@ const RegionActions = ({ region }: { region: HttpTypes.AdminRegion }) => {
       ]}
       data-testid={`region-list-table-action-menu-${region.id}`}
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminRegion>()
+const columnHelper = createColumnHelper<HttpTypes.AdminRegion>();
 
 const useColumns = () => {
-  const base = useRegionTableColumns()
+  const base = useRegionTableColumns();
 
   return useMemo(
     () => [
@@ -147,10 +147,10 @@ const useColumns = () => {
       columnHelper.display({
         id: "actions",
         cell: ({ row }) => {
-          return <RegionActions region={row.original} />
+          return <RegionActions region={row.original} />;
         },
       }),
     ],
     [base]
-  )
-}
+  );
+};

@@ -1,17 +1,17 @@
-import { Checkbox } from "@medusajs/ui"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { Checkbox } from "@medusajs/ui";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   ProductCell,
   ProductHeader,
-} from "../../../../../components/table/table-cells/product/product-cell"
+} from "../../../../../components/table/table-cells/product/product-cell";
 
-const columnHelper = createColumnHelper<any>()
+const columnHelper = createColumnHelper<any>();
 
 export const useExchangeOutboundItemTableColumns = (currencyCode: string) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -29,10 +29,10 @@ export const useExchangeOutboundItemTableColumns = (currencyCode: string) => {
                 table.toggleAllPageRowsSelected(!!value)
               }
             />
-          )
+          );
         },
         cell: ({ row }) => {
-          const isSelectable = row.getCanSelect()
+          const isSelectable = row.getCanSelect();
 
           return (
             <Checkbox
@@ -40,23 +40,23 @@ export const useExchangeOutboundItemTableColumns = (currencyCode: string) => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             />
-          )
+          );
         },
       }),
       columnHelper.display({
         id: "product",
         header: () => <ProductHeader />,
         cell: ({ row }) => {
-          return <ProductCell product={row.original.product} />
+          return <ProductCell product={row.original.product} />;
         },
       }),
       columnHelper.accessor("sku", {
         header: t("fields.sku"),
         cell: ({ getValue }) => {
-          return getValue() || "-"
+          return getValue() || "-";
         },
       }),
       columnHelper.accessor("title", {
@@ -64,5 +64,5 @@ export const useExchangeOutboundItemTableColumns = (currencyCode: string) => {
       }),
     ],
     [t, currencyCode]
-  )
-}
+  );
+};

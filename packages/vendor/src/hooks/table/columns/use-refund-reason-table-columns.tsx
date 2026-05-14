@@ -1,13 +1,13 @@
-import { HttpTypes } from "@medusajs/types"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { createDataTableColumnHelper } from "@medusajs/ui"
-import { DescriptionCell } from "../../../components/table/table-cells/sales-channel/description-cell"
+import { HttpTypes } from "@medusajs/types";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { createDataTableColumnHelper } from "@medusajs/ui";
+import { DescriptionCell } from "../../../components/table/table-cells/sales-channel/description-cell";
 
-const columnHelper = createDataTableColumnHelper<HttpTypes.AdminRefundReason>()
+const columnHelper = createDataTableColumnHelper<HttpTypes.AdminRefundReason>();
 
 export const useRefundReasonTableColumns = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -35,5 +35,5 @@ export const useRefundReasonTableColumns = () => {
       }),
     ],
     [t]
-  )
-}
+  );
+};

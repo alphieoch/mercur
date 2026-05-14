@@ -1,8 +1,8 @@
-import { UniqueIdentifier } from "@dnd-kit/core"
-import { ReactNode } from "react"
+import { UniqueIdentifier } from "@dnd-kit/core";
+import { ReactNode } from "react";
 
-import { SortableTree } from "@components/common/sortable-tree"
-import { CategoryTreeItem } from "../../types"
+import { SortableTree } from "@components/common/sortable-tree";
+import { CategoryTreeItem } from "../../types";
 
 type CategoryTreeProps = {
   value: CategoryTreeItem[]
@@ -33,7 +33,7 @@ export const CategoryTree = ({
           <CategoryLeafPlaceholder key={i} />
         ))}
       </div>
-    )
+    );
   }
 
   return (
@@ -45,11 +45,11 @@ export const CategoryTree = ({
       onChange={onChange}
       renderValue={renderValue}
     />
-  )
-}
+  );
+};
 
 const CategoryLeafPlaceholder = () => {
   return (
     <div className="bg-ui-bg-base -mb-px flex h-12 animate-pulse items-center border-y px-6 py-2.5" />
-  )
-}
+  );
+};

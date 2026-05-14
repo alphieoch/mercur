@@ -1,5 +1,5 @@
-import { HttpTypes } from "@medusajs/types"
-import { i18n } from "../components/utilities/i18n"
+import { HttpTypes } from "@medusajs/types";
+import { i18n } from "../components/utilities/i18n";
 
 export enum PromotionStatus {
   SCHEDULED = "SCHEDULED",
@@ -23,29 +23,29 @@ export const promotionStatusMap: StatusMap = {
     "red",
     `${i18n.t("promotions.fields.campaign")} ${i18n.t("statuses.expired")?.toLowerCase()}`,
   ],
-}
+};
 
 export const getPromotionStatus = (promotion: HttpTypes.AdminPromotion) => {
-  const date = new Date()
-  const campaign = promotion.campaign
+  const date = new Date();
+  const campaign = promotion.campaign;
 
   if (!campaign) {
-    return promotionStatusMap[promotion.status!.toUpperCase()]
+    return promotionStatusMap[promotion.status!.toUpperCase()];
   }
 
   if (campaign.starts_at && new Date(campaign.starts_at!) > date) {
-    return promotionStatusMap[PromotionStatus.SCHEDULED]
+    return promotionStatusMap[PromotionStatus.SCHEDULED];
   }
 
-  const campaignBudget = campaign.budget
+  const campaignBudget = campaign.budget;
   const overBudget =
     campaignBudget &&
     campaignBudget.limit &&
-    campaignBudget.used! > campaignBudget.limit!
+    campaignBudget.used! > campaignBudget.limit!;
 
   if ((campaign.ends_at && new Date(campaign.ends_at) < date) || overBudget) {
-    return promotionStatusMap[PromotionStatus.EXPIRED]
+    return promotionStatusMap[PromotionStatus.EXPIRED];
   }
 
-  return promotionStatusMap[promotion.status!.toUpperCase()]
-}
+  return promotionStatusMap[promotion.status!.toUpperCase()];
+};

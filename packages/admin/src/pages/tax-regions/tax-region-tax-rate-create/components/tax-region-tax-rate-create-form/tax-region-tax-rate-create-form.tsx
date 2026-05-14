@@ -1,18 +1,18 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { Form } from "../../../../../components/common/form"
-import { SwitchBox } from "../../../../../components/common/switch-box"
-import { PercentageInput } from "../../../../../components/inputs/percentage-input"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { Form } from "../../../../../components/common/form";
+import { SwitchBox } from "../../../../../components/common/switch-box";
+import { PercentageInput } from "../../../../../components/inputs/percentage-input";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateTaxRate } from "../../../../../hooks/api/tax-rates"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateTaxRate } from "../../../../../hooks/api/tax-rates";
 
 type TaxRegionTaxRateCreateFormProps = {
   taxRegion: HttpTypes.AdminTaxRegion
@@ -29,14 +29,14 @@ const TaxRegionTaxRateCreateSchema = z.object({
     })
     .optional(),
   is_combinable: z.boolean().optional(),
-})
+});
 
 export const TaxRegionTaxRateCreateForm = ({
   taxRegion,
   isSublevel = false,
 }: TaxRegionTaxRateCreateFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<z.infer<typeof TaxRegionTaxRateCreateSchema>>({
     defaultValues: {
@@ -48,9 +48,9 @@ export const TaxRegionTaxRateCreateForm = ({
       is_combinable: false,
     },
     resolver: zodResolver(TaxRegionTaxRateCreateSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateTaxRate()
+  const { mutateAsync, isPending } = useCreateTaxRate();
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(
@@ -64,15 +64,15 @@ export const TaxRegionTaxRateCreateForm = ({
       },
       {
         onSuccess: () => {
-          toast.success(t("taxRegions.taxRates.create.successToast"))
-          handleSuccess()
+          toast.success(t("taxRegions.taxRates.create.successToast"));
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -103,7 +103,7 @@ export const TaxRegionTaxRateCreateForm = ({
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -130,7 +130,7 @@ export const TaxRegionTaxRateCreateForm = ({
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -147,7 +147,7 @@ export const TaxRegionTaxRateCreateForm = ({
                         </Form.Control>
                         <Form.ErrorMessage />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -176,5 +176,5 @@ export const TaxRegionTaxRateCreateForm = ({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

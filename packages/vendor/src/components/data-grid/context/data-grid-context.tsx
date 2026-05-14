@@ -1,12 +1,12 @@
-import { FocusEvent, MouseEvent, createContext } from "react"
+import { FocusEvent, MouseEvent, createContext } from "react";
 import {
   Control,
   FieldErrors,
   FieldValues,
   Path,
   UseFormRegister,
-} from "react-hook-form"
-import { CellErrorMetadata, CellMetadata, DataGridCoordinates } from "../types"
+} from "react-hook-form";
+import { CellErrorMetadata, CellMetadata, DataGridCoordinates } from "../types";
 
 type DataGridContextType<TFieldValues extends FieldValues> = {
   // Grid state
@@ -42,4 +42,4 @@ type DataGridContextType<TFieldValues extends FieldValues> = {
 
 export const DataGridContext = createContext<DataGridContextType<any> | null>(
   null
-)
+);

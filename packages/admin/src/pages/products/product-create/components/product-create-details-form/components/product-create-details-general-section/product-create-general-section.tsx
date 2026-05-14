@@ -1,14 +1,14 @@
-import { Input, Textarea } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Input, Textarea } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { Form } from "../../../../../../../components/common/form"
-import { HandleInput } from "../../../../../../../components/inputs/handle-input"
-import { useTabbedForm } from "../../../../../../../components/tabbed-form/tabbed-form"
-import { ProductCreateSchemaType } from "../../../../types"
+import { Form } from "../../../../../../../components/common/form";
+import { HandleInput } from "../../../../../../../components/inputs/handle-input";
+import { useTabbedForm } from "../../../../../../../components/tabbed-form/tabbed-form";
+import { ProductCreateSchemaType } from "../../../../types";
 
 export const ProductCreateGeneralSection = () => {
-  const form = useTabbedForm<ProductCreateSchemaType>()
-  const { t } = useTranslation()
+  const form = useTabbedForm<ProductCreateSchemaType>();
+  const { t } = useTranslation();
 
   return (
     <div id="general" className="flex flex-col gap-y-6" data-testid="product-create-general-section">
@@ -25,7 +25,7 @@ export const ProductCreateGeneralSection = () => {
                     <Input {...field} placeholder={t("products.fields.title.placeholder")} data-testid="product-create-general-section-title-input" />
                   </Form.Control>
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -41,7 +41,7 @@ export const ProductCreateGeneralSection = () => {
                     <Input {...field} placeholder={t("products.fields.subtitle.placeholder")} data-testid="product-create-general-section-subtitle-input" />
                   </Form.Control>
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -61,7 +61,7 @@ export const ProductCreateGeneralSection = () => {
                     <HandleInput {...field} placeholder={t("products.fields.handle.placeholder")} data-testid="product-create-general-section-handle-input" />
                   </Form.Control>
                 </Form.Item>
-              )
+              );
             }}
           />
         </div>
@@ -79,9 +79,9 @@ export const ProductCreateGeneralSection = () => {
                 <Textarea {...field} placeholder={t("products.fields.description.placeholder")} data-testid="product-create-general-section-description-input" />
               </Form.Control>
             </Form.Item>
-          )
+          );
         }}
       />
     </div>
-  )
-}
+  );
+};

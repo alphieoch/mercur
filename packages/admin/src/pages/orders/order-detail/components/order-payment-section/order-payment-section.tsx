@@ -189,9 +189,9 @@ const Payment = ({
       return ["Canceled", "red"];
     } else if (payment.captured_at) {
       return ["Captured", "green"];
-    } else {
-      return ["Pending", "orange"];
-    }
+    } 
+    return ["Pending", "orange"];
+    
   };
 
   const [status, color] = getPaymentStatusAttributes(payment) as [
@@ -355,9 +355,9 @@ const CreditLine = ({
           <Text size="small" leading="compact">
             {creditLine.created_at
               ? format(
-                  new Date(creditLine.created_at),
-                  "dd MMM, yyyy, HH:mm:ss",
-                )
+                new Date(creditLine.created_at),
+                "dd MMM, yyyy, HH:mm:ss",
+              )
               : "-"}
           </Text>
         </div>
@@ -427,34 +427,34 @@ const PaymentBreakdown = ({
     >
       {entries.map(({ type, event }) => {
         switch (type) {
-          case "payment":
-            return (
-              <Payment
-                key={event.id}
-                order={order}
-                payment={event}
-                refunds={refunds.filter(
-                  (refund) => refund.payment_id === event.id,
-                )}
-                currencyCode={currencyCode}
-              />
-            );
-          case "refund":
-            return (
-              <Refund
-                key={event.id}
-                refund={event}
-                currencyCode={currencyCode}
-              />
-            );
-          case "credit_line_refund":
-            return (
-              <CreditLine
-                key={event.id}
-                creditLine={event}
-                currencyCode={currencyCode}
-              />
-            );
+        case "payment":
+          return (
+            <Payment
+              key={event.id}
+              order={order}
+              payment={event}
+              refunds={refunds.filter(
+                (refund) => refund.payment_id === event.id,
+              )}
+              currencyCode={currencyCode}
+            />
+          );
+        case "refund":
+          return (
+            <Refund
+              key={event.id}
+              refund={event}
+              currencyCode={currencyCode}
+            />
+          );
+        case "credit_line_refund":
+          return (
+            <CreditLine
+              key={event.id}
+              creditLine={event}
+              currencyCode={currencyCode}
+            />
+          );
         }
       })}
     </div>

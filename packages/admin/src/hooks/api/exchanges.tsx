@@ -1,20 +1,20 @@
-import { ClientError } from "@mercurjs/client"
-import { HttpTypes } from "@medusajs/types"
+import { ClientError } from "@mercurjs/client";
+import { HttpTypes } from "@medusajs/types";
 import {
   QueryKey,
   useMutation,
   UseMutationOptions,
   useQuery,
   UseQueryOptions,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
-import { ordersQueryKeys } from "./orders"
-import { returnsQueryKeys } from "./returns"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
+import { ordersQueryKeys } from "./orders";
+import { returnsQueryKeys } from "./returns";
 
-const EXCHANGES_QUERY_KEY = "exchanges" as const
-export const exchangesQueryKeys = queryKeysFactory(EXCHANGES_QUERY_KEY)
+const EXCHANGES_QUERY_KEY = "exchanges" as const;
+export const exchangesQueryKeys = queryKeysFactory(EXCHANGES_QUERY_KEY);
 
 export const useExchange = (
   id: string,
@@ -33,10 +33,10 @@ export const useExchange = (
     queryFn: async () => sdk.admin.exchanges.$id.query({ $id: id, ...query }),
     queryKey: exchangesQueryKeys.detail(id, query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useExchanges = (
   query?: HttpTypes.AdminExchangeListParams,
@@ -54,10 +54,10 @@ export const useExchanges = (
     queryFn: async () => sdk.admin.exchanges.query({ ...query }),
     queryKey: exchangesQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateExchange = (
   orderId: string,
@@ -73,21 +73,21 @@ export const useCreateExchange = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: exchangesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelExchange = (
   id: string,
@@ -99,24 +99,24 @@ export const useCancelExchange = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: exchangesQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: exchangesQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddExchangeInboundItems = (
   id: string,
@@ -133,12 +133,12 @@ export const useAddExchangeInboundItems = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateExchangeInboundItem = (
   id: string,
@@ -158,17 +158,17 @@ export const useUpdateExchangeInboundItem = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRemoveExchangeInboundItem = (
   id: string,
@@ -188,21 +188,21 @@ export const useRemoveExchangeInboundItem = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.details(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddExchangeInboundShipping = (
   id: string,
@@ -222,12 +222,12 @@ export const useAddExchangeInboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateExchangeInboundShipping = (
   id: string,
@@ -251,12 +251,12 @@ export const useUpdateExchangeInboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteExchangeInboundShipping = (
   id: string,
@@ -276,13 +276,13 @@ export const useDeleteExchangeInboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddExchangeOutboundItems = (
   id: string,
@@ -299,12 +299,12 @@ export const useAddExchangeOutboundItems = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateExchangeOutboundItems = (
   id: string,
@@ -324,17 +324,17 @@ export const useUpdateExchangeOutboundItems = (
         $id: id,
         $actionId: actionId,
         ...payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useRemoveExchangeOutboundItem = (
   id: string,
@@ -354,17 +354,17 @@ export const useRemoveExchangeOutboundItem = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useAddExchangeOutboundShipping = (
   id: string,
@@ -384,12 +384,12 @@ export const useAddExchangeOutboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateExchangeOutboundShipping = (
   id: string,
@@ -413,12 +413,12 @@ export const useUpdateExchangeOutboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteExchangeOutboundShipping = (
   id: string,
@@ -438,12 +438,12 @@ export const useDeleteExchangeOutboundShipping = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useExchangeConfirmRequest = (
   id: string,
@@ -460,25 +460,25 @@ export const useExchangeConfirmRequest = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: returnsQueryKeys.all,
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: exchangesQueryKeys.lists(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useCancelExchangeRequest = (
   id: string,
@@ -490,20 +490,20 @@ export const useCancelExchangeRequest = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.details(),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: ordersQueryKeys.preview(orderId),
-      })
+      });
 
       queryClient.invalidateQueries({
         queryKey: exchangesQueryKeys.details(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: exchangesQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

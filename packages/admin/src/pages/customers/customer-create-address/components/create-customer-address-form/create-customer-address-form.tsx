@@ -1,17 +1,17 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Heading, Input, Text, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
-import * as zod from "zod"
-import { Form } from "../../../../../components/common/form"
-import { CountrySelect } from "../../../../../components/inputs/country-select"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Heading, Input, Text, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import * as zod from "zod";
+import { Form } from "../../../../../components/common/form";
+import { CountrySelect } from "../../../../../components/inputs/country-select";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useCreateCustomerAddress } from "../../../../../hooks/api/customers"
+} from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useCreateCustomerAddress } from "../../../../../hooks/api/customers";
 
 const CreateCustomerAddressSchema = zod.object({
   address_name: zod.string().min(1),
@@ -23,12 +23,12 @@ const CreateCustomerAddressSchema = zod.object({
   province: zod.string().optional(),
   company: zod.string().optional(),
   phone: zod.string().optional(),
-})
+});
 
 export const CreateCustomerAddressForm = () => {
-  const { t } = useTranslation()
-  const { id } = useParams()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof CreateCustomerAddressSchema>>({
     defaultValues: {
@@ -43,9 +43,9 @@ export const CreateCustomerAddressForm = () => {
       province: "",
     },
     resolver: zodResolver(CreateCustomerAddressSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateCustomerAddress(id!)
+  const { mutateAsync, isPending } = useCreateCustomerAddress(id!);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(
@@ -62,16 +62,16 @@ export const CreateCustomerAddressForm = () => {
       },
       {
         onSuccess: () => {
-          toast.success(t("customers.addresses.create.successToast"))
+          toast.success(t("customers.addresses.create.successToast"));
 
-          handleSuccess(`/customers/${id}`)
+          handleSuccess(`/customers/${id}`);
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form} data-testid="create-customer-address-form">
@@ -112,7 +112,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-address-name-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -134,7 +134,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-address-1-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -154,7 +154,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-address-2-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -176,7 +176,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-postal-code-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -191,7 +191,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-city-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -210,7 +210,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-country-code-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -230,7 +230,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-province-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -250,7 +250,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-company-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
                 <Form.Field
@@ -265,7 +265,7 @@ export const CreateCustomerAddressForm = () => {
                         </Form.Control>
                         <Form.ErrorMessage data-testid="create-customer-address-form-phone-error" />
                       </Form.Item>
-                    )
+                    );
                   }}
                 />
               </div>
@@ -286,5 +286,5 @@ export const CreateCustomerAddressForm = () => {
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};

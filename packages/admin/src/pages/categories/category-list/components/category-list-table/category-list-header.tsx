@@ -1,10 +1,10 @@
-import { ReactNode, Children } from "react"
-import { Button, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { ReactNode, Children } from "react";
+import { Button, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const CategoryListTitle = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div>
       <Heading>{t("categories.domain")}</Heading>
@@ -12,15 +12,15 @@ export const CategoryListTitle = () => {
         {t("categories.subtitle")}
       </Text>
     </div>
-  )
-}
+  );
+};
 
 export const CategoryListActions = ({
   children,
 }: {
   children?: ReactNode
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div className="flex items-center gap-x-2">
       {Children.count(children) > 0 ? (
@@ -36,8 +36,8 @@ export const CategoryListActions = ({
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const CategoryListHeader = ({
   children,
@@ -55,5 +55,5 @@ export const CategoryListHeader = ({
         </>
       )}
     </div>
-  )
-}
+  );
+};

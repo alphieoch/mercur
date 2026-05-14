@@ -1,16 +1,16 @@
-import { Avatar, Copy, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
-import { HttpTypes } from "@medusajs/types"
-import { getFormattedAddress, isSameAddress } from "../../../lib/addresses"
+import { Avatar, Copy, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { HttpTypes } from "@medusajs/types";
+import { getFormattedAddress, isSameAddress } from "../../../lib/addresses";
 
 const ID = ({ data }: { data: HttpTypes.AdminOrder }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const id = data.customer_id
-  const name = getOrderCustomer(data)
-  const email = data.email
-  const fallback = (name || email || "").charAt(0).toUpperCase()
+  const id = data.customer_id;
+  const name = getOrderCustomer(data);
+  const email = data.email;
+  const fallback = (name || email || "").charAt(0).toUpperCase();
 
   return (
     <div className="text-ui-fg-subtle grid grid-cols-2 items-center px-6 py-4">
@@ -33,16 +33,16 @@ const ID = ({ data }: { data: HttpTypes.AdminOrder }) => {
         </div>
       </Link>
     </div>
-  )
-}
+  );
+};
 
 const Company = ({ data }: { data: HttpTypes.AdminOrder }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const company =
-    data.shipping_address?.company || data.billing_address?.company
+    data.shipping_address?.company || data.billing_address?.company;
 
   if (!company) {
-    return null
+    return null;
   }
 
   return (
@@ -54,14 +54,14 @@ const Company = ({ data }: { data: HttpTypes.AdminOrder }) => {
         {company}
       </Text>
     </div>
-  )
-}
+  );
+};
 
 const Contact = ({ data }: { data: HttpTypes.AdminOrder }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const phone = data.shipping_address?.phone || data.billing_address?.phone
-  const email = data.email || ""
+  const phone = data.shipping_address?.phone || data.billing_address?.phone;
+  const email = data.email || "";
 
   return (
     <div className="text-ui-fg-subtle grid grid-cols-2 items-start px-6 py-4">
@@ -99,8 +99,8 @@ const Contact = ({ data }: { data: HttpTypes.AdminOrder }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const AddressPrint = ({
   address,
@@ -111,7 +111,7 @@ const AddressPrint = ({
     | HttpTypes.AdminOrder["billing_address"]
   type: "shipping" | "billing"
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="text-ui-fg-subtle grid grid-cols-2 items-start px-6 py-4">
@@ -129,7 +129,7 @@ const AddressPrint = ({
                   {line}
                   <br />
                 </span>
-              )
+              );
             })}
           </Text>
           <div className="flex justify-end">
@@ -145,11 +145,11 @@ const AddressPrint = ({
         </Text>
       )}
     </div>
-  )
-}
+  );
+};
 
 const Addresses = ({ data }: { data: HttpTypes.AdminOrder }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="divide-y">
@@ -172,8 +172,8 @@ const Addresses = ({ data }: { data: HttpTypes.AdminOrder }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const CustomerInfo = Object.assign(
   {},
@@ -183,20 +183,20 @@ export const CustomerInfo = Object.assign(
     Contact,
     Addresses,
   }
-)
+);
 
 const getOrderCustomer = (obj: HttpTypes.AdminOrder) => {
   const { first_name: sFirstName, last_name: sLastName } =
-    obj.shipping_address || {}
+    obj.shipping_address || {};
   const { first_name: bFirstName, last_name: bLastName } =
-    obj.billing_address || {}
-  const { first_name: cFirstName, last_name: cLastName } = obj.customer || {}
+    obj.billing_address || {};
+  const { first_name: cFirstName, last_name: cLastName } = obj.customer || {};
 
-  const customerName = [cFirstName, cLastName].filter(Boolean).join(" ")
-  const shippingName = [sFirstName, sLastName].filter(Boolean).join(" ")
-  const billingName = [bFirstName, bLastName].filter(Boolean).join(" ")
+  const customerName = [cFirstName, cLastName].filter(Boolean).join(" ");
+  const shippingName = [sFirstName, sLastName].filter(Boolean).join(" ");
+  const billingName = [bFirstName, bLastName].filter(Boolean).join(" ");
 
-  const name = customerName || shippingName || billingName
+  const name = customerName || shippingName || billingName;
 
-  return name
-}
+  return name;
+};

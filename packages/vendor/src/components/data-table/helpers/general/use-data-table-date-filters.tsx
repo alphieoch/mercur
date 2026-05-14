@@ -1,20 +1,20 @@
-import { createDataTableFilterHelper } from "@medusajs/ui"
-import { subDays, subMonths } from "date-fns"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { createDataTableFilterHelper } from "@medusajs/ui";
+import { subDays, subMonths } from "date-fns";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-import { useDate } from "../../../../hooks/use-date"
+import { useDate } from "../../../../hooks/use-date";
 
-const filterHelper = createDataTableFilterHelper()
+const filterHelper = createDataTableFilterHelper();
 
 const useDateFilterOptions = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const today = useMemo(() => {
-    const date = new Date()
-    date.setHours(0, 0, 0, 0)
-    return date
-  }, [])
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }, []);
 
   return useMemo(() => {
     return [
@@ -48,20 +48,20 @@ const useDateFilterOptions = () => {
           $gte: subMonths(today, 12).toISOString(), // 12 months ago
         },
       },
-    ]
-  }, [today, t])
-}
+    ];
+  }, [today, t]);
+};
 
 export const useDataTableDateFilters: any = (disableRangeOption?: boolean) => {
-  const { t } = useTranslation()
-  const { getFullDate } = useDate()
-  const dateFilterOptions = useDateFilterOptions()
+  const { t } = useTranslation();
+  const { getFullDate } = useDate();
+  const dateFilterOptions = useDateFilterOptions();
 
   const rangeOptions = useMemo(() => {
     if (disableRangeOption) {
       return {
         disableRangeOption: true,
-      }
+      };
     }
 
     return {
@@ -69,8 +69,8 @@ export const useDataTableDateFilters: any = (disableRangeOption?: boolean) => {
       rangeOptionEndLabel: t("filters.date.ending"),
       rangeOptionLabel: t("filters.date.custom"),
       options: dateFilterOptions,
-    }
-  }, [disableRangeOption, t, dateFilterOptions])
+    };
+  }, [disableRangeOption, t, dateFilterOptions]);
 
   return useMemo(() => {
     return [
@@ -90,6 +90,6 @@ export const useDataTableDateFilters: any = (disableRangeOption?: boolean) => {
         options: dateFilterOptions,
         ...rangeOptions,
       }),
-    ]
-  }, [t, dateFilterOptions, getFullDate, rangeOptions])
-}
+    ];
+  }, [t, dateFilterOptions, getFullDate, rangeOptions]);
+};

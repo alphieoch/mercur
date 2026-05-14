@@ -2,14 +2,14 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
-import { QueryKey, UseQueryOptions, useQuery } from "@tanstack/react-query"
+} from "@mercurjs/client";
+import { QueryKey, UseQueryOptions, useQuery } from "@tanstack/react-query";
 
-import { sdk } from "../../lib/client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+import { sdk } from "../../lib/client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const CURRENCIES_QUERY_KEY = "currencies" as const
-const currenciesQueryKeys = queryKeysFactory(CURRENCIES_QUERY_KEY)
+const CURRENCIES_QUERY_KEY = "currencies" as const;
+const currenciesQueryKeys = queryKeysFactory(CURRENCIES_QUERY_KEY);
 
 export const useCurrencies = (
   query?: InferClientInput<typeof sdk.admin.currencies.query>,
@@ -27,10 +27,10 @@ export const useCurrencies = (
     queryFn: () => sdk.admin.currencies.query({ ...query }),
     queryKey: currenciesQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCurrency = (
   id: string,
@@ -52,7 +52,7 @@ export const useCurrency = (
     queryKey: currenciesQueryKeys.detail(id),
     queryFn: () => sdk.admin.currencies.$id.query({ $id: id, ...query }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};

@@ -1,28 +1,28 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { useTranslation } from "react-i18next"
-import { useTaxRates } from "@hooks/api/tax-rates"
-import { useTaxRateTableQuery } from "@hooks/table/query/use-tax-rate-table-query"
-import { TaxOverrideTable } from "@pages/settings/tax-regions/_common/components/tax-override-table"
-import { useTaxOverrideTable } from "@pages/settings/tax-regions/_common/hooks/use-tax-override-table"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { useTaxRates } from "@hooks/api/tax-rates";
+import { useTaxRateTableQuery } from "@hooks/table/query/use-tax-rate-table-query";
+import { TaxOverrideTable } from "@pages/settings/tax-regions/_common/components/tax-override-table";
+import { useTaxOverrideTable } from "@pages/settings/tax-regions/_common/hooks/use-tax-override-table";
 
 type TaxRegionProvinceOverrideSectionProps = {
   taxRegion: HttpTypes.AdminTaxRegion
 }
 
-const PAGE_SIZE = 10
-const PREFIX = "o"
+const PAGE_SIZE = 10;
+const PREFIX = "o";
 
 export const TaxRegionProvinceOverrideSection = ({
   taxRegion,
 }: TaxRegionProvinceOverrideSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { searchParams, raw } = useTaxRateTableQuery({
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
   const { tax_rates, count, isPending, isError, error } = useTaxRates(
     {
       ...searchParams,
@@ -32,17 +32,17 @@ export const TaxRegionProvinceOverrideSection = ({
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
   const { table } = useTaxOverrideTable({
     count,
     data: tax_rates,
     pageSize: PAGE_SIZE,
     prefix: PREFIX,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -61,5 +61,5 @@ export const TaxRegionProvinceOverrideSection = ({
         <Heading level="h2">{t("taxRegions.taxOverrides.header")}</Heading>
       </TaxOverrideTable>
     </Container>
-  )
-}
+  );
+};

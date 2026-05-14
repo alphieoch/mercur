@@ -1,5 +1,5 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
 import {
   Button,
   Input,
@@ -7,17 +7,17 @@ import {
   Select,
   Textarea,
   toast,
-} from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+} from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdatePriceList } from "../../../../../hooks/api/price-lists"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
-import { PriceListStatus, PriceListType } from "../../../common/constants"
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdatePriceList } from "../../../../../hooks/api/price-lists";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
+import { PriceListStatus, PriceListType } from "../../../common/constants";
 
 type PriceListEditFormProps = {
   priceList: HttpTypes.AdminPriceList
@@ -28,12 +28,12 @@ const PriceListEditSchema = z.object({
   type: z.nativeEnum(PriceListType),
   title: z.string().min(1),
   description: z.string().min(1),
-})
+});
 
 export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const direction = useDocumentDirection()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const direction = useDocumentDirection();
   const form = useForm<z.infer<typeof PriceListEditSchema>>({
     defaultValues: {
       type: priceList.type as PriceListType,
@@ -42,9 +42,9 @@ export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
       status: priceList.status as PriceListStatus,
     },
     resolver: zodResolver(PriceListEditSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdatePriceList(priceList.id)
+  const { mutateAsync, isPending } = useUpdatePriceList(priceList.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(values, {
@@ -53,15 +53,15 @@ export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
           t("priceLists.edit.successToast", {
             title: price_list.title,
           })
-        )
+        );
 
-        handleSuccess()
+        handleSuccess();
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="price-list-edit-form">
@@ -109,7 +109,7 @@ export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="price-list-edit-form-type-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
           <div className="flex flex-col gap-y-4">
@@ -125,7 +125,7 @@ export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="price-list-edit-form-title-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -139,7 +139,7 @@ export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
                     </Form.Label>
                     <Form.Control data-testid="price-list-edit-form-status-control">
                       <Select
-                          dir={direction}
+                        dir={direction}
                         {...field}
                         onValueChange={onChange}
                         data-testid="price-list-edit-form-status-select"
@@ -159,7 +159,7 @@ export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="price-list-edit-form-status-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
             <Form.Field
@@ -174,7 +174,7 @@ export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
                     </Form.Control>
                     <Form.ErrorMessage data-testid="price-list-edit-form-description-error" />
                   </Form.Item>
-                )
+                );
               }}
             />
           </div>
@@ -193,5 +193,5 @@ export const PriceListEditForm = ({ priceList }: PriceListEditFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

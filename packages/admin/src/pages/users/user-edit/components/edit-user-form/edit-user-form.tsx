@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Input } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { HttpTypes } from "@medusajs/types"
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateUser } from "../../../../../hooks/api/users"
+import { HttpTypes } from "@medusajs/types";
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateUser } from "../../../../../hooks/api/users";
 
 type EditUserFormProps = {
   user: HttpTypes.AdminUser
@@ -17,11 +17,11 @@ type EditUserFormProps = {
 const EditUserFormSchema = zod.object({
   first_name: zod.string().optional(),
   last_name: zod.string().optional(),
-})
+});
 
 export const EditUserForm = ({ user }: EditUserFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof EditUserFormSchema>>({
     defaultValues: {
@@ -29,17 +29,17 @@ export const EditUserForm = ({ user }: EditUserFormProps) => {
       last_name: user.last_name || "",
     },
     resolver: zodResolver(EditUserFormSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateUser(user.id)
+  const { mutateAsync, isPending } = useUpdateUser(user.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(values, {
       onSuccess: () => {
-        handleSuccess()
+        handleSuccess();
       },
-    })
-  })
+    });
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="user-edit-form">
@@ -60,7 +60,7 @@ export const EditUserForm = ({ user }: EditUserFormProps) => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="user-edit-form-first-name-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -75,7 +75,7 @@ export const EditUserForm = ({ user }: EditUserFormProps) => {
                   </Form.Control>
                   <Form.ErrorMessage data-testid="user-edit-form-last-name-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </RouteDrawer.Body>
@@ -93,5 +93,5 @@ export const EditUserForm = ({ user }: EditUserFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

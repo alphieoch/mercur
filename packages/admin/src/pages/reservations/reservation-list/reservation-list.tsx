@@ -1,6 +1,6 @@
-import { Children, ReactNode } from "react"
+import { Children, ReactNode } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   ReservationListTable,
   ReservationListHeader,
@@ -8,15 +8,15 @@ import {
   ReservationListActions,
   ReservationListCreateButton,
   ReservationListDataTable,
-} from "./components/reservation-list-table"
+} from "./components/reservation-list-table";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage>
       {Children.count(children) > 0 ? children : <ReservationListTable />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const ReservationListPage = Object.assign(Root, {
   Table: ReservationListTable,
@@ -25,4 +25,4 @@ export const ReservationListPage = Object.assign(Root, {
   HeaderActions: ReservationListActions,
   HeaderCreateButton: ReservationListCreateButton,
   DataTable: ReservationListDataTable,
-})
+});

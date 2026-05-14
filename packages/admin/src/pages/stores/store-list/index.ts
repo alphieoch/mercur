@@ -1,1 +1,1 @@
-export { StoreListPage as Component } from "./store-list"
+export { StoreListPage as Component } from "./store-list";

@@ -1,30 +1,30 @@
-import { Children, ReactNode } from "react"
-import { useParams } from "react-router-dom"
+import { Children, ReactNode } from "react";
+import { useParams } from "react-router-dom";
 
-import { RouteFocusModal } from "../../../components/modals"
-import { TabbedForm } from "../../../components/tabbed-form/tabbed-form"
-import { usePriceList } from "../../../hooks/api"
-import { usePriceListCurrencyData } from "../common/hooks/use-price-list-currency-data"
+import { RouteFocusModal } from "../../../components/modals";
+import { TabbedForm } from "../../../components/tabbed-form/tabbed-form";
+import { usePriceList } from "../../../hooks/api";
+import { usePriceListCurrencyData } from "../common/hooks/use-price-list-currency-data";
 import {
   PriceListPricesAddForm,
   PriceListPricesAddSchemaType,
-} from "./components/price-list-prices-add-form"
-import { PriceListPricesAddProductIdsForm } from "./components/price-list-prices-add-form/price-list-prices-add-product-ids-form"
-import { PriceListPricesAddPricesForm } from "./components/price-list-prices-add-form/price-list-prices-add-prices-form"
-import { PriceListPricesAddSchema } from "./components/price-list-prices-add-form/schema"
+} from "./components/price-list-prices-add-form";
+import { PriceListPricesAddProductIdsForm } from "./components/price-list-prices-add-form/price-list-prices-add-product-ids-form";
+import { PriceListPricesAddPricesForm } from "./components/price-list-prices-add-form/price-list-prices-add-prices-form";
+import { PriceListPricesAddSchema } from "./components/price-list-prices-add-form/schema";
 
 const Root = ({ children }: { children?: ReactNode }) => {
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>();
 
   const { price_list, isPending, isError, error } = usePriceList(id!, {
     fields: "*prices",
-  })
-  const currencyData = usePriceListCurrencyData()
+  });
+  const currencyData = usePriceListCurrencyData();
 
-  const ready = currencyData.isReady && !isPending && !!price_list
+  const ready = currencyData.isReady && !isPending && !!price_list;
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -40,18 +40,18 @@ const Root = ({ children }: { children?: ReactNode }) => {
         )
       )}
     </RouteFocusModal>
-  )
-}
+  );
+};
 
 export const PriceListPricesAddPage = Object.assign(Root, {
   Form: PriceListPricesAddForm,
   ProductIdsTab: PriceListPricesAddProductIdsForm,
   PricesTab: PriceListPricesAddPricesForm,
   Tab: TabbedForm.Tab,
-})
+});
 
-export type { PriceListPricesAddSchemaType }
-export { PriceListPricesAddSchema }
+export type { PriceListPricesAddSchemaType };
+export { PriceListPricesAddSchema };
 
 // Keep backward-compatible named export for route `Component`
-export const PriceListProductsAdd = Root
+export const PriceListProductsAdd = Root;

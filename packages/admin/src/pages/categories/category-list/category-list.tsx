@@ -1,21 +1,21 @@
-import { ReactNode, Children } from "react"
+import { ReactNode, Children } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   CategoryListTable,
   CategoryListDataTable,
   CategoryListHeader,
   CategoryListActions,
   CategoryListTitle,
-} from "./components/category-list-table"
+} from "./components/category-list-table";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage hasOutlet>
       {Children.count(children) > 0 ? children : <CategoryListTable />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const CategoryListPage = Object.assign(Root, {
   Table: CategoryListTable,
@@ -23,4 +23,4 @@ export const CategoryListPage = Object.assign(Root, {
   HeaderTitle: CategoryListTitle,
   HeaderActions: CategoryListActions,
   DataTable: CategoryListDataTable,
-})
+});

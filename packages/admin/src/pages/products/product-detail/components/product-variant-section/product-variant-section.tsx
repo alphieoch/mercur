@@ -237,39 +237,39 @@ const useColumns = (product: HttpTypes.AdminProduct) => {
       const inventoryItemsCount = variant.inventory_items?.length || 0;
 
       switch (inventoryItemsCount) {
-        case 0:
-          break;
-        case 1: {
-          const inventoryItemLink = `/inventory/${variant.inventory_items![0].inventory.id}`;
+      case 0:
+        break;
+      case 1: {
+        const inventoryItemLink = `/inventory/${variant.inventory_items![0].inventory.id}`;
 
-          mainActions.push({
-            label: t('products.variant.inventory.actions.inventoryItems'),
-            onClick: () => {
-              navigate(inventoryItemLink);
-            },
-            icon: <Buildings />
-          });
+        mainActions.push({
+          label: t('products.variant.inventory.actions.inventoryItems'),
+          onClick: () => {
+            navigate(inventoryItemLink);
+          },
+          icon: <Buildings />
+        });
+        break;
+      }
+      default: {
+        const ids = variant.inventory_items?.map(i => i.inventory?.id);
+
+        if (!ids || ids.length === 0) {
           break;
         }
-        default: {
-          const ids = variant.inventory_items?.map(i => i.inventory?.id);
 
-          if (!ids || ids.length === 0) {
-            break;
-          }
+        const inventoryKitLink = `/inventory?${new URLSearchParams({
+          id: ids.join(',')
+        }).toString()}`;
 
-          const inventoryKitLink = `/inventory?${new URLSearchParams({
-            id: ids.join(',')
-          }).toString()}`;
-
-          mainActions.push({
-            label: t('products.variant.inventory.actions.inventoryKit'),
-            onClick: () => {
-              navigate(inventoryKitLink);
-            },
-            icon: <Component />
-          });
-        }
+        mainActions.push({
+          label: t('products.variant.inventory.actions.inventoryKit'),
+          onClick: () => {
+            navigate(inventoryKitLink);
+          },
+          icon: <Component />
+        });
+      }
       }
 
       return [mainActions, secondaryActions];
@@ -311,13 +311,13 @@ const useColumns = (product: HttpTypes.AdminProduct) => {
 
       const text = hasInventoryKit
         ? t('products.variant.tableItemAvailable', {
-            availableCount: quantity
-          })
+          availableCount: quantity
+        })
         : t('products.variant.tableItem', {
-            availableCount: quantity,
-            locationCount,
-            count: locationCount
-          });
+          availableCount: quantity,
+          locationCount,
+          count: locationCount
+        });
 
       return { text, hasInventoryKit, quantity, notManaged: false };
     },

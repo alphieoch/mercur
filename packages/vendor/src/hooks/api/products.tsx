@@ -158,12 +158,12 @@ export const useProductVariants = (
   const { data, ...rest } = useQuery({
     queryFn: () => {
       if (!productId) {
-        throw new Error("productId is required for useProductVariants")
+        throw new Error("productId is required for useProductVariants");
       }
       return fetchQuery(`/vendor/products/${productId}/variants`, {
         method: "GET",
         query: { ...query },
-      })
+      });
     },
     queryKey: variantsQueryKeys.list({ productId, ...query }),
     ...options,
@@ -272,26 +272,26 @@ export const useUpdateProductVariantsBatch = (
   return useMutation({
     mutationFn: async (variants: Array<{ id: string; [key: string]: any }>) => {
       const promises = variants.map((variant) => {
-        const { id, ...updateData } = variant
+        const { id, ...updateData } = variant;
         return fetchQuery(`/vendor/products/${productId}/variants/${id}`, {
           method: "POST",
           body: updateData,
-        })
-      })
-      return Promise.all(promises)
+        });
+      });
+      return Promise.all(promises);
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: productsQueryKeys.detail(productId),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: variantsQueryKeys.lists(),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteVariant = (
   productId: string,
@@ -497,7 +497,7 @@ type ProductAttributesResponse = {
 const productAttributesQueryKey = (id: string) => [
   "product-attributes",
   id,
-]
+];
 
 export const useProductAttributes = (_id: string) => {
   const { data, ...rest } = useQuery<ProductAttributesResponse>({
@@ -507,10 +507,10 @@ export const useProductAttributes = (_id: string) => {
         limit: 100,
       } as any),
     queryKey: productAttributesQueryKey(_id),
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 /* Attribute Management Hooks */
 
@@ -535,15 +535,15 @@ export const useAddProductAttribute = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: productsQueryKeys.detail(productId),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: productAttributesQueryKey(productId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 type UpdateProductAttributePayload = {
   values?: string[]
@@ -573,15 +573,15 @@ export const useUpdateProductAttribute = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: productsQueryKeys.detail(productId),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: productAttributesQueryKey(productId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 type RemoveProductAttributeResponse = {
   product_id: string
@@ -610,15 +610,15 @@ export const useRemoveProductAttribute = (
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
         queryKey: productsQueryKeys.detail(productId),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: productAttributesQueryKey(productId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 /* Variant Media Hook */
 
@@ -653,15 +653,15 @@ export const useBatchVariantImages = (
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: variantsQueryKeys.detail(variantId),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: productsQueryKeys.detail(productId),
-      })
-      options?.onSuccess?.(data, variables, context)
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 /* Batch Update Products */
 
@@ -685,22 +685,22 @@ export const useBatchUpdateProducts = (
       return fetchQuery(`/vendor/products/batch`, {
         method: "POST",
         body: payload,
-      })
+      });
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: productsQueryKeys.lists(),
-      })
+      });
       variables.update?.forEach((item: BatchUpdateProductItem) => {
         queryClient.invalidateQueries({
           queryKey: productsQueryKeys.detail(item.id),
-        })
-      })
-      options?.onSuccess?.(data, variables, context)
+        });
+      });
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useBulkDeleteProducts = (
   options?: UseMutationOptions<any[], ClientError, string[]>
@@ -711,22 +711,22 @@ export const useBulkDeleteProducts = (
         fetchQuery(`/vendor/products/${id}`, {
           method: "DELETE",
         })
-      )
-      return Promise.all(deletePromises)
+      );
+      return Promise.all(deletePromises);
     },
     onSuccess: (data: any, variables: any, context: any) => {
       queryClient.invalidateQueries({
         queryKey: productsQueryKeys.lists(),
-      })
+      });
 
       variables.forEach((id: string) => {
         queryClient.invalidateQueries({
           queryKey: productsQueryKeys.detail(id),
-        })
-      })
+        });
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

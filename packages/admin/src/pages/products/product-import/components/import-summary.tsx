@@ -1,13 +1,13 @@
-import { HttpTypes } from "@medusajs/types"
-import { Divider, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { Divider, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 export const ImportSummary = ({
   summary,
 }: {
   summary: HttpTypes.AdminImportProductResponse["summary"]
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="shadow-elevation-card-rest bg-ui-bg-component transition-fg flex flex-row rounded-md px-3 py-2">
@@ -21,8 +21,8 @@ export const ImportSummary = ({
         description={t("products.import.upload.productsToUpdate")}
       />
     </div>
-  )
-}
+  );
+};
 
 const Stat = ({
   title,
@@ -46,5 +46,5 @@ const Stat = ({
         {description}
       </Text>
     </div>
-  )
-}
+  );
+};

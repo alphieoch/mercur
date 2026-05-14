@@ -1,1 +1,1 @@
-export { MarketplaceAddCurrencies as Component } from "./marketplace-add-currencies"
+export { MarketplaceAddCurrencies as Component } from "./marketplace-add-currencies";

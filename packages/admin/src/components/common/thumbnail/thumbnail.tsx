@@ -1,5 +1,5 @@
-import { Photo } from "@medusajs/icons"
-import { clx } from "@medusajs/ui"
+import { Photo } from "@medusajs/icons";
+import { clx } from "@medusajs/ui";
 
 type ThumbnailProps = {
   src?: string | null
@@ -28,5 +28,5 @@ export const Thumbnail = ({ src, alt, size = "base" }: ThumbnailProps) => {
         <Photo className="text-ui-fg-subtle" />
       )}
     </div>
-  )
-}
+  );
+};

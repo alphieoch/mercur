@@ -2,12 +2,12 @@ import {
   QueryKey,
   UseQueryOptions,
   useQuery,
-} from "@tanstack/react-query"
-import { fetchQuery } from "../../lib/client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
+} from "@tanstack/react-query";
+import { fetchQuery } from "../../lib/client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
 
-const ATTRIBUTES_QUERY_KEY = "attributes" as const
-export const attributesQueryKeys = queryKeysFactory(ATTRIBUTES_QUERY_KEY)
+const ATTRIBUTES_QUERY_KEY = "attributes" as const;
+export const attributesQueryKeys = queryKeysFactory(ATTRIBUTES_QUERY_KEY);
 
 type Attribute = {
   id: string
@@ -71,10 +71,10 @@ export const useAttributes = (
       }),
     queryKey: attributesQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useAttribute = (
   id: string,
@@ -95,7 +95,7 @@ export const useAttribute = (
       }),
     queryKey: attributesQueryKeys.detail(id),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};

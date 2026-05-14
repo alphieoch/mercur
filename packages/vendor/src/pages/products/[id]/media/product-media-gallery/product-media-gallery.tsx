@@ -4,76 +4,76 @@ import {
   Trash,
   TriangleLeftMini,
   TriangleRightMini,
-} from "@medusajs/icons"
-import { Button, IconButton, Text, Tooltip, clx, usePrompt } from "@medusajs/ui"
-import { HttpTypes } from "@medusajs/types"
-import { useCallback, useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Link, useLocation } from "react-router-dom"
+} from "@medusajs/icons";
+import { Button, IconButton, Text, Tooltip, clx, usePrompt } from "@medusajs/ui";
+import { HttpTypes } from "@medusajs/types";
+import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, useLocation } from "react-router-dom";
 
-import { ExtendedAdminProduct } from "@custom-types/products"
-import { RouteFocusModal } from "@components/modals"
-import { useUpdateProduct } from "@hooks/api/products"
+import { ExtendedAdminProduct } from "@custom-types/products";
+import { RouteFocusModal } from "@components/modals";
+import { useUpdateProduct } from "@hooks/api/products";
 
 type ProductMediaGalleryProps = {
   product: ExtendedAdminProduct
 }
 
 export const ProductMediaGallery = ({ product }: ProductMediaGalleryProps) => {
-  const { state } = useLocation()
-  const [curr, setCurr] = useState<number>(state?.curr || 0)
+  const { state } = useLocation();
+  const [curr, setCurr] = useState<number>(state?.curr || 0);
 
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync, isPending } = useUpdateProduct(product.id)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync, isPending } = useUpdateProduct(product.id);
 
-  const media = getMedia(product.images, product.thumbnail)
+  const media = getMedia(product.images, product.thumbnail);
 
   const next = useCallback(() => {
     if (isPending) {
-      return
+      return;
     }
 
-    setCurr((prev) => (prev + 1) % media.length)
-  }, [media, isPending])
+    setCurr((prev) => (prev + 1) % media.length);
+  }, [media, isPending]);
 
   const prev = useCallback(() => {
     if (isPending) {
-      return
+      return;
     }
 
-    setCurr((prev) => (prev - 1 + media.length) % media.length)
-  }, [media, isPending])
+    setCurr((prev) => (prev - 1 + media.length) % media.length);
+  }, [media, isPending]);
 
   const goTo = useCallback(
     (index: number) => {
       if (isPending) {
-        return
+        return;
       }
 
-      setCurr(index)
+      setCurr(index);
     },
     [isPending]
-  )
+  );
 
   const handleDownloadCurrent = () => {
     if (isPending) {
-      return
+      return;
     }
 
     const a = document.createElement("a") as HTMLAnchorElement & {
       download: string
-    }
+    };
 
-    a.href = media[curr].url
-    a.download = "image"
-    a.target = "_blank"
+    a.href = media[curr].url;
+    a.download = "image";
+    a.target = "_blank";
 
-    a.click()
-  }
+    a.click();
+  };
 
   const handleDeleteCurrent = async () => {
-    const current = media[curr]
+    const current = media[curr];
 
     const res = await prompt({
       title: t("general.areYouSure"),
@@ -82,44 +82,44 @@ export const ProductMediaGallery = ({ product }: ProductMediaGalleryProps) => {
         : t("products.media.deleteWarning", { count: 1 }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     const mediaToKeep =
       product.images
         ?.filter((i) => i.id !== current.id)
-        .map((i) => ({ url: i.url })) || []
+        .map((i) => ({ url: i.url })) || [];
 
     if (curr === media.length - 1) {
-      setCurr((prev) => prev - 1)
+      setCurr((prev) => prev - 1);
     }
 
     await mutateAsync({
       images: mediaToKeep,
       thumbnail: current.isThumbnail ? "" : undefined,
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
-        next()
+        next();
       } else if (e.key === "ArrowLeft") {
-        prev()
+        prev();
       }
-    }
+    };
 
-    document.addEventListener("keydown", handleKeyDown)
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown)
-    }
-  }, [next, prev])
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [next, prev]);
 
-  const noMedia = !media.length
+  const noMedia = !media.length;
 
   return (
     <div className="flex size-full flex-col overflow-hidden">
@@ -165,11 +165,11 @@ export const ProductMediaGallery = ({ product }: ProductMediaGalleryProps) => {
         />
       </RouteFocusModal.Body>
     </div>
-  )
-}
+  );
+};
 
 const Canvas = ({ media, curr }: { media: Media[]; curr: number }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (media.length === 0) {
     return (
@@ -191,7 +191,7 @@ const Canvas = ({ media, curr }: { media: Media[]; curr: number }) => {
           <Link to="?view=edit">{t("products.media.emptyState.action")}</Link>
         </Button>
       </div>
-    )
+    );
   }
 
   return (
@@ -213,10 +213,10 @@ const Canvas = ({ media, curr }: { media: Media[]; curr: number }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const MAX_VISIBLE_ITEMS = 8
+const MAX_VISIBLE_ITEMS = 8;
 
 const Preview = ({
   media,
@@ -232,26 +232,26 @@ const Preview = ({
   goTo: (index: number) => void
 }) => {
   if (!media.length) {
-    return null
+    return null;
   }
 
   const getVisibleItems = (media: Media[], index: number) => {
     if (media.length <= MAX_VISIBLE_ITEMS) {
-      return media
+      return media;
     }
 
-    const half = Math.floor(MAX_VISIBLE_ITEMS / 2)
-    const start = (index - half + media.length) % media.length
-    const end = (start + MAX_VISIBLE_ITEMS) % media.length
+    const half = Math.floor(MAX_VISIBLE_ITEMS / 2);
+    const start = (index - half + media.length) % media.length;
+    const end = (start + MAX_VISIBLE_ITEMS) % media.length;
 
     if (end < start) {
-      return [...media.slice(start), ...media.slice(0, end)]
-    } else {
-      return media.slice(start, end)
-    }
-  }
+      return [...media.slice(start), ...media.slice(0, end)];
+    } 
+    return media.slice(start, end);
+    
+  };
 
-  const visibleItems = getVisibleItems(media, curr)
+  const visibleItems = getVisibleItems(media, curr);
 
   return (
     <div className="flex shrink-0 items-center justify-center gap-x-2 border-t p-3">
@@ -266,8 +266,8 @@ const Preview = ({
       </IconButton>
       <div className="flex items-center gap-x-2">
         {visibleItems.map((item) => {
-          const isCurrentImage = item.id === media[curr].id
-          const originalIndex = media.findIndex((i) => i.id === item.id)
+          const isCurrentImage = item.id === media[curr].id;
+          const originalIndex = media.findIndex((i) => i.id === item.id);
 
           return (
             <button
@@ -283,7 +283,7 @@ const Preview = ({
             >
               <img src={item.url} alt="" className="size-full object-cover" />
             </button>
-          )
+          );
         })}
       </div>
       <IconButton
@@ -296,8 +296,8 @@ const Preview = ({
         <TriangleRightMini />
       </IconButton>
     </div>
-  )
-}
+  );
+};
 
 type Media = {
   id: string
@@ -314,15 +314,15 @@ const getMedia = (
       id: image.id,
       url: image.url,
       isThumbnail: image.url === thumbnail,
-    })) || []
+    })) || [];
 
   if (thumbnail && !media.some((mediaItem) => mediaItem.isThumbnail)) {
     media.unshift({
       id: "thumbnail_only",
       url: thumbnail,
       isThumbnail: true,
-    })
+    });
   }
 
-  return media
-}
+  return media;
+};

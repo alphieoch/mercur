@@ -2,8 +2,8 @@ import {
   Adjustments,
   AdjustmentsDone,
   ExclamationCircle,
-} from "@medusajs/icons"
-import { Button, DropdownMenu, clx } from "@medusajs/ui"
+} from "@medusajs/icons";
+import { Button, DropdownMenu, clx } from "@medusajs/ui";
 import {
   Cell,
   CellContext,
@@ -14,12 +14,12 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 import {
   VirtualItem,
   Virtualizer,
   useVirtualizer,
-} from "@tanstack/react-virtual"
+} from "@tanstack/react-virtual";
 import React, {
   CSSProperties,
   ReactNode,
@@ -28,14 +28,14 @@ import React, {
   useMemo,
   useRef,
   useState,
-} from "react"
-import { FieldValues, UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+} from "react";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { useCommandHistory } from "../../../hooks/use-command-history"
-import { useDocumentDirection } from "../../../hooks/use-document-direction"
-import { ConditionalTooltip } from "../../common/conditional-tooltip"
-import { DataGridContext } from "../context"
+import { useCommandHistory } from "../../../hooks/use-command-history";
+import { useDocumentDirection } from "../../../hooks/use-document-direction";
+import { ConditionalTooltip } from "../../common/conditional-tooltip";
+import { DataGridContext } from "../context";
 import {
   useDataGridCellHandlers,
   useDataGridCellMetadata,
@@ -48,11 +48,11 @@ import {
   useDataGridMouseUpEvent,
   useDataGridNavigation,
   useDataGridQueryTool,
-} from "../hooks"
-import { DataGridMatrix } from "../models"
-import { DataGridCoordinates, GridColumnOption } from "../types"
-import { isCellMatch, isSpecialFocusKey } from "../utils"
-import { DataGridKeyboardShortcutModal } from "./data-grid-keyboard-shortcut-modal"
+} from "../hooks";
+import { DataGridMatrix } from "../models";
+import { DataGridCoordinates, GridColumnOption } from "../types";
+import { isCellMatch, isSpecialFocusKey } from "../utils";
+import { DataGridKeyboardShortcutModal } from "./data-grid-keyboard-shortcut-modal";
 export interface DataGridRootProps<
   TData,
   TFieldValues extends FieldValues = FieldValues
@@ -85,12 +85,12 @@ export interface DataGridRootProps<
   hasNextPage?: boolean
 }
 
-const ROW_HEIGHT = 40
+const ROW_HEIGHT = 40;
 
 const getCommonPinningStyles = <TData,>(
   column: Column<TData>
 ): CSSProperties => {
-  const isPinned = column.getIsPinned()
+  const isPinned = column.getIsPinned();
 
   /**
    * Since our border colors are semi-transparent, we need to set a custom border color
@@ -99,8 +99,8 @@ const getCommonPinningStyles = <TData,>(
    * We do this by checking if the current theme is dark mode, and then setting the border color
    * to the corresponding color.
    */
-  const isDarkMode = document.documentElement.classList.contains("dark")
-  const BORDER_COLOR = isDarkMode ? "rgb(50,50,53)" : "rgb(228,228,231)"
+  const isDarkMode = document.documentElement.classList.contains("dark");
+  const BORDER_COLOR = isDarkMode ? "rgb(50,50,53)" : "rgb(228,228,231)";
 
   return {
     position: isPinned ? "sticky" : "relative",
@@ -110,8 +110,8 @@ const getCommonPinningStyles = <TData,>(
     borderRight: isPinned ? `1px solid ${BORDER_COLOR}` : undefined,
     left: isPinned === "left" ? `${column.getStart("left")}px` : undefined,
     right: isPinned === "right" ? `${column.getAfter("right")}px` : undefined,
-  }
-}
+  };
+};
 
 /**
  * TODO:
@@ -122,48 +122,48 @@ export const DataGridRoot = <
   TData,
   TFieldValues extends FieldValues = FieldValues
 >({
-  data = [],
-  columns,
-  state,
-  getSubRows,
-  onEditingChange,
-  disableInteractions,
-  multiColumnSelection = false,
-  showColumnsDropdown = true,
-  totalRowCount,
-  onFetchMore,
-  isFetchingMore,
-  hasNextPage,
-  headerContent,
-}: DataGridRootProps<TData, TFieldValues>) => {
+    data = [],
+    columns,
+    state,
+    getSubRows,
+    onEditingChange,
+    disableInteractions,
+    multiColumnSelection = false,
+    showColumnsDropdown = true,
+    totalRowCount,
+    onFetchMore,
+    isFetchingMore,
+    hasNextPage,
+    headerContent,
+  }: DataGridRootProps<TData, TFieldValues>) => {
   // TODO: remove once everything is lazy loaded
-  const isLazyMode = totalRowCount !== undefined
-  const containerRef = useRef<HTMLDivElement>(null)
+  const isLazyMode = totalRowCount !== undefined;
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const { redo, undo, execute } = useCommandHistory()
+  const { redo, undo, execute } = useCommandHistory();
   const {
     register,
     control,
     getValues,
     setValue,
     formState: { errors },
-  } = state
+  } = state;
 
-  const [internalTrapActive, setTrapActive] = useState(true)
+  const [internalTrapActive, setTrapActive] = useState(true);
 
-  const trapActive = !disableInteractions && internalTrapActive
+  const trapActive = !disableInteractions && internalTrapActive;
 
-  const [anchor, setAnchor] = useState<DataGridCoordinates | null>(null)
-  const [rangeEnd, setRangeEnd] = useState<DataGridCoordinates | null>(null)
-  const [dragEnd, setDragEnd] = useState<DataGridCoordinates | null>(null)
+  const [anchor, setAnchor] = useState<DataGridCoordinates | null>(null);
+  const [rangeEnd, setRangeEnd] = useState<DataGridCoordinates | null>(null);
+  const [dragEnd, setDragEnd] = useState<DataGridCoordinates | null>(null);
 
-  const [isSelecting, setIsSelecting] = useState(false)
-  const [isDragging, setIsDragging] = useState(false)
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
 
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-  const [rowVisibility, setRowVisibility] = useState<VisibilityState>({})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowVisibility, setRowVisibility] = useState<VisibilityState>({});
 
   const grid = useReactTable({
     data: data,
@@ -183,18 +183,18 @@ export const DataGridRoot = <
       size: 200,
       maxSize: 400,
     },
-  })
+  });
 
-  const { flatRows } = grid.getRowModel()
-  const flatColumns = grid.getAllFlatColumns()
+  const { flatRows } = grid.getRowModel();
+  const flatColumns = grid.getAllFlatColumns();
 
   const visibleRows = useMemo(
     () => flatRows.filter((_, index) => rowVisibility?.[index] !== false),
     [flatRows, rowVisibility]
-  )
-  const visibleColumns = grid.getVisibleLeafColumns()
+  );
+  const visibleColumns = grid.getVisibleLeafColumns();
 
-  const effectiveRowCount = isLazyMode ? totalRowCount! : visibleRows.length
+  const effectiveRowCount = isLazyMode ? totalRowCount! : visibleRows.length;
 
   const rowVirtualizer = useVirtualizer({
     count: effectiveRowCount,
@@ -213,20 +213,20 @@ export const DataGridRoot = <
           { length: range.endIndex - range.startIndex + 1 },
           (_, i) => range.startIndex + i
         )
-      )
+      );
 
       if (anchor && visibleRows[anchor.row]) {
-        toRender.add(anchor.row)
+        toRender.add(anchor.row);
       }
 
       if (rangeEnd && visibleRows[rangeEnd.row]) {
-        toRender.add(rangeEnd.row)
+        toRender.add(rangeEnd.row);
       }
 
-      return Array.from(toRender).sort((a, b) => a - b)
+      return Array.from(toRender).sort((a, b) => a - b);
     },
-  })
-  const virtualRows = rowVirtualizer.getVirtualItems()
+  });
+  const virtualRows = rowVirtualizer.getVirtualItems();
 
   /**
    * Lazy loading scroll detection.
@@ -238,7 +238,7 @@ export const DataGridRoot = <
     hasNextPage,
     isFetchingMore,
     loadedRowCount: visibleRows.length,
-  })
+  });
 
   // Keep refs updated
   useEffect(() => {
@@ -247,56 +247,56 @@ export const DataGridRoot = <
       hasNextPage,
       isFetchingMore,
       loadedRowCount: visibleRows.length,
-    }
-  }, [onFetchMore, hasNextPage, isFetchingMore, visibleRows.length])
+    };
+  }, [onFetchMore, hasNextPage, isFetchingMore, visibleRows.length]);
 
-  const hasData = visibleRows.length > 0
+  const hasData = visibleRows.length > 0;
 
   const handleScroll = useCallback(() => {
     const { onFetchMore, hasNextPage, isFetchingMore, loadedRowCount } =
-      lazyLoadingRefs.current
+      lazyLoadingRefs.current;
 
     if (!onFetchMore || !hasNextPage || isFetchingMore) {
-      return
+      return;
     }
 
-    const scrollElement = containerRef.current
+    const scrollElement = containerRef.current;
 
-    const { scrollTop, clientHeight } = scrollElement!
-    const loadedHeight = loadedRowCount * ROW_HEIGHT
-    const viewportBottom = scrollTop + clientHeight
-    const fetchThreshold = loadedHeight - ROW_HEIGHT * 10
+    const { scrollTop, clientHeight } = scrollElement!;
+    const loadedHeight = loadedRowCount * ROW_HEIGHT;
+    const viewportBottom = scrollTop + clientHeight;
+    const fetchThreshold = loadedHeight - ROW_HEIGHT * 10;
 
     if (viewportBottom >= fetchThreshold) {
-      onFetchMore()
+      onFetchMore();
     }
-  }, [lazyLoadingRefs, containerRef])
+  }, [lazyLoadingRefs, containerRef]);
 
   useEffect(() => {
     if (!isLazyMode || !hasData) {
-      return
+      return;
     }
 
-    const container = containerRef.current
+    const container = containerRef.current;
     if (!container) {
-      return
+      return;
     }
 
     const timeoutId = setTimeout(() => {
-      const scrollElement: HTMLElement | null = containerRef.current
+      const scrollElement: HTMLElement | null = containerRef.current;
       if (!scrollElement) {
-        return
+        return;
       }
 
-      scrollElement.addEventListener("scroll", handleScroll)
-    }, 100)
+      scrollElement.addEventListener("scroll", handleScroll);
+    }, 100);
 
     return () => {
-      clearTimeout(timeoutId)
-      const scrollElement = containerRef.current
-      scrollElement?.removeEventListener("scroll", handleScroll)
-    }
-  }, [isLazyMode, hasData])
+      clearTimeout(timeoutId);
+      const scrollElement = containerRef.current;
+      scrollElement?.removeEventListener("scroll", handleScroll);
+    };
+  }, [isLazyMode, hasData]);
 
   const columnVirtualizer = useVirtualizer({
     count: visibleColumns.length,
@@ -305,40 +305,40 @@ export const DataGridRoot = <
     horizontal: true,
     overscan: 3,
     rangeExtractor: (range) => {
-      const startIndex = range.startIndex
-      const endIndex = range.endIndex
+      const startIndex = range.startIndex;
+      const endIndex = range.endIndex;
 
       const toRender = new Set(
         Array.from(
           { length: endIndex - startIndex + 1 },
           (_, i) => startIndex + i
         )
-      )
+      );
 
       if (anchor && visibleColumns[anchor.col]) {
-        toRender.add(anchor.col)
+        toRender.add(anchor.col);
       }
 
       if (rangeEnd && visibleColumns[rangeEnd.col]) {
-        toRender.add(rangeEnd.col)
+        toRender.add(rangeEnd.col);
       }
 
       // The first column is pinned, so we always render it
-      toRender.add(0)
+      toRender.add(0);
 
-      return Array.from(toRender).sort((a, b) => a - b)
+      return Array.from(toRender).sort((a, b) => a - b);
     },
-  })
-  const virtualColumns = columnVirtualizer.getVirtualItems()
+  });
+  const virtualColumns = columnVirtualizer.getVirtualItems();
 
-  let virtualPaddingLeft: number | undefined
-  let virtualPaddingRight: number | undefined
+  let virtualPaddingLeft: number | undefined;
+  let virtualPaddingRight: number | undefined;
 
   if (columnVirtualizer && virtualColumns?.length) {
-    virtualPaddingLeft = virtualColumns[0]?.start ?? 0
+    virtualPaddingLeft = virtualColumns[0]?.start ?? 0;
     virtualPaddingRight =
       columnVirtualizer.getTotalSize() -
-      (virtualColumns[virtualColumns.length - 1]?.end ?? 0)
+      (virtualColumns[virtualColumns.length - 1]?.end ?? 0);
   }
 
   const matrix = useMemo(
@@ -349,19 +349,19 @@ export const DataGridRoot = <
         multiColumnSelection
       ),
     [flatRows, columns, multiColumnSelection]
-  )
-  const queryTool = useDataGridQueryTool(containerRef)
+  );
+  const queryTool = useDataGridQueryTool(containerRef);
 
   const setSingleRange = useCallback(
     (coordinates: DataGridCoordinates | null) => {
-      setAnchor(coordinates)
-      setRangeEnd(coordinates)
+      setAnchor(coordinates);
+      setRangeEnd(coordinates);
     },
     []
-  )
+  );
 
   const { errorCount, isHighlighted, toggleErrorHighlighting } =
-    useDataGridErrorHighlighting(matrix, grid, errors)
+    useDataGridErrorHighlighting(matrix, grid, errors);
 
   const handleToggleErrorHighlighting = useCallback(() => {
     toggleErrorHighlighting(
@@ -369,22 +369,22 @@ export const DataGridRoot = <
       columnVisibility,
       setRowVisibility,
       setColumnVisibility
-    )
-  }, [toggleErrorHighlighting, rowVisibility, columnVisibility])
+    );
+  }, [toggleErrorHighlighting, rowVisibility, columnVisibility]);
 
   const {
     columnOptions,
     handleToggleColumn,
     handleResetColumns,
     isDisabled: isColumsDisabled,
-  } = useDataGridColumnVisibility(grid, matrix)
+  } = useDataGridColumnVisibility(grid, matrix);
 
   const handleToggleColumnVisibility = useCallback(
     (index: number) => {
-      return handleToggleColumn(index)
+      return handleToggleColumn(index);
     },
     [handleToggleColumn]
-  )
+  );
 
   const { navigateToField, scrollToCoordinates } = useDataGridNavigation<
     TData,
@@ -400,7 +400,7 @@ export const DataGridRoot = <
     setSingleRange,
     visibleColumns,
     visibleRows,
-  })
+  });
 
   const { createSnapshot, restoreSnapshot } = useDataGridCellSnapshot<
     TData,
@@ -408,22 +408,22 @@ export const DataGridRoot = <
   >({
     matrix,
     form: state,
-  })
+  });
 
   const onEditingChangeHandler = useCallback(
     (value: boolean) => {
       if (onEditingChange) {
-        onEditingChange(value)
+        onEditingChange(value);
       }
 
       if (value) {
-        createSnapshot(anchor)
+        createSnapshot(anchor);
       }
 
-      setIsEditing(value)
+      setIsEditing(value);
     },
     [anchor, createSnapshot, onEditingChange]
-  )
+  );
 
   const { getSelectionValues, setSelectionValues } = useDataGridFormHandlers<
     TData,
@@ -432,7 +432,7 @@ export const DataGridRoot = <
     matrix,
     form: state,
     anchor,
-  })
+  });
 
   const { handleKeyDownEvent, handleSpecialFocusKeys } =
     useDataGridKeydownEvent<TData, TFieldValues>({
@@ -456,7 +456,7 @@ export const DataGridRoot = <
       undo,
       redo,
       setValue,
-    })
+    });
 
   const { handleMouseUpEvent } = useDataGridMouseUpEvent<TData, TFieldValues>({
     matrix,
@@ -470,7 +470,7 @@ export const DataGridRoot = <
     getSelectionValues,
     setSelectionValues,
     execute,
-  })
+  });
 
   const { handleCopyEvent, handlePasteEvent } = useDataGridClipboardEvents<
     TData,
@@ -483,7 +483,7 @@ export const DataGridRoot = <
     getSelectionValues,
     setSelectionValues,
     execute,
-  })
+  });
 
   const {
     getWrapperFocusHandler,
@@ -508,14 +508,14 @@ export const DataGridRoot = <
     setValue,
     execute,
     multiColumnSelection,
-  })
+  });
 
   const { getCellErrorMetadata, getCellMetadata } = useDataGridCellMetadata<
     TData,
     TFieldValues
   >({
     matrix,
-  })
+  });
 
   /** Effects */
 
@@ -524,51 +524,51 @@ export const DataGridRoot = <
    */
   useEffect(() => {
     if (!trapActive) {
-      return
+      return;
     }
 
-    window.addEventListener("keydown", handleKeyDownEvent)
-    window.addEventListener("mouseup", handleMouseUpEvent)
+    window.addEventListener("keydown", handleKeyDownEvent);
+    window.addEventListener("mouseup", handleMouseUpEvent);
 
     // Copy and paste event listeners need to be added to the window
-    window.addEventListener("copy", handleCopyEvent)
-    window.addEventListener("paste", handlePasteEvent)
+    window.addEventListener("copy", handleCopyEvent);
+    window.addEventListener("paste", handlePasteEvent);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDownEvent)
-      window.removeEventListener("mouseup", handleMouseUpEvent)
+      window.removeEventListener("keydown", handleKeyDownEvent);
+      window.removeEventListener("mouseup", handleMouseUpEvent);
 
-      window.removeEventListener("copy", handleCopyEvent)
-      window.removeEventListener("paste", handlePasteEvent)
-    }
+      window.removeEventListener("copy", handleCopyEvent);
+      window.removeEventListener("paste", handlePasteEvent);
+    };
   }, [
     trapActive,
     handleKeyDownEvent,
     handleMouseUpEvent,
     handleCopyEvent,
     handlePasteEvent,
-  ])
+  ]);
 
   useEffect(() => {
     const specialFocusHandler = (e: KeyboardEvent) => {
       if (isSpecialFocusKey(e)) {
-        handleSpecialFocusKeys(e)
-        return
+        handleSpecialFocusKeys(e);
+        return;
       }
-    }
+    };
 
-    window.addEventListener("keydown", specialFocusHandler)
+    window.addEventListener("keydown", specialFocusHandler);
 
     return () => {
-      window.removeEventListener("keydown", specialFocusHandler)
-    }
-  }, [handleSpecialFocusKeys])
+      window.removeEventListener("keydown", specialFocusHandler);
+    };
+  }, [handleSpecialFocusKeys]);
 
   const handleHeaderInteractionChange = useCallback((isActive: boolean) => {
     if (isActive) {
-      setTrapActive(false)
+      setTrapActive(false);
     }
-  }, [])
+  }, []);
 
   /**
    * Auto corrective effect for ensuring we always
@@ -576,28 +576,28 @@ export const DataGridRoot = <
    */
   useEffect(() => {
     if (!anchor) {
-      return
+      return;
     }
 
     if (rangeEnd) {
-      return
+      return;
     }
 
-    setRangeEnd(anchor)
-  }, [anchor, rangeEnd])
+    setRangeEnd(anchor);
+  }, [anchor, rangeEnd]);
 
   /**
    * Ensure that we set a anchor on first render.
    */
   useEffect(() => {
     if (!anchor && matrix) {
-      const coords = matrix.getFirstNavigableCell()
+      const coords = matrix.getFirstNavigableCell();
 
       if (coords) {
-        setSingleRange(coords)
+        setSingleRange(coords);
       }
     }
-  }, [anchor, matrix, setSingleRange])
+  }, [anchor, matrix, setSingleRange]);
 
   const values = useMemo(
     () => ({
@@ -642,20 +642,20 @@ export const DataGridRoot = <
       getCellErrorMetadata,
       navigateToField,
     ]
-  )
+  );
 
   const handleRestoreGridFocus = useCallback(() => {
     if (anchor && !trapActive) {
-      setTrapActive(true)
+      setTrapActive(true);
 
-      setSingleRange(anchor)
-      scrollToCoordinates(anchor, "both")
+      setSingleRange(anchor);
+      scrollToCoordinates(anchor, "both");
 
       requestAnimationFrame(() => {
-        queryTool?.getContainer(anchor)?.focus()
-      })
+        queryTool?.getContainer(anchor)?.focus();
+      });
     }
-  }, [anchor, trapActive, setSingleRange, scrollToCoordinates, queryTool])
+  }, [anchor, trapActive, setSingleRange, scrollToCoordinates, queryTool]);
 
   return (
     <DataGridContext.Provider value={values}>
@@ -701,8 +701,8 @@ export const DataGridRoot = <
                       />
                     ) : null}
                     {virtualColumns.reduce((acc, vc, index, array) => {
-                      const header = headerGroup.headers[vc.index]
-                      const previousVC = array[index - 1]
+                      const header = headerGroup.headers[vc.index];
+                      const previousVC = array[index - 1];
 
                       if (previousVC && vc.index !== previousVC.index + 1) {
                         // If there's a gap between the current and previous virtual columns
@@ -715,7 +715,7 @@ export const DataGridRoot = <
                               width: `${vc.start - previousVC.end}px`,
                             }}
                           />
-                        )
+                        );
                       }
 
                       acc.push(
@@ -732,13 +732,13 @@ export const DataGridRoot = <
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </div>
-                      )
+                      );
 
-                      return acc
+                      return acc;
                     }, [] as ReactNode[])}
                     {virtualPaddingRight ? (
                       <div
@@ -760,7 +760,7 @@ export const DataGridRoot = <
                 }}
               >
                 {virtualRows.map((virtualRow) => {
-                  const row = visibleRows[virtualRow.index] as Row<TData>
+                  const row = visibleRows[virtualRow.index] as Row<TData>;
 
                   // In lazy mode, rows beyond loaded data show as skeleton
                   if (!row) {
@@ -772,10 +772,10 @@ export const DataGridRoot = <
                         virtualPaddingLeft={virtualPaddingLeft}
                         virtualPaddingRight={virtualPaddingRight}
                       />
-                    )
+                    );
                   }
 
-                  const rowIndex = flatRows.findIndex((r) => r.id === row.id)
+                  const rowIndex = flatRows.findIndex((r) => r.id === row.id);
 
                   return (
                     <DataGridRow
@@ -792,7 +792,7 @@ export const DataGridRoot = <
                       onDragToFillStart={onDragToFillStart}
                       multiColumnSelection={multiColumnSelection}
                     />
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -800,8 +800,8 @@ export const DataGridRoot = <
         </div>
       </div>
     </DataGridContext.Provider>
-  )
-}
+  );
+};
 
 type DataGridHeaderProps = {
   columnOptions: GridColumnOption[]
@@ -828,23 +828,23 @@ const DataGridHeader = ({
   showColumnsDropdown,
   headerContent,
 }: DataGridHeaderProps) => {
-  const [shortcutsOpen, setShortcutsOpen] = useState(false)
-  const [columnsOpen, setColumnsOpen] = useState(false)
-  const { t } = useTranslation()
-  const direction = useDocumentDirection()
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [columnsOpen, setColumnsOpen] = useState(false);
+  const { t } = useTranslation();
+  const direction = useDocumentDirection();
 
   // Since all columns are checked by default, we can check if any column is unchecked
-  const hasChanged = columnOptions.some((column) => !column.checked)
+  const hasChanged = columnOptions.some((column) => !column.checked);
 
   const handleShortcutsOpenChange = (value: boolean) => {
-    onHeaderInteractionChange(value)
-    setShortcutsOpen(value)
-  }
+    onHeaderInteractionChange(value);
+    setShortcutsOpen(value);
+  };
 
   const handleColumnsOpenChange = (value: boolean) => {
-    onHeaderInteractionChange(value)
-    setColumnsOpen(value)
-  }
+    onHeaderInteractionChange(value);
+    setColumnsOpen(value);
+  };
   return (
     <div className="bg-ui-bg-base flex items-center justify-between border-b p-4">
       {showColumnsDropdown && (
@@ -867,10 +867,10 @@ const DataGridHeader = ({
             </ConditionalTooltip>
             <DropdownMenu.Content>
               {columnOptions.map((column, index) => {
-                const { checked, disabled, id, name } = column
+                const { checked, disabled, id, name } = column;
 
                 if (disabled) {
-                  return null
+                  return null;
                 }
 
                 return (
@@ -882,7 +882,7 @@ const DataGridHeader = ({
                   >
                     {name}
                   </DropdownMenu.CheckboxItem>
-                )
+                );
               })}
             </DropdownMenu.Content>
           </DropdownMenu>
@@ -926,8 +926,8 @@ const DataGridHeader = ({
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 type DataGridCellProps<TData> = {
   cell: Cell<TData, unknown>
@@ -949,9 +949,9 @@ const DataGridCell = <TData,>({
   const coords: DataGridCoordinates = {
     row: rowIndex,
     col: columnIndex,
-  }
+  };
 
-  const isAnchor = isCellMatch(coords, anchor)
+  const isAnchor = isCellMatch(coords, anchor);
 
   return (
     <div
@@ -988,8 +988,8 @@ const DataGridCell = <TData,>({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 type DataGridRowProps<TData> = {
   row: Row<TData>
@@ -1018,7 +1018,7 @@ const DataGridRow = <TData,>({
   onDragToFillStart,
   multiColumnSelection,
 }: DataGridRowProps<TData>) => {
-  const visibleCells = row.getVisibleCells()
+  const visibleCells = row.getVisibleCells();
 
   return (
     <div
@@ -1038,10 +1038,10 @@ const DataGridRow = <TData,>({
         />
       ) : null}
       {virtualColumns.reduce((acc, vc, index, array) => {
-        const cell = visibleCells[vc.index]
-        const column = cell.column
-        const columnIndex = flatColumns.findIndex((c) => c.id === column.id)
-        const previousVC = array[index - 1]
+        const cell = visibleCells[vc.index];
+        const column = cell.column;
+        const columnIndex = flatColumns.findIndex((c) => c.id === column.id);
+        const previousVC = array[index - 1];
 
         if (previousVC && vc.index !== previousVC.index + 1) {
           // If there's a gap between the current and previous virtual columns
@@ -1054,7 +1054,7 @@ const DataGridRow = <TData,>({
                 width: `${vc.start - previousVC.end}px`,
               }}
             />
-          )
+          );
         }
 
         acc.push(
@@ -1067,9 +1067,9 @@ const DataGridRow = <TData,>({
             onDragToFillStart={onDragToFillStart}
             multiColumnSelection={multiColumnSelection}
           />
-        )
+        );
 
-        return acc
+        return acc;
       }, [] as ReactNode[])}
       {virtualPaddingRight ? (
         <div
@@ -1078,8 +1078,8 @@ const DataGridRow = <TData,>({
         />
       ) : null}
     </div>
-  )
-}
+  );
+};
 
 /**
  * Skeleton row component for lazy loading.
@@ -1114,8 +1114,8 @@ const DataGridRowSkeleton = ({
         />
       ) : null}
       {virtualColumns.map((vc, index, array) => {
-        const previousVC = array[index - 1]
-        const elements: ReactNode[] = []
+        const previousVC = array[index - 1];
+        const elements: ReactNode[] = [];
 
         if (previousVC && vc.index !== previousVC.index + 1) {
           elements.push(
@@ -1127,7 +1127,7 @@ const DataGridRowSkeleton = ({
                 width: `${vc.start - previousVC.end}px`,
               }}
             />
-          )
+          );
         }
 
         elements.push(
@@ -1141,9 +1141,9 @@ const DataGridRowSkeleton = ({
               <div className="bg-ui-bg-component h-4 w-3/4 animate-pulse rounded" />
             </div>
           </div>
-        )
+        );
 
-        return elements
+        return elements;
       })}
       {virtualPaddingRight ? (
         <div
@@ -1152,5 +1152,5 @@ const DataGridRowSkeleton = ({
         />
       ) : null}
     </div>
-  )
-}
+  );
+};

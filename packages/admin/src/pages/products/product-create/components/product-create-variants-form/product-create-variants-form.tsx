@@ -1,55 +1,55 @@
-import { HttpTypes } from "@medusajs/types"
-import { useMemo } from "react"
-import { useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { useMemo } from "react";
+import { useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import {
   createDataGridHelper,
   createDataGridPriceColumns,
   DataGrid,
-} from "../../../../../components/data-grid"
-import { useRouteModal } from "../../../../../components/modals"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
-import { useRegions } from "../../../../../hooks/api"
-import { usePricePreferences } from "../../../../../hooks/api/price-preferences"
-import { useStore } from "../../../../../hooks/api/store"
+} from "../../../../../components/data-grid";
+import { useRouteModal } from "../../../../../components/modals";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
+import { useRegions } from "../../../../../hooks/api";
+import { usePricePreferences } from "../../../../../hooks/api/price-preferences";
+import { useStore } from "../../../../../hooks/api/store";
 import {
   ProductCreateOptionSchema,
   ProductCreateVariantSchema,
-} from "../../constants"
-import { ProductCreateSchemaType } from "../../types"
+} from "../../constants";
+import { ProductCreateSchemaType } from "../../types";
 
 const Root = () => {
-  const form = useTabbedForm<ProductCreateSchemaType>()
-  const { setCloseOnEscape } = useRouteModal()
+  const form = useTabbedForm<ProductCreateSchemaType>();
+  const { setCloseOnEscape } = useRouteModal();
 
   const { store } = useStore({
     fields: "+default_sales_channel",
-  })
+  });
 
-  const { regions } = useRegions({ limit: 9999 })
+  const { regions } = useRegions({ limit: 9999 });
 
   const { price_preferences: pricePreferences } = usePricePreferences({
     limit: 9999,
-  })
+  });
 
   const currencyCodes = useMemo(
     () => store?.supported_currencies?.map((c) => c.currency_code) || [],
     [store]
-  )
+  );
 
   const variants = useWatch({
     control: form.control,
     name: "variants",
     defaultValue: [],
-  })
+  });
 
   const options = useWatch({
     control: form.control,
     name: "options",
     defaultValue: [],
-  })
+  });
 
   /**
    * NOTE: anything that goes to the datagrid component needs to be memoised otherwise DataGrid will rerender and inputs will loose focus
@@ -59,19 +59,19 @@ const Root = () => {
     currencies: currencyCodes,
     regions: regions ?? [],
     pricePreferences: pricePreferences ?? [],
-  })
+  });
 
   const variantData = useMemo(() => {
-    const ret: (ProductCreateVariantSchema & { originalIndex: number })[] = []
+    const ret: (ProductCreateVariantSchema & { originalIndex: number })[] = [];
 
     variants.forEach((v, i) => {
       if (v.should_create) {
-        ret.push({ ...v, originalIndex: i })
+        ret.push({ ...v, originalIndex: i });
       }
-    })
+    });
 
-    return ret
-  }, [variants])
+    return ret;
+  }, [variants]);
 
   return (
     <div className="flex size-full flex-col divide-y overflow-hidden" data-testid="product-create-variants-form">
@@ -84,23 +84,23 @@ const Root = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 Root._tabMeta = defineTabMeta<ProductCreateSchemaType>({
   id: "variants",
   labelKey: "products.create.tabs.variants",
   validationFields: ["variants"],
-})
+});
 
-export const ProductCreateVariantsForm = Root
+export const ProductCreateVariantsForm = Root;
 
 type VariantRow = ProductCreateVariantSchema & { originalIndex: number }
 
 const columnHelper = createDataGridHelper<
   VariantRow,
   ProductCreateSchemaType
->()
+>();
 
 const useColumns = ({
   options,
@@ -113,7 +113,7 @@ const useColumns = ({
   regions?: HttpTypes.AdminRegion[]
   pricePreferences?: HttpTypes.AdminPricePreference[]
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -133,7 +133,7 @@ const useColumns = ({
                 .map((o) => context.row.original.options[o.title])
                 .join(" / ")}
             </DataGrid.ReadonlyCell>
-          )
+          );
         },
         disableHiding: true,
       }),
@@ -145,7 +145,7 @@ const useColumns = ({
           `variants.${context.row.original.originalIndex}.title`,
         type: "text",
         cell: (context) => {
-          return <DataGrid.TextCell context={context} />
+          return <DataGrid.TextCell context={context} />;
         },
       }),
       columnHelper.column({
@@ -156,7 +156,7 @@ const useColumns = ({
           `variants.${context.row.original.originalIndex}.sku`,
         type: "text",
         cell: (context) => {
-          return <DataGrid.TextCell context={context} />
+          return <DataGrid.TextCell context={context} />;
         },
       }),
       columnHelper.column({
@@ -167,7 +167,7 @@ const useColumns = ({
           `variants.${context.row.original.originalIndex}.manage_inventory`,
         type: "boolean",
         cell: (context) => {
-          return <DataGrid.BooleanCell context={context} />
+          return <DataGrid.BooleanCell context={context} />;
         },
       }),
       columnHelper.column({
@@ -178,7 +178,7 @@ const useColumns = ({
           `variants.${context.row.original.originalIndex}.allow_backorder`,
         type: "boolean",
         cell: (context) => {
-          return <DataGrid.BooleanCell context={context} />
+          return <DataGrid.BooleanCell context={context} />;
         },
       }),
 
@@ -195,7 +195,7 @@ const useColumns = ({
               context={context}
               disabled={!context.row.original.manage_inventory}
             />
-          )
+          );
         },
       }),
 
@@ -208,13 +208,13 @@ const useColumns = ({
         pricePreferences,
         getFieldName: (context, value) => {
           if (context.column.id?.startsWith("currency_prices")) {
-            return `variants.${context.row.original.originalIndex}.prices.${value}`
+            return `variants.${context.row.original.originalIndex}.prices.${value}`;
           }
-          return `variants.${context.row.original.originalIndex}.prices.${value}`
+          return `variants.${context.row.original.originalIndex}.prices.${value}`;
         },
         t,
       }),
     ],
     [currencies, regions, options, pricePreferences, t]
-  )
-}
+  );
+};

@@ -1,35 +1,35 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { HttpTypes } from "@medusajs/types"
-import { Button, ProgressStatus, ProgressTabs, toast } from "@medusajs/ui"
-import { useForm, useWatch } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { HttpTypes } from "@medusajs/types";
+import { Button, ProgressStatus, ProgressTabs, toast } from "@medusajs/ui";
+import { useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { RouteFocusModal, useRouteModal } from "@components/modals"
-import { TabbedFormContext } from "@components/tabbed-form"
-import { KeyboundForm } from "@components/utilities/keybound-form"
-import { useRegions } from "@hooks/api"
-import { useAttributes } from "../../../../hooks/api/attributes"
-import { usePricePreferences } from "@hooks/api/price-preferences"
-import { useCreateProduct } from "@hooks/api/products"
-import { useStockLocations } from "@hooks/api/stock-locations"
-import { uploadFilesQuery } from "@lib/client"
+import { RouteFocusModal, useRouteModal } from "@components/modals";
+import { TabbedFormContext } from "@components/tabbed-form";
+import { KeyboundForm } from "@components/utilities/keybound-form";
+import { useRegions } from "@hooks/api";
+import { useAttributes } from "../../../../hooks/api/attributes";
+import { usePricePreferences } from "@hooks/api/price-preferences";
+import { useCreateProduct } from "@hooks/api/products";
+import { useStockLocations } from "@hooks/api/stock-locations";
+import { uploadFilesQuery } from "@lib/client";
 import {
   PRODUCT_CREATE_FORM_DEFAULTS,
   ProductCreateSchema,
-} from "../constants"
-import { ProductCreateSchemaType } from "../types"
-import { decorateVariantsWithDefaultValues } from "../utils"
+} from "../constants";
+import { ProductCreateSchemaType } from "../types";
+import { decorateVariantsWithDefaultValues } from "../utils";
 import {
   ProductCreateAttributesForm,
   ProductCreateAttributesFormRef,
-} from "../product-create-attributes-form/product-create-attributes-form"
-import { ProductCreateDetailsForm } from "../product-create-details-form"
-import { ProductCreateInventoryKitForm } from "../product-create-inventory-kit-form"
-import { ProductCreateOrganizeForm } from "../product-create-organize-form"
-import { ProductCreateVariantsForm } from "../product-create-variants-form"
+} from "../product-create-attributes-form/product-create-attributes-form";
+import { ProductCreateDetailsForm } from "../product-create-details-form";
+import { ProductCreateInventoryKitForm } from "../product-create-inventory-kit-form";
+import { ProductCreateOrganizeForm } from "../product-create-organize-form";
+import { ProductCreateVariantsForm } from "../product-create-variants-form";
 
 enum Tab {
   DETAILS = "details",
@@ -52,8 +52,8 @@ type UploadedMedia = HttpTypes.AdminFile & {
   isThumbnail: boolean
 }
 
-const SAVE_DRAFT_BUTTON = "save-draft-button"
-const SEC_CAT_PRODUCT_KEY = "sec_cat_product_key"
+const SAVE_DRAFT_BUTTON = "save-draft-button";
+const SEC_CAT_PRODUCT_KEY = "sec_cat_product_key";
 
 const TAB_ORDER: Tab[] = [
   Tab.DETAILS,
@@ -61,13 +61,13 @@ const TAB_ORDER: Tab[] = [
   Tab.ATTRIBUTES,
   Tab.VARIANTS,
   Tab.INVENTORY,
-]
+];
 
 const isMovingForward = (currentTab: Tab, newTab: Tab): boolean => {
-  const currentIndex = TAB_ORDER.indexOf(currentTab)
-  const newIndex = TAB_ORDER.indexOf(newTab)
-  return newIndex > currentIndex
-}
+  const currentIndex = TAB_ORDER.indexOf(currentTab);
+  const newIndex = TAB_ORDER.indexOf(newTab);
+  return newIndex > currentIndex;
+};
 
 type ProductCreateFormProps = {
   defaultChannel?: HttpTypes.AdminSalesChannel
@@ -89,70 +89,70 @@ export const ProductCreateForm = ({
   onOpenMediaModal,
   onSaveVariantMediaRef,
 }: ProductCreateFormProps) => {
-  const [tab, setTab] = useState<Tab>(Tab.DETAILS)
-  const [maxReachedTab, setMaxReachedTab] = useState<Tab>(Tab.DETAILS)
+  const [tab, setTab] = useState<Tab>(Tab.DETAILS);
+  const [maxReachedTab, setMaxReachedTab] = useState<Tab>(Tab.DETAILS);
   const [tabState, setTabState] = useState<TabState>({
     [Tab.DETAILS]: "in-progress",
     [Tab.ORGANIZE]: "not-started",
     [Tab.ATTRIBUTES]: "not-started",
     [Tab.VARIANTS]: "not-started",
     [Tab.INVENTORY]: "not-started",
-  })
+  });
 
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const { regions } = useRegions({ limit: 9999 })
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const { regions } = useRegions({ limit: 9999 });
   const { price_preferences: pricePreferences } = usePricePreferences({
     limit: 9999,
-  })
+  });
 
   const { attributes: allAttributes } = useAttributes({
     fields:
       "id,name,handle,description,ui_component,is_required,product_categories.*,possible_values.*",
-  })
+  });
 
   const { stock_locations = [] } = useStockLocations({
     limit: 9999,
     fields: "id,name",
-  })
+  });
 
   const dynamicAttributeSchema = useMemo(() => {
-    const attributeFields: Record<string, z.ZodTypeAny> = {}
+    const attributeFields: Record<string, z.ZodTypeAny> = {};
 
     allAttributes?.forEach((attr: any) => {
       switch (attr.ui_component) {
-        case "multivalue":
-          attributeFields[attr.handle] = z
-            .array(z.string())
-            .optional()
-          attributeFields[`${attr.handle}UseForVariants`] = z
-            .boolean()
-            .optional()
-          break
-        case "select":
-        case "text":
-        case "text_area":
-          attributeFields[attr.handle] = z.string().optional()
-          break
-        case "unit":
-          attributeFields[attr.handle] = z
-            .union([z.string(), z.number()])
-            .optional()
-          break
-        case "toggle":
-          attributeFields[attr.handle] = z.string().optional()
-          break
+      case "multivalue":
+        attributeFields[attr.handle] = z
+          .array(z.string())
+          .optional();
+        attributeFields[`${attr.handle}UseForVariants`] = z
+          .boolean()
+          .optional();
+        break;
+      case "select":
+      case "text":
+      case "text_area":
+        attributeFields[attr.handle] = z.string().optional();
+        break;
+      case "unit":
+        attributeFields[attr.handle] = z
+          .union([z.string(), z.number()])
+          .optional();
+        break;
+      case "toggle":
+        attributeFields[attr.handle] = z.string().optional();
+        break;
       }
-    })
+    });
 
-    return attributeFields
-  }, [allAttributes])
+    return attributeFields;
+  }, [allAttributes]);
 
   const extendedSchema = useMemo(() => {
-    const baseSchema = ProductCreateSchema.innerType()
+    const baseSchema = ProductCreateSchema.innerType();
     const extendedBaseSchema = baseSchema.extend({
       ...dynamicAttributeSchema,
-    })
+    });
 
     return extendedBaseSchema.superRefine((data, ctx) => {
       if (data.variants.every((v: any) => !v.should_create)) {
@@ -160,10 +160,10 @@ export const ProductCreateForm = ({
           code: z.ZodIssueCode.custom,
           path: ["variants"],
           message: "invalid_length",
-        })
+        });
       }
 
-      const skus = new Set<string>()
+      const skus = new Set<string>();
       data.variants.forEach((v: any, index: any) => {
         if (v.sku) {
           if (skus.has(v.sku)) {
@@ -171,35 +171,35 @@ export const ProductCreateForm = ({
               code: z.ZodIssueCode.custom,
               path: [`variants.${index}.sku`],
               message: "SKU must be unique",
-            })
+            });
           }
-          skus.add(v.sku)
+          skus.add(v.sku);
         }
-      })
-    })
-  }, [dynamicAttributeSchema])
+      });
+    });
+  }, [dynamicAttributeSchema]);
 
   const dynamicDefaultValues = useMemo(() => {
-    const defaults: Record<string, any> = {}
+    const defaults: Record<string, any> = {};
 
     allAttributes?.forEach((attr: any) => {
       switch (attr.ui_component) {
-        case "multivalue":
-          defaults[attr.handle] = []
-          defaults[`${attr.handle}UseForVariants`] = false
-          break
-        case "select":
-        case "text":
-        case "unit":
-        case "text_area":
-        case "toggle":
-          defaults[attr.handle] = undefined
-          break
+      case "multivalue":
+        defaults[attr.handle] = [];
+        defaults[`${attr.handle}UseForVariants`] = false;
+        break;
+      case "select":
+      case "text":
+      case "unit":
+      case "text_area":
+      case "toggle":
+        defaults[attr.handle] = undefined;
+        break;
       }
-    })
+    });
 
-    return defaults
-  }, [allAttributes])
+    return defaults;
+  }, [allAttributes]);
 
   const form = useForm({
     defaultValues: {
@@ -211,22 +211,22 @@ export const ProductCreateForm = ({
     } as any,
     resolver: zodResolver(extendedSchema),
     mode: "onBlur",
-  })
+  });
 
-  const { mutateAsync, isPending } = useCreateProduct()
+  const { mutateAsync, isPending } = useCreateProduct();
 
   const attributesFormRef =
-    useRef<ProductCreateAttributesFormRef>(null)
+    useRef<ProductCreateAttributesFormRef>(null);
 
   const watchedVariants = useWatch({
     control: form.control,
     name: "variants",
-  })
+  });
 
   const watchedMedia = useWatch({
     control: form.control,
     name: "media",
-  }) as MediaItem[] | undefined
+  }) as MediaItem[] | undefined;
 
   const showInventoryTab = useMemo(
     () =>
@@ -234,29 +234,29 @@ export const ProductCreateForm = ({
         (v: any) => v.manage_inventory && v.inventory_kit
       ),
     [watchedVariants]
-  )
+  );
 
   const handleSaveVariantMedia = useCallback(
     (variantIndex: number, media: MediaItem[]) => {
-      const currentVariants = form.getValues("variants") || []
+      const currentVariants = form.getValues("variants") || [];
       if (currentVariants[variantIndex]) {
-        const updatedVariants = [...currentVariants]
+        const updatedVariants = [...currentVariants];
         updatedVariants[variantIndex] = {
           ...updatedVariants[variantIndex],
           media,
-        }
+        };
         form.setValue("variants", updatedVariants, {
           shouldDirty: true,
-        })
+        });
       }
     },
     [form]
-  )
+  );
 
   useEffect(() => {
     if (tab === Tab.VARIANTS) {
-      const currentOptions = form.getValues("options")
-      const currentVariants = form.getValues("variants")
+      const currentOptions = form.getValues("options");
+      const currentVariants = form.getValues("variants");
       if (
         currentOptions.length === 0 &&
         currentVariants.length === 0
@@ -272,56 +272,56 @@ export const ProductCreateForm = ({
               is_default: true,
             },
           ])
-        )
+        );
       }
     }
-  }, [tab])
+  }, [tab]);
 
   useEffect(() => {
     if (onSaveVariantMediaRef) {
-      onSaveVariantMediaRef.current = handleSaveVariantMedia
+      onSaveVariantMediaRef.current = handleSaveVariantMedia;
     }
-  }, [handleSaveVariantMedia, onSaveVariantMediaRef])
+  }, [handleSaveVariantMedia, onSaveVariantMediaRef]);
 
   const handleSubmit = form.handleSubmit(async (values, e) => {
-    let isDraftSubmission = false
+    let isDraftSubmission = false;
 
     if (e?.nativeEvent instanceof SubmitEvent) {
       const submitter = e?.nativeEvent
-        ?.submitter as HTMLButtonElement
+        ?.submitter as HTMLButtonElement;
       isDraftSubmission =
-        submitter.dataset.name === SAVE_DRAFT_BUTTON
+        submitter.dataset.name === SAVE_DRAFT_BUTTON;
     }
 
-    const media = values.media || []
-    const { secondary_categories, ...rest } = values as any
+    const media = values.media || [];
+    const { secondary_categories, ...rest } = values as any;
     const secCatProductKey =
       Array.isArray(secondary_categories) &&
       secondary_categories.length > 0
         ? `sec-cat-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
-        : undefined
+        : undefined;
 
     const adminAttributes: Array<{
       attribute_id: string
       values: string[]
       use_for_variations: boolean
-    }> = []
+    }> = [];
 
     const vendorAttributes: Array<{
       name: string
       values: string[]
       use_for_variations: boolean
       ui_component: string
-    }> = []
+    }> = [];
 
-    const allFieldNames = Object.keys(values)
+    const allFieldNames = Object.keys(values);
 
-    let dynamicAttributeFields: string[] = []
+    let dynamicAttributeFields: string[] = [];
 
     if (allAttributes && allAttributes.length > 0) {
       dynamicAttributeFields = allAttributes.map(
         (attr: any) => attr.handle || attr.id
-      )
+      );
     }
 
     const vendorOptions =
@@ -330,11 +330,11 @@ export const ProductCreateForm = ({
           opt.metadata?.author === "vendor" &&
           opt.title &&
           opt.values?.length > 0
-      ) || []
+      ) || [];
 
     const vendorOptionsForVariants = vendorOptions.filter(
       (opt: any) => opt.useForVariants === true
-    )
+    );
 
     const adminOptionsForVariants = (rest.options || []).filter(
       (opt: any) =>
@@ -343,22 +343,22 @@ export const ProductCreateForm = ({
         opt.attributeId &&
         opt.title &&
         opt.values?.length > 0
-    )
+    );
 
     const requiredAttributeOptions: Array<{
       title: string
       values: string[]
       metadata: Record<string, unknown>
       useForVariants: boolean
-    }> = []
+    }> = [];
 
     allAttributes?.forEach((attr: any) => {
-      if (!attr.is_required) return
+      if (!attr.is_required) return;
 
-      const fieldHandle = attr.handle || attr.id
-      const value = form.getValues(fieldHandle as any)
+      const fieldHandle = attr.handle || attr.id;
+      const value = form.getValues(fieldHandle as any);
       if (value === undefined || value === null || value === "")
-        return
+        return;
 
       if (
         attr.ui_component === "multivalue" &&
@@ -367,15 +367,15 @@ export const ProductCreateForm = ({
       ) {
         const useForVariants = form.getValues(
           `${fieldHandle}UseForVariants` as any
-        )
+        );
         const selectedValues = value
           .map((valueId: string) => {
             const possibleValue = attr.possible_values?.find(
               (pv: any) => pv.id === valueId
-            )
-            return possibleValue ? possibleValue.value : null
+            );
+            return possibleValue ? possibleValue.value : null;
           })
-          .filter((item: any): item is string => item !== null)
+          .filter((item: any): item is string => item !== null);
 
         if (selectedValues.length > 0 && useForVariants === true) {
           requiredAttributeOptions.push({
@@ -383,55 +383,55 @@ export const ProductCreateForm = ({
             values: selectedValues,
             metadata: { author: "admin" },
             useForVariants: true,
-          })
+          });
         }
       }
-    })
+    });
 
     const allOptions = [
       ...vendorOptionsForVariants,
       ...requiredAttributeOptions,
       ...adminOptionsForVariants,
-    ]
+    ];
 
     dynamicAttributeFields.forEach((fieldName) => {
-      const value = form.getValues(fieldName as any)
+      const value = form.getValues(fieldName as any);
       if (value === undefined || value === null || value === "")
-        return
+        return;
 
       const attribute = allAttributes?.find(
         (attr: any) => (attr.handle || attr.id) === fieldName
-      )
-      if (!attribute) return
+      );
+      if (!attribute) return;
 
       if (Array.isArray(value) && value.length > 0) {
-        const attrFieldHandle = (attribute as any).handle || (attribute as any).id
+        const attrFieldHandle = (attribute as any).handle || (attribute as any).id;
         const useForVariants = form.getValues(
           `${attrFieldHandle}UseForVariants` as any
-        )
+        );
         const vals = value
           .map((valueId: string) => {
             const possibleValue = (
               attribute as any
             ).possible_values?.find(
               (pv: any) => pv.id === valueId
-            )
-            return possibleValue ? possibleValue.value : valueId
+            );
+            return possibleValue ? possibleValue.value : valueId;
           })
           .filter(
             (item: any): item is string =>
               item !== null && item !== undefined
-          )
+          );
 
         if (vals.length > 0) {
           adminAttributes.push({
             attribute_id: (attribute as any).id,
             values: vals.map((item: any) => String(item)),
             use_for_variations: useForVariants === true,
-          })
+          });
         }
       } else if (!Array.isArray(value)) {
-        let actualValue = value
+        let actualValue = value;
         if (
           (attribute as any).possible_values &&
           typeof value === "string"
@@ -440,9 +440,9 @@ export const ProductCreateForm = ({
             attribute as any
           ).possible_values.find(
             (pv: any) => pv.id === value
-          )
+          );
           if (possibleValue) {
-            actualValue = possibleValue.value
+            actualValue = possibleValue.value;
           }
         }
 
@@ -450,9 +450,9 @@ export const ProductCreateForm = ({
           attribute_id: (attribute as any).id,
           values: [String(actualValue)],
           use_for_variations: false,
-        })
+        });
       }
-    })
+    });
 
     vendorOptions.forEach((option: any) => {
       vendorAttributes.push({
@@ -460,10 +460,10 @@ export const ProductCreateForm = ({
         values: option.values.map((value: any) => String(value)),
         use_for_variations: option.useForVariants === true,
         ui_component: "multivalue",
-      })
-    })
+      });
+    });
 
-    const allFormOptions: any[] = rest.options || []
+    const allFormOptions: any[] = rest.options || [];
 
     allFormOptions
       .filter(
@@ -481,41 +481,41 @@ export const ProductCreateForm = ({
             String(value)
           ),
           use_for_variations: false,
-        })
-      })
+        });
+      });
 
     adminOptionsForVariants.forEach((option: any) => {
       adminAttributes.push({
         attribute_id: option.attributeId,
         values: option.values.map((value: any) => String(value)),
         use_for_variations: true,
-      })
-    })
+      });
+    });
 
-    const { ...payload } = rest
+    const { ...payload } = rest;
     dynamicAttributeFields.forEach((fieldName) => {
-      delete payload[fieldName as keyof typeof payload]
-    })
+      delete payload[fieldName as keyof typeof payload];
+    });
     const useForVariantsFields = allFieldNames.filter((fieldName) =>
       fieldName.endsWith("UseForVariants")
-    )
+    );
     useForVariantsFields.forEach((fieldName) => {
-      delete payload[fieldName as keyof typeof payload]
-    })
+      delete payload[fieldName as keyof typeof payload];
+    });
 
-    const finalPayload = { ...payload, media: undefined }
+    const finalPayload = { ...payload, media: undefined };
 
-    let uploadedMedia: UploadedMedia[] = []
+    let uploadedMedia: UploadedMedia[] = [];
     try {
       if (media.length) {
         const thumbnailReq = media.filter(
           (m: MediaItem) => m.isThumbnail && m.file
-        )
+        );
         const otherMediaReq = media.filter(
           (m: MediaItem) => !m.isThumbnail && m.file
-        )
+        );
 
-        const fileReqs: Array<Promise<UploadedMedia[]>> = []
+        const fileReqs: Array<Promise<UploadedMedia[]>> = [];
         if (thumbnailReq?.length) {
           fileReqs.push(
             uploadFilesQuery(thumbnailReq).then(
@@ -527,7 +527,7 @@ export const ProductCreateForm = ({
                   })
                 )
             )
-          )
+          );
         }
         if (otherMediaReq?.length) {
           fileReqs.push(
@@ -540,121 +540,121 @@ export const ProductCreateForm = ({
                   })
                 )
             )
-          )
+          );
         }
 
-        uploadedMedia = (await Promise.all(fileReqs)).flat()
+        uploadedMedia = (await Promise.all(fileReqs)).flat();
       }
     } catch (error) {
       if (error instanceof Error) {
-        toast.error(error.message)
+        toast.error(error.message);
       }
     }
 
-    const blobToUploadedUrl = new Map<string, string>()
-    const allOriginalMedia = media as MediaItem[]
+    const blobToUploadedUrl = new Map<string, string>();
+    const allOriginalMedia = media as MediaItem[];
 
     if (uploadedMedia.length > 0) {
       const thumbnailItems = allOriginalMedia.filter(
         (m: MediaItem) => m.isThumbnail && m.file
-      )
+      );
       const otherItems = allOriginalMedia.filter(
         (m: MediaItem) => !m.isThumbnail && m.file
-      )
+      );
 
-      let thumbIdx = 0
-      let otherIdx = 0
+      let thumbIdx = 0;
+      let otherIdx = 0;
 
       for (const uploaded of uploadedMedia) {
         if (
           uploaded.isThumbnail &&
           thumbIdx < thumbnailItems.length
         ) {
-          const blobUrl = thumbnailItems[thumbIdx].url
+          const blobUrl = thumbnailItems[thumbIdx].url;
           if (blobUrl) {
-            blobToUploadedUrl.set(blobUrl, uploaded.url)
+            blobToUploadedUrl.set(blobUrl, uploaded.url);
           }
-          thumbIdx++
+          thumbIdx++;
         }
         if (
           !uploaded.isThumbnail &&
           otherIdx < otherItems.length
         ) {
-          const blobUrl = otherItems[otherIdx].url
+          const blobUrl = otherItems[otherIdx].url;
           if (blobUrl) {
-            blobToUploadedUrl.set(blobUrl, uploaded.url)
+            blobToUploadedUrl.set(blobUrl, uploaded.url);
           }
-          otherIdx++
+          otherIdx++;
         }
       }
     }
 
     const variantsToCreate = finalPayload.variants.filter(
       (variant: any) => variant.should_create === true
-    )
+    );
 
-    const variantImageKeyByIndex = new Map<number, string>()
-    const variantsImages: any[] = []
+    const variantImageKeyByIndex = new Map<number, string>();
+    const variantsImages: any[] = [];
 
     for (let i = 0; i < variantsToCreate.length; i++) {
-      const variant = variantsToCreate[i]
-      const variantMedia: MediaItem[] = variant.media || []
-      if (!variantMedia.length) continue
+      const variant = variantsToCreate[i];
+      const variantMedia: MediaItem[] = variant.media || [];
+      if (!variantMedia.length) continue;
 
       const resolvedUrls = variantMedia
         .map((m: any) =>
           m.url ? blobToUploadedUrl.get(m.url) : undefined
         )
-        .filter((url: any): url is string => !!url)
+        .filter((url: any): url is string => !!url);
 
-      if (resolvedUrls.length === 0) continue
+      if (resolvedUrls.length === 0) continue;
 
       const variantThumb = variantMedia.find(
         (m: any) => m.isThumbnail
-      )
+      );
       const resolvedThumbUrl = variantThumb?.url
         ? blobToUploadedUrl.get(variantThumb.url)
-        : undefined
-      const thumbnailUrl = resolvedThumbUrl || resolvedUrls[0]
+        : undefined;
+      const thumbnailUrl = resolvedThumbUrl || resolvedUrls[0];
 
-      const variantImageKey = `variant-${i}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+      const variantImageKey = `variant-${i}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
-      variantImageKeyByIndex.set(i, variantImageKey)
+      variantImageKeyByIndex.set(i, variantImageKey);
       variantsImages.push({
         variant_image_key: variantImageKey,
         image_urls: resolvedUrls,
         thumbnail_url: thumbnailUrl,
-      })
+      });
     }
 
     const mappedVariants = variantsToCreate.map(
       (variant: any, index: number) => {
-        const mappedOptions: Record<string, string> = {}
+        const mappedOptions: Record<string, string> = {};
 
         allOptions.forEach((option: any) => {
           if (variant.options && variant.options[option.title]) {
             mappedOptions[option.title] =
-              variant.options[option.title]
+              variant.options[option.title];
           } else {
-            const variantTitle = variant.title || ""
-            const optionValues = option.values || []
+            const variantTitle = variant.title || "";
+            const optionValues = option.values || [];
             const matchingValue = optionValues.find(
               (value: string) => variantTitle.includes(value)
-            )
+            );
             if (matchingValue) {
-              mappedOptions[option.title] = matchingValue
+              mappedOptions[option.title] = matchingValue;
             } else if (optionValues.length > 0) {
-              mappedOptions[option.title] = optionValues[0]
+              mappedOptions[option.title] = optionValues[0];
             }
           }
-        })
+        });
 
-        const variantImageKey = variantImageKeyByIndex.get(index)
+        const variantImageKey = variantImageKeyByIndex.get(index);
         const {
           media: _media,
           stock_locations: _sl,
           ...variantWithoutMedia
-        } = variant
+        } = variant;
 
         return {
           ...variantWithoutMedia,
@@ -665,9 +665,9 @@ export const ProductCreateForm = ({
           ...(variantImageKey && {
             metadata: { variant_image_key: variantImageKey },
           }),
-        }
+        };
       }
-    )
+    );
 
     const payloadToSend = {
       ...finalPayload,
@@ -694,26 +694,26 @@ export const ProductCreateForm = ({
         allOptions.length > 0
           ? allOptions
           : [
-              {
-                title: "Default option",
-                values: ["Default option value"],
-              },
-            ],
+            {
+              title: "Default option",
+              values: ["Default option value"],
+            },
+          ],
       metadata: (() => {
-        const existing = (finalPayload as any)?.metadata ?? undefined
-        if (!secCatProductKey) return existing
+        const existing = (finalPayload as any)?.metadata ?? undefined;
+        if (!secCatProductKey) return existing;
         return {
           ...(existing ?? {}),
           [SEC_CAT_PRODUCT_KEY]: secCatProductKey,
-        }
+        };
       })(),
       additional_data: (() => {
-        const additionalData: Record<string, any> = {}
+        const additionalData: Record<string, any> = {};
         if (adminAttributes.length > 0) {
-          additionalData.admin_attributes = adminAttributes
+          additionalData.admin_attributes = adminAttributes;
         }
         if (vendorAttributes.length > 0) {
-          additionalData.vendor_attributes = vendorAttributes
+          additionalData.vendor_attributes = vendorAttributes;
         }
         if (
           Array.isArray(secondary_categories) &&
@@ -725,14 +725,14 @@ export const ProductCreateForm = ({
               sec_cat_product_key: secCatProductKey,
               category_ids: secondary_categories,
             },
-          ]
+          ];
         }
         if (variantsImages.length > 0) {
-          additionalData.variants_images = variantsImages
+          additionalData.variants_images = variantsImages;
         }
         return Object.keys(additionalData).length > 0
           ? additionalData
-          : undefined
+          : undefined;
       })(),
       categories: finalPayload.categories.map((cat: any) => ({
         id: cat,
@@ -742,7 +742,7 @@ export const ProductCreateForm = ({
           media: _m,
           stock_locations: _sl,
           ...variantWithoutMedia
-        } = variant
+        } = variant;
         return {
           ...variantWithoutMedia,
           sku:
@@ -759,76 +759,76 @@ export const ProductCreateForm = ({
               amount: parseFloat(variant.prices?.[key] as string),
             })
           ),
-        }
+        };
       }),
-    }
+    };
 
     const productData = await mutateAsync(payloadToSend as any, {
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
+    });
 
-    toast.success(t("products.create.successToast", { title: (productData as any).product.title }))
-    handleSuccess(`../${(productData as any).product.id}`)
-  })
+    toast.success(t("products.create.successToast", { title: (productData as any).product.title }));
+    handleSuccess(`../${(productData as any).product.id}`);
+  });
 
   const onNext = async (currentTab: Tab) => {
-    let fieldsToValidate: (keyof ProductCreateSchemaType)[] = []
-    let shouldProceed = true
+    let fieldsToValidate: (keyof ProductCreateSchemaType)[] = [];
+    let shouldProceed = true;
 
     switch (currentTab) {
-      case Tab.DETAILS:
-        fieldsToValidate = ["title", "handle"]
-        break
-      case Tab.ORGANIZE:
-        fieldsToValidate = ["categories"]
-        break
-      case Tab.ATTRIBUTES:
-        if (attributesFormRef.current) {
-          shouldProceed =
-            await attributesFormRef.current.validateAttributes()
-        }
-        break
-      case Tab.VARIANTS:
-        fieldsToValidate = ["variants", "options"]
-        break
-      case Tab.INVENTORY:
-        break
+    case Tab.DETAILS:
+      fieldsToValidate = ["title", "handle"];
+      break;
+    case Tab.ORGANIZE:
+      fieldsToValidate = ["categories"];
+      break;
+    case Tab.ATTRIBUTES:
+      if (attributesFormRef.current) {
+        shouldProceed =
+            await attributesFormRef.current.validateAttributes();
+      }
+      break;
+    case Tab.VARIANTS:
+      fieldsToValidate = ["variants", "options"];
+      break;
+    case Tab.INVENTORY:
+      break;
     }
 
     if (fieldsToValidate.length > 0) {
-      const valid = await form.trigger(fieldsToValidate)
-      if (!valid) return
+      const valid = await form.trigger(fieldsToValidate);
+      if (!valid) return;
     }
 
-    if (!shouldProceed) return
+    if (!shouldProceed) return;
 
-    let nextTab: Tab
+    let nextTab: Tab;
     if (currentTab === Tab.DETAILS) {
-      nextTab = Tab.ORGANIZE
+      nextTab = Tab.ORGANIZE;
     } else if (currentTab === Tab.ORGANIZE) {
-      nextTab = Tab.ATTRIBUTES
+      nextTab = Tab.ATTRIBUTES;
     } else if (currentTab === Tab.ATTRIBUTES) {
-      nextTab = Tab.VARIANTS
+      nextTab = Tab.VARIANTS;
     } else if (currentTab === Tab.VARIANTS) {
-      nextTab = Tab.INVENTORY
+      nextTab = Tab.INVENTORY;
     } else {
-      return
+      return;
     }
 
-    const currentTabIndex = TAB_ORDER.indexOf(currentTab)
-    const currentMaxIndex = TAB_ORDER.indexOf(maxReachedTab)
+    const currentTabIndex = TAB_ORDER.indexOf(currentTab);
+    const currentMaxIndex = TAB_ORDER.indexOf(maxReachedTab);
     if (currentTabIndex >= currentMaxIndex) {
-      setMaxReachedTab(TAB_ORDER[currentMaxIndex + 1])
+      setMaxReachedTab(TAB_ORDER[currentMaxIndex + 1]);
     }
 
-    setTab(nextTab)
-  }
+    setTab(nextTab);
+  };
 
   useEffect(() => {
-    const currentIndex = TAB_ORDER.indexOf(tab)
-    const maxReachedIndex = TAB_ORDER.indexOf(maxReachedTab)
+    const currentIndex = TAB_ORDER.indexOf(tab);
+    const maxReachedIndex = TAB_ORDER.indexOf(maxReachedTab);
 
     const currentState: TabState = {
       [Tab.DETAILS]: "not-started",
@@ -836,25 +836,25 @@ export const ProductCreateForm = ({
       [Tab.ATTRIBUTES]: "not-started",
       [Tab.VARIANTS]: "not-started",
       [Tab.INVENTORY]: "not-started",
-    }
+    };
 
     TAB_ORDER.forEach((tabItem, index) => {
       if (index < currentIndex && index <= maxReachedIndex) {
-        currentState[tabItem] = "completed"
+        currentState[tabItem] = "completed";
       } else if (index === currentIndex) {
-        currentState[tabItem] = "in-progress"
+        currentState[tabItem] = "in-progress";
       } else if (
         index > currentIndex &&
         index <= maxReachedIndex
       ) {
-        currentState[tabItem] = "completed"
+        currentState[tabItem] = "completed";
       } else {
-        currentState[tabItem] = "not-started"
+        currentState[tabItem] = "not-started";
       }
-    })
+    });
 
-    setTabState(currentState)
-  }, [tab, maxReachedTab])
+    setTabState(currentState);
+  }, [tab, maxReachedTab]);
 
   return (
     <TabbedFormContext.Provider value={form}>
@@ -866,16 +866,16 @@ export const ProductCreateForm = ({
                 e.target instanceof HTMLTextAreaElement &&
                 !(e.metaKey || e.ctrlKey)
               ) {
-                return
+                return;
               }
-              e.preventDefault()
+              e.preventDefault();
               if (e.metaKey || e.ctrlKey) {
                 if (tab !== Tab.VARIANTS) {
-                  e.stopPropagation()
-                  onNext(tab)
-                  return
+                  e.stopPropagation();
+                  onNext(tab);
+                  return;
                 }
-                handleSubmit()
+                handleSubmit();
               }
             }
           }}
@@ -885,60 +885,60 @@ export const ProductCreateForm = ({
           <ProgressTabs
             value={tab}
             onValueChange={async (newTab) => {
-              const newTabValue = newTab as Tab
-              const currentIndex = TAB_ORDER.indexOf(tab)
-              const newIndex = TAB_ORDER.indexOf(newTabValue)
+              const newTabValue = newTab as Tab;
+              const currentIndex = TAB_ORDER.indexOf(tab);
+              const newIndex = TAB_ORDER.indexOf(newTabValue);
               const maxReachedIndex =
-                TAB_ORDER.indexOf(maxReachedTab)
+                TAB_ORDER.indexOf(maxReachedTab);
 
               const movingForward = isMovingForward(
                 tab,
                 newTabValue
-              )
+              );
 
               if (movingForward) {
-                if (newIndex > maxReachedIndex + 1) return
+                if (newIndex > maxReachedIndex + 1) return;
 
                 let fieldsToValidate: (keyof ProductCreateSchemaType)[] =
-                  []
+                  [];
 
                 switch (tab) {
-                  case Tab.DETAILS:
-                    fieldsToValidate = ["title", "handle"]
-                    break
-                  case Tab.ORGANIZE:
-                    fieldsToValidate = ["categories"]
-                    break
-                  case Tab.ATTRIBUTES:
-                    fieldsToValidate = []
-                    break
-                  case Tab.VARIANTS:
-                    fieldsToValidate = ["variants", "options"]
-                    break
-                  case Tab.INVENTORY:
-                    break
+                case Tab.DETAILS:
+                  fieldsToValidate = ["title", "handle"];
+                  break;
+                case Tab.ORGANIZE:
+                  fieldsToValidate = ["categories"];
+                  break;
+                case Tab.ATTRIBUTES:
+                  fieldsToValidate = [];
+                  break;
+                case Tab.VARIANTS:
+                  fieldsToValidate = ["variants", "options"];
+                  break;
+                case Tab.INVENTORY:
+                  break;
                 }
 
                 if (fieldsToValidate.length > 0) {
                   const valid =
-                    await form.trigger(fieldsToValidate)
-                  if (!valid) return
+                    await form.trigger(fieldsToValidate);
+                  if (!valid) return;
                 } else if (tab === Tab.ATTRIBUTES) {
                   if (attributesFormRef.current) {
                     const valid =
-                      await attributesFormRef.current.validateAttributes()
-                    if (!valid) return
+                      await attributesFormRef.current.validateAttributes();
+                    if (!valid) return;
                   }
                 }
 
                 if (currentIndex >= maxReachedIndex) {
                   setMaxReachedTab(
                     TAB_ORDER[currentIndex + 1]
-                  )
+                  );
                 }
               }
 
-              setTab(newTabValue)
+              setTab(newTabValue);
             }}
             className="flex h-full flex-col overflow-hidden"
           >
@@ -1051,10 +1051,10 @@ export const ProductCreateForm = ({
                       0 &&
                     form.getValues("title")
                   ) {
-                    onNext(Tab.DETAILS)
-                    return
+                    onNext(Tab.DETAILS);
+                    return;
                   }
-                  handleSubmit()
+                  handleSubmit();
                 }}
                 isLoading={isPending}
                 variant="secondary"
@@ -1073,8 +1073,8 @@ export const ProductCreateForm = ({
         </KeyboundForm>
       </RouteFocusModal.Form>
     </TabbedFormContext.Provider>
-  )
-}
+  );
+};
 
 type PrimaryButtonProps = {
   tab: Tab
@@ -1089,7 +1089,7 @@ const PrimaryButton = ({
   isLoading,
   showInventoryTab,
 }: PrimaryButtonProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (
     (tab === Tab.VARIANTS && !showInventoryTab) ||
@@ -1106,7 +1106,7 @@ const PrimaryButton = ({
       >
         {t("actions.publish")}
       </Button>
-    )
+    );
   }
 
   return (
@@ -1119,5 +1119,5 @@ const PrimaryButton = ({
     >
       {t("actions.continue")}
     </Button>
-  )
-}
+  );
+};

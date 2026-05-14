@@ -1,21 +1,21 @@
-import { ReactNode, Children } from "react"
+import { ReactNode, Children } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   TaxRegionListView,
   TaxRegionListDataTable,
   TaxRegionListHeader,
   TaxRegionListActions,
   TaxRegionListTitle,
-} from "./components/tax-region-list-view"
+} from "./components/tax-region-list-view";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
     <SingleColumnPage hasOutlet>
       {Children.count(children) > 0 ? children : <TaxRegionListView />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const TaxRegionListPage = Object.assign(Root, {
   Table: TaxRegionListView,
@@ -23,4 +23,4 @@ export const TaxRegionListPage = Object.assign(Root, {
   HeaderTitle: TaxRegionListTitle,
   HeaderActions: TaxRegionListActions,
   DataTable: TaxRegionListDataTable,
-})
+});

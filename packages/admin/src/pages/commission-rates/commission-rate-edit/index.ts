@@ -1,1 +1,1 @@
-export { CommissionRateEdit as Component } from "./commission-rate-edit"
+export { CommissionRateEdit as Component } from "./commission-rate-edit";

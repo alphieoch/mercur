@@ -5,17 +5,17 @@ import { getStylizedAmount } from "@lib/money-amount-helpers";
 
 const payoutStatusColor = (status: string) => {
   switch (status) {
-    case "paid":
-      return "green";
-    case "processing":
-      return "orange";
-    case "pending":
-      return "grey";
-    case "failed":
-    case "canceled":
-      return "red";
-    default:
-      return "grey";
+  case "paid":
+    return "green";
+  case "processing":
+    return "orange";
+  case "pending":
+    return "grey";
+  case "failed":
+  case "canceled":
+    return "red";
+  default:
+    return "grey";
   }
 };
 

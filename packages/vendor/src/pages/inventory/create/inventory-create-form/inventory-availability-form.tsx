@@ -1,14 +1,14 @@
-import { HttpTypes } from "@medusajs/types"
-import { useMemo } from "react"
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { useMemo } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import {
   DataGrid,
   createDataGridHelper,
-} from "@components/data-grid"
-import { useRouteModal } from "@components/modals"
-import { CreateInventoryItemSchema } from "./schema"
+} from "@components/data-grid";
+import { useRouteModal } from "@components/modals";
+import { CreateInventoryItemSchema } from "./schema";
 
 type InventoryAvailabilityFormProps = {
   form: UseFormReturn<CreateInventoryItemSchema>
@@ -19,9 +19,9 @@ export const InventoryAvailabilityForm = ({
   form,
   locations,
 }: InventoryAvailabilityFormProps) => {
-  const { setCloseOnEscape } = useRouteModal()
+  const { setCloseOnEscape } = useRouteModal();
 
-  const columns = useColumns()
+  const columns = useColumns();
 
   return (
     <div className="size-full">
@@ -32,16 +32,16 @@ export const InventoryAvailabilityForm = ({
         onEditingChange={(editing) => setCloseOnEscape(!editing)}
       />
     </div>
-  )
-}
+  );
+};
 
 const columnHelper = createDataGridHelper<
   HttpTypes.AdminStockLocation,
   CreateInventoryItemSchema
->()
+>();
 
 const useColumns = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return useMemo(
     () => [
@@ -57,7 +57,7 @@ const useColumns = () => {
             <DataGrid.ReadonlyCell context={context}>
               {context.row.original.name}
             </DataGrid.ReadonlyCell>
-          )
+          );
         },
         disableHiding: true,
       }),
@@ -68,11 +68,11 @@ const useColumns = () => {
         field: (context) => `locations.${context.row.original.id}`,
         type: "number",
         cell: (context) => {
-          return <DataGrid.NumberCell placeholder="0" context={context} />
+          return <DataGrid.NumberCell placeholder="0" context={context} />;
         },
         disableHiding: true,
       }),
     ],
     [t]
-  )
-}
+  );
+};

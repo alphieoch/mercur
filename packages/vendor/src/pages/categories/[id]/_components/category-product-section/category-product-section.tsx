@@ -1,32 +1,32 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
-import { keepPreviousData } from "@tanstack/react-query"
-import { RowSelectionState } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
+import { keepPreviousData } from "@tanstack/react-query";
+import { RowSelectionState } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { _DataTable } from "@components/table/data-table"
-import { useProducts } from "@hooks/api/products"
-import { useProductTableColumns } from "@hooks/table/columns/use-product-table-columns"
-import { useProductTableQuery } from "@hooks/table/query/use-product-table-query"
-import { useDataTable } from "@hooks/use-data-table"
+import { _DataTable } from "@components/table/data-table";
+import { useProducts } from "@hooks/api/products";
+import { useProductTableColumns } from "@hooks/table/columns/use-product-table-columns";
+import { useProductTableQuery } from "@hooks/table/query/use-product-table-query";
+import { useDataTable } from "@hooks/use-data-table";
 
 type CategoryProductSectionProps = {
   category: HttpTypes.AdminProductCategory
 }
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 export const CategoryProductSection = ({
   category,
 }: CategoryProductSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const [selection, setSelection] = useState<RowSelectionState>({})
+  const [selection, setSelection] = useState<RowSelectionState>({});
 
   const { raw, searchParams } = useProductTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
   const { products, count, isLoading } = useProducts(
     {
       ...searchParams,
@@ -38,16 +38,16 @@ export const CategoryProductSection = ({
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const columns = useColumns()
+  const columns = useColumns();
 
   const { table } = useDataTable({
     data: Array.isArray(products)
       ? products.map((p) => ({
-          ...p,
-          images: p.images ?? null,
-        }))
+        ...p,
+        images: p.images ?? null,
+      }))
       : [],
     columns,
     count,
@@ -59,7 +59,7 @@ export const CategoryProductSection = ({
       state: selection,
       updater: setSelection,
     },
-  })
+  });
 
   // Not used, there's a lot of commented code, leaving it commented for future
   // const { mutateAsync } = useUpdateProductCategoryProducts(category.id)
@@ -159,13 +159,13 @@ export const CategoryProductSection = ({
         </CommandBar.Bar>
       </CommandBar> */}
     </Container>
-  )
-}
+  );
+};
 
 // const columnHelper = createColumnHelper<HttpTypes.AdminProduct>()
 
 const useColumns = () => {
-  const base = useProductTableColumns()
+  const base = useProductTableColumns();
 
   return useMemo(
     () => [
@@ -200,5 +200,5 @@ const useColumns = () => {
       ...base,
     ],
     [base]
-  )
-}
+  );
+};

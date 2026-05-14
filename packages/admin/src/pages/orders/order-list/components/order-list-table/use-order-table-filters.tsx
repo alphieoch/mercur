@@ -1,30 +1,30 @@
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { Filter } from "@components/table/data-table/data-table-filter"
-import { useSalesChannels } from "@hooks/api/sales-channels"
-import { useCustomers } from "@hooks/api/customers"
-import { useSellers } from "@hooks/api/sellers"
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Filter } from "@components/table/data-table/data-table-filter";
+import { useSalesChannels } from "@hooks/api/sales-channels";
+import { useCustomers } from "@hooks/api/customers";
+import { useSellers } from "@hooks/api/sellers";
 
 export const useOrderGroupTableFilters = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { customers } = useCustomers({
     limit: 1000,
     fields: "id,first_name,last_name,email",
-  })
+  });
 
   const { sellers } = useSellers({
     limit: 1000,
     fields: "id,name",
-  })
+  });
 
   const { sales_channels } = useSalesChannels({
     limit: 1000,
     fields: "id,name",
-  })
+  });
 
   return useMemo(() => {
-    const filters: Filter[] = []
+    const filters: Filter[] = [];
 
     if (customers?.length) {
       filters.push({
@@ -38,7 +38,7 @@ export const useOrderGroupTableFilters = () => {
             [c.first_name, c.last_name].filter(Boolean).join(" ") || c.email,
           value: c.id,
         })),
-      })
+      });
     }
 
     if (sellers?.length) {
@@ -52,7 +52,7 @@ export const useOrderGroupTableFilters = () => {
           label: s.name,
           value: s.id,
         })),
-      })
+      });
     }
 
     if (sales_channels?.length) {
@@ -66,7 +66,7 @@ export const useOrderGroupTableFilters = () => {
           label: s.name,
           value: s.id,
         })),
-      })
+      });
     }
 
     filters.push({
@@ -80,7 +80,7 @@ export const useOrderGroupTableFilters = () => {
         { label: "Canceled", value: "canceled" },
         { label: "Requires action", value: "requires_action" },
       ],
-    })
+    });
 
     filters.push(
       {
@@ -93,8 +93,8 @@ export const useOrderGroupTableFilters = () => {
         label: t("fields.updatedAt"),
         type: "date",
       }
-    )
+    );
 
-    return filters
-  }, [customers, sellers, sales_channels, t])
-}
+    return filters;
+  }, [customers, sellers, sales_channels, t]);
+};

@@ -103,24 +103,24 @@ export const TaxRegionTable = ({
       {!noRecords && !noResults
         ? !isPending
           ? table.getRowModel().rows.map((row) => {
-              return (
-                <TaxRegionCard
-                  variant={variant}
-                  key={row.id}
-                  taxRegion={row.original}
-                  role="row"
-                  aria-rowindex={row.index}
-                />
-              );
-            })
+            return (
+              <TaxRegionCard
+                variant={variant}
+                key={row.id}
+                taxRegion={row.original}
+                role="row"
+                aria-rowindex={row.index}
+              />
+            );
+          })
           : Array.from({ length: 3 }).map((_, index) => {
-              return (
-                <div
-                  key={index}
-                  className="h-[60px] w-full animate-pulse bg-ui-bg-field-component"
-                />
-              );
-            })
+            return (
+              <div
+                key={index}
+                className="h-[60px] w-full animate-pulse bg-ui-bg-field-component"
+              />
+            );
+          })
         : null}
       {!noRecords && (
         <LocalizedTablePagination

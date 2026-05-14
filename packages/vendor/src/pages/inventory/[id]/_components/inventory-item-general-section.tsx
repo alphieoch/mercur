@@ -1,10 +1,10 @@
-import { Container, Heading } from "@medusajs/ui"
-import { HttpTypes } from "@medusajs/types"
-import { PencilSquare } from "@medusajs/icons"
-import { useTranslation } from "react-i18next"
+import { Container, Heading } from "@medusajs/ui";
+import { HttpTypes } from "@medusajs/types";
+import { PencilSquare } from "@medusajs/icons";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { SectionRow } from "@components/common/section"
+import { ActionMenu } from "@components/common/action-menu";
+import { SectionRow } from "@components/common/section";
 
 type InventoryItemGeneralSectionProps = {
   inventoryItem: HttpTypes.AdminInventoryItemResponse["inventory_item"]
@@ -12,19 +12,19 @@ type InventoryItemGeneralSectionProps = {
 export const InventoryItemGeneralSection = ({
   inventoryItem,
 }: InventoryItemGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const stockedQuantity =
     inventoryItem.location_levels?.reduce(
       (acc, level) => acc + level.stocked_quantity,
       0
-    ) || 0
+    ) || 0;
   const reservedQuantity =
     inventoryItem.location_levels?.reduce(
       (acc, level) => acc + level.reserved_quantity,
       0
-    ) || 0
-  const availableQuantity = stockedQuantity - reservedQuantity
+    ) || 0;
+  const availableQuantity = stockedQuantity - reservedQuantity;
 
   return (
     <Container className="divide-y p-0">
@@ -70,13 +70,13 @@ export const InventoryItemGeneralSection = ({
         )}
       />
     </Container>
-  )
-}
+  );
+};
 
 const getQuantityFormat = (quantity: number, locations?: number) => {
   if (quantity !== undefined && !isNaN(quantity)) {
-    return `${quantity} across ${locations ?? "-"} locations`
+    return `${quantity} across ${locations ?? "-"} locations`;
   }
 
-  return "-"
-}
+  return "-";
+};

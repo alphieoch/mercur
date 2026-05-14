@@ -1,11 +1,11 @@
-import { PencilSquare } from "@medusajs/icons"
-import { Badge, Container, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { PencilSquare } from "@medusajs/icons";
+import { Badge, Container, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { BadgeListSummary } from "@components/common/badge-list-summary"
-import { NoRecords } from "@components/common/empty-table-content"
-import { ExtendedPromotionRuleWithValues, FormattedPromotionRuleTypes } from "@custom-types/promotion"
+import { ActionMenu } from "@components/common/action-menu";
+import { BadgeListSummary } from "@components/common/badge-list-summary";
+import { NoRecords } from "@components/common/empty-table-content";
+import { ExtendedPromotionRuleWithValues, FormattedPromotionRuleTypes } from "@custom-types/promotion";
 
 type RuleProps = {
   rule: ExtendedPromotionRuleWithValues
@@ -15,10 +15,10 @@ function RuleBlock({ rule }: RuleProps) {
     if (rule.field_type === "number") {
       return Array.isArray(rule.values) 
         ? rule.values.map((v) => String(v.value || v))
-        : [String(rule.values)]
+        : [String(rule.values)];
     }
-    return rule.values?.map((v) => v.label || v.value || String(v)).filter(Boolean) || []
-  }
+    return rule.values?.map((v) => v.label || v.value || String(v)).filter(Boolean) || [];
+  };
 
   return (
     <div className="bg-ui-bg-subtle shadow-borders-base align-center flex justify-around rounded-md p-2">
@@ -42,7 +42,7 @@ function RuleBlock({ rule }: RuleProps) {
         />
       </div>
     </div>
-  )
+  );
 }
 
 type PromotionConditionsSectionProps = {
@@ -54,8 +54,8 @@ export const PromotionConditionsSection = ({
   rules,
   ruleType,
 }: PromotionConditionsSectionProps) => {
-  const { t } = useTranslation()
-  const translationKey = `promotions.fields.conditions.${ruleType}.title` as const
+  const { t } = useTranslation();
+  const translationKey = `promotions.fields.conditions.${ruleType}.title` as const;
   
   return (
     <Container className="p-0">
@@ -100,5 +100,5 @@ export const PromotionConditionsSection = ({
         ))}
       </div>
     </Container>
-  )
-}
+  );
+};

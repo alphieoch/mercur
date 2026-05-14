@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Input, Switch, Textarea, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input, Switch, Textarea, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { SalesChannelDTO } from "@medusajs/types"
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useUpdateSalesChannel } from "../../../../../hooks/api/sales-channels"
+import { SalesChannelDTO } from "@medusajs/types";
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useUpdateSalesChannel } from "../../../../../hooks/api/sales-channels";
 
 type EditSalesChannelFormProps = {
   salesChannel: SalesChannelDTO
@@ -18,13 +18,13 @@ const EditSalesChannelSchema = zod.object({
   name: zod.string().min(1),
   description: zod.string().optional(),
   is_active: zod.boolean(),
-})
+});
 
 export const EditSalesChannelForm = ({
   salesChannel,
 }: EditSalesChannelFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const form = useForm<zod.infer<typeof EditSalesChannelSchema>>({
     defaultValues: {
@@ -33,9 +33,9 @@ export const EditSalesChannelForm = ({
       is_active: !salesChannel.is_disabled,
     },
     resolver: zodResolver(EditSalesChannelSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateSalesChannel(salesChannel.id)
+  const { mutateAsync, isPending } = useUpdateSalesChannel(salesChannel.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(
@@ -46,15 +46,15 @@ export const EditSalesChannelForm = ({
       },
       {
         onSuccess: () => {
-          toast.success(t("salesChannels.toast.update"))
-          handleSuccess()
+          toast.success(t("salesChannels.toast.update"));
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="sales-channel-edit-form">
@@ -75,7 +75,7 @@ export const EditSalesChannelForm = ({
                   </Form.Control>
                   <Form.ErrorMessage data-testid="sales-channel-edit-form-name-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -90,7 +90,7 @@ export const EditSalesChannelForm = ({
                   </Form.Control>
                   <Form.ErrorMessage data-testid="sales-channel-edit-form-description-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
           <Form.Field
@@ -115,7 +115,7 @@ export const EditSalesChannelForm = ({
                   <Form.Hint data-testid="sales-channel-edit-form-enabled-hint">{t("salesChannels.enabledHint")}</Form.Hint>
                   <Form.ErrorMessage data-testid="sales-channel-edit-form-enabled-error" />
                 </Form.Item>
-              )
+              );
             }}
           />
         </RouteDrawer.Body>
@@ -133,5 +133,5 @@ export const EditSalesChannelForm = ({
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

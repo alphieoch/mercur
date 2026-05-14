@@ -1,22 +1,22 @@
-import { ReactNode, Children } from "react"
-import { Button, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { ReactNode, Children } from "react";
+import { Button, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const StoreListTitle = () => {
   return (
     <div>
       <Heading level="h2">Stores</Heading>
     </div>
-  )
-}
+  );
+};
 
 export const StoreListActions = ({
   children,
 }: {
   children?: ReactNode
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex items-center justify-center gap-x-2">
@@ -30,8 +30,8 @@ export const StoreListActions = ({
         </Link>
       )}
     </div>
-  )
-}
+  );
+};
 
 export const StoreListHeader = ({
   children,
@@ -49,5 +49,5 @@ export const StoreListHeader = ({
         </>
       )}
     </div>
-  )
-}
+  );
+};

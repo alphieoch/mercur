@@ -1,5 +1,5 @@
-import { PencilSquare, Trash, XCircle } from "@medusajs/icons"
-import { ApiKeyDTO } from "@medusajs/types"
+import { PencilSquare, Trash, XCircle } from "@medusajs/icons";
+import { ApiKeyDTO } from "@medusajs/types";
 import {
   Badge,
   Container,
@@ -9,39 +9,39 @@ import {
   Text,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+} from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import {
   Action,
   ActionMenu,
-} from "../../../../../components/common/action-menu"
-import { Skeleton } from "../../../../../components/common/skeleton"
-import { UserLink } from "../../../../../components/common/user-link"
+} from "../../../../../components/common/action-menu";
+import { Skeleton } from "../../../../../components/common/skeleton";
+import { UserLink } from "../../../../../components/common/user-link";
 import {
   useDeleteApiKey,
   useRevokeApiKey,
-} from "../../../../../hooks/api/api-keys"
-import { useUser } from "../../../../../hooks/api/users"
-import { useDate } from "../../../../../hooks/use-date"
+} from "../../../../../hooks/api/api-keys";
+import { useUser } from "../../../../../hooks/api/users";
+import { useDate } from "../../../../../hooks/use-date";
 import {
   getApiKeyStatusProps,
   getApiKeyTypeProps,
   prettifyRedactedToken,
-} from "../../../common/utils"
+} from "../../../common/utils";
 
 type ApiKeyGeneralSectionProps = {
   apiKey: ApiKeyDTO
 }
 
 export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
-  const prompt = usePrompt()
-  const { getFullDate } = useDate()
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const prompt = usePrompt();
+  const { getFullDate } = useDate();
 
-  const { mutateAsync: revokeAsync } = useRevokeApiKey(apiKey.id)
-  const { mutateAsync: deleteAsync } = useDeleteApiKey(apiKey.id)
+  const { mutateAsync: revokeAsync } = useRevokeApiKey(apiKey.id);
+  const { mutateAsync: deleteAsync } = useDeleteApiKey(apiKey.id);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -51,10 +51,10 @@ export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await deleteAsync(undefined, {
@@ -63,14 +63,14 @@ export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
           t("apiKeyManagement.delete.successToast", {
             title: apiKey.title,
           })
-        )
-        navigate("..", { replace: true })
+        );
+        navigate("..", { replace: true });
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  }
+    });
+  };
 
   const handleRevoke = async () => {
     const res = await prompt({
@@ -80,10 +80,10 @@ export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
       }),
       confirmText: t("apiKeyManagement.actions.revoke"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await revokeAsync(undefined, {
@@ -92,13 +92,13 @@ export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
           t("apiKeyManagement.revoke.successToast", {
             title: apiKey.title,
           })
-        )
+        );
       },
       onError: (err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       },
-    })
-  }
+    });
+  };
 
   const dangerousActions: Action[] = [
     {
@@ -107,7 +107,7 @@ export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
       onClick: handleDelete,
       disabled: !apiKey.revoked_at,
     },
-  ]
+  ];
 
   if (!apiKey.revoked_at) {
     dangerousActions.unshift({
@@ -115,11 +115,11 @@ export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
       label: t("apiKeyManagement.actions.revoke"),
       onClick: handleRevoke,
       disabled: !!apiKey.revoked_at,
-    })
+    });
   }
 
-  const apiKeyStatus = getApiKeyStatusProps(apiKey.revoked_at, t)
-  const apiKeyType = getApiKeyTypeProps(apiKey.type, t)
+  const apiKeyStatus = getApiKeyStatusProps(apiKey.revoked_at, t);
+  const apiKeyType = getApiKeyTypeProps(apiKey.type, t);
 
   return (
     <Container className="divide-y p-0" data-testid={`${apiKey.type}-api-key-general-section`}>
@@ -209,24 +209,24 @@ export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
         </>
       )}
     </Container>
-  )
-}
+  );
+};
 
 const ActionBy = ({ userId, "data-testid": dataTestId }: { userId: string | null; "data-testid"?: string }) => {
   const { user, isLoading, isError, error } = useUser(userId!, undefined, {
     enabled: !!userId,
-  })
+  });
 
   if (!userId) {
     return (
       <Text size="small" className="text-ui-fg-subtle" data-testid={dataTestId}>
         -
       </Text>
-    )
+    );
   }
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   if (isLoading) {
@@ -235,7 +235,7 @@ const ActionBy = ({ userId, "data-testid": dataTestId }: { userId: string | null
         <Skeleton className="h-5 w-5 rounded-full" />
         <Skeleton className="w-full max-w-[220px]" />
       </div>
-    )
+    );
   }
 
   if (!user) {
@@ -243,8 +243,8 @@ const ActionBy = ({ userId, "data-testid": dataTestId }: { userId: string | null
       <Text size="small" className="text-ui-fg-subtle" data-testid={dataTestId}>
         -
       </Text>
-    )
+    );
   }
 
-  return <UserLink {...user} data-testid={dataTestId} />
-}
+  return <UserLink {...user} data-testid={dataTestId} />;
+};

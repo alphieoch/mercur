@@ -2,21 +2,21 @@ import {
   ClientError,
   InferClientInput,
   InferClientOutput,
-} from "@mercurjs/client"
+} from "@mercurjs/client";
 import {
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "@tanstack/react-query"
-import { sdk } from "../../lib/client"
-import { queryClient } from "../../lib/query-client"
-import { queryKeysFactory } from "../../lib/query-key-factory"
-import { pricePreferencesQueryKeys } from "./price-preferences"
+} from "@tanstack/react-query";
+import { sdk } from "../../lib/client";
+import { queryClient } from "../../lib/query-client";
+import { queryKeysFactory } from "../../lib/query-key-factory";
+import { pricePreferencesQueryKeys } from "./price-preferences";
 
-const REGIONS_QUERY_KEY = "regions" as const
-export const regionsQueryKeys = queryKeysFactory(REGIONS_QUERY_KEY)
+const REGIONS_QUERY_KEY = "regions" as const;
+export const regionsQueryKeys = queryKeysFactory(REGIONS_QUERY_KEY);
 
 export const useRegion = (
   id: string,
@@ -38,10 +38,10 @@ export const useRegion = (
     queryKey: regionsQueryKeys.detail(id, query),
     queryFn: () => sdk.admin.regions.$id.query({ $id: id, ...query }),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useRegions = (
   query?: InferClientInput<typeof sdk.admin.regions.query>,
@@ -59,10 +59,10 @@ export const useRegions = (
     queryFn: () => sdk.admin.regions.query({ ...query }),
     queryKey: regionsQueryKeys.list(query),
     ...options,
-  })
+  });
 
-  return { ...data, ...rest }
-}
+  return { ...data, ...rest };
+};
 
 export const useCreateRegion = (
   options?: UseMutationOptions<
@@ -74,20 +74,20 @@ export const useCreateRegion = (
   return useMutation({
     mutationFn: (payload) => sdk.admin.regions.mutate(payload),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.lists() });
 
       queryClient.invalidateQueries({
         queryKey: pricePreferencesQueryKeys.list(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: pricePreferencesQueryKeys.details(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useUpdateRegion = (
   id: string,
@@ -104,21 +104,21 @@ export const useUpdateRegion = (
     mutationFn: (payload) =>
       sdk.admin.regions.$id.mutate({ $id: id, ...payload }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.details() })
+      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.details() });
 
       queryClient.invalidateQueries({
         queryKey: pricePreferencesQueryKeys.list(),
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: pricePreferencesQueryKeys.details(),
-      })
+      });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};
 
 export const useDeleteRegion = (
   id: string,
@@ -131,11 +131,11 @@ export const useDeleteRegion = (
   return useMutation({
     mutationFn: () => sdk.admin.regions.$id.delete({ $id: id }),
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.detail(id) })
+      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: regionsQueryKeys.detail(id) });
 
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     ...options,
-  })
-}
+  });
+};

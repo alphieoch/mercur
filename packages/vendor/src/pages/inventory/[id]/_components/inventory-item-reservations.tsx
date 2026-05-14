@@ -1,8 +1,8 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ReservationItemTable } from "./reservations-table/reservation-list-table"
+import { ReservationItemTable } from "./reservations-table/reservation-list-table";
 
 type InventoryItemLocationLevelsSectionProps = {
   inventoryItem: HttpTypes.AdminInventoryItemResponse["inventory_item"]
@@ -10,7 +10,7 @@ type InventoryItemLocationLevelsSectionProps = {
 export const InventoryItemReservationsSection = ({
   inventoryItem,
 }: InventoryItemLocationLevelsSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="divide-y p-0">
@@ -19,5 +19,5 @@ export const InventoryItemReservationsSection = ({
       </div>
       <ReservationItemTable inventoryItem={inventoryItem} />
     </Container>
-  )
-}
+  );
+};

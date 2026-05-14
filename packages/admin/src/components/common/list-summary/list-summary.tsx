@@ -1,5 +1,5 @@
-import { Tooltip, clx } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Tooltip, clx } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 type ListSummaryProps = {
   /**
@@ -28,11 +28,11 @@ export const ListSummary = ({
   inline,
   n = 2,
 }: ListSummaryProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const title = t("general.plusCountMore", {
     count: list.length - n,
-  })
+  });
 
   return (
     <div
@@ -66,5 +66,5 @@ export const ListSummary = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};

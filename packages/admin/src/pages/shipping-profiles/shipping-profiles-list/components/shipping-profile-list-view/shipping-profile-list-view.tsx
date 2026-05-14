@@ -1,15 +1,15 @@
-import { ReactNode, Children } from "react"
-import { Container } from "@medusajs/ui"
+import { ReactNode, Children } from "react";
+import { Container } from "@medusajs/ui";
 
-import { ShippingProfileListDataTable } from "./shipping-profile-list-data-table"
-import { ShippingProfileListHeader } from "./shipping-profile-list-header"
+import { ShippingProfileListDataTable } from "./shipping-profile-list-data-table";
+import { ShippingProfileListHeader } from "./shipping-profile-list-header";
 
-export { ShippingProfileListDataTable } from "./shipping-profile-list-data-table"
+export { ShippingProfileListDataTable } from "./shipping-profile-list-data-table";
 export {
   ShippingProfileListHeader,
   ShippingProfileListTitle,
   ShippingProfileListActions,
-} from "./shipping-profile-list-header"
+} from "./shipping-profile-list-header";
 
 export const ShippingProfileListView = ({
   children,
@@ -27,5 +27,5 @@ export const ShippingProfileListView = ({
         </>
       )}
     </Container>
-  )
-}
+  );
+};

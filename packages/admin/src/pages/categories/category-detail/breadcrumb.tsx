@@ -1,6 +1,6 @@
-import { HttpTypes } from "@medusajs/types"
-import { UIMatch } from "react-router-dom"
-import { useProductCategory } from "../../../hooks/api"
+import { HttpTypes } from "@medusajs/types";
+import { UIMatch } from "react-router-dom";
+import { useProductCategory } from "../../../hooks/api";
 
 type CategoryDetailBreadcrumbProps =
   UIMatch<HttpTypes.AdminProductCategoryResponse>
@@ -8,7 +8,7 @@ type CategoryDetailBreadcrumbProps =
 export const CategoryDetailBreadcrumb = (
   props: CategoryDetailBreadcrumbProps
 ) => {
-  const { id } = props.params || {}
+  const { id } = props.params || {};
 
   const { product_category } = useProductCategory(
     id!,
@@ -19,11 +19,11 @@ export const CategoryDetailBreadcrumb = (
       initialData: props.data,
       enabled: Boolean(id),
     }
-  )
+  );
 
   if (!product_category) {
-    return null
+    return null;
   }
 
-  return <span>{product_category.name}</span>
-}
+  return <span>{product_category.name}</span>;
+};

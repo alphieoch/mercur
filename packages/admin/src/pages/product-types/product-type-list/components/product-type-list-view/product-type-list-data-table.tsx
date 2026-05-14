@@ -1,34 +1,34 @@
-import { HttpTypes } from "@medusajs/types"
-import { keepPreviousData } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
-import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { keepPreviousData } from "@tanstack/react-query";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-import { _DataTable } from "../../../../../components/table/data-table"
-import { useProductTypes } from "../../../../../hooks/api/product-types"
-import { useProductTypeTableColumns } from "../../../../../hooks/table/columns/use-product-type-table-columns"
-import { useProductTypeTableFilters } from "../../../../../hooks/table/filters/use-product-type-table-filters"
-import { useProductTypeTableQuery } from "../../../../../hooks/table/query/use-product-type-table-query"
-import { useDataTable } from "../../../../../hooks/use-data-table"
-import { ProductTypeRowActions } from "../product-type-list-table/product-table-row-actions"
+import { _DataTable } from "../../../../../components/table/data-table";
+import { useProductTypes } from "../../../../../hooks/api/product-types";
+import { useProductTypeTableColumns } from "../../../../../hooks/table/columns/use-product-type-table-columns";
+import { useProductTypeTableFilters } from "../../../../../hooks/table/filters/use-product-type-table-filters";
+import { useProductTypeTableQuery } from "../../../../../hooks/table/query/use-product-type-table-query";
+import { useDataTable } from "../../../../../hooks/use-data-table";
+import { ProductTypeRowActions } from "../product-type-list-table/product-table-row-actions";
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 20;
 
 export const ProductTypeListDataTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { searchParams, raw } = useProductTypeTableQuery({
     pageSize: PAGE_SIZE,
-  })
+  });
   const { product_types, count, isLoading, isError, error } = useProductTypes(
     searchParams as Parameters<typeof useProductTypes>[0],
     {
       placeholderData: keepPreviousData,
     }
-  )
+  );
 
-  const filters = useProductTypeTableFilters()
-  const columns = useColumns()
+  const filters = useProductTypeTableFilters();
+  const columns = useColumns();
 
   const { table } = useDataTable({
     columns,
@@ -36,10 +36,10 @@ export const ProductTypeListDataTable = () => {
     count,
     getRowId: (row) => row.id,
     pageSize: PAGE_SIZE,
-  })
+  });
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -61,13 +61,13 @@ export const ProductTypeListDataTable = () => {
       search
       data-testid="product-type-list-table"
     />
-  )
-}
+  );
+};
 
-const columnHelper = createColumnHelper<HttpTypes.AdminProductType>()
+const columnHelper = createColumnHelper<HttpTypes.AdminProductType>();
 
 const useColumns = () => {
-  const base = useProductTypeTableColumns()
+  const base = useProductTypeTableColumns();
 
   return useMemo(
     () => [
@@ -75,10 +75,10 @@ const useColumns = () => {
       columnHelper.display({
         id: "actions",
         cell: ({ row }) => {
-          return <ProductTypeRowActions productType={row.original} />
+          return <ProductTypeRowActions productType={row.original} />;
         },
       }),
     ],
     [base]
-  )
-}
+  );
+};

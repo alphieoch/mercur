@@ -1,24 +1,24 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, toast } from "@medusajs/ui"
-import { useRef } from "react"
-import { DefaultValues, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { DataGrid } from "@components/data-grid"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, toast } from "@medusajs/ui";
+import { useRef } from "react";
+import { DefaultValues, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { DataGrid } from "@components/data-grid";
 import {
   RouteFocusModal,
   useRouteModal,
-} from "@components/modals"
-import { KeyboundForm } from "@components/utilities/keybound-form"
+} from "@components/modals";
+import { KeyboundForm } from "@components/utilities/keybound-form";
 import {
   BatchUpdateProductItem,
   useBatchUpdateProducts,
-} from "@hooks/api/products"
-import { ExtendedAdminProduct } from "../../../types"
-import { useProductBulkEditColumns } from "../../hooks/use-product-bulk-edit-columns"
+} from "@hooks/api/products";
+import { ExtendedAdminProduct } from "../../../types";
+import { useProductBulkEditColumns } from "../../hooks/use-product-bulk-edit-columns";
 import {
   ProductBulkEditItemSchema,
   ProductBulkEditSchema,
-} from "../../schema"
+} from "../../schema";
 
 type ProductBulkEditFormProps = {
   products: ExtendedAdminProduct[]
@@ -27,72 +27,72 @@ type ProductBulkEditFormProps = {
 export const ProductBulkEditForm = ({
   products,
 }: ProductBulkEditFormProps) => {
-  const { t } = useTranslation()
-  const { setCloseOnEscape, handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { setCloseOnEscape, handleSuccess } = useRouteModal();
 
-  const initialValues = useRef(getDefaultValues(products))
+  const initialValues = useRef(getDefaultValues(products));
 
   const form = useForm<ProductBulkEditSchema>({
     defaultValues: getDefaultValues(products),
     resolver: zodResolver(ProductBulkEditSchema),
-  })
+  });
 
-  const columns = useProductBulkEditColumns()
+  const columns = useProductBulkEditColumns();
 
-  const { mutateAsync, isPending } = useBatchUpdateProducts()
+  const { mutateAsync, isPending } = useBatchUpdateProducts();
 
   const onSubmit = form.handleSubmit(async (data) => {
-    const updates: BatchUpdateProductItem[] = []
+    const updates: BatchUpdateProductItem[] = [];
 
     for (const [productId, item] of Object.entries(
       data.products
     )) {
       const original =
-        initialValues.current?.products?.[productId]
+        initialValues.current?.products?.[productId];
 
-      if (!original) continue
+      if (!original) continue;
 
-      const changes: BatchUpdateProductItem = { id: productId }
-      let hasChanges = false
+      const changes: BatchUpdateProductItem = { id: productId };
+      let hasChanges = false;
 
       if (item.title !== original.title) {
-        changes.title = item.title
-        hasChanges = true
+        changes.title = item.title;
+        hasChanges = true;
       }
 
       if (item.status !== original.status) {
-        changes.status = item.status
-        hasChanges = true
+        changes.status = item.status;
+        hasChanges = true;
       }
 
       if (item.discountable !== original.discountable) {
-        changes.discountable = item.discountable
-        hasChanges = true
+        changes.discountable = item.discountable;
+        hasChanges = true;
       }
 
       if (hasChanges) {
-        updates.push(changes)
+        updates.push(changes);
       }
     }
 
     if (updates.length === 0) {
-      toast.info(t("products.bulkEdit.noChanges"))
-      return
+      toast.info(t("products.bulkEdit.noChanges"));
+      return;
     }
 
     await mutateAsync(
       { update: updates },
       {
         onSuccess: () => {
-          toast.success(t("products.bulkEdit.success"))
-          handleSuccess()
+          toast.success(t("products.bulkEdit.success"));
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteFocusModal.Form form={form}>
@@ -107,7 +107,7 @@ export const ProductBulkEditForm = ({
             data={products}
             state={form}
             onEditingChange={(editing) => {
-              setCloseOnEscape(!editing)
+              setCloseOnEscape(!editing);
             }}
           />
         </RouteFocusModal.Body>
@@ -133,8 +133,8 @@ export const ProductBulkEditForm = ({
         </RouteFocusModal.Footer>
       </KeyboundForm>
     </RouteFocusModal.Form>
-  )
-}
+  );
+};
 
 function getDefaultValues(
   products: ExtendedAdminProduct[]
@@ -146,10 +146,10 @@ function getDefaultValues(
           title: product.title || "",
           status: product.status as "draft" | "published",
           discountable: product.discountable ?? true,
-        }
-        return acc
+        };
+        return acc;
       },
       {} as Record<string, ProductBulkEditItemSchema>
     ),
-  }
+  };
 }

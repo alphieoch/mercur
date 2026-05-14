@@ -1,6 +1,6 @@
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 type CategoryGeneralSectionProps = {
   category: HttpTypes.AdminProductCategory
 }
@@ -8,7 +8,7 @@ type CategoryGeneralSectionProps = {
 export const CategoryGeneralSection = ({
   category,
 }: CategoryGeneralSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container className="divide-y p-0">
@@ -32,5 +32,5 @@ export const CategoryGeneralSection = ({
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

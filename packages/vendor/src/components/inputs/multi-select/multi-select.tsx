@@ -1,8 +1,8 @@
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react"
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 
-import { CheckMini, TrianglesMini, XMarkMini } from "@medusajs/icons"
-import { Badge, Input, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { CheckMini, TrianglesMini, XMarkMini } from "@medusajs/icons";
+import { Badge, Input, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
 type MultiSelectOption = {
   value: string
@@ -38,13 +38,13 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
     },
     ref
   ) => {
-    const { t } = useTranslation()
-    const [isOpen, setIsOpen] = useState(false)
-    const [searchValue, setSearchValue] = useState("")
-    const dropdownRef = useRef<HTMLDivElement>(null)
-    const triggerRef = useRef<HTMLDivElement>(null)
-    const badgesContainerRef = useRef<HTMLDivElement>(null)
-    const [visibleBadgesCount, setVisibleBadgesCount] = useState(0)
+    const { t } = useTranslation();
+    const [isOpen, setIsOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null);
+    const badgesContainerRef = useRef<HTMLDivElement>(null);
+    const [visibleBadgesCount, setVisibleBadgesCount] = useState(0);
 
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -54,121 +54,121 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
           triggerRef.current &&
           !triggerRef.current.contains(event.target as Node)
         ) {
-          setIsOpen(false)
+          setIsOpen(false);
         }
-      }
-      document.addEventListener("mousedown", handleClickOutside)
+      };
+      document.addEventListener("mousedown", handleClickOutside);
       return () => {
-        document.removeEventListener("mousedown", handleClickOutside)
-      }
-    }, [])
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
 
     const calculateVisibleBadges = () => {
       if (!value || value.length === 0 || !badgesContainerRef.current) {
-        setVisibleBadgesCount(0)
-        return
+        setVisibleBadgesCount(0);
+        return;
       }
 
-      const container = badgesContainerRef.current
-      const containerWidth = container.offsetWidth
-      const padding = 24
-      const gap = 8
-      const availableWidth = containerWidth - padding
+      const container = badgesContainerRef.current;
+      const containerWidth = container.offsetWidth;
+      const padding = 24;
+      const gap = 8;
+      const availableWidth = containerWidth - padding;
 
       const estimateBadgeWidth = (label: string) => {
-        const baseWidth = 32
-        const charWidth = 8
-        return baseWidth + label.length * charWidth
-      }
+        const baseWidth = 32;
+        const charWidth = 8;
+        return baseWidth + label.length * charWidth;
+      };
 
-      let totalWidth = 0
-      let count = 0
+      let totalWidth = 0;
+      let count = 0;
 
       for (let i = 0; i < value.length; i++) {
-        const option = options.find((opt) => opt.value === value[i])
-        const optionLabel = option?.label || "Unknown"
+        const option = options.find((opt) => opt.value === value[i]);
+        const optionLabel = option?.label || "Unknown";
         const badgeWidth =
           estimateBadgeWidth(optionLabel) > 200
             ? 235
-            : estimateBadgeWidth(optionLabel)
+            : estimateBadgeWidth(optionLabel);
 
         if (
           totalWidth + badgeWidth + (count > 0 ? gap : 0) <=
           availableWidth
         ) {
-          totalWidth += badgeWidth + (count > 0 ? gap : 0)
-          count++
+          totalWidth += badgeWidth + (count > 0 ? gap : 0);
+          count++;
         } else {
-          break
+          break;
         }
       }
 
-      setVisibleBadgesCount(count)
-    }
+      setVisibleBadgesCount(count);
+    };
 
     useEffect(() => {
-      calculateVisibleBadges()
-    }, [value, options])
+      calculateVisibleBadges();
+    }, [value, options]);
 
     useEffect(() => {
       const resizeObserver = new ResizeObserver(() => {
-        calculateVisibleBadges()
-      })
+        calculateVisibleBadges();
+      });
 
       if (badgesContainerRef.current) {
-        resizeObserver.observe(badgesContainerRef.current)
+        resizeObserver.observe(badgesContainerRef.current);
       }
 
       return () => {
-        resizeObserver.disconnect()
-      }
-    }, [value, options])
+        resizeObserver.disconnect();
+      };
+    }, [value, options]);
 
     const handleToggle = () => {
-      if (disabled) return
-      setIsOpen((prev) => !prev)
+      if (disabled) return;
+      setIsOpen((prev) => !prev);
       if (!isOpen && showSearch) {
-        setSearchValue("")
+        setSearchValue("");
       }
-    }
+    };
 
     const handleItemClick = (optionValue: string) => {
-      const currentValue = value || []
-      const isSelected = currentValue.includes(optionValue)
+      const currentValue = value || [];
+      const isSelected = currentValue.includes(optionValue);
       if (isSelected) {
-        onChange(currentValue.filter((val) => val !== optionValue))
+        onChange(currentValue.filter((val) => val !== optionValue));
       } else {
-        onChange([...currentValue, optionValue])
+        onChange([...currentValue, optionValue]);
       }
-    }
+    };
 
     const handleRemoveBadge = (
       optionValue: string,
       e: React.MouseEvent
     ) => {
-      e.stopPropagation()
-      const currentValue = value || []
-      onChange(currentValue.filter((val) => val !== optionValue))
-    }
+      e.stopPropagation();
+      const currentValue = value || [];
+      onChange(currentValue.filter((val) => val !== optionValue));
+    };
 
     const filteredOptions = useMemo(() => {
       if (!showSearch || !searchValue.trim()) {
-        return options
+        return options;
       }
       return options.filter((option) =>
         option.label.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    }, [options, searchValue, showSearch])
+      );
+    }, [options, searchValue, showSearch]);
 
     const handleSearchChange = (
       e: React.ChangeEvent<HTMLInputElement>
     ) => {
-      setSearchValue(e.target.value)
-    }
+      setSearchValue(e.target.value);
+    };
 
     const handleClearSearch = () => {
-      setSearchValue("")
-    }
+      setSearchValue("");
+    };
 
     return (
       <div ref={ref} className={`relative ${className}`}>
@@ -201,7 +201,7 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                   .map((optionValue) => {
                     const option = options.find(
                       (opt) => opt.value === optionValue
-                    )
+                    );
                     return (
                       <button
                         key={optionValue}
@@ -222,7 +222,7 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                           <XMarkMini className="mr-0.5 !text-ui-fg-base" />
                         </Badge>
                       </button>
-                    )
+                    );
                   })}
                 {value && value.length > visibleBadgesCount && (
                   <Badge
@@ -286,8 +286,8 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                 </div>
               ) : (
                 filteredOptions.map((option) => {
-                  const currentValue = value || []
-                  const isSelected = currentValue.includes(option.value)
+                  const currentValue = value || [];
+                  const isSelected = currentValue.includes(option.value);
                   return (
                     <div
                       key={option.value}
@@ -301,18 +301,18 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                         <Text className="truncate">{option.label}</Text>
                       </div>
                     </div>
-                  )
+                  );
                 })
               )}
             </div>
           </div>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-MultiSelect.displayName = "MultiSelect"
+MultiSelect.displayName = "MultiSelect";
 
-export default MultiSelect
-export type { MultiSelectProps, MultiSelectOption }
+export default MultiSelect;
+export type { MultiSelectProps, MultiSelectOption };

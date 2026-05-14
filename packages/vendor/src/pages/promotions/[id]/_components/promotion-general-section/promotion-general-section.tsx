@@ -1,48 +1,48 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Badge, Container, Copy, Heading, Text, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Badge, Container, Copy, Heading, Text, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { ActionMenu } from "@components/common/action-menu"
-import { useDeletePromotion } from "@hooks/api/promotions"
-import { formatCurrency } from "@lib/format-currency"
-import { formatPercentage } from "@lib/percentage-helpers"
-import { StatusCell } from "@components/table/table-cells/promotion/status-cell"
+import { ActionMenu } from "@components/common/action-menu";
+import { useDeletePromotion } from "@hooks/api/promotions";
+import { formatCurrency } from "@lib/format-currency";
+import { formatPercentage } from "@lib/percentage-helpers";
+import { StatusCell } from "@components/table/table-cells/promotion/status-cell";
 
 type PromotionGeneralSectionProps = {
   promotion: HttpTypes.AdminPromotion
 }
 
 function getDisplayValue(promotion: HttpTypes.AdminPromotion) {
-  const value = promotion.application_method?.value
+  const value = promotion.application_method?.value;
 
   if (!value) {
-    return null
+    return null;
   }
 
   if (promotion.application_method?.type === "fixed") {
-    const currency = promotion.application_method?.currency_code
+    const currency = promotion.application_method?.currency_code;
 
     if (!currency) {
-      return null
+      return null;
     }
 
-    return formatCurrency(value, currency)
+    return formatCurrency(value, currency);
   } else if (promotion.application_method?.type === "percentage") {
-    return formatPercentage(value)
+    return formatPercentage(value);
   }
 
-  return null
+  return null;
 }
 
 export const PromotionGeneralSection = ({
   promotion,
 }: PromotionGeneralSectionProps) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
-  const { mutateAsync } = useDeletePromotion(promotion.id)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
+  const { mutateAsync } = useDeletePromotion(promotion.id);
 
   const handleDelete = async () => {
     const confirm = await prompt({
@@ -54,20 +54,20 @@ export const PromotionGeneralSection = ({
       verificationText: promotion.code,
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!confirm) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
       onSuccess: () => {
-        navigate("/promotions", { replace: true })
+        navigate("/promotions", { replace: true });
       },
-    })
-  }
+    });
+  };
 
-  const displayValue = getDisplayValue(promotion)
+  const displayValue = getDisplayValue(promotion);
 
   return (
     <Container className="divide-y p-0">
@@ -172,5 +172,5 @@ export const PromotionGeneralSection = ({
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

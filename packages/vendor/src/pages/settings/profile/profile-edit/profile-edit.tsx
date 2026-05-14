@@ -1,10 +1,10 @@
-import { Heading } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { RouteDrawer } from "../../../../components/modals"
-import { EditProfileForm } from "./components/edit-profile-form/edit-profile-form"
+import { Heading } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { RouteDrawer } from "../../../../components/modals";
+import { EditProfileForm } from "./components/edit-profile-form/edit-profile-form";
 
 export const ProfileEdit = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <RouteDrawer>
@@ -15,5 +15,5 @@ export const ProfileEdit = () => {
       </RouteDrawer.Header>
       <EditProfileForm />
     </RouteDrawer>
-  )
-}
+  );
+};

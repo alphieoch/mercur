@@ -1,25 +1,25 @@
-import { HttpTypes } from "@medusajs/types"
-import { clx, Container, Heading, toast, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { HttpTypes } from "@medusajs/types";
+import { clx, Container, Heading, toast, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { Trash } from "@medusajs/icons"
-import { Link, useNavigate } from "react-router-dom"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { NoRecords } from "../../../../../components/common/empty-table-content"
-import { Listicle } from "../../../../../components/common/listicle"
-import { useDeleteCustomerAddress } from "../../../../../hooks/api/customers"
+import { Trash } from "@medusajs/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { NoRecords } from "../../../../../components/common/empty-table-content";
+import { Listicle } from "../../../../../components/common/listicle";
+import { useDeleteCustomerAddress } from "../../../../../hooks/api/customers";
 
 export const CustomerAddressSection = ({
   customer,
 }: {
   customer: HttpTypes.AdminCustomer
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
-  const { mutateAsync: deleteAddress } = useDeleteCustomerAddress(customer.id)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
+  const { mutateAsync: deleteAddress } = useDeleteCustomerAddress(customer.id);
 
-  const addresses = customer.addresses ?? []
+  const addresses = customer.addresses ?? [];
 
   const handleDelete = async (address: HttpTypes.AdminCustomerAddress) => {
     const confirm = await prompt({
@@ -32,25 +32,25 @@ export const CustomerAddressSection = ({
       verificationText: address.address_name ?? "address",
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!confirm) {
-      return
+      return;
     }
 
     await deleteAddress(address.id, {
       onSuccess: () => {
         toast.success(
           t("general.success", { name: address.address_name ?? "address" })
-        )
+        );
 
-        navigate(`/customers/${customer.id}`, { replace: true })
+        navigate(`/customers/${customer.id}`, { replace: true });
       },
       onError: (e) => {
-        toast.error(e.message)
+        toast.error(e.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <Container className="p-0" data-testid="customer-address-section">
@@ -90,7 +90,7 @@ export const CustomerAddressSection = ({
                         icon: <Trash />,
                         label: t("actions.delete"),
                         onClick: async () => {
-                          await handleDelete(address)
+                          await handleDelete(address);
                         },
                       },
                     ],
@@ -99,8 +99,8 @@ export const CustomerAddressSection = ({
               />
             </Listicle>
           </div>
-        )
+        );
       })}
     </Container>
-  )
-}
+  );
+};

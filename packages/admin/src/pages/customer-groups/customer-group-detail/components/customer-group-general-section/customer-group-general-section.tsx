@@ -1,11 +1,11 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { Container, Heading, Text, toast, usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { Container, Heading, Text, toast, usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useDeleteCustomerGroup } from "../../../../../hooks/api/customer-groups"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useDeleteCustomerGroup } from "../../../../../hooks/api/customer-groups";
 
 type CustomerGroupGeneralSectionProps = {
   group: HttpTypes.AdminCustomerGroup
@@ -14,11 +14,11 @@ type CustomerGroupGeneralSectionProps = {
 export const CustomerGroupGeneralSection = ({
   group,
 }: CustomerGroupGeneralSectionProps) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
 
-  const { mutateAsync } = useDeleteCustomerGroup(group.id)
+  const { mutateAsync } = useDeleteCustomerGroup(group.id);
 
   const handleDelete = async () => {
     const res = await prompt({
@@ -28,10 +28,10 @@ export const CustomerGroupGeneralSection = ({
       }),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(undefined, {
@@ -40,15 +40,15 @@ export const CustomerGroupGeneralSection = ({
           t("customerGroups.delete.successToast", {
             name: group.name,
           })
-        )
+        );
 
-        navigate("/customer-groups", { replace: true })
+        navigate("/customer-groups", { replace: true });
       },
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
-    })
-  }
+    });
+  };
 
   return (
     <Container className="divide-y p-0" data-testid="customer-group-general-section">
@@ -87,5 +87,5 @@ export const CustomerGroupGeneralSection = ({
         </Text>
       </div>
     </Container>
-  )
-}
+  );
+};

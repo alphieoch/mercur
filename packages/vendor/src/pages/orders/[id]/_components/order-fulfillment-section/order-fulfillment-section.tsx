@@ -1,5 +1,5 @@
-import { XCircle } from "@medusajs/icons"
-import { AdminOrderLineItem } from "@medusajs/types"
+import { XCircle } from "@medusajs/icons";
+import { AdminOrderLineItem } from "@medusajs/types";
 import {
   Button,
   Container,
@@ -10,25 +10,25 @@ import {
   Tooltip,
   toast,
   usePrompt,
-} from "@medusajs/ui"
-import { format } from "date-fns"
-import { useTranslation } from "react-i18next"
-import { Link, useNavigate } from "react-router-dom"
-import { ActionMenu } from "@components/common/action-menu"
-import { Skeleton } from "@components/common/skeleton"
-import { Thumbnail } from "@components/common/thumbnail"
+} from "@medusajs/ui";
+import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
+import { ActionMenu } from "@components/common/action-menu";
+import { Skeleton } from "@components/common/skeleton";
+import { Thumbnail } from "@components/common/thumbnail";
 import {
   useCancelOrderFulfillment,
   useMarkOrderFulfillmentAsDelivered,
-} from "@hooks/api/orders"
-import { useStockLocation } from "@hooks/api/stock-locations"
-import { formatProvider } from "@lib/format-provider"
-import { getLocaleAmount } from "@lib/money-amount-helpers"
-import { FulfillmentSetType } from "@pages/settings/locations/_common/constants"
+} from "@hooks/api/orders";
+import { useStockLocation } from "@hooks/api/stock-locations";
+import { formatProvider } from "@lib/format-provider";
+import { getLocaleAmount } from "@lib/money-amount-helpers";
+import { FulfillmentSetType } from "@pages/settings/locations/_common/constants";
 import {
   ExtendedAdminOrder,
   ExtendedAdminOrderFulfillment,
-} from "@custom-types/order"
+} from "@custom-types/order";
 
 type OrderFulfillmentSectionProps = {
   order: ExtendedAdminOrder
@@ -37,7 +37,7 @@ type OrderFulfillmentSectionProps = {
 export const OrderFulfillmentSection = ({
   order,
 }: OrderFulfillmentSectionProps) => {
-  const fulfillments = order.fulfillments || []
+  const fulfillments = order.fulfillments || [];
 
   return (
     <div className="flex flex-col gap-y-3">
@@ -46,8 +46,8 @@ export const OrderFulfillmentSection = ({
         <Fulfillment key={f.id} index={index} fulfillment={f} order={order} />
       ))}
     </div>
-  )
-}
+  );
+};
 
 const UnfulfilledItem = ({
   item,
@@ -104,8 +104,8 @@ const UnfulfilledItem = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const UnfulfilledItemBreakdown = ({ order }: { order: ExtendedAdminOrder }) => {
   // Create an array of order items that haven't been fulfilled or at least not fully fulfilled
@@ -115,7 +115,7 @@ const UnfulfilledItemBreakdown = ({ order }: { order: ExtendedAdminOrder }) => {
       i.detail &&
       i.quantity &&
       i.detail.fulfilled_quantity < i.quantity
-  )
+  );
 
   const unfulfilledItemsWithoutShipping = order.items!.filter(
     (i) =>
@@ -123,7 +123,7 @@ const UnfulfilledItemBreakdown = ({ order }: { order: ExtendedAdminOrder }) => {
       i.detail &&
       i.quantity &&
       i.detail.fulfilled_quantity < i.quantity
-  )
+  );
 
   return (
     <>
@@ -143,8 +143,8 @@ const UnfulfilledItemBreakdown = ({ order }: { order: ExtendedAdminOrder }) => {
         />
       )}
     </>
-  )
-}
+  );
+};
 
 const UnfulfilledItemDisplay = ({
   order,
@@ -155,10 +155,10 @@ const UnfulfilledItemDisplay = ({
   unfulfilledItems: AdminOrderLineItem[]
   requiresShipping: boolean
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (order.status === "canceled") {
-    return
+    return;
   }
 
   return (
@@ -195,8 +195,8 @@ const UnfulfilledItemDisplay = ({
         </Link>
       </div>
     </Container>
-  )
-}
+  );
+};
 
 const Fulfillment = ({
   fulfillment,
@@ -207,15 +207,15 @@ const Fulfillment = ({
   order: ExtendedAdminOrder
   index: number
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const navigate = useNavigate();
 
-  const showLocation = !!fulfillment.location_id
+  const showLocation = !!fulfillment.location_id;
 
   const isPickUpFulfillment =
     fulfillment.shipping_option?.service_zone.fulfillment_set.type ===
-    FulfillmentSetType.Pickup
+    FulfillmentSetType.Pickup;
 
   const { stock_location, isError, error } = useStockLocation(
     fulfillment.location_id!,
@@ -223,45 +223,45 @@ const Fulfillment = ({
     {
       enabled: showLocation,
     }
-  )
+  );
 
   let statusText = fulfillment.requires_shipping
     ? isPickUpFulfillment
       ? "Awaiting pickup"
       : "Awaiting shipping"
-    : "Awaiting delivery"
-  let statusColor: "blue" | "green" | "red" = "blue"
-  let statusTimestamp = fulfillment.created_at
+    : "Awaiting delivery";
+  let statusColor: "blue" | "green" | "red" = "blue";
+  let statusTimestamp = fulfillment.created_at;
 
   if (fulfillment.canceled_at) {
-    statusText = "Canceled"
-    statusColor = "red"
-    statusTimestamp = fulfillment.canceled_at
+    statusText = "Canceled";
+    statusColor = "red";
+    statusTimestamp = fulfillment.canceled_at;
   } else if (fulfillment.delivered_at) {
-    statusText = "Delivered"
-    statusColor = "green"
-    statusTimestamp = fulfillment.delivered_at
+    statusText = "Delivered";
+    statusColor = "green";
+    statusTimestamp = fulfillment.delivered_at;
   } else if (fulfillment.shipped_at) {
-    statusText = "Shipped"
-    statusColor = "green"
-    statusTimestamp = fulfillment.shipped_at
+    statusText = "Shipped";
+    statusColor = "green";
+    statusTimestamp = fulfillment.shipped_at;
   }
 
-  const { mutateAsync } = useCancelOrderFulfillment(order.id, fulfillment.id)
+  const { mutateAsync } = useCancelOrderFulfillment(order.id, fulfillment.id);
   const { mutateAsync: markAsDelivered } = useMarkOrderFulfillmentAsDelivered(
     order.id,
     fulfillment.id
-  )
+  );
 
   const showShippingButton =
     !fulfillment.canceled_at &&
     !fulfillment.shipped_at &&
     !fulfillment.delivered_at &&
     fulfillment.requires_shipping &&
-    !isPickUpFulfillment
+    !isPickUpFulfillment;
 
   const showDeliveryButton =
-    !fulfillment.canceled_at && !fulfillment.delivered_at
+    !fulfillment.canceled_at && !fulfillment.delivered_at;
 
   const handleMarkAsDelivered = async () => {
     const res = await prompt({
@@ -270,7 +270,7 @@ const Fulfillment = ({
       confirmText: t("actions.continue"),
       cancelText: t("actions.cancel"),
       variant: "confirmation",
-    })
+    });
 
     if (res) {
       await markAsDelivered(undefined, {
@@ -281,19 +281,19 @@ const Fulfillment = ({
                 ? "orders.fulfillment.toast.fulfillmentPickedUp"
                 : "orders.fulfillment.toast.fulfillmentDelivered"
             )
-          )
+          );
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
-      })
+      });
     }
-  }
+  };
 
   const handleCancel = async () => {
     if (fulfillment.shipped_at) {
-      toast.warning(t("orders.fulfillment.toast.fulfillmentShipped"))
-      return
+      toast.warning(t("orders.fulfillment.toast.fulfillmentShipped"));
+      return;
     }
 
     const res = await prompt({
@@ -301,22 +301,22 @@ const Fulfillment = ({
       description: t("orders.fulfillment.cancelWarning"),
       confirmText: t("actions.continue"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (res) {
       await mutateAsync(undefined, {
         onSuccess: () => {
-          toast.success(t("orders.fulfillment.toast.canceled"))
+          toast.success(t("orders.fulfillment.toast.canceled"));
         },
         onError: (e) => {
-          toast.error(e.message)
+          toast.error(e.message);
         },
-      })
+      });
     }
-  }
+  };
 
   if (isError) {
-    throw error
+    throw error;
   }
 
   return (
@@ -405,7 +405,7 @@ const Fulfillment = ({
             <ul>
               {fulfillment.labels.map((tlink) => {
                 const hasUrl =
-                  !!tlink.tracking_url?.length && tlink.tracking_url !== "#"
+                  !!tlink.tracking_url?.length && tlink.tracking_url !== "#";
 
                 if (hasUrl) {
                   return (
@@ -421,7 +421,7 @@ const Fulfillment = ({
                         </Text>
                       </a>
                     </li>
-                  )
+                  );
                 }
 
                 return (
@@ -430,7 +430,7 @@ const Fulfillment = ({
                       {tlink.tracking_number}
                     </Text>
                   </li>
-                )
+                );
               })}
             </ul>
           ) : (
@@ -464,5 +464,5 @@ const Fulfillment = ({
         </div>
       )}
     </Container>
-  )
-}
+  );
+};

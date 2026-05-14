@@ -1,20 +1,20 @@
-import { Divider, Heading, Input, RadioGroup, Select, Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { Divider, Heading, Input, RadioGroup, Select, Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import type { HttpTypes } from "@medusajs/types"
+import type { HttpTypes } from "@medusajs/types";
 
-import { Form } from "../../../../../components/common/form"
-import { SwitchBox } from "../../../../../components/common/switch-box"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form"
-import { defineTabMeta } from "../../../../../components/tabbed-form/types"
-import { useComboboxData } from "../../../../../hooks/use-combobox-data"
-import { sdk } from "../../../../../lib/client"
-import { formatProvider } from "../../../../../lib/format-provider"
-import { FulfillmentSetType, ShippingOptionPriceType } from "../../../common/constants"
-import { CreateShippingOptionSchema } from "./schema"
-import { useDocumentDirection } from "../../../../../hooks/use-document-direction"
-import type { ExtendedAdminFulfillmentProviderOption } from "@custom-types/fulfillment-providers/common"
+import { Form } from "../../../../../components/common/form";
+import { SwitchBox } from "../../../../../components/common/switch-box";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { useTabbedForm } from "../../../../../components/tabbed-form/tabbed-form";
+import { defineTabMeta } from "../../../../../components/tabbed-form/types";
+import { useComboboxData } from "../../../../../hooks/use-combobox-data";
+import { sdk } from "../../../../../lib/client";
+import { formatProvider } from "../../../../../lib/format-provider";
+import { FulfillmentSetType, ShippingOptionPriceType } from "../../../common/constants";
+import { CreateShippingOptionSchema } from "./schema";
+import { useDocumentDirection } from "../../../../../hooks/use-document-direction";
+import type { ExtendedAdminFulfillmentProviderOption } from "@custom-types/fulfillment-providers/common";
 
 type CreateShippingOptionDetailsFormProps = {
   isReturn?: boolean
@@ -33,10 +33,10 @@ const Root = ({
   selectedProviderId,
   type,
 }: CreateShippingOptionDetailsFormProps) => {
-  const { t } = useTranslation()
-  const form = useTabbedForm<CreateShippingOptionSchema>()
-  const direction = useDocumentDirection()
-  const isPickup = type === FulfillmentSetType.Pickup
+  const { t } = useTranslation();
+  const form = useTabbedForm<CreateShippingOptionSchema>();
+  const direction = useDocumentDirection();
+  const isPickup = type === FulfillmentSetType.Pickup;
 
   const shippingProfiles = useComboboxData({
     queryFn: (params) => sdk.admin.shippingProfiles.query(params),
@@ -46,7 +46,7 @@ const Root = ({
         label: profile.name,
         value: profile.id,
       })),
-  })
+  });
 
   const shippingOptionTypes = useComboboxData({
     queryFn: (params) => sdk.admin.shippingOptionTypes.query(params),
@@ -56,7 +56,7 @@ const Root = ({
         label: type.label,
         value: type.id,
       })),
-  })
+  });
 
   const fulfillmentProviders = useComboboxData({
     queryFn: (params) =>
@@ -70,7 +70,7 @@ const Root = ({
         label: formatProvider(provider.id),
         value: provider.id,
       })),
-  })
+  });
 
   return (
     <div className="flex flex-1 flex-col items-center overflow-y-auto" data-testid="location-shipping-option-create-details-form">
@@ -208,8 +208,8 @@ const Root = ({
                   <Combobox
                     {...field}
                     onChange={(e) => {
-                      field.onChange(e)
-                      form.setValue("fulfillment_option_id", "")
+                      field.onChange(e);
+                      form.setValue("fulfillment_option_id", "");
                     }}
                     options={fulfillmentProviders.options}
                     searchValue={fulfillmentProviders.searchValue}
@@ -270,8 +270,8 @@ const Root = ({
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 Root._tabMeta = defineTabMeta<CreateShippingOptionSchema>({
   id: "details",
@@ -280,6 +280,6 @@ Root._tabMeta = defineTabMeta<CreateShippingOptionSchema>({
     "name", "price_type", "enabled_in_store", "shipping_profile_id",
     "provider_id", "fulfillment_option_id", "shipping_option_type_id",
   ],
-})
+});
 
-export const CreateShippingOptionDetailsForm = Root
+export const CreateShippingOptionDetailsForm = Root;

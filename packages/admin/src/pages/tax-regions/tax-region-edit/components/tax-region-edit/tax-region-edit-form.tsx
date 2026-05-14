@@ -1,18 +1,18 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HttpTypes } from "@medusajs/types"
-import { Button, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { HttpTypes } from "@medusajs/types";
+import { Button, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
-import { Form } from "../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../components/modals"
-import { KeyboundForm } from "../../../../../components/utilities/keybound-form"
-import { useComboboxData } from "../../../../../hooks/use-combobox-data"
-import { sdk } from "../../../../../lib/client"
-import { Combobox } from "../../../../../components/inputs/combobox"
-import { formatProvider } from "../../../../../lib/format-provider"
-import { useUpdateTaxRegion } from "../../../../../hooks/api"
+import { Form } from "../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../components/modals";
+import { KeyboundForm } from "../../../../../components/utilities/keybound-form";
+import { useComboboxData } from "../../../../../hooks/use-combobox-data";
+import { sdk } from "../../../../../lib/client";
+import { Combobox } from "../../../../../components/inputs/combobox";
+import { formatProvider } from "../../../../../lib/format-provider";
+import { useUpdateTaxRegion } from "../../../../../hooks/api";
 
 type TaxRegionEditFormProps = {
   taxRegion: HttpTypes.AdminTaxRegion
@@ -20,11 +20,11 @@ type TaxRegionEditFormProps = {
 
 const TaxRegionEditSchema = z.object({
   provider_id: z.string().min(1),
-})
+});
 
 export const TaxRegionEditForm = ({ taxRegion }: TaxRegionEditFormProps) => {
-  const { t } = useTranslation()
-  const { handleSuccess } = useRouteModal()
+  const { t } = useTranslation();
+  const { handleSuccess } = useRouteModal();
 
   const taxProviders = useComboboxData({
     queryKey: ["tax_providers"],
@@ -34,16 +34,16 @@ export const TaxRegionEditForm = ({ taxRegion }: TaxRegionEditFormProps) => {
         label: formatProvider(provider.id),
         value: provider.id,
       })),
-  })
+  });
 
   const form = useForm<z.infer<typeof TaxRegionEditSchema>>({
     defaultValues: {
       provider_id: taxRegion.provider_id ?? undefined,
     },
     resolver: zodResolver(TaxRegionEditSchema),
-  })
+  });
 
-  const { mutateAsync, isPending } = useUpdateTaxRegion(taxRegion.id)
+  const { mutateAsync, isPending } = useUpdateTaxRegion(taxRegion.id);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await mutateAsync(
@@ -52,15 +52,15 @@ export const TaxRegionEditForm = ({ taxRegion }: TaxRegionEditFormProps) => {
       },
       {
         onSuccess: () => {
-          toast.success(t("taxRegions.edit.successToast"))
-          handleSuccess()
+          toast.success(t("taxRegions.edit.successToast"));
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form} data-testid="tax-region-edit-form">
@@ -106,5 +106,5 @@ export const TaxRegionEditForm = ({ taxRegion }: TaxRegionEditFormProps) => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

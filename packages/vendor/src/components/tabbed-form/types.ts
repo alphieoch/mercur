@@ -1,4 +1,4 @@
-import { FieldPath, FieldValues, UseFormReturn } from "react-hook-form"
+import { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 
 export interface TabDefinition<T extends FieldValues = FieldValues> {
   id: string

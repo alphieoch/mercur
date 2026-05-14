@@ -1,20 +1,20 @@
-import { PencilSquare, Trash } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
-import { usePrompt } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
+import { PencilSquare, Trash } from "@medusajs/icons";
+import { HttpTypes } from "@medusajs/types";
+import { usePrompt } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
 
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import { useDeleteCollection } from "../../../../../hooks/api/collections"
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import { useDeleteCollection } from "../../../../../hooks/api/collections";
 
 export const CollectionRowActions = ({
   collection,
 }: {
   collection: HttpTypes.AdminCollection
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
+  const { t } = useTranslation();
+  const prompt = usePrompt();
 
-  const { mutateAsync } = useDeleteCollection(collection.id!)
+  const { mutateAsync } = useDeleteCollection(collection.id!);
 
   const handleDeleteCollection = async () => {
     const res = await prompt({
@@ -26,14 +26,14 @@ export const CollectionRowActions = ({
       verificationInstruction: t("general.typeToConfirm"),
       confirmText: t("actions.delete"),
       cancelText: t("actions.cancel"),
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
-    await mutateAsync()
-  }
+    await mutateAsync();
+  };
 
   return (
     <ActionMenu
@@ -59,5 +59,5 @@ export const CollectionRowActions = ({
         },
       ]}
     />
-  )
-}
+  );
+};

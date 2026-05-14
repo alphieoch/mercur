@@ -1,22 +1,22 @@
-import { Button, Heading } from "@medusajs/ui"
-import { useFieldArray } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
+import { Button, Heading } from "@medusajs/ui";
+import { useFieldArray } from "react-hook-form";
+import { Trans, useTranslation } from "react-i18next";
 
-import { ChipGroup } from "../../../../../../../components/common/chip-group"
-import { Form } from "../../../../../../../components/common/form"
-import { SwitchBox } from "../../../../../../../components/common/switch-box"
-import { Combobox } from "../../../../../../../components/inputs/combobox"
-import { StackedFocusModal } from "../../../../../../../components/modals"
-import { useTabbedForm } from "../../../../../../../components/tabbed-form/tabbed-form"
-import { useComboboxData } from "../../../../../../../hooks/use-combobox-data"
-import { sdk } from "../../../../../../../lib/client"
-import { CategoryCombobox } from "../../../../../common/components/category-combobox"
-import { ProductCreateSchemaType } from "../../../../types"
-import { HttpTypes } from "@medusajs/types"
+import { ChipGroup } from "../../../../../../../components/common/chip-group";
+import { Form } from "../../../../../../../components/common/form";
+import { SwitchBox } from "../../../../../../../components/common/switch-box";
+import { Combobox } from "../../../../../../../components/inputs/combobox";
+import { StackedFocusModal } from "../../../../../../../components/modals";
+import { useTabbedForm } from "../../../../../../../components/tabbed-form/tabbed-form";
+import { useComboboxData } from "../../../../../../../hooks/use-combobox-data";
+import { sdk } from "../../../../../../../lib/client";
+import { CategoryCombobox } from "../../../../../common/components/category-combobox";
+import { ProductCreateSchemaType } from "../../../../types";
+import { HttpTypes } from "@medusajs/types";
 
 export const ProductCreateOrganizationSection = () => {
-  const form = useTabbedForm<ProductCreateSchemaType>()
-  const { t } = useTranslation()
+  const form = useTabbedForm<ProductCreateSchemaType>();
+  const { t } = useTranslation();
 
   const sellers = useComboboxData({
     queryKey: ["sellers"],
@@ -26,7 +26,7 @@ export const ProductCreateOrganizationSection = () => {
         label: seller.name,
         value: seller.id,
       })),
-  })
+  });
 
   const collections = useComboboxData({
     queryKey: ["product_collections"],
@@ -36,7 +36,7 @@ export const ProductCreateOrganizationSection = () => {
         label: collection.title!,
         value: collection.id!,
       })),
-  })
+  });
 
   const types = useComboboxData({
     queryKey: ["product_types"],
@@ -46,7 +46,7 @@ export const ProductCreateOrganizationSection = () => {
         label: type.value,
         value: type.id,
       })),
-  })
+  });
 
   const tags = useComboboxData({
     queryKey: ["product_tags"],
@@ -56,7 +56,7 @@ export const ProductCreateOrganizationSection = () => {
         label: tag.value,
         value: tag.id,
       })),
-  })
+  });
 
   const shippingProfiles = useComboboxData({
     queryKey: ["shipping_profiles"],
@@ -66,17 +66,17 @@ export const ProductCreateOrganizationSection = () => {
         label: shippingProfile.name,
         value: shippingProfile.id,
       })),
-  })
+  });
 
   const { fields, remove, replace } = useFieldArray({
     control: form.control,
     name: "sales_channels",
     keyName: "key",
-  })
+  });
 
   const handleClearAllSalesChannels = () => {
-    replace([])
-  }
+    replace([]);
+  };
 
   return (
     <div id="organize" className="flex flex-col gap-y-8" data-testid="product-create-organize-section">
@@ -108,7 +108,7 @@ export const ProductCreateOrganizationSection = () => {
                 </Form.Control>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -134,7 +134,7 @@ export const ProductCreateOrganizationSection = () => {
                 </Form.Control>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
         <Form.Field
@@ -158,7 +158,7 @@ export const ProductCreateOrganizationSection = () => {
                 </Form.Control>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -177,7 +177,7 @@ export const ProductCreateOrganizationSection = () => {
                 </Form.Control>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
         <Form.Field
@@ -201,7 +201,7 @@ export const ProductCreateOrganizationSection = () => {
                 </Form.Control>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -231,7 +231,7 @@ export const ProductCreateOrganizationSection = () => {
                 </Form.Control>
                 <Form.ErrorMessage />
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
@@ -273,10 +273,10 @@ export const ProductCreateOrganizationSection = () => {
                   )}
                 </Form.Control>
               </Form.Item>
-            )
+            );
           }}
         />
       </div>
     </div>
-  )
-}
+  );
+};

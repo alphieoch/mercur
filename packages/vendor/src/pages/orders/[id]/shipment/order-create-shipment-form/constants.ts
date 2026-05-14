@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const CreateShipmentSchema = z.object({
   labels: z.array(
@@ -9,4 +9,4 @@ export const CreateShipmentSchema = z.object({
       label_url: z.string().optional(),
     })
   ),
-})
+});

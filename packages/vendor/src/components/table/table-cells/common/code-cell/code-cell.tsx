@@ -1,4 +1,4 @@
-import { Badge } from "@medusajs/ui"
+import { Badge } from "@medusajs/ui";
 
 type CellProps = {
   code: string
@@ -15,13 +15,13 @@ export const CodeCell = ({ code }: CellProps) => {
         {code}
       </Badge>
     </div>
-  )
-}
+  );
+};
 
 export const CodeHeader = ({ text }: HeaderProps) => {
   return (
     <div className=" flex h-full w-full items-center ">
       <span>{text}</span>
     </div>
-  )
-}
+  );
+};

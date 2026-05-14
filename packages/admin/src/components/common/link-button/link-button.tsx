@@ -1,6 +1,6 @@
-import { clx } from "@medusajs/ui"
-import { ComponentPropsWithoutRef } from "react"
-import { Link } from "react-router-dom"
+import { clx } from "@medusajs/ui";
+import { ComponentPropsWithoutRef } from "react";
+import { Link } from "react-router-dom";
 
 interface LinkButtonProps extends ComponentPropsWithoutRef<typeof Link> {
   variant?: "primary" | "interactive"
@@ -25,5 +25,5 @@ export const LinkButton = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};

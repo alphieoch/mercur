@@ -1,13 +1,13 @@
-import { ReactNode, Children } from "react"
+import { ReactNode, Children } from "react";
 
-import { SingleColumnPage } from "../../../components/layout/pages"
+import { SingleColumnPage } from "../../../components/layout/pages";
 import {
   ApiKeyManagementListView,
   ApiKeyManagementListDataTable,
   ApiKeyManagementListHeader,
   ApiKeyManagementListActions,
   ApiKeyManagementListTitle,
-} from "./components/api-key-management-list-view"
+} from "./components/api-key-management-list-view";
 
 const Root = ({ children }: { children?: ReactNode }) => {
   return (
@@ -17,8 +17,8 @@ const Root = ({ children }: { children?: ReactNode }) => {
     >
       {Children.count(children) > 0 ? children : <ApiKeyManagementListView />}
     </SingleColumnPage>
-  )
-}
+  );
+};
 
 export const ApiKeyManagementListPage = Object.assign(Root, {
   Table: ApiKeyManagementListView,
@@ -26,4 +26,4 @@ export const ApiKeyManagementListPage = Object.assign(Root, {
   HeaderTitle: ApiKeyManagementListTitle,
   HeaderActions: ApiKeyManagementListActions,
   DataTable: ApiKeyManagementListDataTable,
-})
+});

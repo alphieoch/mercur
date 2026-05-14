@@ -1,29 +1,29 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Input, Select, toast } from "@medusajs/ui"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import * as zod from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input, Select, toast } from "@medusajs/ui";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as zod from "zod";
 
-import { Form } from "../../../../../../components/common/form"
-import { RouteDrawer, useRouteModal } from "../../../../../../components/modals"
-import { KeyboundForm } from "../../../../../../components/utilities/keybound-form"
-import { languages } from "../../../../../../i18n/languages"
-import { useDocumentDirection } from "../../../../../../hooks/use-document-direction"
-import { useMe, useUpdateMe } from "../../../../../../hooks/api"
+import { Form } from "../../../../../../components/common/form";
+import { RouteDrawer, useRouteModal } from "../../../../../../components/modals";
+import { KeyboundForm } from "../../../../../../components/utilities/keybound-form";
+import { languages } from "../../../../../../i18n/languages";
+import { useDocumentDirection } from "../../../../../../hooks/use-document-direction";
+import { useMe, useUpdateMe } from "../../../../../../hooks/api";
 
 const EditProfileSchema = zod.object({
   first_name: zod.string().optional().or(zod.literal("")),
   last_name: zod.string().optional().or(zod.literal("")),
   language: zod.string(),
-})
+});
 
 export const EditProfileForm = () => {
-  const { t, i18n } = useTranslation()
-  const { handleSuccess } = useRouteModal()
-  const direction = useDocumentDirection()
+  const { t, i18n } = useTranslation();
+  const { handleSuccess } = useRouteModal();
+  const direction = useDocumentDirection();
 
-  const { seller_member } = useMe()
-  const member = seller_member?.member
+  const { seller_member } = useMe();
+  const member = seller_member?.member;
 
   const form = useForm<zod.infer<typeof EditProfileSchema>>({
     defaultValues: {
@@ -32,13 +32,13 @@ export const EditProfileForm = () => {
       language: i18n.language,
     },
     resolver: zodResolver(EditProfileSchema),
-  })
+  });
 
   const sortedLanguages = languages.sort((a, b) =>
     a.display_name.localeCompare(b.display_name)
-  )
+  );
 
-  const { mutateAsync: updateMe, isPending } = useUpdateMe()
+  const { mutateAsync: updateMe, isPending } = useUpdateMe();
 
   const handleSubmit = form.handleSubmit(async (values) => {
     await updateMe(
@@ -48,16 +48,16 @@ export const EditProfileForm = () => {
       },
       {
         onSuccess: async () => {
-          await i18n.changeLanguage(values.language)
-          toast.success(t("profile.toast.edit"))
-          handleSuccess()
+          await i18n.changeLanguage(values.language);
+          toast.success(t("profile.toast.edit"));
+          handleSuccess();
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       },
-    )
-  })
+    );
+  });
 
   return (
     <RouteDrawer.Form form={form}>
@@ -156,5 +156,5 @@ export const EditProfileForm = () => {
         </RouteDrawer.Footer>
       </KeyboundForm>
     </RouteDrawer.Form>
-  )
-}
+  );
+};

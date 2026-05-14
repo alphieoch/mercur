@@ -1,23 +1,23 @@
-import { ExclamationCircle } from "@medusajs/icons"
-import { Text } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { Navigate, useLocation, useRouteError } from "react-router-dom"
+import { ExclamationCircle } from "@medusajs/icons";
+import { Text } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { Navigate, useLocation, useRouteError } from "react-router-dom";
 
-import { isClientError } from "../../../lib/is-fetch-error"
+import { isClientError } from "../../../lib/is-fetch-error";
 
 export const ErrorBoundary = () => {
-  const error = useRouteError()
-  const location = useLocation()
-  const { t } = useTranslation()
+  const error = useRouteError();
+  const location = useLocation();
+  const { t } = useTranslation();
 
-  let code: number | null = null
+  let code: number | null = null;
 
   if (isClientError(error)) {
     if (error.status === 401) {
-      return <Navigate to="/login" state={{ from: location }} replace />
+      return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    code = error.status ?? null
+    code = error.status ?? null;
   }
 
   /**
@@ -27,29 +27,29 @@ export const ErrorBoundary = () => {
    * so this ensures that we always log it.
    */
   if (process.env.NODE_ENV === "development") {
-    console.error(error)
+    console.error(error);
   }
 
-  let title: string
-  let message: string
+  let title: string;
+  let message: string;
 
   switch (code) {
-    case 400:
-      title = t("errorBoundary.badRequestTitle")
-      message = t("errorBoundary.badRequestMessage")
-      break
-    case 404:
-      title = t("errorBoundary.notFoundTitle")
-      message = t("errorBoundary.notFoundMessage")
-      break
-    case 500:
-      title = t("errorBoundary.internalServerErrorTitle")
-      message = t("errorBoundary.internalServerErrorMessage")
-      break
-    default:
-      title = t("errorBoundary.defaultTitle")
-      message = t("errorBoundary.defaultMessage")
-      break
+  case 400:
+    title = t("errorBoundary.badRequestTitle");
+    message = t("errorBoundary.badRequestMessage");
+    break;
+  case 404:
+    title = t("errorBoundary.notFoundTitle");
+    message = t("errorBoundary.notFoundMessage");
+    break;
+  case 500:
+    title = t("errorBoundary.internalServerErrorTitle");
+    message = t("errorBoundary.internalServerErrorMessage");
+    break;
+  default:
+    title = t("errorBoundary.defaultTitle");
+    message = t("errorBoundary.defaultMessage");
+    break;
   }
 
   return (
@@ -71,5 +71,5 @@ export const ErrorBoundary = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
