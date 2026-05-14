@@ -121,6 +121,10 @@ jobs:
       - name: Ensure Meilisearch Key Exists
         run: |
           KV_NAME=$(az keyvault list --resource-group openstorex-${{ env.ENVIRONMENT }}-rg --query "[0].name" -o tsv)
+          if [ -z "$KV_NAME" ]; then
+            echo "No Key Vault found in resource group. Skipping meilisearch key check — Bicep will create it."
+            exit 0
+          fi
           az keyvault secret show --name meili-master-key --vault-name $KV_NAME 2>/dev/null || \
             az keyvault secret set --name meili-master-key --vault-name $KV_NAME --value "$(openssl rand -hex 32)"
 
