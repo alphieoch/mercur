@@ -22,6 +22,9 @@ param adminIdentityPrincipalId string = ''
 @description('Vendor managed identity principal ID')
 param vendorIdentityPrincipalId string = ''
 
+@description('Deploy RBAC role assignments for managed identities')
+param deployRoleAssignments bool = true
+
 // ---------------------------------------------------------------------------
 // Azure Container Registry — Basic tier for startup scale.
 // Upgrade to Standard/Premium when you need geo-replication,
@@ -62,7 +65,7 @@ resource acrLoginServerSecret 'Microsoft.KeyVault/vaults/secrets@2024-04-01-prev
 
 var acrPullRoleId = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
 
-resource apiAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!empty(apiIdentityPrincipalId)) {
+resource apiAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployRoleAssignments && !empty(apiIdentityPrincipalId)) {
   name: guid(containerRegistry.id, apiIdentityPrincipalId, acrPullRoleId)
   scope: containerRegistry
   properties: {
@@ -72,7 +75,7 @@ resource apiAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!
   }
 }
 
-resource storefrontAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!empty(storefrontIdentityPrincipalId)) {
+resource storefrontAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployRoleAssignments && !empty(storefrontIdentityPrincipalId)) {
   name: guid(containerRegistry.id, storefrontIdentityPrincipalId, acrPullRoleId)
   scope: containerRegistry
   properties: {
@@ -82,7 +85,7 @@ resource storefrontAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' 
   }
 }
 
-resource adminAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!empty(adminIdentityPrincipalId)) {
+resource adminAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployRoleAssignments && !empty(adminIdentityPrincipalId)) {
   name: guid(containerRegistry.id, adminIdentityPrincipalId, acrPullRoleId)
   scope: containerRegistry
   properties: {
@@ -92,7 +95,7 @@ resource adminAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if 
   }
 }
 
-resource vendorAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!empty(vendorIdentityPrincipalId)) {
+resource vendorAcrRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployRoleAssignments && !empty(vendorIdentityPrincipalId)) {
   name: guid(containerRegistry.id, vendorIdentityPrincipalId, acrPullRoleId)
   scope: containerRegistry
   properties: {

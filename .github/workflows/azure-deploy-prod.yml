@@ -133,6 +133,17 @@ jobs:
           az keyvault secret show --name meili-master-key --vault-name $KV_NAME 2>/dev/null || \
             az keyvault secret set --name meili-master-key --vault-name $KV_NAME --value "$(openssl rand -hex 32)"
 
+      - name: Check Role Assignment Permissions
+        run: |
+          SP_OBJECT_ID=$(az ad sp show --id ${{ secrets.AZURE_CLIENT_ID }} --query id -o tsv)
+          SUB_ID=$(az account show --query id -o tsv)
+          HAS_PERM=$(az role assignment list --assignee "$SP_OBJECT_ID" --scope "/subscriptions/$SUB_ID" --query "[?roleDefinitionName=='Owner' || roleDefinitionName=='User Access Administrator'] | length(@)" -o tsv 2>/dev/null || echo "0")
+          if [ "$HAS_PERM" -eq "0" ]; then
+            echo "::error::Service principal lacks role assignment permissions. Run: az role assignment create --assignee-object-id $SP_OBJECT_ID --assignee-principal-type ServicePrincipal --role 'User Access Administrator' --scope /subscriptions/$SUB_ID"
+            exit 1
+          fi
+          echo "✓ Service principal has role assignment permissions"
+
       - name: Bicep What-If
         run: |
           az deployment sub what-if \
@@ -140,6 +151,7 @@ jobs:
             --template-file infra/main.bicep \
             --parameters infra/parameters.${{ env.ENVIRONMENT }}.json \
             --parameters sqlAdminPassword='${{ secrets.SQL_ADMIN_PASSWORD }}' \
+            --parameters deployRoleAssignments=true \
             --no-pretty-print
 
       - name: Deploy Bicep
@@ -150,6 +162,7 @@ jobs:
             --template-file infra/main.bicep \
             --parameters infra/parameters.${{ env.ENVIRONMENT }}.json \
             --parameters sqlAdminPassword='${{ secrets.SQL_ADMIN_PASSWORD }}' \
+            --parameters deployRoleAssignments=true \
             --query "properties.outputs" \
             --output json | tee outputs.json
 

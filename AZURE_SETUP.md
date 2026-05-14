@@ -126,12 +126,36 @@ In your GitHub repository settings, add these secrets:
 
 | Secret | How to Get |
 |--------|-----------|
-| `AZURE_CLIENT_ID` | `az ad sp create-for-rbac --name openstore-gha --role contributor` |
+| `AZURE_CLIENT_ID` | See below — SP needs **Contributor + User Access Administrator** |
 | `AZURE_TENANT_ID` | `az account show --query tenantId -o tsv` |
 | `AZURE_SUBSCRIPTION_ID` | `az account show --query id -o tsv` |
 | `SQL_ADMIN_PASSWORD` | Generate a strong password |
 | `DEV_API_URL` | Output after first dev deployment |
 | `PROD_API_URL` | Output after first prod deployment |
+
+> **⚠️ Required Permissions:** The service principal needs **both** `Contributor` (to create resources) and `User Access Administrator` (to assign roles to managed identities on Key Vault and ACR). The default `create-for-rbac --role contributor` only grants the first. Run this additional command after creating the SP:
+>
+> ```bash
+> # Get the service principal object ID
+> SP_OBJECT_ID=$(az ad sp show --id <AZURE_CLIENT_ID> --query id -o tsv)
+> SUB_ID=$(az account show --query id -o tsv)
+>
+> # Grant User Access Administrator at subscription scope
+> az role assignment create \
+>   --assignee-object-id "$SP_OBJECT_ID" \
+>   --assignee-principal-type ServicePrincipal \
+>   --role "User Access Administrator" \
+>   --scope "/subscriptions/$SUB_ID"
+> ```
+>
+> Or at resource-group scope (more restrictive):
+> ```bash
+> az role assignment create \
+>   --assignee-object-id "$SP_OBJECT_ID" \
+>   --assignee-principal-type ServicePrincipal \
+>   --role "User Access Administrator" \
+>   --resource-group openstore-dev-rg
+> ```
 
 ### 3. Deploy Infrastructure
 

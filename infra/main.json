@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.42.1.51946",
-      "templateHash": "9798236823571907271"
+      "templateHash": "6781827148369025331"
     }
   },
   "parameters": {
@@ -18,7 +18,7 @@
     },
     "location": {
       "type": "string",
-      "defaultValue": "eastus",
+      "defaultValue": "uksouth",
       "metadata": {
         "description": "Azure region for resources"
       }
@@ -33,13 +33,13 @@
     "sqlAdminUsername": {
       "type": "securestring",
       "metadata": {
-        "description": "SQL Server admin username"
+        "description": "PostgreSQL admin username"
       }
     },
     "sqlAdminPassword": {
       "type": "securestring",
       "metadata": {
-        "description": "SQL Server admin password"
+        "description": "PostgreSQL admin password"
       }
     },
     "tags": {
@@ -51,6 +51,13 @@
       },
       "metadata": {
         "description": "Tags to apply to all resources"
+      }
+    },
+    "deployRoleAssignments": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Deploy RBAC role assignments for managed identities. Requires Microsoft.Authorization/roleAssignments/write permission."
       }
     }
   },
@@ -235,6 +242,21 @@
           },
           "tags": {
             "value": "[parameters('tags')]"
+          },
+          "deployRoleAssignments": {
+            "value": "[parameters('deployRoleAssignments')]"
+          },
+          "apiIdentityPrincipalId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.apiIdentityPrincipalId.value]"
+          },
+          "storefrontIdentityPrincipalId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.storefrontIdentityPrincipalId.value]"
+          },
+          "adminIdentityPrincipalId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.adminIdentityPrincipalId.value]"
+          },
+          "vendorIdentityPrincipalId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.vendorIdentityPrincipalId.value]"
           }
         },
         "template": {
@@ -244,7 +266,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.42.1.51946",
-              "templateHash": "9101164737649579426"
+              "templateHash": "11883217574810822785"
             }
           },
           "parameters": {
@@ -272,13 +294,67 @@
               "metadata": {
                 "description": "Tags"
               }
+            },
+            "apiIdentityPrincipalId": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "API managed identity principal ID"
+              }
+            },
+            "storefrontIdentityPrincipalId": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Storefront managed identity principal ID"
+              }
+            },
+            "adminIdentityPrincipalId": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Admin managed identity principal ID"
+              }
+            },
+            "vendorIdentityPrincipalId": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Vendor managed identity principal ID"
+              }
+            },
+            "deployRoleAssignments": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Deploy RBAC role assignments for managed identities"
+              }
+            },
+            "jwtSecret": {
+              "type": "securestring",
+              "defaultValue": "",
+              "metadata": {
+                "description": "JWT secret value"
+              }
+            },
+            "cookieSecret": {
+              "type": "securestring",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Cookie secret value"
+              }
             }
+          },
+          "variables": {
+            "keyVaultSecretsUserRoleId": "4633458b-17de-408a-b874-0445c86b69e6",
+            "defaultJwtSecret": "[uniqueString(resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)), subscription().subscriptionId, 'jwt')]",
+            "defaultCookieSecret": "[uniqueString(resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)), subscription().subscriptionId, 'cookie')]"
           },
           "resources": [
             {
               "type": "Microsoft.KeyVault/vaults",
               "apiVersion": "2024-04-01-preview",
-              "name": "[format('{0}-{1}-kv', parameters('projectName'), parameters('environment'))]",
+              "name": "[take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)]",
               "location": "[parameters('location')]",
               "tags": "[parameters('tags')]",
               "properties": {
@@ -296,21 +372,123 @@
                   "bypass": "AzureServices"
                 }
               }
+            },
+            {
+              "condition": "[and(parameters('deployRoleAssignments'), not(empty(parameters('apiIdentityPrincipalId'))))]",
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]",
+              "name": "[guid(resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)), parameters('apiIdentityPrincipalId'), variables('keyVaultSecretsUserRoleId'))]",
+              "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('keyVaultSecretsUserRoleId'))]",
+                "principalId": "[parameters('apiIdentityPrincipalId')]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]"
+              ]
+            },
+            {
+              "condition": "[and(parameters('deployRoleAssignments'), not(empty(parameters('storefrontIdentityPrincipalId'))))]",
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]",
+              "name": "[guid(resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)), parameters('storefrontIdentityPrincipalId'), variables('keyVaultSecretsUserRoleId'))]",
+              "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('keyVaultSecretsUserRoleId'))]",
+                "principalId": "[parameters('storefrontIdentityPrincipalId')]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]"
+              ]
+            },
+            {
+              "condition": "[and(parameters('deployRoleAssignments'), not(empty(parameters('adminIdentityPrincipalId'))))]",
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]",
+              "name": "[guid(resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)), parameters('adminIdentityPrincipalId'), variables('keyVaultSecretsUserRoleId'))]",
+              "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('keyVaultSecretsUserRoleId'))]",
+                "principalId": "[parameters('adminIdentityPrincipalId')]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]"
+              ]
+            },
+            {
+              "condition": "[and(parameters('deployRoleAssignments'), not(empty(parameters('vendorIdentityPrincipalId'))))]",
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]",
+              "name": "[guid(resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)), parameters('vendorIdentityPrincipalId'), variables('keyVaultSecretsUserRoleId'))]",
+              "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('keyVaultSecretsUserRoleId'))]",
+                "principalId": "[parameters('vendorIdentityPrincipalId')]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]"
+              ]
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/secrets",
+              "apiVersion": "2024-04-01-preview",
+              "name": "[format('{0}/{1}', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24), 'jwt-secret')]",
+              "properties": {
+                "value": "[if(not(empty(parameters('jwtSecret'))), parameters('jwtSecret'), variables('defaultJwtSecret'))]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]"
+              ]
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/secrets",
+              "apiVersion": "2024-04-01-preview",
+              "name": "[format('{0}/{1}', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24), 'cookie-secret')]",
+              "properties": {
+                "value": "[if(not(empty(parameters('cookieSecret'))), parameters('cookieSecret'), variables('defaultCookieSecret'))]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]"
+              ]
+            },
+            {
+              "type": "Microsoft.KeyVault/vaults/secrets",
+              "apiVersion": "2024-04-01-preview",
+              "name": "[format('{0}/{1}', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24), 'meili-master-key')]",
+              "properties": {
+                "value": "[uniqueString(resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)), subscription().subscriptionId, 'meili')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24))]"
+              ]
             }
           ],
           "outputs": {
             "keyVaultName": {
               "type": "string",
-              "value": "[format('{0}-{1}-kv', parameters('projectName'), parameters('environment'))]"
+              "value": "[take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)]"
             },
             "keyVaultUri": {
               "type": "string",
-              "value": "[reference(resourceId('Microsoft.KeyVault/vaults', format('{0}-{1}-kv', parameters('projectName'), parameters('environment'))), '2024-04-01-preview').vaultUri]"
+              "value": "[reference(resourceId('Microsoft.KeyVault/vaults', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24)), '2024-04-01-preview').vaultUri]"
+            },
+            "jwtSecretUri": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.KeyVault/vaults/secrets', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24), 'jwt-secret'), '2024-04-01-preview').secretUri]"
+            },
+            "cookieSecretUri": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.KeyVault/vaults/secrets', take(format('{0}{1}kv{2}', parameters('projectName'), parameters('environment'), uniqueString(subscription().subscriptionId, parameters('projectName'), parameters('environment'))), 24), 'cookie-secret'), '2024-04-01-preview').secretUri]"
             }
           }
         }
       },
       "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment')]",
         "[subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('resourceGroupName'))]"
       ]
     },
@@ -336,6 +514,21 @@
           },
           "keyVaultName": {
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'keyVaultDeployment'), '2025-04-01').outputs.keyVaultName.value]"
+          },
+          "deployRoleAssignments": {
+            "value": "[parameters('deployRoleAssignments')]"
+          },
+          "apiIdentityPrincipalId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.apiIdentityPrincipalId.value]"
+          },
+          "storefrontIdentityPrincipalId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.storefrontIdentityPrincipalId.value]"
+          },
+          "adminIdentityPrincipalId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.adminIdentityPrincipalId.value]"
+          },
+          "vendorIdentityPrincipalId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.vendorIdentityPrincipalId.value]"
           }
         },
         "template": {
@@ -345,7 +538,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.42.1.51946",
-              "templateHash": "969391207819533881"
+              "templateHash": "2548077415559817921"
             }
           },
           "parameters": {
@@ -373,7 +566,45 @@
               "metadata": {
                 "description": "Key Vault name for storing ACR credentials"
               }
+            },
+            "apiIdentityPrincipalId": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "API managed identity principal ID"
+              }
+            },
+            "storefrontIdentityPrincipalId": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Storefront managed identity principal ID"
+              }
+            },
+            "adminIdentityPrincipalId": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Admin managed identity principal ID"
+              }
+            },
+            "vendorIdentityPrincipalId": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Vendor managed identity principal ID"
+              }
+            },
+            "deployRoleAssignments": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Deploy RBAC role assignments for managed identities"
+              }
             }
+          },
+          "variables": {
+            "acrPullRoleId": "7f951dda-4ed3-4680-a7ca-43fe172d538d"
           },
           "resources": [
             {
@@ -401,6 +632,66 @@
               "dependsOn": [
                 "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]"
               ]
+            },
+            {
+              "condition": "[and(parameters('deployRoleAssignments'), not(empty(parameters('apiIdentityPrincipalId'))))]",
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
+              "name": "[guid(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), parameters('apiIdentityPrincipalId'), variables('acrPullRoleId'))]",
+              "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('acrPullRoleId'))]",
+                "principalId": "[parameters('apiIdentityPrincipalId')]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]"
+              ]
+            },
+            {
+              "condition": "[and(parameters('deployRoleAssignments'), not(empty(parameters('storefrontIdentityPrincipalId'))))]",
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
+              "name": "[guid(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), parameters('storefrontIdentityPrincipalId'), variables('acrPullRoleId'))]",
+              "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('acrPullRoleId'))]",
+                "principalId": "[parameters('storefrontIdentityPrincipalId')]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]"
+              ]
+            },
+            {
+              "condition": "[and(parameters('deployRoleAssignments'), not(empty(parameters('adminIdentityPrincipalId'))))]",
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
+              "name": "[guid(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), parameters('adminIdentityPrincipalId'), variables('acrPullRoleId'))]",
+              "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('acrPullRoleId'))]",
+                "principalId": "[parameters('adminIdentityPrincipalId')]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]"
+              ]
+            },
+            {
+              "condition": "[and(parameters('deployRoleAssignments'), not(empty(parameters('vendorIdentityPrincipalId'))))]",
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "scope": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
+              "name": "[guid(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), parameters('vendorIdentityPrincipalId'), variables('acrPullRoleId'))]",
+              "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('acrPullRoleId'))]",
+                "principalId": "[parameters('vendorIdentityPrincipalId')]",
+                "principalType": "ServicePrincipal"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]"
+              ]
             }
           ],
           "outputs": {
@@ -417,13 +708,14 @@
       },
       "dependsOn": [
         "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'keyVaultDeployment')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment')]",
         "[subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('resourceGroupName'))]"
       ]
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2025-04-01",
-      "name": "sqlDatabaseDeployment",
+      "name": "postgresDeployment",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
         "expressionEvaluationOptions": {
@@ -460,7 +752,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.42.1.51946",
-              "templateHash": "3936743048408752665"
+              "templateHash": "9257834889865221284"
             }
           },
           "parameters": {
@@ -486,13 +778,13 @@
             "adminUsername": {
               "type": "securestring",
               "metadata": {
-                "description": "SQL Server admin username"
+                "description": "PostgreSQL admin username"
               }
             },
             "adminPassword": {
               "type": "securestring",
               "metadata": {
-                "description": "SQL Server admin password"
+                "description": "PostgreSQL admin password"
               }
             },
             "tags": {
@@ -507,69 +799,93 @@
                 "description": "Key Vault name for storing connection string"
               }
             },
-            "databaseSkuName": {
+            "skuTier": {
               "type": "string",
-              "defaultValue": "[if(equals(parameters('environment'), 'prod'), 'S0', 'GP_S_Gen5_1')]",
+              "defaultValue": "[if(equals(parameters('environment'), 'prod'), 'GeneralPurpose', 'Burstable')]",
               "allowedValues": [
-                "Basic",
-                "S0",
-                "GP_S_Gen5_1"
+                "Burstable",
+                "GeneralPurpose",
+                "MemoryOptimized"
               ],
               "metadata": {
-                "description": "Database tier: Basic ($5/mo), S0 ($15/mo), or GP_S_Gen5_1 (serverless, auto-pauses)"
+                "description": "PostgreSQL SKU tier"
               }
             },
-            "maxSizeBytes": {
-              "type": "int",
-              "defaultValue": "[if(equals(parameters('environment'), 'prod'), json('2147483648'), json('2147483648'))]",
+            "skuName": {
+              "type": "string",
+              "defaultValue": "[if(equals(parameters('environment'), 'prod'), 'Standard_D2s_v3', 'Standard_B1ms')]",
               "metadata": {
-                "description": "Max database size in GB"
+                "description": "PostgreSQL SKU name"
+              }
+            },
+            "storageSizeGB": {
+              "type": "int",
+              "defaultValue": 32,
+              "metadata": {
+                "description": "Storage size in GB"
+              }
+            },
+            "postgresVersion": {
+              "type": "string",
+              "defaultValue": "16",
+              "metadata": {
+                "description": "PostgreSQL version"
               }
             }
           },
           "resources": [
             {
-              "type": "Microsoft.Sql/servers",
-              "apiVersion": "2024-05-01-preview",
-              "name": "[format('{0}-sql-{1}', parameters('projectName'), parameters('environment'))]",
-              "location": "[parameters('location')]",
-              "tags": "[parameters('tags')]",
-              "properties": {
-                "administratorLogin": "[parameters('adminUsername')]",
-                "administratorLoginPassword": "[parameters('adminPassword')]",
-                "minimalTlsVersion": "1.2",
-                "publicNetworkAccess": "Enabled",
-                "version": "12.0"
-              }
-            },
-            {
-              "type": "Microsoft.Sql/servers/firewallRules",
-              "apiVersion": "2024-05-01-preview",
-              "name": "[format('{0}/{1}', format('{0}-sql-{1}', parameters('projectName'), parameters('environment')), 'AllowAllAzureIps')]",
-              "properties": {
-                "startIpAddress": "0.0.0.0",
-                "endIpAddress": "0.0.0.0"
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', format('{0}-sql-{1}', parameters('projectName'), parameters('environment')))]"
-              ]
-            },
-            {
-              "type": "Microsoft.Sql/servers/databases",
-              "apiVersion": "2024-05-01-preview",
-              "name": "[format('{0}/{1}', format('{0}-sql-{1}', parameters('projectName'), parameters('environment')), format('{0}-db-{1}', parameters('projectName'), parameters('environment')))]",
+              "type": "Microsoft.DBforPostgreSQL/flexibleServers",
+              "apiVersion": "2024-11-01-preview",
+              "name": "[format('{0}-postgres-{1}', parameters('projectName'), parameters('environment'))]",
               "location": "[parameters('location')]",
               "tags": "[parameters('tags')]",
               "sku": {
-                "name": "[parameters('databaseSkuName')]"
+                "name": "[parameters('skuName')]",
+                "tier": "[parameters('skuTier')]"
               },
               "properties": {
-                "collation": "SQL_Latin1_General_CP1_CI_AS",
-                "maxSizeBytes": "[parameters('maxSizeBytes')]",
-                "requestedBackupStorageRedundancy": "Local"
+                "version": "[parameters('postgresVersion')]",
+                "administratorLogin": "[parameters('adminUsername')]",
+                "administratorLoginPassword": "[parameters('adminPassword')]",
+                "storage": {
+                  "storageSizeGB": "[parameters('storageSizeGB')]",
+                  "autoGrow": "Enabled"
+                },
+                "backup": {
+                  "backupRetentionDays": "[if(equals(parameters('environment'), 'prod'), 35, 7)]",
+                  "geoRedundantBackup": "[if(equals(parameters('environment'), 'prod'), 'Enabled', 'Disabled')]"
+                },
+                "highAvailability": {
+                  "mode": "[if(equals(parameters('environment'), 'prod'), 'ZoneRedundant', 'Disabled')]"
+                },
+                "network": {
+                  "publicNetworkAccess": "Enabled"
+                },
+                "authConfig": {
+                  "activeDirectoryAuth": "Disabled",
+                  "passwordAuth": "Enabled"
+                }
+              }
+            },
+            {
+              "type": "Microsoft.DBforPostgreSQL/flexibleServers/firewallRules",
+              "apiVersion": "2024-11-01-preview",
+              "name": "[format('{0}/{1}', format('{0}-postgres-{1}', parameters('projectName'), parameters('environment')), 'AllowAllAzureIps')]",
+              "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "255.255.255.255"
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', format('{0}-sql-{1}', parameters('projectName'), parameters('environment')))]"
+                "[resourceId('Microsoft.DBforPostgreSQL/flexibleServers', format('{0}-postgres-{1}', parameters('projectName'), parameters('environment')))]"
+              ]
+            },
+            {
+              "type": "Microsoft.DBforPostgreSQL/flexibleServers/databases",
+              "apiVersion": "2024-11-01-preview",
+              "name": "[format('{0}/{1}', format('{0}-postgres-{1}', parameters('projectName'), parameters('environment')), 'mercur')]",
+              "dependsOn": [
+                "[resourceId('Microsoft.DBforPostgreSQL/flexibleServers', format('{0}-postgres-{1}', parameters('projectName'), parameters('environment')))]"
               ]
             },
             {
@@ -577,26 +893,25 @@
               "apiVersion": "2024-04-01-preview",
               "name": "[format('{0}/{1}', parameters('keyVaultName'), 'database-url')]",
               "properties": {
-                "value": "[format('Server=tcp:{0},1433;Initial Catalog={1};Persist Security Info=False;User ID={2};Password={3};MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;', reference(resourceId('Microsoft.Sql/servers', format('{0}-sql-{1}', parameters('projectName'), parameters('environment'))), '2024-05-01-preview').fullyQualifiedDomainName, format('{0}-db-{1}', parameters('projectName'), parameters('environment')), parameters('adminUsername'), parameters('adminPassword'))]"
+                "value": "[format('postgresql://{0}:{1}@{2}:5432/mercur?sslmode=require', parameters('adminUsername'), parameters('adminPassword'), reference(resourceId('Microsoft.DBforPostgreSQL/flexibleServers', format('{0}-postgres-{1}', parameters('projectName'), parameters('environment'))), '2024-11-01-preview').fullyQualifiedDomainName)]"
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', format('{0}-sql-{1}', parameters('projectName'), parameters('environment')), format('{0}-db-{1}', parameters('projectName'), parameters('environment')))]",
-                "[resourceId('Microsoft.Sql/servers', format('{0}-sql-{1}', parameters('projectName'), parameters('environment')))]"
+                "[resourceId('Microsoft.DBforPostgreSQL/flexibleServers', format('{0}-postgres-{1}', parameters('projectName'), parameters('environment')))]"
               ]
             }
           ],
           "outputs": {
-            "sqlServerName": {
+            "postgresServerName": {
               "type": "string",
-              "value": "[format('{0}-sql-{1}', parameters('projectName'), parameters('environment'))]"
+              "value": "[format('{0}-postgres-{1}', parameters('projectName'), parameters('environment'))]"
             },
-            "sqlServerFqdn": {
+            "postgresServerFqdn": {
               "type": "string",
-              "value": "[reference(resourceId('Microsoft.Sql/servers', format('{0}-sql-{1}', parameters('projectName'), parameters('environment'))), '2024-05-01-preview').fullyQualifiedDomainName]"
+              "value": "[reference(resourceId('Microsoft.DBforPostgreSQL/flexibleServers', format('{0}-postgres-{1}', parameters('projectName'), parameters('environment'))), '2024-11-01-preview').fullyQualifiedDomainName]"
             },
             "databaseName": {
               "type": "string",
-              "value": "[format('{0}-db-{1}', parameters('projectName'), parameters('environment'))]"
+              "value": "mercur"
             },
             "connectionStringKeyVaultUri": {
               "type": "string",
@@ -644,7 +959,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.42.1.51946",
-              "templateHash": "13387510353031927592"
+              "templateHash": "2491567660690417440"
             }
           },
           "parameters": {
@@ -693,23 +1008,29 @@
             },
             "redisSkuFamily": {
               "type": "string",
-              "defaultValue": "C0",
+              "defaultValue": "C",
               "allowedValues": [
-                "C0",
-                "C1",
-                "C2",
-                "C3",
-                "C4",
-                "C5",
-                "C6",
-                "P1",
-                "P2",
-                "P3",
-                "P4",
-                "P5"
+                "C",
+                "P"
               ],
               "metadata": {
-                "description": "Redis SKU family/size: C0 (250MB, ~$16/mo), C1 (1GB, ~$45/mo)"
+                "description": "Redis SKU family: C (Basic/Standard), P (Premium)"
+              }
+            },
+            "redisCapacity": {
+              "type": "int",
+              "defaultValue": 0,
+              "allowedValues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "metadata": {
+                "description": "Redis capacity: 0=C0 (250MB), 1=C1 (1GB), etc. For P family use 1-5"
               }
             }
           },
@@ -724,7 +1045,7 @@
                 "sku": {
                   "name": "[parameters('redisSkuName')]",
                   "family": "[parameters('redisSkuFamily')]",
-                  "capacity": 0
+                  "capacity": "[parameters('redisCapacity')]"
                 },
                 "enableNonSslPort": false,
                 "minimumTlsVersion": "1.2",
@@ -1005,7 +1326,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.42.1.51946",
-              "templateHash": "3629143042115738501"
+              "templateHash": "11211766123716122747"
             }
           },
           "parameters": {
@@ -1046,7 +1367,7 @@
                 "appLogsConfiguration": {
                   "destination": "azure-monitor"
                 },
-                "zoneRedundant": "[equals(parameters('environment'), 'prod')]"
+                "zoneRedundant": false
               }
             },
             {
@@ -1129,13 +1450,22 @@
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment'), '2025-04-01').outputs.vendorIdentityId.value]"
           },
           "sqlConnectionStringKeyVaultUri": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'sqlDatabaseDeployment'), '2025-04-01').outputs.connectionStringKeyVaultUri.value]"
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'postgresDeployment'), '2025-04-01').outputs.connectionStringKeyVaultUri.value]"
           },
           "redisConnectionStringKeyVaultUri": {
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'redisDeployment'), '2025-04-01').outputs.connectionStringKeyVaultUri.value]"
           },
           "blobStorageConnectionStringKeyVaultUri": {
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'storageDeployment'), '2025-04-01').outputs.connectionStringKeyVaultUri.value]"
+          },
+          "jwtSecretKeyVaultUri": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'keyVaultDeployment'), '2025-04-01').outputs.jwtSecretUri.value]"
+          },
+          "cookieSecretKeyVaultUri": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'keyVaultDeployment'), '2025-04-01').outputs.cookieSecretUri.value]"
+          },
+          "keyVaultName": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'keyVaultDeployment'), '2025-04-01').outputs.keyVaultName.value]"
           }
         },
         "template": {
@@ -1145,7 +1475,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.42.1.51946",
-              "templateHash": "16489336701697364809"
+              "templateHash": "502865526490549222"
             }
           },
           "parameters": {
@@ -1228,11 +1558,57 @@
                 "description": "Blob Storage connection string Key Vault secret URI"
               }
             },
+            "keyVaultName": {
+              "type": "string",
+              "metadata": {
+                "description": "Key Vault name for Meilisearch secret reference"
+              }
+            },
+            "jwtSecretKeyVaultUri": {
+              "type": "securestring",
+              "metadata": {
+                "description": "JWT secret Key Vault secret URI"
+              }
+            },
+            "cookieSecretKeyVaultUri": {
+              "type": "securestring",
+              "metadata": {
+                "description": "Cookie secret Key Vault secret URI"
+              }
+            },
             "scaleToZero": {
               "type": "bool",
               "defaultValue": true,
               "metadata": {
                 "description": "Scale-to-zero: min replicas for user-facing apps (0 = scales to zero when idle)"
+              }
+            },
+            "storeCors": {
+              "type": "string",
+              "defaultValue": "*",
+              "metadata": {
+                "description": "Store CORS origins"
+              }
+            },
+            "adminCors": {
+              "type": "string",
+              "defaultValue": "*",
+              "metadata": {
+                "description": "Admin CORS origins"
+              }
+            },
+            "vendorCors": {
+              "type": "string",
+              "defaultValue": "*",
+              "metadata": {
+                "description": "Vendor CORS origins"
+              }
+            },
+            "authCors": {
+              "type": "string",
+              "defaultValue": "*",
+              "metadata": {
+                "description": "Auth CORS origins"
               }
             }
           },
@@ -1287,6 +1663,16 @@
                       "name": "blob-storage-connection-string",
                       "keyVaultUrl": "[parameters('blobStorageConnectionStringKeyVaultUri')]",
                       "identity": "[parameters('apiIdentityId')]"
+                    },
+                    {
+                      "name": "jwt-secret",
+                      "keyVaultUrl": "[parameters('jwtSecretKeyVaultUri')]",
+                      "identity": "[parameters('apiIdentityId')]"
+                    },
+                    {
+                      "name": "cookie-secret",
+                      "keyVaultUrl": "[parameters('cookieSecretKeyVaultUri')]",
+                      "identity": "[parameters('apiIdentityId')]"
                     }
                   ]
                 },
@@ -1330,27 +1716,27 @@
                         },
                         {
                           "name": "STORE_CORS",
-                          "value": "*"
+                          "value": "[parameters('storeCors')]"
                         },
                         {
                           "name": "ADMIN_CORS",
-                          "value": "*"
+                          "value": "[parameters('adminCors')]"
                         },
                         {
                           "name": "VENDOR_CORS",
-                          "value": "*"
+                          "value": "[parameters('vendorCors')]"
                         },
                         {
                           "name": "AUTH_CORS",
-                          "value": "*"
+                          "value": "[parameters('authCors')]"
                         },
                         {
                           "name": "JWT_SECRET",
-                          "secretRef": "database-url"
+                          "secretRef": "jwt-secret"
                         },
                         {
                           "name": "COOKIE_SECRET",
-                          "secretRef": "database-url"
+                          "secretRef": "cookie-secret"
                         }
                       ],
                       "probes": [
@@ -1408,6 +1794,12 @@
               "name": "[format('{0}-meilisearch-{1}', parameters('projectName'), parameters('environment'))]",
               "location": "[parameters('location')]",
               "tags": "[parameters('tags')]",
+              "identity": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                  "[format('{0}', parameters('apiIdentityId'))]": {}
+                }
+              },
               "properties": {
                 "managedEnvironmentId": "[parameters('containerAppsEnvironmentId')]",
                 "configuration": {
@@ -1419,7 +1811,8 @@
                   "secrets": [
                     {
                       "name": "meili-master-key",
-                      "value": "[format('@Microsoft.KeyVault(VaultName={0}-{1}-kv;SecretName=meili-master-key)', parameters('projectName'), parameters('environment'))]"
+                      "keyVaultUrl": "[format('https://{0}{1}/secrets/meili-master-key', parameters('keyVaultName'), environment().suffixes.keyvaultDns)]",
+                      "identity": "[parameters('apiIdentityId')]"
                     }
                   ]
                 },
@@ -1430,7 +1823,7 @@
                       "image": "getmeili/meilisearch:v1.8",
                       "resources": {
                         "cpu": "[json('0.25')]",
-                        "memory": "512Mi"
+                        "memory": "0.5Gi"
                       },
                       "env": [
                         {
@@ -1497,7 +1890,7 @@
                       "image": "[format('{0}/{1}/storefront:{2}', parameters('acrLoginServer'), parameters('projectName'), parameters('environment'))]",
                       "resources": {
                         "cpu": "[json('0.25')]",
-                        "memory": "512Mi"
+                        "memory": "0.5Gi"
                       },
                       "env": [
                         {
@@ -1569,7 +1962,7 @@
                       "image": "[format('{0}/{1}/admin:{2}', parameters('acrLoginServer'), parameters('projectName'), parameters('environment'))]",
                       "resources": {
                         "cpu": "[json('0.25')]",
-                        "memory": "256Mi"
+                        "memory": "0.5Gi"
                       },
                       "env": [
                         {
@@ -1630,7 +2023,7 @@
                       "image": "[format('{0}/{1}/vendor:{2}', parameters('acrLoginServer'), parameters('projectName'), parameters('environment'))]",
                       "resources": {
                         "cpu": "[json('0.25')]",
-                        "memory": "256Mi"
+                        "memory": "0.5Gi"
                       },
                       "env": [
                         {
@@ -1705,10 +2098,11 @@
       "dependsOn": [
         "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'containerAppsEnvironmentDeployment')]",
         "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'containerRegistryDeployment')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'keyVaultDeployment')]",
         "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'managedIdentityDeployment')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'postgresDeployment')]",
         "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'redisDeployment')]",
         "[subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('resourceGroupName'))]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'sqlDatabaseDeployment')]",
         "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'storageDeployment')]"
       ]
     }
@@ -1742,9 +2136,9 @@
       "type": "string",
       "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'containerAppsDeployment'), '2025-04-01').outputs.meilisearchUrl.value]"
     },
-    "sqlServerFqdn": {
+    "postgresServerFqdn": {
       "type": "string",
-      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'sqlDatabaseDeployment'), '2025-04-01').outputs.sqlServerFqdn.value]"
+      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'postgresDeployment'), '2025-04-01').outputs.postgresServerFqdn.value]"
     }
   }
 }

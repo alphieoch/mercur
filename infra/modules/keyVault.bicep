@@ -22,6 +22,9 @@ param adminIdentityPrincipalId string = ''
 @description('Vendor managed identity principal ID')
 param vendorIdentityPrincipalId string = ''
 
+@description('Deploy RBAC role assignments for managed identities')
+param deployRoleAssignments bool = true
+
 @description('JWT secret value')
 @secure()
 param jwtSecret string = ''
@@ -64,7 +67,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2024-04-01-preview' = {
 
 var keyVaultSecretsUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
 
-resource apiKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!empty(apiIdentityPrincipalId)) {
+resource apiKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployRoleAssignments && !empty(apiIdentityPrincipalId)) {
   name: guid(keyVault.id, apiIdentityPrincipalId, keyVaultSecretsUserRoleId)
   scope: keyVault
   properties: {
@@ -74,7 +77,7 @@ resource apiKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
   }
 }
 
-resource storefrontKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!empty(storefrontIdentityPrincipalId)) {
+resource storefrontKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployRoleAssignments && !empty(storefrontIdentityPrincipalId)) {
   name: guid(keyVault.id, storefrontIdentityPrincipalId, keyVaultSecretsUserRoleId)
   scope: keyVault
   properties: {
@@ -84,7 +87,7 @@ resource storefrontKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04
   }
 }
 
-resource adminKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!empty(adminIdentityPrincipalId)) {
+resource adminKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployRoleAssignments && !empty(adminIdentityPrincipalId)) {
   name: guid(keyVault.id, adminIdentityPrincipalId, keyVaultSecretsUserRoleId)
   scope: keyVault
   properties: {
@@ -94,7 +97,7 @@ resource adminKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' 
   }
 }
 
-resource vendorKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!empty(vendorIdentityPrincipalId)) {
+resource vendorKeyVaultRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployRoleAssignments && !empty(vendorIdentityPrincipalId)) {
   name: guid(keyVault.id, vendorIdentityPrincipalId, keyVaultSecretsUserRoleId)
   scope: keyVault
   properties: {

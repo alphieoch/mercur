@@ -79,6 +79,7 @@ jobs:
             --template-file infra/main.bicep \
             --parameters infra/parameters.dev.json \
             --parameters sqlAdminPassword='${{ secrets.SQL_ADMIN_PASSWORD }}' \
+            --parameters deployRoleAssignments=true \
             --result-format FullResourcePayloads \
             --no-pretty-print > what-if-dev.json
 
@@ -113,6 +114,52 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Check Role Assignment Permissions
+        run: |
+          SP_OBJECT_ID=$(az ad sp show --id ${{ secrets.AZURE_CLIENT_ID }} --query id -o tsv)
+          SUB_ID=$(az account show --query id -o tsv)
+          RG_NAME="openstorex-${{ github.event.inputs.environment || 'dev' }}-rg"
+          
+          # Check if SP has role assignment write permission at subscription scope
+          HAS_PERM=$(az role assignment list \
+            --assignee "$SP_OBJECT_ID" \
+            --scope "/subscriptions/$SUB_ID" \
+            --query "[?roleDefinitionName=='Owner' || roleDefinitionName=='User Access Administrator'] | length(@)" -o tsv 2>/dev/null || echo "0")
+          
+          if [ "$HAS_PERM" -eq "0" ]; then
+            echo "::error::============================================================"
+            echo "::error::DEPLOYMENT BLOCKED: Missing RBAC Permission"
+            echo "::error::============================================================"
+            echo "::error::The service principal (${{ secrets.AZURE_CLIENT_ID }}) does not have"
+            echo "::error::'Microsoft.Authorization/roleAssignments/write' permission."
+            echo "::error::"
+            echo "::error::This permission is required to grant managed identities access"
+            echo "::error::to Key Vault and Azure Container Registry."
+            echo "::error::"
+            echo "::error::FIX: Run the following command as a Subscription Owner or"
+            echo "::error::User Access Administrator:"
+            echo "::error::"
+            echo "::error::  az role assignment create \\"
+            echo "::error::    --assignee-object-id $SP_OBJECT_ID \\"
+            echo "::error::    --assignee-principal-type ServicePrincipal \\"
+            echo "::error::    --role 'User Access Administrator' \\"
+            echo "::error::    --scope /subscriptions/$SUB_ID"
+            echo "::error::"
+            echo "::error::Or grant at resource-group scope:"
+            echo "::error::"
+            echo "::error::  az role assignment create \\"
+            echo "::error::    --assignee-object-id $SP_OBJECT_ID \\"
+            echo "::error::    --assignee-principal-type ServicePrincipal \\"
+            echo "::error::    --role 'User Access Administrator' \\"
+            echo "::error::    --resource-group $RG_NAME"
+            echo "::error::"
+            echo "::error::Alternatively, deploy with deployRoleAssignments=false and"
+            echo "::error::manually assign roles in the Azure Portal."
+            echo "::error::============================================================"
+            exit 1
+          fi
+          echo "✓ Service principal has role assignment permissions"
+
       - name: Deploy Bicep
         run: |
           ENV=${{ github.event.inputs.environment || 'dev' }}
@@ -120,4 +167,5 @@ jobs:
             --location ${{ env.AZURE_LOCATION }} \
             --template-file infra/main.bicep \
             --parameters infra/parameters.${ENV}.json \
-            --parameters sqlAdminPassword='${{ secrets.SQL_ADMIN_PASSWORD }}'
+            --parameters sqlAdminPassword='${{ secrets.SQL_ADMIN_PASSWORD }}' \
+            --parameters deployRoleAssignments=true

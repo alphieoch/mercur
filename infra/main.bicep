@@ -48,6 +48,9 @@ param tags object = {
   ManagedBy: 'Bicep'
 }
 
+@description('Deploy RBAC role assignments for managed identities. Requires Microsoft.Authorization/roleAssignments/write permission.')
+param deployRoleAssignments bool = true
+
 // ---------------------------------------------------------------------------
 // Naming conventions
 // ---------------------------------------------------------------------------
@@ -88,6 +91,7 @@ module keyVault 'modules/keyVault.bicep' = {
     projectName: projectName
     environment: environment
     tags: tags
+    deployRoleAssignments: deployRoleAssignments
     apiIdentityPrincipalId: managedIdentity.outputs.apiIdentityPrincipalId
     storefrontIdentityPrincipalId: managedIdentity.outputs.storefrontIdentityPrincipalId
     adminIdentityPrincipalId: managedIdentity.outputs.adminIdentityPrincipalId
@@ -106,6 +110,7 @@ module containerRegistry 'modules/containerRegistry.bicep' = {
     acrName: acrName
     tags: tags
     keyVaultName: keyVault.outputs.keyVaultName
+    deployRoleAssignments: deployRoleAssignments
     apiIdentityPrincipalId: managedIdentity.outputs.apiIdentityPrincipalId
     storefrontIdentityPrincipalId: managedIdentity.outputs.storefrontIdentityPrincipalId
     adminIdentityPrincipalId: managedIdentity.outputs.adminIdentityPrincipalId
