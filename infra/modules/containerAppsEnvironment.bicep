@@ -24,7 +24,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2024-10-02-
     appLogsConfiguration: {
       destination: 'azure-monitor'
     }
-    zoneRedundant: environment == 'prod'
+    zoneRedundant: false
   }
 }
 
