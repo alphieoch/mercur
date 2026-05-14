@@ -103,6 +103,7 @@ jobs:
           POSTGRES_USER: openstore
           POSTGRES_PASSWORD: openstore
           POSTGRES_DB: openstore_test
+          POSTGRES_HOST_AUTH_METHOD: trust
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -181,6 +182,7 @@ jobs:
           POSTGRES_USER: openstore
           POSTGRES_PASSWORD: openstore
           POSTGRES_DB: openstore_smoke
+          POSTGRES_HOST_AUTH_METHOD: trust
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
