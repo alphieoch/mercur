@@ -160,6 +160,10 @@ jobs:
         run: bun run test:integration:http
         env:
           DATABASE_URL: postgres://openstore:openstore@localhost:5432/openstore_test
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USERNAME: openstore
+          DB_PASSWORD: openstore
           REDIS_URL: redis://localhost:6379
           JWT_SECRET: test-secret
           COOKIE_SECRET: test-secret
