@@ -3,6 +3,12 @@ if (!process.env.CI) {
   loadEnv("test", process.cwd())
 }
 
+// medusaIntegrationTestRunner reads these at module load time; ensure defaults in CI
+process.env.DB_HOST = process.env.DB_HOST || "localhost"
+process.env.DB_PORT = process.env.DB_PORT || "5432"
+process.env.DB_USERNAME = process.env.DB_USERNAME || "openstore"
+process.env.DB_PASSWORD = process.env.DB_PASSWORD || "openstore"
+
 module.exports = {
   transform: {
     "^.+\\.[jt]s$": [
