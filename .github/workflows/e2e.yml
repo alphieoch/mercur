@@ -230,6 +230,8 @@ jobs:
           ADMIN_CORS: http://localhost:7002
           VENDOR_CORS: http://localhost:7001
           AUTH_CORS: http://localhost:3000,http://localhost:7001,http://localhost:7002
+          MEILISEARCH_HOST: http://localhost:7700
+          MEILISEARCH_API_KEY: masterKey
 
   # -------------------------------------------------------------------------
   # Stage 4: Full Stack Smoke Test — API + Storefront + Vendor Portal
