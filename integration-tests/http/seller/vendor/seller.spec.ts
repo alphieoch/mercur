@@ -56,12 +56,7 @@ medusaIntegrationTestRunner({
         memberC = resultC.member
         headersC = resultC.headers
 
-        // Approve sellerA so tests have both pending and open sellers
-        await api.post(
-          `/admin/sellers/${sellerA.id}/approve`,
-          {},
-          adminHeaders
-        )
+        // sellerA is already status=open from createSellerUser helper
       })
 
       /**
@@ -226,6 +221,7 @@ medusaIntegrationTestRunner({
             {
               name: "Second Store",
               email: "second-store@test.com",
+              member_email: "alpha@test.com",
               currency_code: "usd",
             },
             headersA
@@ -338,6 +334,7 @@ medusaIntegrationTestRunner({
             {
               name: "Second Alpha Store",
               email: "second-alpha@test.com",
+              member_email: "alpha@test.com",
               currency_code: "usd",
             },
             headersA
@@ -355,6 +352,7 @@ medusaIntegrationTestRunner({
             {
               name: "Ownership Check Store",
               email: "ownership-check@test.com",
+              member_email: "alpha@test.com",
               currency_code: "usd",
             },
             headersA
@@ -502,6 +500,7 @@ medusaIntegrationTestRunner({
             `/vendor/sellers/${sellerA.id}/payment-details`,
             {
               holder_name: "John Doe",
+              country_code: "us",
               iban: "DE89370400440532013000",
             },
             headersA
@@ -783,6 +782,7 @@ medusaIntegrationTestRunner({
             `/vendor/sellers/${sellerA.id}/payment-details`,
             {
               holder_name: "John Doe",
+              country_code: "us",
               bank_name: "Deutsche Bank",
               iban: "DE89370400440532013000",
               bic: "COBADEFFXXX",
@@ -806,6 +806,7 @@ medusaIntegrationTestRunner({
             `/vendor/sellers/${sellerA.id}/payment-details`,
             {
               holder_name: "Jane Smith",
+              country_code: "us",
               routing_number: "021000021",
               account_number: "123456789",
             },
@@ -827,6 +828,7 @@ medusaIntegrationTestRunner({
             `/vendor/sellers/${sellerA.id}/payment-details`,
             {
               holder_name: "John Doe",
+              country_code: "us",
               iban: "DE89370400440532013000",
             },
             headersA
@@ -836,6 +838,7 @@ medusaIntegrationTestRunner({
             `/vendor/sellers/${sellerA.id}/payment-details`,
             {
               holder_name: "John Updated",
+              country_code: "us",
               iban: "GB29NWBK60161331926819",
             },
             headersA
@@ -853,7 +856,7 @@ medusaIntegrationTestRunner({
         it("should include nested payment_details in response", async () => {
           const response = await api.post(
             `/vendor/sellers/${sellerA.id}/payment-details`,
-            { holder_name: "Test Holder" },
+            { holder_name: "Test Holder", country_code: "us" },
             headersA
           )
 

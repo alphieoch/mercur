@@ -17,10 +17,11 @@ export const vendorHeaders = {
 
 export const createSellerUser = async (
     container: MedusaContainer,
-    options?: { email?: string; name?: string }
+    options?: { email?: string; name?: string; status?: string }
 ) => {
     const email = options?.email ?? "seller@medusa.js"
     const name = options?.name ?? "Test Seller"
+    const status = options?.status ?? "open"
 
     const authModule: IAuthModuleService = container.resolve(Modules.AUTH)
 
@@ -31,7 +32,7 @@ export const createSellerUser = async (
                     name,
                     email,
                     currency_code: "usd",
-                    status: "open",
+                    status,
                     member: { email },
                 },
             ],
@@ -47,6 +48,15 @@ export const createSellerUser = async (
         member_id: member.id,
         role_id: SellerRole.SELLER_ADMINISTRATION,
         is_owner: true,
+    }])
+
+    // Create professional details so seller is compliant for product listing
+    await sellerModule.createProfessionalDetails([{
+        seller_id: seller.id,
+        county: "Test County",
+        national_id_number: "TEST123",
+        ownership_attestation: true,
+        animal_health_attestation: true,
     }])
 
     const hashConfig = { logN: 15, r: 8, p: 1 }

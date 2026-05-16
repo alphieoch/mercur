@@ -44,22 +44,7 @@ medusaIntegrationTestRunner({
         })
         sellerC = resultC.seller
 
-        // Approve all three sellers so they become OPEN
-        await api.post(
-          `/admin/sellers/${sellerA.id}/approve`,
-          {},
-          adminHeaders
-        )
-        await api.post(
-          `/admin/sellers/${sellerB.id}/approve`,
-          {},
-          adminHeaders
-        )
-        await api.post(
-          `/admin/sellers/${sellerC.id}/approve`,
-          {},
-          adminHeaders
-        )
+        // All sellers already status=open from createSellerUser helper
 
         // Set seller B as premium
         await api.post(
@@ -236,6 +221,7 @@ medusaIntegrationTestRunner({
             {
               email: "pending@test.com",
               name: "Pending Seller",
+              status: "pending_approval",
             }
           )
 
@@ -254,11 +240,6 @@ medusaIntegrationTestRunner({
             }
           )
 
-          await api.post(
-            `/admin/sellers/${suspendedSeller.id}/approve`,
-            {},
-            adminHeaders
-          )
           await api.post(
             `/admin/sellers/${suspendedSeller.id}/suspend`,
             {},
@@ -338,6 +319,7 @@ medusaIntegrationTestRunner({
             {
               email: "pending2@test.com",
               name: "Pending Seller 2",
+              status: "pending_approval",
             }
           )
 
@@ -357,11 +339,6 @@ medusaIntegrationTestRunner({
             }
           )
 
-          await api.post(
-            `/admin/sellers/${suspendedSeller.id}/approve`,
-            {},
-            adminHeaders
-          )
           await api.post(
             `/admin/sellers/${suspendedSeller.id}/suspend`,
             {},

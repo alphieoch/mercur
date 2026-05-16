@@ -51,9 +51,7 @@ medusaIntegrationTestRunner({
         })
         sellerSuspended = resultSuspended.seller
 
-        await api.post(`/admin/sellers/${sellerActive.id}/approve`, {}, adminHeaders)
-        await api.post(`/admin/sellers/${sellerSuspended.id}/approve`, {}, adminHeaders)
-
+        // Both sellers already status=open from createSellerUser helper
         const productActiveRes = await api.post(
           `/vendor/products`,
           {
