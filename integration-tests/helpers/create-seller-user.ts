@@ -9,6 +9,7 @@ import {
 import jwt from "jsonwebtoken"
 import Scrypt from "scrypt-kdf"
 import { createSellersWorkflow } from "@mercurjs/core/workflows"
+import { MercurModules, SellerRole } from "@mercurjs/types"
 
 export const vendorHeaders = {
     headers: { "x-medusa-access-token": "test_token" },
@@ -38,15 +39,14 @@ export const createSellerUser = async (
 
     const seller = sellers[0]
 
-    const query = container.resolve(ContainerRegistrationKeys.QUERY)
-
-    const { data: members } = await query.graph({
-        entity: "member",
-        fields: ["id"],
-        filters: { email },
-    })
-
-    const member = members[0]
+    const sellerModule = container.resolve(MercurModules.SELLER)
+    const [member] = await sellerModule.createMembers([{ email }])
+    await sellerModule.createSellerMembers([{
+        seller_id: seller.id,
+        member_id: member.id,
+        role_id: SellerRole.SELLER_ADMINISTRATION,
+        is_owner: true,
+    }])
 
     const hashConfig = { logN: 15, r: 8, p: 1 }
     const passwordHash = await Scrypt.kdf("somepassword", hashConfig)
