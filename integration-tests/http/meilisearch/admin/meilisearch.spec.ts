@@ -58,9 +58,11 @@ medusaIntegrationTestRunner({
         })
 
         it("requires admin authentication — returns 401 without token", async () => {
-          const response = await api.get("/admin/meilisearch", {
-            headers: {},
-          })
+          const response = await api
+            .get("/admin/meilisearch", {
+              headers: {},
+            })
+            .catch((e) => e.response)
 
           expect(response.status).toBe(401)
         })
@@ -79,9 +81,11 @@ medusaIntegrationTestRunner({
         })
 
         it("requires admin authentication — returns 401 without token", async () => {
-          const response = await api.post("/admin/meilisearch", {}, {
-            headers: {},
-          })
+          const response = await api
+            .post("/admin/meilisearch", {}, {
+              headers: {},
+            })
+            .catch((e) => e.response)
 
           expect(response.status).toBe(401)
         })

@@ -16,7 +16,14 @@ import {
   generateStoreHeaders,
 } from "../../../helpers/create-admin-user"
 import { createSellerUser } from "../../../helpers/create-seller-user"
-import { mockSearchFn } from "../../../helpers/mock-meilisearch"
+import {
+  mockSearchFn,
+  mockGetStats,
+  mockAddDocuments,
+  mockDeleteDocuments,
+  mockUpdateSettings,
+  mockIndexFn,
+} from "../../../helpers/mock-meilisearch"
 
 jest.setTimeout(60000)
 
@@ -36,6 +43,9 @@ medusaIntegrationTestRunner({
 
       beforeEach(async () => {
         jest.clearAllMocks()
+        // Reset only the search mock to prevent mockResolvedValueOnce pollution
+        // across tests (some tests set up mocks but the API rejects early)
+        mockSearchFn.mockReset()
 
         await createAdminUser(dbConnection, adminHeaders, appContainer)
 
@@ -211,11 +221,13 @@ medusaIntegrationTestRunner({
         })
 
         it("returns 400 when request body is invalid", async () => {
-          const response = await api.post(
-            `/store/meilisearch/products/search`,
-            { hitsPerPage: 9999 },
-            storeHeaders
-          )
+          const response = await api
+            .post(
+              `/store/meilisearch/products/search`,
+              { hitsPerPage: 9999 },
+              storeHeaders
+            )
+            .catch((e) => e.response)
 
           expect(response.status).toBe(400)
         })
@@ -231,11 +243,13 @@ medusaIntegrationTestRunner({
             query: "",
           })
 
-          const response = await api.post(
-            `/store/meilisearch/products/search`,
-            { query: "test" },
-            { headers: {} }
-          )
+          const response = await api
+            .post(
+              `/store/meilisearch/products/search`,
+              { query: "test" },
+              { headers: {} }
+            )
+            .catch((e) => e.response)
 
           expect([400, 401]).toContain(response.status)
         })

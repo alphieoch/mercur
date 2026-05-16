@@ -1,4 +1,5 @@
 import { loadEnv, defineConfig } from '@medusajs/framework/utils'
+import path from 'path'
 
 if (!process.env.CI) {
   loadEnv(process.env.NODE_ENV || 'development', process.cwd())
@@ -42,7 +43,7 @@ module.exports = defineConfig({
     },
     // Meilisearch block — loaded only when env vars are present (e.g. meilisearch integration tests)
     ...(process.env.MEILISEARCH_HOST ? [{
-      resolve: '../packages/registry/src/meilisearch/modules/meilisearch',
+      resolve: path.resolve(__dirname, '../packages/registry/src/meilisearch/modules/meilisearch'),
       options: {
         host: process.env.MEILISEARCH_HOST,
         apiKey: process.env.MEILISEARCH_API_KEY,
