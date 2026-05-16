@@ -216,7 +216,7 @@ jobs:
 
       - name: Run HTTP integration tests (shard ${{ matrix.shard }}/4)
         working-directory: integration-tests
-        run: TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --forceExit --testTimeout=60000 --shard=${{ matrix.shard }}/4
+        run: TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules npx jest --silent=false --forceExit --testTimeout=60000 --shard=${{ matrix.shard }}/4
         env:
           DATABASE_URL: postgres://openstore:openstore@localhost:5432/openstore_test
           DB_HOST: localhost
