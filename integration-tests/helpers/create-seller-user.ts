@@ -31,6 +31,7 @@ export const createSellerUser = async (
                     name,
                     email,
                     currency_code: "usd",
+                    status: "open",
                     member: { email },
                 },
             ],
